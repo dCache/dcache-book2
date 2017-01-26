@@ -52,7 +52,7 @@ Protocols Supported by DCACHE
 |                              | dCap | FTP | xrootd |NFSv4.1 | WebDAV | SRM |
 |------------------------------|------|-----|--------|--------|--------|-----|
 |                              |:+:   | +   | +      | +      | +      | -   |
-| kerberos                     |:+:   | +   | -      | +      | -      | -   |
+| : kerberos :                 |:+:   | +   | -      | +      | -      | -   |
 | Client Certificate           |:+:   | +   | +      | -      | +      | +   |
 | username/password            | +    | +   | -      | -      | +      | -   |
 | Control Connection Encrypted | +    | +   | +      | +      | +      | +   |
