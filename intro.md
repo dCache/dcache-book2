@@ -1,6 +1,11 @@
 Introduction
 ============
 
+###Table of Contents
+
+[Cells and Domains] 
+[Protocols Supported by dCache]
+
 DCACHE is a distributed storage solution. It organises storage across computers so the combined storage can be used without the end-users being aware of where their data is stored. They simply see a large amount of storage.
 
 Because end-users do not need to know on which computer their data is stored, it can be migrated from one computer to another without any interruption of service. As a consequence, (new) servers may be added to or taken away from the DCACHE storage cluster at any time.
