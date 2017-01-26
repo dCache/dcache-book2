@@ -1,7 +1,7 @@
 Installing DCACHE
 =================
 
-**Table of Contents*
+**Table of Contents**
 
 Installing a dCache instance
 Prerequisites
