@@ -16,17 +16,17 @@ DCACHE can use hierarchical storage management (e.g., hard disk and tape), provi
 
 There are several ways of accessing data stored in DCACHE:
 
--   NFS v4.1 (CHIMERA)
+-   **NFS** v4.1 (CHIMERA)
 
--   HTTP and WEBDAV
+-   **HTTP** and **WEBDAV**
 
--   GRIDFTP (GSIFTP)
+-   **GRIDFTP** (**GSI-FTP**)
 
 -   xrootd
 
--   SRM (versions 1.1 and 2.2)
+-   **SRM** (versions 1.1 and 2.2)
 
--   DCAP and GSIDCAP
+-   **dCap** and **GSIdCap**
 
 DCACHE supports certificate based authentication through the Grid Security Infrastructure used in GSIFTP, GSIDCAP transfer protocols and the SRM management protocol. Certificate authentication is also available for HTTP and WEBDAV.
 
