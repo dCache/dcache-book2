@@ -49,16 +49,16 @@ The layer model shown in [figure\_title] gives an overview of the architecture o
 Protocols Supported by DCACHE
 =============================
 
-|                              | DCAP | FTP | XROOTD | NFS4 | WEBDAV | SRM |
-|------------------------------|------|-----|--------|------|--------|-----|
-|                              | +    | +   | +      | +    | +      | -   |
-| kerberos                     | +    | +   | -      | +    | -      | -   |
-| Client Certificate           | +    | +   | +      | -    | +      | +   |
-| username/password            | +    | +   | -      | -    | +      | -   |
-| Control Connection Encrypted | +    | +   | +      | +    | +      | +   |
-| Data Connection Encrypted    | -    | -   | -      | +    | -      | -   |
-| passiv                       | +    | +   | +      | +    | +      | +   |
-| active                       | +    | +   | -      | -    | -      | -   |
+|                              | dCap | FTP | xrootd |NFSv4.1 | WebDAV | SRM |
+|------------------------------|------|-----|--------|--------|--------|-----|
+|                              |:+:   | +   | +      | +      | +      | -   |
+| kerberos                     |:+:   | +   | -      | +      | -      | -   |
+| Client Certificate           |:+:   | +   | +      | -      | +      | +   |
+| username/password            | +    | +   | -      | -      | +      | -   |
+| Control Connection Encrypted | +    | +   | +      | +      | +      | +   |
+| Data Connection Encrypted    | -    | -   | -      | +      | -      | -   |
+| passiv                       | +    | +   | +      | +      | +      | +   |
+| active                       | +    | +   | -      | -      | -      | -   |
 
   [The DCACHE Layer Model]: images/test2.svg
   [figure\_title]: #fig-intro-layer-model
