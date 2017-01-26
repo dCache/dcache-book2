@@ -3,7 +3,7 @@ Introduction
 
 ###Table of Contents
 
-[link text](#Cells and Domains)
+[Cells and Domains]
 [link text](#Protocols Supported by dCache)
 
 dCache is a distributed storage solution. It organises storage across computers so the combined storage can be used without the end-users being aware of where their data is stored. They simply see a large amount of storage.
@@ -20,8 +20,8 @@ The flow of data within DCACHE can also be carefully controlled. This is especia
 
 DCACHE provides a comprehensive administrative interface for configuring the DCACHE instance. This is described in the later sections of this book.
 
-### Cells and Domains
-    =================
+Cells and Domains
+=================
 
 DCACHE, as distributed storage software, can provide a coherent service using multiple computers or nodes (the two terms are used interchangeable). Although DCACHE can provide a complete storage solution on a single computer, one of its strengths is the ability to scale by spreading the work over multiple nodes.
 
