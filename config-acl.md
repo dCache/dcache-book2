@@ -265,7 +265,7 @@ When a file or directory inherits from an ACE with `o` in the inheritance flags 
 
 An `o` in the inheritance flag allows child files or directories to inherit authorisation behaviour that is different from the parent directory.
 
-### Examples
+## Examples
 
 This section gives some specific examples of how to set ACLs to achieve some specific behaviour.
 
