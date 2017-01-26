@@ -1,4 +1,3 @@
-[comment]: <> (for DCACHE-VERSION-series (LAYOUT-CURRENT layout))
 Preface
 =======
 
