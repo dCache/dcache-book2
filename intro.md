@@ -20,11 +20,6 @@ The flow of data within DCACHE can also be carefully controlled. This is especia
 
 DCACHE provides a comprehensive administrative interface for configuring the DCACHE instance. This is described in the later sections of this book.
 
-<a name="Cells and Domains">
-   my Cells and Domains
-</a>
-
-
 
 Cells and Domains
 =================
