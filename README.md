@@ -1,6 +1,13 @@
 Preface
 =======
 
+**Table of Contents**
+
+Who should read this book?
+Minimum System Requirements?
+What is inside?
+Looking for help?
+
 Welcome to the DCACHE. DCACHE is a distributed storage solution for storing huge amounts of data without a hard limit, used to provide storage in the petabyte range. Therefore it qualifies as the storage system supporting data intensive experiments.
 
 DCACHE is a joined effort between the Deutsches Elektronen-Synchrotron (DESY) in Hamburg, Nordic Data Grid Facility (NDGF based in Copenhagen), the Fermi National Accelerator Laboratory near Chicago with significant distributions and support from the University of California, San Diego, INFN, Bari as well as Rutherford Appleton Laboratory, UK and CERN in Geneva.
