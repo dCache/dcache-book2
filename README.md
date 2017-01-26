@@ -28,9 +28,9 @@ There are several ways of accessing data stored in DCACHE:
 
 -   **dCap** and **GSIdCap**
 
-DCACHE supports certificate based authentication through the Grid Security Infrastructure used in GSIFTP, GSIDCAP transfer protocols and the SRM management protocol. Certificate authentication is also available for HTTP and WEBDAV.
+DCACHE supports certificate based authentication through the Grid Security Infrastructure used in **GSI-FTP**, **GSIdCap** transfer protocols and the **SRM** management protocol. Certificate authentication is also available for **HTTP** and **WEBDAV**.
 
-DCACHE also supports fine-grain authorization with support for POSIX file permissions and NFS-style access control lists.
+DCACHE also supports fine-grain authorization with support for POSIX file permissions and **NFS**-style access control lists.
 
 Other features of DCACHE are:
 
@@ -56,9 +56,9 @@ Other features of DCACHE are:
 
 -   Ensuring data integrity through checksumming.
 
-DCACHE / SRM can transparently manage data distributed among dozens of disk storage nodes (sometimes distributed over several countries). The system has shown to significantly improve the efficiency of connected tape storage systems, by caching, gather and flush and scheduled staging techniques. Furthermore, it optimizes the throughput to and from data clients by dynamically replicating datasets on the detection of load hot spots. The system is tolerant against failures of its data servers, which allows administrators to deploy commodity disk storage components.
+DCACHE / **SRM** can transparently manage data distributed among dozens of disk storage nodes (sometimes distributed over several countries). The system has shown to significantly improve the efficiency of connected tape storage systems, by caching, gather and flush and scheduled staging techniques. Furthermore, it optimizes the throughput to and from data clients by dynamically replicating datasets on the detection of load hot spots. The system is tolerant against failures of its data servers, which allows administrators to deploy commodity disk storage components.
 
-Access to the data is provided by various standard protocols. Furthermore the software comes with an implementation of the Storage Resource Manager protocol (SRM), which is an open standard for grid middleware to communicate with site specific storage fabrics.
+Access to the data is provided by various standard protocols. Furthermore the software comes with an implementation of the Storage Resource Manager protocol (**SRM**), which is an open standard for grid middleware to communicate with site specific storage fabrics.
 
 Who should read this book?
 --------------------------
