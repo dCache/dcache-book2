@@ -3,10 +3,10 @@ Introduction
 
 ###Table of Contents
 
-[Cells and Domains] 
+[link text](#Cells and Domains)
 [Protocols Supported by dCache]
 
-DCACHE is a distributed storage solution. It organises storage across computers so the combined storage can be used without the end-users being aware of where their data is stored. They simply see a large amount of storage.
+dCache is a distributed storage solution. It organises storage across computers so the combined storage can be used without the end-users being aware of where their data is stored. They simply see a large amount of storage.
 
 Because end-users do not need to know on which computer their data is stored, it can be migrated from one computer to another without any interruption of service. As a consequence, (new) servers may be added to or taken away from the DCACHE storage cluster at any time.
 
@@ -31,7 +31,7 @@ Cells can be grouped into common types; for example, pools, doors. Cells of the 
 
 There are only a few cells where (at most) only a single instance is required. The majority of cells within a DCACHE instance can have multiple instances and DCACHE is designed to allow load-balancing over these cells.
 
-A domain is a container for running cells. Each domain runs in its own Java Virtual Machine (JVM) instance, which it cannot share with any other domain. In essence, a domain *is* a JVM with the additional functionality necessary to run cells (such as system administration and inter-cell communication). This also implies, that a node's resources, such as memory, available CPU and network bandwidth, are shared among several domains running on the same node.
+A *domain* is a container for running cells. Each domain runs in its own Java Virtual Machine (JVM) instance, which it cannot share with any other domain. In essence, a domain *is* a JVM with the additional functionality necessary to run cells (such as system administration and inter-cell communication). This also implies, that a node's resources, such as memory, available CPU and network bandwidth, are shared among several domains running on the same node.
 
 DCACHE comes with a set of domain definitions, each specifying a useful set of cells to run within that domain to achieve a certain goal. These goals include storing data, providing a front-end to the storage, recording file names, and so on. The list of cells to run within these domains are recommended deployments: the vast majority of DCACHE deployments do not need to alter these lists.
 
