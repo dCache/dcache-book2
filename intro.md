@@ -20,8 +20,8 @@ The flow of data within DCACHE can also be carefully controlled. This is especia
 
 DCACHE provides a comprehensive administrative interface for configuring the DCACHE instance. This is described in the later sections of this book.
 
-Cells and Domains
-=================
+### Cells and Domains
+    =================
 
 DCACHE, as distributed storage software, can provide a coherent service using multiple computers or nodes (the two terms are used interchangeable). Although DCACHE can provide a complete storage solution on a single computer, one of its strengths is the ability to scale by spreading the work over multiple nodes.
 
