@@ -96,6 +96,7 @@ To allow local users to access PSQL without requiring a password, ensure the fil
 >     Stopping postgresql-9.2 service:                           [  OK  ]
 >     Starting postgresql-9.2 service:                           [  OK  ]
 
+
 CONFIGURING CHIMERA
 -------------------
 
