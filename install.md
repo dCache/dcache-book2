@@ -85,7 +85,8 @@ To allow local users to access PSQL without requiring a password, ensure the fil
 
 > **NOTE**
 >
-> Please note it is also possible to run DCACHE with all PSQL accounts requiring passwords. See [the section called “Configuring Access to PostgreSQL”](https://www.dcache.org/manuals/Book-2.16/cookbook/cb-postgres-configure-fhs.shtml) for more advice on the configuration of PSQL.
+> Please note it is also possible to run DCACHE with all PSQL accounts requiring passwords. See [the section called “Configuring Access to PostgreSQL”](https://www.dcache.org/manuals/Book-2.16/cookbook/cb-postgres-configure-fhs.shtml) for more advice on the configuration of PSQL.  
+
 
 > **RESTARTING POSTGRESQL**
 >
