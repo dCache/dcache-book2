@@ -5,7 +5,7 @@ Installing DCACHE
 
 * [Installing a dCache instance] (#installing-a-dcache-instance)  
 
-      * [Prerequisites]  
+      * [Prerequisites] (#prerequisites)
       * [Installation of the dCache Software]  
       * [Readying the PostgreSQL server for the use with dCache]  
       * [Configuring Chimera]  
