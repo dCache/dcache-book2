@@ -43,9 +43,9 @@ Installation of the DCACHE Software
 
 The RPM packages may be installed right away, for example using the command:
 
-    PROMPT-ROOT rpm -ivh dcache-DCACHE-PACKAGE-VERSION.noarch.rpm
+    [root] # **rpm -ivh dcache-DCACHE-PACKAGE-VERSION.noarch.rpm**
 
-The actual sources lie at []. To install for example Version DCACHE-PACKAGE-VERSION you would use this:
+The actual sources lie at [http://www.dcache.org/downloads/IAgree.shtml](http://www.dcache.org/downloads/IAgree.shtml). To install for example Version  2.16.0-1 you would use this:
 
     PROMPT-ROOT rpm -ivh http://www.dcache.org/downloads/1.9/repo/DCACHE-VERSION/dcache-DCACHE-PACKAGE-VERSION.noarch.rpm
 
