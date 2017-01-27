@@ -122,7 +122,7 @@ The dCache components will access the database server with the user srmdcache.
     Enter it again:  
     You do not need to enter a password.  
   
-  Several management components running on the head node as well as the SRM will use the database dcache for storing their state information:  
+  Several management components running on the head node as well as the **SRM** will use the database dcache for storing their state information:  
 
       [root] # createdb -U srmdcache dcache  
 
@@ -179,18 +179,22 @@ The folder **/usr/share/dcache/defaults** contains the default settings of the d
 
 > **NOTE**
 >
-> In this first installation of DCACHE your DCACHE will not be connected to a tape sytem. Therefore please change the values for `pnfsmanager.default-retention-policy` and `pnfsmanager.default-access-latency` in the file `PATH-ODE-ED/dcache.conf`.
+>n this first installation of dCache your dCache will not be connected to a tape sytem. Therefore please change the values for pnfsmanager.default-retention-policy and pnfsmanager.default-access-latency in the file **/etc/dcache/dcache.conf**.
+
+
 >
 >     pnfsmanager.default-retention-policy=REPLICA
 >     pnfsmanager.default-access-latency=ONLINE
 
-Layouts describe which domains to run on a host and which services to run in each domain. For the customized configuration of your DCACHE you will have to create a layout file in `PATH-ODE-ED/layouts`. In this tutorial we will call it the `mylayout.conf` file.
+Layouts describe which domains to run on a host and which services to run in each domain. For the customized configuration of your dCache you will have to create a layout file in **/etc/dcache/layouts**. In this tutorial we will call it the **mylayout.conf** file.
 
-> **Important**
+> **IMPORTANT**
 >
 > Do not update configuration values in the files in the defaults folder, since changes to these files will be overwritten by updates.
 
-As the files in `PATH-ODS-USD/defaults/` do serve as succinct documentation for all available configuration parameters and their default values it is quite useful to have a look at them.
+As the files in **/usr/share/dcache/defaults/** do serve as succinct documentation for all available configuration parameters and their default values it is quite useful to have a look at them.
+
+
 
 ### Defining domains and services
 
@@ -204,17 +208,13 @@ The layout files define which domains to start and which services to put in whic
 
 A name in square brackets, *without* a forward-slash (`/`) defines a domain. A name in square brackets *with* a forward slash defines a service that is to run in a domain. Lines starting with a hash-symbol (`#`) are comments and will be ignored by DCACHE.
 
-There may be several layout files in the layout directory, but only one of them is read by DCACHE when starting up. By default it is the `single.conf`. If the DCACHE should be started with another layout file you will have to make this configuration in `PATH-ODE-ED/dcache.conf`.
+There may be several layout files in the layout directory, but only one of them is read by dCache when starting up. By default it is the **single.conf**. If the dCache should be started with another layout file you will have to make this configuration in **/etc/dcache/dcache.conf**.
 
     dcache.layout=mylayout
 
-This entry in
-PATH-ODE-ED/dcache.conf
-will instruct DCACHE to read the layout file
-PATH-ODE-ED/layouts/mylayout.conf
-when starting up.
+This entry in **/etc/dcache/dcache.conf** will instruct dCache to read the layout file **/etc/dcache/layouts/mylayout.conf** when starting up.
 
-These are the first lines of `PATH-ODE-ED/layouts/single.conf`:
+These are the first lines of **/etc/dcache/layouts/single.conf**:
 
     dcache.broker.scheme=none
 
@@ -222,11 +222,11 @@ These are the first lines of `PATH-ODE-ED/layouts/single.conf`:
     [dCacheDomain/admin]
     [dCacheDomain/poolmanager]
 
-`[DOMAIN-DCACHE]` defines a domain called DOMAIN-DCACHE. In this example only one domain is defined. All the services are running in that domain. Therefore no messagebroker is needed, which is the meaning of the entry `messageBroker=none`.
+[dCacheDomain] defines a domain called dCacheDomain. In this example only one domain is defined. All the services are running in that domain. Therefore no messagebroker is needed, which is the meaning of the entry messageBroker=none.
+[dCacheDomain/admin] declares that the admin service is to be run in the dCacheDomain domain.
 
-`[DOMAIN-DCACHE/CELL-ADMIN]` declares that the CELL-ADMIN service is to be run in the DOMAIN-DCACHE domain.
-
-This is an example for the `mylayout.conf` file of a single node DCACHE with several domains.
+Example:
+This is an example for the **mylayout.conf** file of a single node DCACHE with several domains.
 
     [dCacheDomain]
     [dCacheDomain/topo]
@@ -250,9 +250,9 @@ This is an example for the `mylayout.conf` file of a single node DCACHE with sev
     [gPlazmaDomain]
     [gPlazmaDomain/gplazma]
 
-> **Note**
+> **NOTE**
 >
-> If you defined more than one domain, a messagebroker is needed, because the defined domains need to be able to communicate with each other. This means that if you use the file `single.conf` as a template for a DCACHE with more than one domain you need to delete the line `messageBroker=none`. Then the default value will be used which is `messageBroker=cells`, as defined in the defaults `PATH-ODS-USD/defaults/dcache.properties`.
+> If you defined more than one domain, a messagebroker is needed, because the defined domains need to be able to communicate with each other. This means that if you use the file **single.conf** as a template for a dCache with more than one domain you need to delete the line messageBroker=none. Then the default value will be used which is messageBroker=cells, as defined in the defaults **/usr/share/dcache/defaults/dcache.properties**.
 
 ### Creating and configuring pools
 
@@ -260,38 +260,40 @@ DCACHE will need to write the files it keeps in pools. These pools are defined a
 
 The best way to create a pool, is to use the `dcache` script and restart the domain the pool runs in. The pool will be added to your layout file.
 
-    [domainname/pool]
-    name=poolname
+    [<domainname>/pool]
+    name=<poolname>
     path=/path/to/pool
     pool.wait-for-files=${path}/data
 
 The property `pool.wait-for-files` instructs the pool not to start up until the specified file or directory is available. This prevents problems should the underlying storage be unavailable (e.g., if a RAID device is offline).
 
-> **Note**
+> **NOTE**
 >
 > Please restart DCACHE if your pool is created in a domain that did not exist before.
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache pool create /srv/dcache/p1 pool1 poolDomain
+    [root] # dcache pool create /srv/dcache/p1 pool1 poolDomain
     Created a pool in /srv/dcache/p1. The pool was added to poolDomain in
     file:/etc/dcache/layouts/mylayout.conf.
 
-In this example we create a pool called pool1 in the directory `/srv/dcache/p1`. The created pool will be running in the domain `poolDomain`.
+In this example we create a pool called pool1 in the directory **`/srv/dcache/p1`**. The created pool will be running in the domain `poolDomain`.
 
-> **Note**
+> **MIND THE GAP!**
 >
-> The default gap for poolsizes is 4GiB. This means you should make a bigger pool than 4GiB otherwise you would have to change this gap in the DCACHE admin tool. See the example below. See also [???][2].
+>The default gap for poolsizes is 4GiB. This means you should make a bigger pool than 4GiB otherwise you would have to change this gap in the dCache admin tool. See the example below. See also [the section called “The Admin Interface”.](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml)
 >
->     DC-PROMPT-LOCAL cd poolname
->     DC-PROMPT-POOL set gap 2G
->     DC-PROMPT-POOL save
+>       (local) admin > cd <poolname>
+>       (<poolname>) admin > set gap 2G
+>       (<poolname>) admin > save
 
 Adding a pool to a configuration does not modify the pool or the data in it and can thus safely be undone or repeated.
 
 ### Starting DCACHE
 
-Restart DCACHE to start the newly configured components `PATH-ODB-N-Sdcache restart` and check the status of DCACHE with `PATH-ODB-N-Sdcache status`.
-
-    PROMPT-ROOT PATH-ODB-N-Sdcache restart
+Restart dCache to start the newly configured components **dcache restart** and check the status of dCache with **dcache status**.
+ 
+    EXAMPLE:
+    
+    [root] # **dcache restart**
     Stopping dCacheDomain 0 1 done
     Starting dCacheDomain done
     Starting namespaceDomain done
@@ -300,7 +302,7 @@ Restart DCACHE to start the newly configured components `PATH-ODB-N-Sdcache rest
     Starting httpdDomain done
     Starting gPlazmaDomain done
     Starting poolDomain done
-    PROMPT-ROOT PATH-ODB-N-Sdcache status
+    [root] # **dcache status**
     DOMAIN            STATUS  PID   USER
     dCacheDomain      running 17466 dcache
     namespaceDomain   running 17522 dcache
@@ -310,7 +312,8 @@ Restart DCACHE to start the newly configured components `PATH-ODB-N-Sdcache rest
     gPlazmaDomain     running 17744 dcache
     poolDomain        running 17798 dcache
 
-Now you can have a look at your DCACHE via The Web Interface, see [???][3]: <http://:2288/>, where httpd.example.org is the node on which your CELL-HTTPD service is running. For a single node DCACHE this is the machine on which your DCACHE is running.
+Now you can have a look at your dCache via The Web Interface, see [the section called “The Web Interface for Monitoring dCache”:](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml) http://<httpd.example.org>:2288/, where <httpd.example.org> is the node on which your httpd service is running. For a single node dCache this is the machine on which your dCache is running.  
+
 
 ### JAVA heap size
 
