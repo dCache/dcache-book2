@@ -130,26 +130,27 @@ Get the GLITE repository (which contains dCap) and install DCAP using `yum`.
 
 Create the root of the Chimera namespace and a world-writable directory for **dCap** to write into as described [above](#dcache-without-mounted-namespace).
 
-Copy the data (here `/bin/sh` is used as example data) using the PROG-DCCP command and the DCAP protocol describing the location of the file using a URL, where dcache.example.org is the host on which the DCACHE is running
+Copy the data (here **/bin/sh** is used as example data) using the **dccp** command and the **dCap** protocol describing the location of the file using a URL, where <dcache.example.org> is the host on which the dCache is running
 
-    PROMPT-ROOT dccp -H /bin/sh dcap://dcache.example.org/data/world-writable/my-test-file-1
-    [##########################################################################################] 100% 718 kiB
-    735004 bytes (718 kiB) in 0 seconds
+       [root] # dccp -H /bin/sh dcap://<dcache.example.org>/data/world-writable/my-test-file-1
+       [##########################################################################################] 100% 718 kiB
+       735004 bytes (718 kiB) in 0 seconds
 
 and copy the file back.
 
-    PROMPT-ROOT dccp -H dcap://dcache.example.org/data/world-writable/my-test-file-1 /tmp/mytestfile1
-    [##########################################################################################] 100% 718 kiB
-    735004 bytes (718 kiB) in 0 seconds
+       [root] # dccp -H dcap://<dcache.example.org>/data/world-writable/my-test-file-1 /tmp/mytestfile1
+       [##########################################################################################] 100% 718 kiB
+       735004 bytes (718 kiB) in 0 seconds
 
 To remove the file you will need to mount the namespace.
 
-The Web Interface for Monitoring DCACHE
+
+THE WEB INTERFACE FOR MONITORING DCACHE
 =======================================
 
-In the standard configuration the DCACHE web interface is started on the head node (meaning that the domain hosting the CELL-HTTPD service is running on the head node) and can be reached via port 2288. Point a web browser to <http://:2288/> to get to the main menu of the DCACHE web interface. The contents of the web interface are self-explanatory and are the primary source for most monitoring and trouble-shooting tasks.
+In the standard configuration the dCache web interface is started on the head node (meaning that the domain hosting the httpd service is running on the head node) and can be reached via port 2288. Point a web browser to http://<head-node.example.org>:2288/ to get to the main menu of the dCache web interface. The contents of the web interface are self-explanatory and are the primary source for most monitoring and trouble-shooting tasks.
 
-The “Cell Services” page displays the status of some important cells of the DCACHE instance.
+The “Cell Services” page displays the status of some important [cells](#cell) of the dCache instance.
 
 The “Pool Usage” page gives a good overview of the current space usage of the whole DCACHE instance. In the graphs, free space is marked yellow, space occupied by cached files (which may be deleted when space is needed) is marked green, and space occupied by precious files, which cannot be deleted is marked red. Other states (e.g., files which are currently written) are marked purple.
 
