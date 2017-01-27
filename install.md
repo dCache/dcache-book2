@@ -122,13 +122,13 @@ The dCache components will access the database server with the user srmdcache.
   
   Several management components running on the head node as well as the SRM will use the database dcache for storing their state information:  
 
->    [root] # createdb -U srmdcache dcache  
+      [root] # createdb -U srmdcache dcache  
 
 There might be several of these on several hosts. Each is used by the DCACHE components running on the respective host.  
 
 Create the database used for the billing plots.  
 
- >   [root] # createdb -O srmdcache -U postgres billing  
+     [root] # createdb -O srmdcache -U postgres billing  
 
 And run the command `dcache database update`.
 
