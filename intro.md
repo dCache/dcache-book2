@@ -3,7 +3,7 @@ Introduction
 
 ###Table of Contents
 
-[Cells and Domains](#cells-and-domains)
+[Cells and Domains](#cells-and-domains)  
 [Protocols Supported by dCache](#protocols-supported-by-dcache)
 
 dCache is a distributed storage solution. It organises storage across computers so the combined storage can be used without the end-users being aware of where their data is stored. They simply see a large amount of storage.
@@ -19,6 +19,10 @@ Another performance feature of DCACHE is hot-spot data migration. In this proces
 The flow of data within DCACHE can also be carefully controlled. This is especially important for large sites as chaotic movement of data may lead to suboptimal usage. Instead, incoming and outgoing data can be marshaled so they use designated resources guaranteeing better throughput and improving end-user experience.
 
 DCACHE provides a comprehensive administrative interface for configuring the DCACHE instance. This is described in the later sections of this book.
+
+![The DCACHE Layer Model](https://www.dcache.org/manuals/Book-2.16/start/intro-fhs.shtml#fig-intro-layer-model)
+
+The layer model shown in [figure\_The DCACHE Layer Model] gives an overview of the architecture of the dCache system.
 
 
 Cells and Domains
@@ -42,9 +46,7 @@ DCACHE is scalable storage software. This means that (in most cases) the perform
 
 Most cells communicate in such a way that they don't rely on in which domain they are running. This allows a site to move cells from one domain to another or to create new domain definitions with some subset of available cells. Although this is possible, it is rare that redefining domains or defining new domains is necessary. Starting or stopping domains is usually sufficient for managing load.
 
-![The DCACHE Layer Model]
 
-The layer model shown in [figure\_title] gives an overview of the architecture of the DCACHE system.
 
 Protocols Supported by DCACHE
 =============================
