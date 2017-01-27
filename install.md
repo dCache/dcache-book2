@@ -32,11 +32,11 @@ In order to install DCACHE the following requirements must be met:
 
 -   DCACHE requires Java 8 JRE. Please use the latest patch-level and check for upgrades frequently. It is recommended to use JDK as DCACHE scripts can make use of some extra features that JDK provides to gather more diagnostic information (heap-dump, etc). This helps when tracking down bugs.
 
--   PSQL must be installed and running. We recommend the use of PSQL version 9.2 (at least PSQL version 8.3 is required).
+-   PostgreSQL must be installed and running. We recommend the use of PostgreSQL version 9.2 (at least PostgreSQL version 8.3 is required).
 
     > **Important**
     >
-    > For good performance it is necessary to maintain and tune your PSQL server. There are several good books on this topic, one of which is [PostgreSQL 9.0 High Performance](https://www.2ndquadrant.com/de/buecher/).
+    > For good performance it is necessary to maintain and tune your PostgreSQL server. There are several good books on this topic, one of which is [PostgreSQL 9.0 High Performance](https://www.2ndquadrant.com/de/buecher/).
 
 Installation of the DCACHE Software
 -----------------------------------
