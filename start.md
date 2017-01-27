@@ -4,8 +4,8 @@ This part is intended for people who are new to DCACHE. It gives an introduction
 1. [Introduction] (https://www.dcache.org/manuals/Book-2.16/start/intro-fhs.shtml)  
    
    
-    1. [Cells and Domains] (https://www.dcache.org/manuals/Book-2.16/start/intro-cells-domains-fhs.shtml)  
-    1. [Protocols Supported by dCache] (https://www.dcache.org/manuals/Book-2.16/start/intro-protos-fhs.shtml) 
+   1.[Cells and Domains] (https://www.dcache.org/manuals/Book-2.16/start/intro-cells-domains-fhs.shtml)  
+   1.[Protocols Supported by dCache] (https://www.dcache.org/manuals/Book-2.16/start/intro-protos-fhs.shtml) 
    
    
 2. [Installing dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)   
