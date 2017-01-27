@@ -152,40 +152,44 @@ In the standard configuration the dCache web interface is started on the head no
 
 The “Cell Services” page displays the status of some important [cells](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-cell) of the dCache instance.
 
-The “Pool Usage” page gives a good overview of the current space usage of the whole DCACHE instance. In the graphs, free space is marked yellow, space occupied by cached files (which may be deleted when space is needed) is marked green, and space occupied by precious files, which cannot be deleted is marked red. Other states (e.g., files which are currently written) are marked purple.
+The “Pool Usage” page gives a good overview of the current space usage of the whole dCache instance. In the graphs, free space is marked yellow, space occupied by [cached files](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-cached) (which may be deleted when space is needed) is marked green, and space occupied by [precious files](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-precious), which cannot be deleted is marked red. Other states (e.g., files which are currently written) are marked purple.
 
 The page “Pool Request Queues” (or “Pool Transfer Queues”) gives information about the number of current requests handled by each pool. “Actions Log” keeps track of all the transfers performed by the pools up to now.
 
-The remaining pages are only relevant with more advanced configurations: The page “Pools” (or “Pool Attraction Configuration”) can be used to analyze the current configuration of the pool selection unit in the pool manager. The remaining pages are relevant only if a tertiary storage system (HSM) is connected to the DCACHE instance.
+The remaining pages are only relevant with more advanced configurations: The page “Pools” (or “Pool Attraction Configuration”) can be used to analyze the current configuration of the [pool selection unit](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-pm-comp-psu) in the pool manager. The remaining pages are relevant only if a [tertiary storage system (HSM)](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-tss) is connected to the dCache instance.
 
-The Admin Interface
+THE ADMIN INTERFACE
 ===================
 
-> **Important**
+> **JUST USE COMMANDS THAT ARE DOCUMENTED HERE**
 >
-> Only commands described in this documentation should be used for the administration of a DCACHE system.
+> Only commands described in this documentation should be used for the administration of a dCache system.
 
-First steps
+FIRST STEPS
 -----------
 
-DCACHE has a powerful administration interface. It can be accessed with the SSH1 or with the SSH2 protocol. The server is part of the DOMAIN-ADMINDOOR domain.
+dCache has a powerful administration interface. It can be accessed with the **ssh1** or with the **ssh2** protocol. The server is part of the **adminDoor** domain.
 
-It is useful to define the ADMIN service in a seperate domain. This allowes to restart the ADMIN service seperatly from other services. In the example in [???] this domain was called `adminDoorDomain`.
+It is useful to define the admin service in a seperate domain. This allowes to restart the admin service seperatly from other services. In the example in the section called “Installing a dCache instance” this domain was called adminDoorDomain.
 
+ EXAMPLE:
     [adminDoorDomain]
     [adminDoorDomain/admin]
 
-> **Note**
+> **NOTE**
 >
-> The admin interface is using SSH2. It used to be available using SSH1, which is insecure and therefore discouraged. If you want to run the admin service with SSH1 you need to define the `ssh1` service.
+> The admin interface is using **ssh2**. It used to be available using `ssh1`, which is insecure and therefore discouraged. If you want to run the admin service with ssh1 you need to define the ssh1 service.
 >
 >     [adminDoorDomain]
 >     [adminDoorDomain/ssh1]
 >
-Access with SSH2
+
+ACCESS WITH SSH2
 ----------------
 
-There are two ways of authorizing administrators to access the DCACHE SSH2 admin interface. The preferred method authorizes users through their public key. The second method employs CELL-GPLAZMA2 and the `dcache.kpwd` file. Thereby authorization mechanisms can be added later by deploying another CELL-GPLAZMA2 plugin. The configuration of both authorization mechanisms is described in the following.
+There are two ways of authorizing administrators to access the dCache ssh2 admin interface. The preferred method authorizes users through their public key. The second method employs gPlazma2 and the dcache.kpwd file. Thereby authorization mechanisms can be added later by deploying another gPlazma2 plugin. The configuration of both authorization mechanisms is described in the following.
+
+
 
 > **Note**
 >
