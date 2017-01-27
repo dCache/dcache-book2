@@ -150,7 +150,7 @@ THE WEB INTERFACE FOR MONITORING DCACHE
 
 In the standard configuration the dCache web interface is started on the head node (meaning that the domain hosting the httpd service is running on the head node) and can be reached via port 2288. Point a web browser to http://<head-node.example.org>:2288/ to get to the main menu of the dCache web interface. The contents of the web interface are self-explanatory and are the primary source for most monitoring and trouble-shooting tasks.
 
-The “Cell Services” page displays the status of some important [cells](#cell) of the dCache instance.
+The “Cell Services” page displays the status of some important [cells](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-cell) of the dCache instance.
 
 The “Pool Usage” page gives a good overview of the current space usage of the whole DCACHE instance. In the graphs, free space is marked yellow, space occupied by cached files (which may be deleted when space is needed) is marked green, and space occupied by precious files, which cannot be deleted is marked red. Other states (e.g., files which are currently written) are marked purple.
 
