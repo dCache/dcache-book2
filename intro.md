@@ -18,11 +18,13 @@ Another performance feature of DCACHE is hot-spot data migration. In this proces
 
 The flow of data within DCACHE can also be carefully controlled. This is especially important for large sites as chaotic movement of data may lead to suboptimal usage. Instead, incoming and outgoing data can be marshaled so they use designated resources guaranteeing better throughput and improving end-user experience.
 
-DCACHE provides a comprehensive administrative interface for configuring the DCACHE instance. This is described in the later sections of this book.
+DCACHE provides a comprehensive administrative interface for configuring the DCACHE instance. This is described in the later sections of this book.  
+
+### Figure 1.1. The dCache Layer Model
 
 ![The dCache Layer Model] (layer_model.jpg "The dCache Layer Model")
 
-The layer model shown in [The dCache Layer Model] #(layer_model.jpg "The dCache Layer Model") gives an overview of the architecture of the dCache system.
+The layer model shown in [The dCache Layer Model] gives an overview of the architecture of the dCache system.
 
 
 Cells and Domains
