@@ -170,11 +170,11 @@ FIRST STEPS
 
 dCache has a powerful administration interface. It can be accessed with the **ssh1** or with the **ssh2** protocol. The server is part of the **adminDoor** domain.
 
-It is useful to define the admin service in a seperate domain. This allowes to restart the admin service seperatly from other services. In the example in the section called “Installing a dCache instance” this domain was called adminDoorDomain.
+It is useful to define the admin service in a seperate domain. This allowes to restart the admin service seperatly from other services. In the example in [the section called “Installing a dCache instance”](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml) this domain was called adminDoorDomain.
 
- EXAMPLE:
-    [adminDoorDomain]
-    [adminDoorDomain/admin]
+> EXAMPLE:
+    [adminDoorDomain]  
+    [adminDoorDomain/admin]  
 
 > **NOTE**
 >
@@ -187,40 +187,44 @@ It is useful to define the admin service in a seperate domain. This allowes to r
 ACCESS WITH SSH2
 ----------------
 
-There are two ways of authorizing administrators to access the dCache ssh2 admin interface. The preferred method authorizes users through their public key. The second method employs gPlazma2 and the dcache.kpwd file. Thereby authorization mechanisms can be added later by deploying another gPlazma2 plugin. The configuration of both authorization mechanisms is described in the following.
+There are two ways of authorizing administrators to access the dCache `ssh2` admin interface. The preferred method authorizes users through their public key. The second method employs `gPlazma2` and the **dcache.kpwd** file. Thereby authorization mechanisms can be added later by deploying another `gPlazma2` plugin. The configuration of both authorization mechanisms is described in the following.
 
 
 
 > **Note**
 >
-> All configurable values of the SSH2 admin interface can be found in the `PATH-ODS-USD/defaults/admin.properties` file. Please do NOT change any value in this file. Instead enter the key value combination in the `PATH-ODE-ED/dcache.conf`.
+> All configurable values of the ssh2 admin interface can be found in the **/usr/share/dcache/defaults/admin.properties** file. Please do NOT change any value in this file. Instead enter the key value combination in the **/etc/dcache/dcache.conf**.
+
+
 
 ### Public Key Authorization
 
-To authorize administrators through their public key just insert it into the file `authorized_keys2` which should by default be in the directory `` as specified in the file `PATH-ODS-USD/defaults/admin.properties` under `admin.paths.authorized-keys=`. Keys have to be in one line and should have a standard format, such as:
+To authorize administrators through their public key just insert it into the file **authorized_keys2** which should by default be in the directory **/etc/dcache/admin** as specified in the file **/usr/share/dcache/defaults/admin.properties** under admin.paths.authorized-keys=. Keys have to be in one line and should have a standard format, such as:
 
     ssh-dss AAAAB3....GWvM= /Users/JohnDoe/.ssh/id_dsa
 
-> **Important**
+> **IMPORTANT**
 >
 > Please make sure that the copied key is still in one line. Any line-break will prevent the key from being read.
 
-> **Note**
+> **NOTE**
 >
-> You may omit the part behind the equal sign as it is just a comment and not used by DCACHE.
+> You may omit the part behind the equal sign as it is just a comment and not used by dCache.
 
-Key-based authorization will always be the default. In case the user key can not be found in the file `authorized_keys2` or the file does not exist, ssh2Admin will fall back to authorizing the user via CELL-GPLAZMA2 and the `dcache.kpwd` file.
+Key-based authorization will always be the default. In case the user key can not be found in the file **authorized_keys2** or the file does not exist, ssh2Admin will fall back to authorizing the user via `gPlazma2` and the **dcache.kpwd** file.
+
+
 
 Now you can login to the admin interface by
 
-    PROMPT-USER ssh -l admin -p 22224 headnode.example.org
+    [user] $ ssh -l admin -p 22224 headnode.example.org
 
-        dCache Admin (VII) (user=admin)
+         dCache Admin (VII) (user=admin)
 
 
     (local) admin >
 
-### Access via CELL-GPLAZMA2 and the `dcache.kpwd` File
+### Access via **gPlazma2** and the **dcache.kpwd** File
 
 To use CELL-GPLAZMA make sure that you defined a DOMAIN-GPLAZMA in your layout file.
 
