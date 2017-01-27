@@ -20,7 +20,7 @@ The flow of data within DCACHE can also be carefully controlled. This is especia
 
 DCACHE provides a comprehensive administrative interface for configuring the DCACHE instance. This is described in the later sections of this book.
 
-![The DCACHE Layer Model](https://www.dcache.org/manuals/Book-2.16/start/intro-fhs.shtml#fig-intro-layer-model)
+![The DCACHE Layer Model] (/desktop/layer_model.jpg "The dCache Layer Model")
 
 The layer model shown in [figure\_The DCACHE Layer Model] gives an overview of the architecture of the dCache system.
 
