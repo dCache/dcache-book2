@@ -106,29 +106,29 @@ Chimera is a library providing a hierarchical name space with associated meta da
 
 Create the Chimera database and user.  
 
-   [root] # createdb -U postgres chimera  
-   CREATE DATABASE  
-   [root] # createuser -U postgres --no-superuser --no-createrole --createdb --pwprompt chimera  
-   Enter password for new role:  
-   Enter it again:  
-   You do not need to enter a password.  
+>   [root] # createdb -U postgres chimera  
+>   CREATE DATABASE  
+>   [root] # createuser -U postgres --no-superuser --no-createrole --createdb --pwprompt chimera  
+>   Enter password for new role:  
+>   Enter it again:  
+>   You do not need to enter a password.  
 
 The dCache components will access the database server with the user srmdcache.   
 
-  [root] # createuser -U postgres --no-superuser --no-createrole --createdb --pwprompt srmdcache  
-  Enter password for new role:  
-  Enter it again:  
-  You do not need to enter a password.  
+>  [root] # createuser -U postgres --no-superuser --no-createrole --createdb --pwprompt srmdcache  
+>  Enter password for new role:  
+>  Enter it again:  
+>  You do not need to enter a password.  
   
   Several management components running on the head node as well as the SRM will use the database dcache for storing their state information:  
 
-    [root] # createdb -U srmdcache dcache  
+>    [root] # createdb -U srmdcache dcache  
 
 There might be several of these on several hosts. Each is used by the DCACHE components running on the respective host.  
 
 Create the database used for the billing plots.  
 
-    [root] # createdb -O srmdcache -U postgres billing  
+ >   [root] # createdb -O srmdcache -U postgres billing  
 
 And run the command `dcache database update`.
 
