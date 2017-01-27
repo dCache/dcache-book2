@@ -1,6 +1,31 @@
 Getting in Touch with DCACHE
 ============================
 
+###Table of Contents
+
+
+[Checking the Functionality](#checking-the-functionality)
+[dCache without mounted namespace](#dcache-without-mounted-namespace)
+[WebDAV]
+[dCap]
+[The Web Interface for Monitoring dCache]
+[The Admin Interface]
+[First steps]
+[Access with ssh2]
+[Access with ssh1]
+[How to use the Admin Interface]
+[Create a new user]
+[Use of the ssh Admin Interface by scripts]
+[Authentication and Authorization in dCache]
+[How to work with secured dCache]
+[GSIdCap]
+[SRM]
+[WebDAV with certificates]
+[Files]
+
+
+
+
 This section is a guide for exploring a newly installed DCACHE system. The confidence obtained by this exploration will prove very helpful when encountering problems in the running system. This forms the basis for the more detailed stuff in the later parts of this book. The starting point is a fresh installation according to the [???].
 
 Checking the Functionality
