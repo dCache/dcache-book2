@@ -358,10 +358,10 @@ On any other nodes than the head node, the property `dcache.broker.host` has to 
 >
 > On dCache nodes running only pool services you do not need to install PostgreSQL. If your current node hosts only these services, the installation of PostgreSQL can be skipped.
 
-Securiting your dCache installation
+SECURITING YOUR DCACHE INSTALLATION
 ===================================
 
-DCACHE uses the LocationManager to discover the network topology of the internal communication: to which domains this domain should connect. The domain contacts a specific host and queries the information using UDP port `11111`. The response describes how the domain should react: whether it should allow incoming connections and whether it should contact any other domains.
+dCache uses the LocationManager to discover the network topology of the internal communication: to which domains this domain should connect. The domain contacts a specific host and queries the information using UDP port `11111`. The response describes how the domain should react: whether it should allow incoming connections and whether it should contact any other domains.
 
 Once the topology is understood, DCACHE domains connect to each other to build a network topology. Messages will flow over this topology, enabling the distributed system to function correctly. By default, these connections use TCP port `11111`.
 
@@ -370,13 +370,14 @@ It is essential that both UDP and TCP port `11111` are firewalled and that only 
 Upgrading a DCACHE Instance
 ===========================
 
-> **Important**
+> **IMPORTANT**
 >
 > Always read the release notes carefully before upgrading!
 
-Upgrading to bugfix releases within one supported branch (e.g. from DCACHE-PATCH-VERSION to DCACHE-NEXT-PATCH-VERSION) may be done by upgrading the packages with
+Upgrading to bugfix releases within one supported branch (e.g. from 2.16.0 to 2.16.1) may be done by upgrading the packages with
 
-    PROMPT-ROOT rpm -Uvh packageName
+
+       [root] # **rpm -Uvh <packageName>**
 
 Now DCACHE needs to be started again.
 
