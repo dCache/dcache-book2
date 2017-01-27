@@ -2,10 +2,10 @@ This part is intended for people who are new to DCACHE. It gives an introduction
 
 **Table of Contents**  
 
-   [1.Introduction] (https://www.dcache.org/manuals/Book-2.16/start/intro-fhs.shtml)  
+   [1. Introduction] (https://www.dcache.org/manuals/Book-2.16/start/intro-fhs.shtml)  
    [Cells and Domains] (https://www.dcache.org/manuals/Book-2.16/start/intro-cells-domains-fhs.shtml)  
    [Protocols Supported by dCache] (https://www.dcache.org/manuals/Book-2.16/start/intro-protos-fhs.shtml)  
-2. [Installing dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)   
+   [2. Installing dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)   
    [Installing a dCache instance] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml)  
    [Prerequisites] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-prerequisites)  
    [Installation of the dCache Software] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-installation)  
@@ -15,7 +15,7 @@ This part is intended for people who are new to DCACHE. It gives an introduction
    [Installing dCache on several nodes] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-multinode)  
    [Securiting your dCache installation] (https://www.dcache.org/manuals/Book-2.16/start/in-securing-fhs.shtml)  
    [Upgrading a dCache Instance] (https://www.dcache.org/manuals/Book-2.16/start/in-upgrade-fhs.shtml)  
-3. [Getting in Touch with dCache] (https://www.dcache.org/manuals/Book-2.16/start/intouch-fhs.shtml)  
+  [3. Getting in Touch with dCache] (https://www.dcache.org/manuals/Book-2.16/start/intouch-fhs.shtml)  
    [Checking the Functionality] (https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml)  
    [dCache without mounted namespace] (https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#dcache-unmounted)  
    [**WebDAV**] (https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-webdav)  
