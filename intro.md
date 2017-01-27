@@ -3,8 +3,8 @@ Introduction
 
 ###Table of Contents
 
-[link text](#Cells and Domains)
-[link text](#Protocols Supported by dCache)
+[link text](#cells-and-domains)
+[link text](#protocols-supported-by-dcache)
 
 dCache is a distributed storage solution. It organises storage across computers so the combined storage can be used without the end-users being aware of where their data is stored. They simply see a large amount of storage.
 
