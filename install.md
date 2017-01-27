@@ -377,10 +377,11 @@ Upgrading a DCACHE Instance
 Upgrading to bugfix releases within one supported branch (e.g. from 2.16.0 to 2.16.1) may be done by upgrading the packages with
 
 
-       [root] # **rpm -Uvh <packageName>**
+       [root] # rpm -Uvh <packageName>
 
-Now DCACHE needs to be started again.
+Now dCache needs to be started again.
 
+<!---
   [the DCACHE home-page]: http://www.dcache.org
   [PostgreSQL 9.0 High Performance]: http://www.2ndquadrant.com/books/postgresql-9-0-high-performance
   []: http://www.dcache.org/downloads/IAgree.shtml
@@ -389,3 +390,4 @@ Now DCACHE needs to be started again.
   [2]: #intouch-admin
   [3]: #intouch-web
   [section\_title]: #in-install-layout
+  -->
