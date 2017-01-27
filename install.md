@@ -169,9 +169,9 @@ A *service* is an abstraction used in the DCACHE configuration to describe atomi
 
 In the setup of dCache, there are three main places for configuration files:
 
--   /usr/share/dcache/defaults
--   /etc/dcache/dcache.conf
--   /etc/dcache/layouts
+-   **/usr/share/dcache/defaults**
+-   **/etc/dcache/dcache.conf**
+-   **/etc/dcache/layouts**
 
 The folder **/usr/share/dcache/defaults** contains the default settings of the dCache. If one of the default configuration values needs to be changed, copy the default setting of this value from one of the files in **/usr/share/dcache/defaults** to the file **/etc/dcache/dcache.conf**, which initially is empty and update the value.
 
