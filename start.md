@@ -2,29 +2,29 @@ This part is intended for people who are new to DCACHE. It gives an introduction
 
 **Table of Contents**  
 
-  1. [1. Introduction] (https://www.dcache.org/manuals/Book-2.16/start/intro-fhs.shtml)  
+  1. [Introduction] (https://www.dcache.org/manuals/Book-2.16/start/intro-fhs.shtml)  
    
    
     1. [Cells and Domains] (https://www.dcache.org/manuals/Book-2.16/start/intro-cells-domains-fhs.shtml)  
     1. [Protocols Supported by dCache] (https://www.dcache.org/manuals/Book-2.16/start/intro-protos-fhs.shtml) 
    
    
-   [2. Installing dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)   
+ 2. [Installing dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)   
    
    
-   [Installing a dCache instance] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml)  
+    2.[Installing a dCache instance] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml)  
    
    
-   [Prerequisites] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-prerequisites)  
-   [Installation of the dCache Software] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-installation)  
-   [Readying the PostgreSQL server for the use with dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-postgres)  
-   [Configuring Chimera] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-chimera)  
-   [Configuring dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-configure)  
-   [Installing dCache on several nodes] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-multinode)  
+    2.[Prerequisites] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-prerequisites)  
+    2.[Installation of the dCache Software] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-installation)  
+    2.[Readying the PostgreSQL server for the use with dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-postgres)  
+    2.[Configuring Chimera] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-chimera)  
+    2.[Configuring dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-configure)  
+    2.[Installing dCache on several nodes] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-multinode)  
    
    
-   [Securiting your dCache installation] (https://www.dcache.org/manuals/Book-2.16/start/in-securing-fhs.shtml)  
-   [Upgrading a dCache Instance] (https://www.dcache.org/manuals/Book-2.16/start/in-upgrade-fhs.shtml)  
+    2.[Securiting your dCache installation] (https://www.dcache.org/manuals/Book-2.16/start/in-securing-fhs.shtml)  
+    2.[Upgrading a dCache Instance] (https://www.dcache.org/manuals/Book-2.16/start/in-upgrade-fhs.shtml)  
    
    
   [3. Getting in Touch with dCache] (https://www.dcache.org/manuals/Book-2.16/start/intouch-fhs.shtml)  
