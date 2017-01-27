@@ -3,7 +3,7 @@ Installing DCACHE
 
 **Table of Contents**
 
-* [Installing a dCache instance] #(installing-a-dcache-instance)
+* [Installing a dCache instance] #(installing-a-dcache-instance)  
 
       * [Prerequisites]  
       * [Installation of the dCache Software]  
