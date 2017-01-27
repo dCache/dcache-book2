@@ -126,9 +126,9 @@ Get the GLITE repository (which contains dCap) and install DCAP using `yum`.
 
        [root] # cd /etc/yum.repos.d/
        [root] # wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/glite-UI.repo
-        [root] # yum install dcap
+       [root] # yum install dcap
 
-Create the root of the CHIMERA namespace and a world-writable directory for DCAP to write into as described [above].
+Create the root of the Chimera namespace and a world-writable directory for **dCap** to write into as described [above](#dcache-without-mounted-namespace).
 
 Copy the data (here `/bin/sh` is used as example data) using the PROG-DCCP command and the DCAP protocol describing the location of the file using a URL, where dcache.example.org is the host on which the DCACHE is running
 
