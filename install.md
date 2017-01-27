@@ -21,7 +21,7 @@ The first section describes the installation of a fresh DCACHE instance using RP
 Installing a DCACHE instance
 ============================
 
-In the following the installation of a DCACHE instance will be described. The CHIMERA name space provider, some management components, and the SRM need a PSQL server installed. We recommend running this PSQL on the local node. The first section describes the configuration of a PSQL server. After that the installation of CHIMERA and of the DCACHE components will follow. During the whole installation process root access is required.
+In the following the installation of a DCACHE instance will be described. The Chimera name space provider, some management components, and the **SRM** need a PSQL server installed. We recommend running this PSQL on the local node. The first section describes the configuration of a PSQL server. After that the installation of CHIMERA and of the DCACHE components will follow. During the whole installation process root access is required.
 
 Prerequisites
 -------------
@@ -36,7 +36,7 @@ In order to install DCACHE the following requirements must be met:
 
     > **Important**
     >
-    > For good performance it is necessary to maintain and tune your PSQL server. There are several good books on this topic, one of which is [PostgreSQL 9.0 High Performance].
+    > For good performance it is necessary to maintain and tune your PSQL server. There are several good books on this topic, one of which is [PostgreSQL 9.0 High Performance](https://www.2ndquadrant.com/de/buecher/).
 
 Installation of the DCACHE Software
 -----------------------------------
