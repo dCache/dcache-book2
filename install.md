@@ -18,12 +18,12 @@ Installing DCACHE
 
 The first section describes the installation of a fresh DCACHE instance using RPM files downloaded from [the DCACHE home-page]. It is followed by a guide to upgrading an existing installation. In both cases we assume standard requirements of a small to medium sized DCACHE instance without an attached [tertiary storage system](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-tss). The third section contains some pointers on extended features.
 
-Installing a DCACHE instance
+INSTALLING A DCACHE INSTANCE
 ============================
 
 In the following the installation of a DCACHE instance will be described. The Chimera name space provider, some management components, and the **SRM** need a PSQL server installed. We recommend running this PSQL on the local node. The first section describes the configuration of a PSQL server. After that the installation of CHIMERA and of the DCACHE components will follow. During the whole installation process root access is required.
 
-Prerequisites
+PREREQUISITES
 -------------
 
 In order to install DCACHE the following requirements must be met:
@@ -34,11 +34,11 @@ In order to install DCACHE the following requirements must be met:
 
 -   PostgreSQL must be installed and running. We recommend the use of PostgreSQL version 9.2 (at least PostgreSQL version 8.3 is required).
 
-    > **Important**
+    > **IMPORTANT**
     >
     > For good performance it is necessary to maintain and tune your PostgreSQL server. There are several good books on this topic, one of which is [PostgreSQL 9.0 High Performance](https://www.2ndquadrant.com/de/buecher/).
 
-Installation of the DCACHE Software
+INSTALLATION OF THE DCACHE SOFTWARE
 -----------------------------------
 
 The RPM packages may be installed right away, for example using the command:
@@ -51,22 +51,22 @@ The actual sources lie at [http://www.dcache.org/downloads/IAgree.shtml](http://
 
 The client can be found in the download-section of the above url, too.
 
-Readying the PSQL server for the use with DCACHE
+READYING THE POSTGRESQL SERVER FOR THE USE WITH DCACHE
 ------------------------------------------------
 
-Using a PSQL server with DCACHE places a number of requirements on the database. You must configure PSQL for use by DCACHE and create the necessary PSQL user accounts and database structure. This section describes how to do this.
+Using a PostgreSQL server with dCache places a number of requirements on the database. You must configure PostgreSQL for use by dCache and create the necessary PostgreSQL user accounts and database structure. This section describes how to do this.
 
 ### Starting PSQL
 
-Install the PSQL server with the tools of the operating system.
+Install the PostgreSQL server with the tools of the operating system.
 
 Initialize the database directory (for PSQL version 9.2 this is `/var/lib/pgsql/9.2/data/`) , start the database server, and make sure that it is started at system start-up.
 
-    PROMPT-ROOT service postgresql-9.2 initdb
+    [root] # service postgresql-9.2 initdb
     Initializing database:                                     [  OK  ]
-    PROMPT-ROOT service postgresql-9.2 start
+    [root] # service postgresql-9.2 start
     Starting postgresql-9.2 service:                           [  OK  ]
-    PROMPT-ROOT chkconfig postgresql-9.2 on
+    [root] # chkconfig postgresql-9.2 on
 
 ### Enabling local trust
 
@@ -83,95 +83,99 @@ To allow local users to access PSQL without requiring a password, ensure the fil
     # IPv6 local connections:
     host    all             all             ::1/128                 trust
 
-> **Note**
+> **NOTE**
 >
-> Please note it is also possible to run DCACHE with all PSQL accounts requiring passwords. See [???] for more advice on the configuration of PSQL.
+> Please note it is also possible to run DCACHE with all PSQL accounts requiring passwords. See [the section called “Configuring Access to PostgreSQL”](https://www.dcache.org/manuals/Book-2.16/cookbook/cb-postgres-configure-fhs.shtml) for more advice on the configuration of PSQL.
 
-> **Important**
+> **RESTARTING POSTGRESQL**
 >
 > If you have edited PSQL configuration files, you *must* restart PSQL for those changes to take effect. On many systems, this can be done with the following command:
 >
->     PROMPT-ROOT service postgresql-9.2 restart
+>     [root] # service postgresql-9.2 restart
 >     Stopping postgresql-9.2 service:                           [  OK  ]
 >     Starting postgresql-9.2 service:                           [  OK  ]
 
-Configuring CHIMERA
+CONFIGURING CHIMERA
 -------------------
 
-CHIMERA is a library providing a hierarchical name space with associated meta data. Where pools in DCACHE store the content of files, CHIMERA stores the names and meta data of those files. CHIMERA itself stores the data in a relational database. We will use PSQL in this tutorial. The properties of CHIMERA are defined in `PATH-ODS-USD/defaults/chimera.properties`. See [???][1] for more information.
+Chimera is a library providing a hierarchical name space with associated meta data. Where pools in dCache store the content of files, Chimera stores the names and meta data of those files. Chimera itself stores the data in a relational database. We will use PostgreSQL in this tutorial. The properties of Chimera are defined in **/usr/share/dcache/defaults/chimera.properties**. See [Chapter 4, Chimera](https://www.dcache.org/manuals/Book-2.16/config/cf-chimera-fhs.shtml) for more information.
 
-### Creating users and databases for DCACHE
 
-Create the Chimera database and user.
 
-    PROMPT-ROOT createdb -U postgres chimera
-    CREATE DATABASE
-    PROMPT-ROOT createuser -U postgres --no-superuser --no-createrole --createdb --pwprompt chimera
-    Enter password for new role:
-    Enter it again:
-    You do not need to enter a password.
+### Creating users and databases for dCache  
 
-The DCACHE components will access the database server with the user srmdcache.
+Create the Chimera database and user.  
 
-    PROMPT-ROOT createuser -U postgres --no-superuser --no-createrole --createdb --pwprompt srmdcache
-    Enter password for new role:
-    Enter it again:
-    You do not need to enter a password.
+   [root] # createdb -U postgres chimera  
+   CREATE DATABASE  
+   [root] # createuser -U postgres --no-superuser --no-createrole --createdb --pwprompt chimera  
+   Enter password for new role:  
+   Enter it again:  
+   You do not need to enter a password.  
 
-Several management components running on the head node as well as the SRM will use the database dcache for storing their state information:
+The dCache components will access the database server with the user srmdcache.   
 
-    PROMPT-ROOT createdb -U srmdcache dcache
+  [root] # createuser -U postgres --no-superuser --no-createrole --createdb --pwprompt srmdcache  
+  Enter password for new role:  
+  Enter it again:  
+  You do not need to enter a password.  
+  
+  Several management components running on the head node as well as the SRM will use the database dcache for storing their state information:  
 
-There might be several of these on several hosts. Each is used by the DCACHE components running on the respective host.
+    [root] # createdb -U srmdcache dcache  
 
-Create the database used for the billing plots.
+There might be several of these on several hosts. Each is used by the DCACHE components running on the respective host.  
 
-    PROMPT-ROOT createdb -O srmdcache -U postgres billing
+Create the database used for the billing plots.  
+
+    [root] # createdb -O srmdcache -U postgres billing  
 
 And run the command `dcache database update`.
 
-    PROMPT-ROOT dcache database update
-    PnfsManager@dCacheDomain:
-    INFO  - Successfully acquired change log lock
-    INFO  - Creating database history table with name: databasechangelog
-    INFO  - Reading from databasechangelog
-    many more like this...
+    [root] # dcache database update  
+    PnfsManager@dCacheDomain:  
+    INFO  - Successfully acquired change log lock  
+    INFO  - Creating database history table with name: databasechangelog  
+    INFO  - Reading from databasechangelog  
+    many more like this...  
+      
+
           
+Now the configuration of Chimera is done.
 
-Now the configuration of CHIMERA is done.
+Before the first start of dCache replace the file **/etc/dcache/gplazma.conf** with an empty file.
 
-Before the first start of DCACHE replace the file `PATH-ODE-ED/gplazma.conf` with an empty file.
+    [root] # mv /etc/dcache/gplazma.conf /etc/dcache/gplazma.conf.bak
+    [root] # touch /etc/dcache/gplazma.conf
 
-    PROMPT-ROOT mv PATH-ODE-ED/gplazma.conf PATH-ODE-ED/gplazma.conf.bak
-    PROMPT-ROOT touch PATH-ODE-ED/gplazma.conf
 
 DCACHE can be started now.
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache start
+    [ROOT] # dcache start
     Starting dCacheDomain done
 
-So far, no configuration of DCACHE is done, so only the predefined domain is started.
+So far, no configuration of dCache is done, so only the predefined domain is started.
 
-Configuring DCACHE
+CONFIGURING DCACHE
 ------------------
 
 ### Terminology
 
-DCACHE consists of one or more domains. A domain in DCACHE is a Java Virtual Machine hosting one or more DCACHE cells. Each domain must have a name which is unique throughout the DCACHE instance and a cell must have a unique name within the domain hosting the cell.
+dCache consists of one or more domains. A domain in DCACHE is a Java Virtual Machine hosting one or more dCache *cells*. Each domain must have a name which is unique throughout the DCACHE instance and a cell must have a unique name within the domain hosting the cell.
 
-A service is an abstraction used in the DCACHE configuration to describe atomic units to add to a domain. It is typically implemented through one or more cells. DCACHE keeps lists of the domains and the services that are to be run within these domains in the layout files. The layout file may contain domain- and service- specific configuration values. A pool is a cell providing physical data storage services.
+A *service* is an abstraction used in the DCACHE configuration to describe atomic units to add to a domain. It is typically implemented through one or more cells. DCACHE keeps lists of the domains and the services that are to be run within these domains in the *layout files*. The layout file may contain domain- and service- specific configuration values. A pool is a cell providing physical data storage services.
 
 ### Configuration files
 
-In the setup of DCACHE, there are three main places for configuration files:
+In the setup of dCache, there are three main places for configuration files:
 
--   PATH-ODS-USD/defaults
--   PATH-ODE-ED/dcache.conf
--   PATH-ODE-ED/layouts
+-   /usr/share/dcache/defaults
+-   /etc/dcache/dcache.conf
+-   /etc/dcache/layouts
 
-The folder `PATH-ODS-USD/defaults` contains the default settings of the DCACHE. If one of the default configuration values needs to be changed, copy the default setting of this value from one of the files in `PATH-ODS-USD/defaults` to the file `PATH-ODE-ED/dcache.conf`, which initially is empty and update the value.
+The folder **/usr/share/dcache/defaults** contains the default settings of the dCache. If one of the default configuration values needs to be changed, copy the default setting of this value from one of the files in **/usr/share/dcache/defaults** to the file **/etc/dcache/dcache.conf**, which initially is empty and update the value.
 
-> **Note**
+> **NOTE**
 >
 > In this first installation of DCACHE your DCACHE will not be connected to a tape sytem. Therefore please change the values for `pnfsmanager.default-retention-policy` and `pnfsmanager.default-access-latency` in the file `PATH-ODE-ED/dcache.conf`.
 >
