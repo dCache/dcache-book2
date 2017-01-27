@@ -293,7 +293,7 @@ Restart dCache to start the newly configured components **dcache restart** and c
  
     EXAMPLE:
     
-    [root] # **dcache restart**
+    [root] # dcache restart
     Stopping dCacheDomain 0 1 done
     Starting dCacheDomain done
     Starting namespaceDomain done
@@ -302,7 +302,7 @@ Restart dCache to start the newly configured components **dcache restart** and c
     Starting httpdDomain done
     Starting gPlazmaDomain done
     Starting poolDomain done
-    [root] # **dcache status**
+    [root] # dcache status
     DOMAIN            STATUS  PID   USER
     dCacheDomain      running 17466 dcache
     namespaceDomain   running 17522 dcache
@@ -322,40 +322,41 @@ By default the JAVA heap size and the maximum direct buffer size are defined as
     dcache.java.memory.heap=512m
     dcache.java.memory.direct=512m
 
-Again, these values can be changed in `PATH-ODE-ED/dcache.conf`.
+Again, these values can be changed in **/etc/dcache/dcache.conf**.
 
-For optimization of your DCACHE you can define the JAVA heap size in the layout file separately for every domain.
+For optimization of your dCache you can define the Java heap size in the layout file separately for every domain.
 
-    [dCacheDomain]
-    dcache.java.memory.heap=2048m
-    dcache.java.memory.direct=0m
-    ...
-    [utilityDomain]
-    dcache.java.memory.heap=384m
-    dcache.java.memory.direct=16m
 
-> **Note**
+      [dCacheDomain]
+      dcache.java.memory.heap=2048m
+      dcache.java.memory.direct=0m
+      ...
+      [utilityDomain]
+      dcache.java.memory.heap=384m
+      dcache.java.memory.direct=16m
+
+> **NOTE**
 >
-> DCACHE uses JAVA to parse the configuration files and will search for JAVA on the system path first; if it is found there, no further action is needed. If JAVA is not on the system path, the environment variable JAVA\_HOME defines the location of the JAVA installation directory. Alternatively, the environment variable JAVA can be used to point to the JAVA executable directly.
->
-> If JAVA\_HOME or JAVA cannot be defined as global environment variables in the operating system, then they can be defined in either `/etc/default/dcache` or `/etc/dcache.env`. These two files are sourced by the init script and allow JAVA\_HOME, JAVA and DCACHE\_HOME to be defined.
+> dCache uses Java to parse the configuration files and will search for Java on the system path first; if it is found there, no >further action is needed. If Java is not on the system path, the environment variable **JAVA_HOM**E defines the location of the >Java installation directory. Alternatively, the environment variable **JAVA** can be used to point to the Java executable directly.
+
+>If JAVA_HOME or JAVA cannot be defined as global environment variables in the operating system, then they can be defined in >either /etc/default/dcache or /etc/dcache.env. These two files are sourced by the init script and allow JAVA_HOME, JAVA and >DCACHE_HOME to be defined.
 
 Installing DCACHE on several nodes
 ----------------------------------
 
 Installing DCACHE on several nodes is not much more complicated than installing it on a single node. Think about how DCACHE should be organised regarding services and domains. Then adapt the layout files, as described in [section\_title], to the layout that you have in mind. The files `PATH-ODE-ED/layouts/head.conf` and `PATH-ODE-ED/layouts/pool.conf` contain examples for a DCACHE head-node and a DCACHE pool respectively.
 
-> **Important**
+> **IMPORTANT**
 >
-> You must configure a domain called DOMAIN-DCACHE but the other domain names can be chosen freely.
->
-> Please make sure that the domain names that you choose are unique. Having the same domain names in different layout files on different nodes may result in an error.
+> You must configure a domain called **dCacheDomain** but the other domain names can be chosen freely.
 
-On any other nodes than the head node, the property `dcache.broker.host` has to be added to the file `PATH-ODE-ED/dcache.conf`. This property should point to the host containing the special domain DOMAIN-DCACHE, because that domain acts implicitly as a broker.
+>Please make sure that the domain names that you choose are unique. Having the same domain names in different layout files on different nodes may result in an error.
+
+On any other nodes than the head node, the property 'dcache.broker.host' has to be added to the file **/etc/dcache/dcache.conf.** This property should point to the host containing the special domain dCacheDomain, because that domain acts implicitly as a broker.
 
 > **Tip**
 >
-> On DCACHE nodes running only pool services you do not need to install PSQL. If your current node hosts only these services, the installation of PSQL can be skipped.
+> On dCache nodes running only pool services you do not need to install PostgreSQL. If your current node hosts only these services, the installation of PostgreSQL can be skipped.
 
 Securiting your dCache installation
 ===================================
