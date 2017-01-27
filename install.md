@@ -352,7 +352,7 @@ Installing DCACHE on several nodes is not much more complicated than installing 
 
 >Please make sure that the domain names that you choose are unique. Having the same domain names in different layout files on different nodes may result in an error.
 
-On any other nodes than the head node, the property 'dcache.broker.host' has to be added to the file **/etc/dcache/dcache.conf.** This property should point to the host containing the special domain dCacheDomain, because that domain acts implicitly as a broker.
+On any other nodes than the head node, the property `dcache.broker.host` has to be added to the file **/etc/dcache/dcache.conf.** This property should point to the host containing the special domain dCacheDomain, because that domain acts implicitly as a broker.
 
 > **Tip**
 >
