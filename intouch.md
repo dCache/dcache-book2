@@ -36,32 +36,32 @@ This section is a guide for exploring a newly installed dCache system. The confi
 
 
 
-Checking the Functionality
+CHECKING THE FUNCTIONALITY
 ==========================
 
-Reading and writing data to and from a DCACHE instance can be done with a number of protocols. After a standard installation, these protocols are DCAP, GSIDCAP, and GRIDFTP. In addition DCACHE comes with an implementation of the SRM protocol which negotiates the actual data transfer protocol.
+Reading and writing data to and from a dCache instance can be done with a number of protocols. After a standard installation, these protocols are **dCap**, **GSIdCap**, and **GridFTP**. In addition dCache comes with an implementation of the **SRM** protocol which negotiates the actual data transfer protocol.  
 
-DCACHE without mounted namespace
+DCACHE WITHOUT MOUNTED NAMESPACE
 --------------------------------
 
-Create the root of the CHIMERA namespace and a world-writable directory by
+Create the root of the Chimera namespace and a world-writable directory by
 
-    PROMPT-ROOT CHIMERA-CLI mkdir /data
-    PROMPT-ROOT CHIMERA-CLI mkdir /data/world-writable
-    PROMPT-ROOT CHIMERA-CLI chmod 777 /data/world-writable
+    [root] # /usr/bin/chimera mkdir /data
+    [root] # /usr/bin/chimera mkdir /data/world-writable
+    [root] # /usr/bin/chimera chmod 777 /data/world-writable
 
 WEBDAV
 ------
 
-To use WEBDAV you need to define a CELL-WEBDAV service in your layout file. You can define this service in an extra domain, e.g. `[webdavDomain]` or add it to another domain.
+To use **WebDAV** you need to define a **WebDAV** service in your layout file. You can define this service in an extra domain, e.g. [webdavDomain] or add it to another domain.
 
     [webdavDomain]
     [webdavDomain/webdav]
     webdav.authz.anonymous-operations=FULL
 
-to the file `PATH-ODE-ED/layouts/mylayout.conf`.
+to the file **/etc/dcache/layouts/mylayout.conf**.
 
-> **Note**
+> **NOTE**
 >
 > Depending on the client you might need to set `webdav.redirect.on-read=false` and/or ` webdav.redirect.on-write=false`.
 >
@@ -89,43 +89,44 @@ to the file `PATH-ODE-ED/layouts/mylayout.conf`.
 
 Now you can start the WEBDAV domain
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache start webdavDomain
+    [root] # dcache start webdavDomain
 
-and access your files via <http://:2880> with your browser.
+and access your files via http://<webdav-door.example.org>:2880 with your browser.
 
-You can connect the webdav server to your file manager and copy a file into your DCACHE.
+You can connect the webdav server to your file manager and copy a file into your dCache.
 
-To use CURL to copy a file into your DCACHE you will need to set ` webdav.redirect.on-write=false`.
+To use curl to copy a file into your dCache you will need to set webdav.redirect.on-write=false.  
+
 
 Write the file `test.txt`
 
-    PROMPT-ROOT curl -T test.txt http://webdav-door.example.org:2880/data/world-writable/curl-testfile.txt
+    [root] # curl -T test.txt http://webdav-door.example.org:2880/data/world-writable/curl-testfile.txt
 
 and read it
 
-    PROMPT-ROOT curl http://webdav-door.example.org:2880/data/world-writable/curl-testfile.txt
+    [root] # curl http://webdav-door.example.org:2880/data/world-writable/curl-testfile.txt
 
 DCAP
 ----
 
-To be able to use DCAP you need to have the DCAP door running in a domain.
+To be able to use dCap you need to have the dCap door running in a domain.
 
     [dCacheDomain]
     [dCacheDomain/dcap]
 
 For anonymous access you need to set the property `dcap.authz.anonymous-operations` to `FULL`.
 
-    [dCacheDomain]
-    [dCacheDomain/dcap]
+        [dCacheDomain]
+        [dCacheDomain/dcap]
           dcap.authz.anonymous-operations=FULL
 
-For this tutorial install DCAP on your worker node. This can be the machine where your DCACHE is running.
+For this tutorial install dCap on your worker node. This can be the machine where your DCACHE is running.
 
-Get the GLITE repository (which contains DCAP) and install DCAP using `yum`.
+Get the GLITE repository (which contains dCap) and install DCAP using `yum`.
 
-     cd /etc/yum.repos.d/
-    PROMPT-ROOT wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/glite-UI.repo
-    PROMPT-ROOT yum install dcap
+       [root] # cd /etc/yum.repos.d/
+       [root] # wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/glite-UI.repo
+        [root] # yum install dcap
 
 Create the root of the CHIMERA namespace and a world-writable directory for DCAP to write into as described [above].
 
