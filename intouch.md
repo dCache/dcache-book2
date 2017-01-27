@@ -32,8 +32,9 @@ Getting in Touch with DCACHE
 
 
 
+This section is a guide for exploring a newly installed dCache system. The confidence obtained by this exploration will prove very helpful when encountering problems in the running system. This forms the basis for the more detailed stuff in the later parts of this book. The starting point is a fresh installation according to [the section called “Installing a dCache instance”.](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml)
 
-This section is a guide for exploring a newly installed DCACHE system. The confidence obtained by this exploration will prove very helpful when encountering problems in the running system. This forms the basis for the more detailed stuff in the later parts of this book. The starting point is a fresh installation according to the [???].
+
 
 Checking the Functionality
 ==========================
