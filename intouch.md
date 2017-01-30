@@ -573,7 +573,7 @@ or, the equivalent as stdin.
       
 
 AUTHENTICATION AND AUTHORIZATION IN DCACHE  
-==========================================
+------------------------------------------
 
 In dCache digital certificates are used for authentication and authorisation. To be able to verify the chain of trust when using the non-commercial grid-certificates you should install the list of certificates of grid Certification Authorities (CAs). In case you are using commercial certificates you will find the list of CAs in your browser.  
 
@@ -596,7 +596,7 @@ In dCache digital certificates are used for authentication and authorisation. To
       CA
       ...  
 
-You will need a server certificate for the host on which your dCache is running and a user certificate. The host certificate needs to be copied to the directory **/etc/grid-security/** on your server and converted to **hostcert.pem** and **hostkey.pem** as described in [Using X.509 Certificates](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml). Your user certificate is usually located in **.globus**. If it is not there you should copy it from your browser to **.globus** and convert the *.p12 file to **usercert.pem** and **userkey.pem**.  
+You will need a server certificate for the host on which your dCache is running and a user certificate. The host certificate needs to be copied to the directory **/etc/grid-security/** on your server and converted to **hostcert.pem** and **hostkey.pem** as described in [Using X.509 Certificates](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml). Your user certificate is usually located in **.globus**. If it is not there you should copy it from your browser to **.globus** and convert the **.p12** file to **usercert.pem** and **userkey.pem**.  
 
 Example:  
 
