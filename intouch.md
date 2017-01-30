@@ -690,137 +690,141 @@ The **/etc/dcache/dcachesrm-gplazma.policy:**
       
           
 
-How to work with secured DCACHE
-===============================
+HOW TO WORK WITH SECURED DCACHE
+-------------------------------
 
-If you want to copy files into DCACHE with GSIDCAP, SRM or WEBDAV with certificates you need to follow the instructions in the section [above][10].
+If you want to copy files into dCache with GSIdCap, SRM or WebDAV with certificates you need to follow the instructions in the section [above](#authentication-and-authorization-in-dcache).  
 
-GSIDCAP
+
+
+GSIDCAP  
 -------
 
-To use GSIDCAP you must run a GSIDCAP door. This is achieved by including the GSIDCAP service in your layout file on the machine you wish to host the door.
+To use `GSIdCap` you must run a `GSIdCap` door. This is achieved by including the `gsidcap` service in your layout file on the machine you wish to host the door.  
 
-    [gsidcapDomain]
-    [gsidcapDomain/dcap]
-    dcap.authn.protocol=gsi
+    [gsidcapDomain]  
+    [gsidcapDomain/dcap]  
+    dcap.authn.protocol=gsi  
 
-In addition, you need to have libdcap-tunnel-gsi installed on your worker node, which is contained in the GLITE-UI.
+In addition, you need to have libdcap-tunnel-gsi installed on your worker node, which is contained in the gLite-UI.  
 
-> **Note**
+
+> **NOTE**
 >
 > As ScientificLinux 5 32bit is not supported by GLITE there is no libdcap-tunnel-gsi for SL5 32bit.
 
-    PROMPT-ROOT yum install libdcap-tunnel-gsi
+    [root] # yum install libdcap-tunnel-gsi
 
-It is also available on the [DCAP downloads page].
+It is also available on the [dCap downloads page](https://www.dcache.org/downloads/dcap/).
 
-    PROMPT-ROOT rpm -i http://www.dcache.org/repository/yum/sl5/x86_64/RPMS.stable//libdcap-tunnel-gsi-2.47.5-0.x86_64.rpm
+    Example:
+    [root] # rpm -i http://www.dcache.org/repository/yum/sl5/x86_64/RPMS.stable//libdcap-tunnel-gsi-2.47.5-0.x86_64.rpm  
 
-The machine running the GSIDCAP door needs to have a host certificate and you need to have a valid user certificate. In addition, you should have created a [voms proxy] as mentioned [above][10].
+The machine running the GSIdCap door needs to have a host certificate and you need to have a valid user certificate. In addition, you should have created a [voms proxy](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml#cf-gplazma-certificates-voms-proxy-init) as mentioned [above](https://www.dcache.org/manuals/Book-2.16/start/intouch-certificates-fhs.shtml).  
 
-Now you can copy a file into your DCACHE using GSIDCAP
+Now you can copy a file into your dCache using GSIdCap  
 
-    PROMPT-USER dccp /bin/sh gsidcap://dcache.example.org:22128/data/world-writable/my-test-file3
-    801512 bytes in 0 seconds
+    [user] $ dccp /bin/sh gsidcap://<dcache.example.org>:22128/data/world-writable/my-test-file3
+    801512 bytes in 0 seconds  
 
-and copy it back
+and copy it back  
 
-    PROMPT-USER dccp gsidcap://dcache.example.org:22128/data/world-writable/my-test-file3 /tmp/mytestfile3.tmp
-    801512 bytes in 0 seconds
+    [user] $ dccp gsidcap://<dcache.example.org>:22128/data/world-writable/my-test-file3 /tmp/mytestfile3.tmp
+    801512 bytes in 0 seconds  
 
-SRM
+SRM  
 ---
 
-To use the SRM you need to define the SRM service in your layout file.
+To use the `SRM` you need to define the `srm` service in your layout file.  
 
-    [srmDomain]
-    [srmDomain/srm]
+    [srmDomain]  
+    [srmDomain/srm]  
 
-In addition, the user needs to install an SRM client for example the dcache-srmclient, which is contained in the GLITE-UI, on the worker node and set the PATH environment variable.
+In addition, the user needs to install an `SRM` client for example the `dcache-srmclient`, which is contained in the gLite-UI, on the worker node and set the `PATH` environment variable.  
 
-    PROMPT-ROOT yum install dcache-srmclient
+    [root] # yum install dcache-srmclient  
 
-You can now copy a file into your DCACHE using the SRM,
+You can now copy a file into your dCache using the SRM,  
 
-    PROMPT-USER srmcp -2 file:////bin/sh srm://dcache.example.org:8443/data/world-writable/my-test-file4
+    [user] $ srmcp -2 file:////bin/sh srm://dcache.example.org:8443/data/world-writable/my-test-file4  
 
-copy it back
+copy it back  
 
-    PROMPT-USER srmcp -2 srm://dcache.example.org:8443/data/world-writable/my-test-file4 file:////tmp/mytestfile4.tmp
+    [user] $ srmcp -2 srm://dcache.example.org:8443/data/world-writable/my-test-file4 file:////tmp/mytestfile4.tmp  
 
-and delete it
+and delete it  
 
-    PROMPT-USER srmrm -2 srm://dcache.example.org:8443/data/world-writable/my-test-file4
+    [user] $ srmcp -2 srm://dcache.example.org:8443/data/world-writable/my-test-file4  
 
-If the grid functionality is not required the file can be deleted with the NFS mount of the CHIMERA namespace:
+If the grid functionality is not required the file can be deleted with the `NFS` mount of the CHIMERA namespace:  
 
-    PROMPT-USER rm /data/world-writable/my-test-file4
+    [user] $ rm /data/world-writable/my-test-file4  
 
-WEBDAV with certificates
+WEBDAV WITH CERTIFICATES  
 ------------------------
 
-To use WEBDAV with certificates you change the entry in `PATH-ODE-ED/layouts/mylayout.conf` from
+To use `WebDAV` with certificates you change the entry in **/etc/dcache/layouts/mylayout.conf** from  
 
-    [webdavDomain]
-    [webdavDomain/webdav]
-    webdav.authz.anonymous-operations=FULL
-    webdav.root=/data/world-writable
+    [webdavDomain]  
+    [webdavDomain/webdav]  
+    webdav.authz.anonymous-operations=FULL  
+    webdav.root=/data/world-writable  
 
-to
+to  
 
-    [webdavDomain]
-    [webdavDomain/webdav]
-    webdav.authz.anonymous-operations=NONE
-    webdav.root=/data/world-writable
-    webdav.authn.protocol=https
+    [webdavDomain]  
+    [webdavDomain/webdav]  
+    webdav.authz.anonymous-operations=NONE  
+    webdav.root=/data/world-writable  
+    webdav.authn.protocol=https  
 
-Then you will need to import the host certificate into the DCACHE keystore using the command
+Then you will need to import the host certificate into the dCache keystore using the command  
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache import hostcert
+    [root] # dcache import hostcert  
 
-and initialise your truststore by
+and initialise your truststore by  
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache import cacerts
+    [root] # dcache import cacerts  
 
-Now you need to restart the WEBDAV domain
+Now you need to restart the WEBDAV domain  
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache restart webdavDomain
+    [root] # dcache restart webdavDomain  
 
-and access your files via <https://:2880> with your browser.
+and access your files via https://<dcache.example.org>:2880 with your browser.
 
-> **Important**
+
+
+> **IMPORTANT**
 >
-> If the host certificate contains an extended key usage extension, it must include the extended usage for server authentication. Therefore you have to make sure that your host certificate is either unrestricted or it is explicitly allowed as a certificate for `TLS Web Server
-> 	 Authentication`.
+> If the host certificate contains an extended key usage extension, it must include the extended usage for server authentication. Therefore you have to make sure that your host certificate is either unrestricted or it is explicitly allowed as a certificate for `TLS Web Server Authentication`.
 
-### Allowing authenticated and non-authenticated access with WEBDAV
+### Allowing authenticated and non-authenticated access with WebDAV  
 
 You can also choose to have secure and insecure access to your files at the same time. You might for example allow access without authentication for reading and access with authentication for reading and writing.
 
-    [webdavDomain]
-    [webdavDomain/webdav]
-    webdav.root=/data/world-writable
-    webdav.authz.anonymous-operations=READONLY
-    port=2880
-    webdav.authn.protocol=https
+    [webdavDomain]  
+    [webdavDomain/webdav]  
+    webdav.root=/data/world-writable  
+    webdav.authz.anonymous-operations=READONLY  
+    port=2880  
+    webdav.authn.protocol=https  
 
-You can access your files via <https://:2880> with your browser.
+You can access your files via https://<dcache.example.org>:2880 with your browser.
 
 Files
 =====
 
 In this section we will have a look at the configuration and log files of DCACHE.
 
-The DCACHE software is installed in one directory, normally `/opt/d-cache/`. All configuration files can be found here.
+The dCache software is installed in various directories according to the Filesystem Hierarchy Standard. All configuration files can be found in  **/etc/dcache**.
 
-The DCACHE software is installed in various directories according to the Filesystem Hierarchy Standard. All configuration files can be found in `/etc/dcache`.
+Log files of domains are by default stored in **/var/log/dcache/<domainName>.log.**
 
-Log files of domains are by default stored in `PATH-VL-VLD/domainName.log`.
+More details about domains and cells can be found in [Chapter 5, The Cell Package.](https://www.dcache.org/manuals/Book-2.16/config/cf-cellpackage-fhs.shtml)
 
-More details about domains and cells can be found in [???][2].
+The most central component of a dCache instance is the PoolManager cell. It reads additional configuration information from the file **/var/lib/dcache/config/poolmanager.conf** at start-up. However, it is not necessary to restart the domain when changing the file. We will see an example of this below.
 
-The most central component of a DCACHE instance is the CELL-POOLMNGR cell. It reads additional configuration information from the file `` at start-up. However, it is not necessary to restart the domain when changing the file. We will see an example of this below.
-
+<!--
   [???]: #in-install
   [above]: #dcache-unmounted
   [1]: #cf-gplazma
@@ -838,3 +842,4 @@ The most central component of a DCACHE instance is the CELL-POOLMNGR cell. It re
   [10]: #intouch-certificates
   [DCAP downloads page]: http://www.dcache.org/downloads/dcap/
   [voms proxy]: #cf-gplazma-certificates-voms-proxy-init
+--!>
