@@ -281,7 +281,7 @@ To allow other users access to the admin interface add them to the `/etc/dcache/
 
 Just adding a user in the **dcache.kpwd** file is not sufficient. The generated user also needs access rights that can only be set within the admin interface itself.
 
-See [the section called “Create a new user”](create-a-new-user) to learn how to create the user in the admin interface and set the rights.
+See [the section called “Create a new user”](#create-a-new-user) to learn how to create the user in the admin interface and set the rights.
 
 Access with SSH1
 ----------------
@@ -300,133 +300,145 @@ The initial password is “`dickerelch`” (which is German for “fat elk”) a
 
 The password can now be changed with
 
-    DC-PROMPT-LOCAL cd acm
-    DC-PROMPT-ACM create user admin
-    DC-PROMPT-ACM set passwd -user=admin newPasswd newPasswd
-    DC-PROMPT-ACM ..
-    DC-PROMPT-LOCAL logoff
+     (local) admin > **cd acm ** 
+     (acm) admin > **create user admin  **
+     (acm) admin > **set passwd -user=admin <newPasswd> <newPasswd> ** 
+     (acm) admin > ..  
+     (local) admin > **logoff  **
 
-How to use the Admin Interface
+HOW TO USE THE ADMIN INTERFACE
 ------------------------------
 
 The command `help` lists all commands the cell knows and their parameters. However, many of the commands are only used for debugging and development purposes.
 
-> **Warning**
+> **WARNING**
 >
 > Some commands are dangerous. Executing them without understanding what they do may lead to data loss.
 
-Starting from the local prompt (DC-PROMPT-LOCAL) the command `cd` takes you to the specified cell. In general the address of a cell is a concatenation of cell name `@` symbol and the domain name. `cd` to a cell by:
+Starting from the local prompt ((`local) admin >`) the command `cd` takes you to the specified [cell](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-cell). In general the address of a cell is a concatenation of cell name @ symbol and the domain name. `cd` to a cell by:
 
-    DC-PROMPT-LOCAL cd cellName@domainName
+    (local) admin > **cd <cellName>@<domainName>**
 
-> **Note**
+> **NOTE**
 >
-> If the cells are well-known, they can be accessed without adding the domain-scope. See [???][2] for more information.
+> If the cells are well-known, they can be accessed without adding the domain-scope. See [Chapter 5, The Cell Package](https://www.dcache.org/manuals/Book-2.16/config/cf-cellpackage-fhs.shtml) for more information.
 
-The domains that are running on the DCACHE-instance, can be viewed in the layout-configuration (see [???][3]). Additionally, there is the CELL-TOPO cell, which keeps track of the instance's domain topology. If it is running, it can be used to obtain the list of domains the following way:
+The domains that are running on the DCACHE-instance, can be viewed in the layout-configuration (see  [Chapter 2, Installing dCache](https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)). Additionally, there is the `topo` cell, which keeps track of the instance's domain topology. If it is running, it can be used to obtain the list of domains the following way:  
 
-> **Note**
+> **NOTE**  
 >
-> The CELL-TOPO cell rescans every five minutes which domains are running, so it can take some time until `ls` displays the full domain list.
+> The topo cell rescans every five minutes which domains are running, so it can take some time until `ls` displays the full   domain list.  
 
-As the CELL-TOPO cell is a `well-known` cell you can `cd` to it directly by `cd topo`.
 
-Use the command `ls` to see which domains are running.
+Example:  
+As the topo cell is a `well-known` cell you can `cd` to it directly by `cd topo`.    
 
-    DC-PROMPT-LOCAL cd topo
-    DC-PROMPT-TOPO ls
-    adminDoorDomain
-    gsidcapDomain
-    dcapDomain
-    utilityDomain
-    gPlazmaDomain
-    webdavDomain
-    gridftpDomain
-    srmDomain
-    dCacheDomain
-    httpdDomain
-    namespaceDomain
-    poolDomain
-    DC-PROMPT-TOPO ..
-    DC-PROMPT-LOCAL
+Use the command `ls` to see which domains are running.    
 
-The escape sequence `..` takes you back to the local prompt.
+      (local) admin > **cd topo**    
+      (topo) admin > **ls**  
+      adminDoorDomain  
+      gsidcapDomain  
+      dcapDomain  
+      utilityDomain  
+      gPlazmaDomain  
+      webdavDomain  
+      gridftpDomain  
+      srmDomain  
+      dCacheDomain  
+      httpdDomain  
+      namespaceDomain  
+      poolDomain  
+      (topo) admin > ..  
+      (local) admin >  
 
-The command `logoff` exits the admin shell.
 
-If you want to find out which cells are running on a certain domain, you can issue the command `ps` in the CELL-SYSTEM cell of the domain.
+The escape sequence `..` takes you back to the local prompt.  
 
-For example, if you want to list the cells running on the `poolDomain`, `cd` to its CELL-SYSTEM cell and issue the `ps` command.
+The command `logoff` exits the admin shell.  
 
-    DC-PROMPT-LOCAL cd System@poolDomain
-    DC-PROMPT-POOLDOMAIN ps
-      Cell List
-    ------------------
-    c-dCacheDomain-101-102
-    System
-    pool_2
-    c-dCacheDomain-101
-    pool_1
-    RoutingMgr
-    lm
+If you want to find out which cells are running on a certain domain, you can issue the command `ps` in the CELL-SYSTEM cell of the domain.  
 
-The cells in the domain can be accessed using `cd` together with the cell-name scoped by the domain-name. So first, one has to get back to the local prompt, as the `cd` command will not work otherwise.
+Example:  
+For example, if you want to list the cells running on the `poolDomain`, `cd` to its `System` cell and issue the `ps` command.  
 
-> **Note**
->
-> Note that `cd` only works from the local prompt. If the cell you are trying to access does not exist, the `cd` command will complain.
->
->     DC-PROMPT-LOCAL cd nonsense
->     java.lang.IllegalArgumentException: Cannot cd to this cell as it doesn't exist
->
-> Type `..` to return to the DC-PROMPT-LOCAL prompt.
+      (local) admin > **cd System@poolDomain**  
+      (System@poolDomain) admin > **ps**  
+        Cell List  
+      ------------------  
+      c-dCacheDomain-101-102  
+      System  
+      pool_2  
+      c-dCacheDomain-101  
+      pool_1  
+      RoutingMgr  
+      lm  
 
-Login to the routing manager of the DOMAIN-DCACHE to get a list of all well-known cells you can directly `cd` to without having to add the domain.
+The cells in the domain can be accessed using `cd` together with the cell-name scoped by the domain-name. So first, one has to   get back to the local prompt, as the `cd` command will not work otherwise.  
 
-    DC-PROMPT-POOLDOMAIN ..
-    DC-PROMPT-LOCAL cd RoutingMgr@dCacheDomain
-    DC-PROMPT-ROUTINGMGR ls
-    Our routing knowledge :
-     Local : [PoolManager, topo, LoginBroker, info]
-     adminDoorDomain : [pam]
-     gsidcapDomain : [DCap-gsi-example.dcache.org]
-     dcapDomain : [DCap-example.dcache.org]
-     utilityDomain : [gsi-pam, PinManager]
-     gPlazmaDomain : [gPlazma]
-     webdavDomain : [WebDAV-example.dcache.org]
-     gridftpDomain : [GFTP-example.dcache.org]
-     srmDomain : [RemoteTransferManager, CopyManager, SrmSpaceManager, SRM-example.dcache.org]
-     httpdDomain : [billing, srm-LoginBroker, TransferObserver]
-     poolDomain : [pool_2, pool_1]
-     namespaceDomain : [PnfsManager, dirLookupPool, cleaner]
+> **NOTE**  
+>  
+> Note that `cd` only works from the local prompt. If the cell you are trying to access does not exist, the `cd` command will   complain.  
+>  
+>     Example:    
+>     (local) admin > cd nonsense  
+>     java.lang.IllegalArgumentException: Cannot cd to this cell as it doesn't exist  
+> Type `..` to return to the `(local) admin >` prompt.  
 
-All cells know the commands `info` for general information about the cell and `show pinboard` for listing the last lines of the pinboard of the cell. The output of these commands contains useful information for solving problems.
+Login to the routing manager of the dCacheDomain to get a list of all well-known cells you can directly cd to without having to add the domain.  
 
-It is a good idea to get aquainted with the normal output in the following cells: CELL-POOLMNGR, CELL-PNFSMNGR, and the pool cells (e.g., CELL-POOL-EG).
+    Example:  
+      (System@poolDomain) admin > ..  
+      (local) admin > **cd RoutingMgr@dCacheDomain**  
+      (RoutingMgr@dCacheDoorDomain) admin > ls  
+      Our routing knowledge :  
+       Local : [PoolManager, topo, LoginBroker, info]  
+       adminDoorDomain : [pam]  
+      gsidcapDomain : [DCap-gsi-example.dcache.org]  
+      dcapDomain : [DCap-example.dcache.org]  
+      utilityDomain : [gsi-pam, PinManager]  
+      gPlazmaDomain : [gPlazma]  
+      webdavDomain : [WebDAV-example.dcache.org]  
+       gridftpDomain : [GFTP-example.dcache.org]  
+      srmDomain : [RemoteTransferManager, CopyManager, SrmSpaceManager, SRM-example.dcache.org]  
+       httpdDomain : [billing, srm-LoginBroker, TransferObserver]  
+      poolDomain : [pool_2, pool_1]  
+       namespaceDomain : [PnfsManager, dirLookupPool, cleaner]  
 
-The most useful command of the pool cells is [???][4]. To execute this command `cd` into the pool. It lists the files which are stored in the pool by their PNFS IDs:
+All cells know the commands `info` for general information about the cell and `show pinboard` for listing the last lines of the [pinboard](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-pinboard) of the cell. The output of these commands contains useful information for solving problems.  
 
-    DC-PROMPT-ROUTINGMGR ..
-    DC-PROMPT-POOL1 rep ls
-    000100000000000000001120 <-P---------(0)[0]> 485212 si={myStore:STRING}
-    000100000000000000001230 <C----------(0)[0]> 1222287360 si={myStore:STRING}
+It is a good idea to get aquainted with the normal output in the following cells: `PoolManager, PnfsManager`, and the pool cells (e.g.,` <poolHostname>_1`).  
 
-Each file in a pool has one of the 4 primary states: “cached” (`<C---`), “precious” (`<-P--`), “from client” (`<--C-`), and “from store” (`<---S`).
+The most useful command of the pool cells is [rep ls](https://www.dcache.org/manuals/Book-2.16/reference/cmd-rep_ls-fhs.shtml).  To execute this command `cd` into the pool. It lists the files which are stored in the pool by their `pnfs` IDs:  
 
-See [???][5] for more information about `rep ls`.
+    Example:    
 
-The most important commands in the CELL-POOLMNGR are: [???][6] and `cm ls -r`.
+      (RoutingMgr@dCacheDoorDomain) admin > ..  
+      (pool_1) admin > rep ls  
+      000100000000000000001120 <-P---------(0)[0]> 485212 si={myStore:STRING}  
+      000100000000000000001230 <C----------(0)[0]> 1222287360 si={myStore:STRING}  
+  Each file in a pool has one of the 4 primary states: “cached” (<C---), “precious” (<-P--), “from client” (<--C-), and        “from store” (<---S).  
 
-`rc ls` lists the requests currently handled by the CELL-POOLMNGR. A typical line of output for a read request with an error condition is (all in one line):
 
-    DC-PROMPT-POOL1 ..
-    DC-PROMPT-LOCAL cd PoolManager
-    DC-PROMPT-PM rc ls
-    000100000000000000001230@0.0.0.0/0.0.0.0 m=1 r=1 [<unknown>]
-    [Waiting 08.28 19:14:16]
-    {149,No pool candidates available or configured for 'staging'}
+See [the section called “How to Store-/Restore files via the Admin Interface”](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-pools-admin-fhs.shtml) for more information about rep ls.  
+
+The most important commands in the PoolManager are: `rc ls` and `cm ls -r`.
+
+`rc ls` lists the requests currently handled by the PoolManager. A typical line of output for a read request with an error condition is (all in one line):
+
+    Example:
+    
+      (pool_1) admin > ..
+      (local) admin > **cd PoolManager**
+      (PoolManager) admin > rc ls
+      000100000000000000001230@0.0.0.0/0.0.0.0 m=1 r=1 [<unknown>]
+      [Waiting 08.28 19:14:16]
+      {149,No pool candidates available or configured for 'staging'}
 
 As the error message at the end of the line indicates, no pool was found containing the file and no pool could be used for staging the file from a tertiary storage system.
+
+
+
 
 See [???][7] for more information about the command `rc ls`
 
