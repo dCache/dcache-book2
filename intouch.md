@@ -572,116 +572,122 @@ or, the equivalent as stdin.
       
       
 
-Authentication and Authorization in DCACHE
+AUTHENTICATION AND AUTHORIZATION IN DCACHE  
 ==========================================
 
-In DCACHE digital certificates are used for authentication and authorisation. To be able to verify the chain of trust when using the non-commercial grid-certificates you should install the list of certificates of grid Certification Authorities (CAs). In case you are using commercial certificates you will find the list of CAs in your browser.
+In dCache digital certificates are used for authentication and authorisation. To be able to verify the chain of trust when using the non-commercial grid-certificates you should install the list of certificates of grid Certification Authorities (CAs). In case you are using commercial certificates you will find the list of CAs in your browser.  
 
-    PROMPT-ROOT wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/lcg-CA.repo
-    --2011-02-10 10:26:10--  http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/lcg-CA.repo
-    Resolving grid-deployment.web.cern.ch... 137.138.142.33, 137.138.139.19
-    Connecting to grid-deployment.web.cern.ch|137.138.142.33|:80... connected.
-    HTTP request sent, awaiting response... 200 OK
-    Length: 449 [text/plain]
-    Saving to: `lcg-CA.repo'
+      [root] # wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/lcg-CA.repo    
+      --2011-02-10 10:26:10--  http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/lcg-CA.repo    
+      Resolving grid-deployment.web.cern.ch... 137.138.142.33, 137.138.139.19    
+      Connecting to grid-deployment.web.cern.ch|137.138.142.33|:80... connected.   
+      HTTP request sent, awaiting response... 200 OK    
+      Length: 449 [text/plain]  
+      Saving to: `lcg-CA.repo'  
+ 
+      100%[====================================================================>] 449         --.-K/s   in 0s  
 
-    100%[====================================================================>] 449         --.-K/s   in 0s
+      2011-02-10 10:26:10 (61.2 MB/s) - `lcg-CA.repo' saved [449/449]  
+      [root] # mv lcg-CA.repo /etc/yum.repos.d/  
+      [root] # yum install lcg-CA  
+      Loaded plugins: allowdowngrade, changelog, kernel-module  
+      CA                                                                                     |  951 B     00:00  
+      CA/primary                                                                             |  15 kB     00:00  
+      CA
+      ...  
 
-    2011-02-10 10:26:10 (61.2 MB/s) - `lcg-CA.repo' saved [449/449]
-    PROMPT-ROOT mv lcg-CA.repo /etc/yum.repos.d/
-    PROMPT-ROOT yum install lcg-CA
-    Loaded plugins: allowdowngrade, changelog, kernel-module
-    CA                                                                                     |  951 B     00:00
-    CA/primary                                                                             |  15 kB     00:00
-    CA
-    ...
+You will need a server certificate for the host on which your dCache is running and a user certificate. The host certificate needs to be copied to the directory **/etc/grid-security/** on your server and converted to **hostcert.pem** and **hostkey.pem** as described in [Using X.509 Certificates](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml). Your user certificate is usually located in **.globus**. If it is not there you should copy it from your browser to **.globus** and convert the *.p12 file to **usercert.pem** and **userkey.pem**.  
 
-You will need a server certificate for the host on which your DCACHE is running and a user certificate. The host certificate needs to be copied to the directory `/etc/grid-security/` on your server and converted to `hostcert.pem` and `hostkey.pem` as described in [Using X.509 Certificates]. Your user certificate is usually located in `.globus`. If it is not there you should copy it from your browser to `.globus` and convert the `*.p12` file to `usercert.pem` and `userkey.pem`.
+Example:  
 
-If you have the clients installed on the machine on which your DCACHE is running you will need to add a user to that machine in order to be able to execute the `voms-proxy-init` command and execute `voms-proxy-init` as this user.
+If you have the clients installed on the machine on which your dCache is running you will need to add a user to that machine in order to be able to execute the `voms-proxy-init` command and execute `voms-proxy-init` as this user.  
 
-     useradd johndoe
 
-Change the password of the new user in order to be able to copy files to this account.
+      [root] # useradd johndoe  
 
-    PROMPT-ROOT passwd johndoe
-    Changing password for user johndoe.
-    New UNIX password:
-    Retype new UNIX password:
-    passwd: all authentication tokens updated successfully.
-    PROMPT-ROOT su johndoe
-    PROMPT-USER cd
-    PROMPT-USER mkdir .globus
+Change the password of the new user in order to be able to copy files to this account.  
 
-Copy your key files from your local machine to the new user on the machine where the DCACHE is running.
+      [root] # passwd johndoe  
+      Changing password for user johndoe.  
+      New UNIX password:  
+      Retype new UNIX password:  
+      passwd: all authentication tokens updated successfully.  
+      [root] # su johndoe  
+      [user] $ cd  
+      [user] $ mkdir .globus  
 
-    PROMPT-USER scp .globus/user*.pem johndoe@dcache.example.org:.globus
+Copy your key files from your local machine to the new user on the machine where the dCache is running.  
 
-Install glite-security-voms-clients (contained in the GLITE-UI).
+      [user] $ scp .globus/user*.pem johndoe@<dcache.example.org>:.globus  
 
-    PROMPT-ROOT yum install glite-security-voms-clients
+Install glite-security-voms-clients (contained in the gLite-UI).  
 
-Generate a proxy certificate using the command `voms-proxy-init`.
+      [root] # yum install glite-security-voms-clients  
 
-    PROMPT-USER voms-proxy-init
-    Enter GRID pass phrase:
-    Your identity: /C=DE/O=GermanGrid/OU=DESY/CN=John Doe
+Generate a proxy certificate using the command `voms-proxy-init`.  
 
-    Creating proxy .............................................. Done
-    Your proxy is valid until Mon Mar  7 22:06:15 2011
+    Example:    
+    [user] $ voms-proxy-init    
+    Enter GRID pass phrase:    
+    Your identity: /C=DE/O=GermanGrid/OU=DESY/CN=John Doe   
 
-With `voms-proxy-init -voms
-     yourVO` you can add VOMS attributes to the proxy. A user's roles (Fully Qualified Attribute Names) are read from the certificate chain found within the proxy. These attributes are signed by the user's VOMS server when the proxy is created. For the `voms-proxy-init -voms
-     ` command you need to have the file `/etc/vomses` which contains entries about the VOMS servers like
+    Creating proxy .............................................. Done   
+    Your proxy is valid until Mon Mar  7 22:06:15 2011   
 
-    "desy" "grid-voms.desy.de" "15104" "/C=DE/O=GermanGrid/OU=DESY/CN=host/grid-voms.desy.de" "desy" "24"
-    "atlas" "voms.cern.ch" "15001" "/DC=ch/DC=cern/OU=computers/CN=voms.cern.ch" "atlas" "24"
-    "dteam" "lcg-voms.cern.ch" "15004" "/DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch" "dteam" "24"
-    "dteam" "voms.cern.ch" "15004" "/DC=ch/DC=cern/OU=computers/CN=voms.cern.ch" "dteam" "24"
+
+With `voms-proxy-init -voms <yourVO>` you can add VOMS attributes to the proxy. A user’s roles (Fully Qualified Attribute Names) are read from the certificate chain found within the proxy. These attributes are signed by the user’s VOMS server when the proxy is created. For the `voms-proxy-init -voms` command you need to have the file **/etc/vomses** which contains entries about the VOMS servers like  
+
+
+    Example:  
+    "desy" "grid-voms.desy.de" "15104" "/C=DE/O=GermanGrid/OU=DESY/CN=host/grid-voms.desy.de" "desy" "24"  
+    "atlas" "voms.cern.ch" "15001" "/DC=ch/DC=cern/OU=computers/CN=voms.cern.ch" "atlas" "24"  
+    "dteam" "lcg-voms.cern.ch" "15004" "/DC=ch/DC=cern/OU=computers/CN=lcg-voms.cern.ch" "dteam" "24"  
+    "dteam" "voms.cern.ch" "15004" "/DC=ch/DC=cern/OU=computers/CN=voms.cern.ch" "dteam" "24"  
           
 
-Now you can generate your voms proxy containing your VO.
+Now you can generate your voms proxy containing your VO.  
 
-    PROMPT-USER voms-proxy-init -voms desy
-    Enter GRID pass phrase:
-    Your identity: /C=DE/O=GermanGrid/OU=DESY/CN=John Doe
-    Creating temporary proxy ................................... Done
-    Contacting  grid-voms.desy.de:15104 [/C=DE/O=GermanGrid/OU=DESY/CN=host/grid-voms.desy.de] "desy" Done
-    Creating proxy .................... Done
-    Your proxy is valid until Thu Mar 31 21:49:06 2011
+    Example:  
 
-Authentication and authorization in DCACHE is done by the GPLAZMA service. Define this service in the layout file.
+      [user] $ voms-proxy-init -voms desy  
+      Enter GRID pass phrase:  
+      Your identity: /C=DE/O=GermanGrid/OU=DESY/CN=John Doe  
+      Creating temporary proxy ................................... Done  
+      Contacting  grid-voms.desy.de:15104 [/C=DE/O=GermanGrid/OU=DESY/CN=host/grid-voms.desy.de] "desy" Done  
+      Creating proxy .................... Done  
+      Your proxy is valid until Thu Mar 31 21:49:06 2011  
+ 
+ 
+Authentication and authorization in DCACHE is done by the GPLAZMA service. Define this service in the layout file.  
 
-    [gPlazmaDomain]
-    [gPlazmaDomain/gplazma]
+      [gPlazmaDomain]  
+      [gPlazmaDomain/gplazma]  
 
-In this tutorial we will use the [gplazmalite-vorole-mapping plugin]. To this end you need to edit the `/etc/grid-security/grid-vorolemap` and the `/etc/grid-security/storage-authzdb` as well as the `PATH-ODE-ED/dcachesrm-gplazma.policy`.
+In this tutorial we will use the [gplazmalite-vorole-mapping plugin](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-plug-inconfig-vorolemap). To this end you need to edit the **/etc/grid-security/grid-vorolemap** and the **/etc/grid-security/storage-authzdb** as well as the **PATH-ODE-ED/dcachesrm-gplazma.policy**.  
+ 
+Example:  
+The **/etc/grid-security/grid-vorolemap:**  
+      "/C=DE/O=GermanGrid/OU=DESY/CN=John Doe" "/desy" doegroup  
+The **/etc/grid-security/storage-authzdb:**  
+      version 2.1  
 
-The `/etc/grid-security/grid-vorolemap`:
+      authorize  doegroup read-write 12345 1234 / / /  
+      
+The **/etc/dcache/dcachesrm-gplazma.policy:**   
+      # Switches  
+      xacml-vo-mapping="OFF"  
+      saml-vo-mapping="OFF"  
+      kpwd="OFF"  
+      grid-mapfile="OFF"  
+      gplazmalite-vorole-mapping="ON"  
 
-    "/C=DE/O=GermanGrid/OU=DESY/CN=John Doe" "/desy" doegroup
-
-The `/etc/grid-security/storage-authzdb`:
-
-    version 2.1
-
-    authorize  doegroup read-write 12345 1234 / / /
-
-The `PATH-ODE-ED/dcachesrm-gplazma.policy`:
-
-    # Switches
-    xacml-vo-mapping="OFF"
-    saml-vo-mapping="OFF"
-    kpwd="OFF"
-    grid-mapfile="OFF"
-    gplazmalite-vorole-mapping="ON"
-
-    # Priorities
-    xacml-vo-mapping-priority="5"
-    saml-vo-mapping-priority="2"
-    kpwd-priority="3"
-    grid-mapfile-priority="4"
-    gplazmalite-vorole-mapping-priority="1"
+      # Priorities  
+      xacml-vo-mapping-priority="5"  
+      saml-vo-mapping-priority="2"  
+      kpwd-priority="3"  
+      grid-mapfile-priority="4"  
+      gplazmalite-vorole-mapping-priority="1"  
+      
           
 
 How to work with secured DCACHE
