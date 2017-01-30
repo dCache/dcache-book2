@@ -228,40 +228,41 @@ Now you can login to the admin interface by
 
 To use `gPlazma` make sure that you defined a `gPlazmaDomain` in your layout file.
 
->   Example:
->   Part of the layout file in **/etc/dcache/layouts**:
+>   Example:  
+>   Part of the layout file in **/etc/dcache/layouts**:  
 >   
->    [<gplazma-${host.name}>Domain]
->    [<gplazma-${host.name}>Domain/gplazma]
+>    <gplazma-${host.name}>Domain  
+>    <gplazma-${host.name}>Domain/gplazma  
 
-To use CELL-GPLAZMA2 you need to specify it in the `PATH-ODE-ED/dcache.conf` file:
+To use gPlazma2 you need to specify it in the **/etc/dcache/dcache.conf** file:   
 
-    # This is the main configuration file of dCache.
-    #
-    ...
-    #
-    # use gPlazma2
-    gplazma.version=2
+>    # This is the main configuration file of dCache.
+>    #
+>    ...
+>    #
+>    # use gPlazma2
+>    gplazma.version=2
 
-Moreover, you need to create the file `PATH-ODE-ED/gplazma.conf` with the content
+Moreover, you need to create the file **/etc/dcache/gplazma.conf** with the content
 
-    auth optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"
-    map optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"
-    session optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"
+>    auth optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"
+>    map optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"
+>    session optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"
 
-and add the user `admin` to the `PATH-ODE-ED/dcache.kpwd` file using the `dcache` script.
+and add the user `admin` to the `/etc/dcache/dcache.kpwd` file using the `dcache` script.
 
-    PROMPT-USER dcache kpwd dcuseradd admin -u 12345 -g 1000 -h / -r / -f / -w read-write -p password
-    writing to /etc/dcache/dcache.kpwd :
-
-    done writing to /etc/dcache/dcache.kpwd :
-
-    PROMPT-USER
+>    Example:
+>    PROMPT-USER dcache kpwd dcuseradd admin -u 12345 -g 1000 -h / -r / -f / -w read-write -p password
+>    writing to /etc/dcache/dcache.kpwd :
+>
+>    done writing to /etc/dcache/dcache.kpwd :
+>
+>    PROMPT-USER
 
 adds this to the `PATH-ODE-ED/dcache.kpwd` file:
 
-    # set pwd
-    passwd admin 4091aba7 read-write 12345 1000 / /
+>    # set pwd
+>    passwd admin 4091aba7 read-write 12345 1000 / /
 
 Edit the file `PATH-ODE-ED/dcachesrm-gplazma.policy` to switch on the `kpwd-plugin`. For more information about CELL-GPLAZMA see [???][1].
 
