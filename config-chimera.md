@@ -1,6 +1,21 @@
 CHIMERA
 =======
 
+
+    Table of Contents 
+
+    Mounting Chimera through NFS
+        Using dCap with a mounted file system
+    Communicating with Chimera
+    IDs
+    Directory Tags
+        Create, List and Read Directory Tags if the Namespace is not Mounted
+        Create, List and Read Directory Tags if the Namespace is Mounted
+        Directory Tags and Command Files
+        Directory Tags for dCache
+        Storage Class and Directory Tags
+
+
 DCACHE is a distributed storage system, nevertheless it provides a single-rooted file system view. While DCACHE supports multiple namespace providers, CHIMERA is the recommended provider and is used by default.
 
 The inner DCACHE components talk to the namespace via a module called CELL-PNFSMNGR, which in turn communicates with the CHIMERA database using a thin JAVA layer, which in turn communicates directly with the CHIMERA database. CHIMERA allows direct access to the namespace by providing an NFS3 and NFS4 server. Clients can NFS-mount the namespace locally. This offers the opportunity to use OS-level tools like PROG-LS, PROG-MKDIR, PROG-MV for CHIMERA. Direct I/O-operations like PROG-CP and PROG-CAT are possible with the NFS4 door.
