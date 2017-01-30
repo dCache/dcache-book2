@@ -226,13 +226,13 @@ Now you can login to the admin interface by
 
 ### Access via **gPlazma2** and the **dcache.kpwd** File
 
-To use CELL-GPLAZMA make sure that you defined a DOMAIN-GPLAZMA in your layout file.
+To use `gPlazma` make sure that you defined a `gPlazmaDomain` in your layout file.
 
-Part of the layout file in
-PATH-ODE-ED/layouts
-:
-    [gplazma-${host.name}Domain]
-    [gplazma-${host.name}Domain/gplazma]
+>   Example:
+>   Part of the layout file in **/etc/dcache/layouts**:
+>   
+>    [<gplazma-${host.name}>Domain]
+>    [<gplazma-${host.name}>Domain/gplazma]
 
 To use CELL-GPLAZMA2 you need to specify it in the `PATH-ODE-ED/dcache.conf` file:
 
