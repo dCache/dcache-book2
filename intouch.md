@@ -300,11 +300,11 @@ The initial password is “`dickerelch`” (which is German for “fat elk”) a
 
 The password can now be changed with
 
-     (local) admin > **cd acm ** 
-     (acm) admin > **create user admin  **
-     (acm) admin > **set passwd -user=admin <newPasswd> <newPasswd> ** 
+     (local) admin > cd acm   
+     (acm) admin > create user admin  
+     (acm) admin > set passwd -user=admin <newPasswd> <newPasswd>   
      (acm) admin > ..  
-     (local) admin > **logoff  **
+     (local) admin > logoff  
 
 HOW TO USE THE ADMIN INTERFACE
 ------------------------------
@@ -335,8 +335,8 @@ As the topo cell is a `well-known` cell you can `cd` to it directly by `cd topo`
 
 Use the command `ls` to see which domains are running.    
 
-      (local) admin > **cd topo**    
-      (topo) admin > **ls**  
+      (local) admin > cd topo      
+      (topo) admin > ls    
       adminDoorDomain  
       gsidcapDomain  
       dcapDomain  
@@ -362,8 +362,8 @@ If you want to find out which cells are running on a certain domain, you can iss
 Example:  
 For example, if you want to list the cells running on the `poolDomain`, `cd` to its `System` cell and issue the `ps` command.  
 
-      (local) admin > **cd System@poolDomain**  
-      (System@poolDomain) admin > **ps**  
+      (local) admin > cd System@poolDomain    
+      (System@poolDomain) admin > ps  
         Cell List  
       ------------------  
       c-dCacheDomain-101-102  
@@ -385,11 +385,11 @@ The cells in the domain can be accessed using `cd` together with the cell-name s
 >     java.lang.IllegalArgumentException: Cannot cd to this cell as it doesn't exist  
 > Type `..` to return to the `(local) admin >` prompt.  
 
-Login to the routing manager of the dCacheDomain to get a list of all well-known cells you can directly cd to without having to add the domain.  
+Login to the routing manager of the `dCacheDomain` to get a list of all well-known cells you can directly `cd` to without having to add the domain.  
 
     Example:  
       (System@poolDomain) admin > ..  
-      (local) admin > **cd RoutingMgr@dCacheDomain**  
+      (local) admin > cd RoutingMgr@dCacheDomain  
       (RoutingMgr@dCacheDoorDomain) admin > ls  
       Our routing knowledge :  
        Local : [PoolManager, topo, LoginBroker, info]  
@@ -420,120 +420,130 @@ The most useful command of the pool cells is [rep ls](https://www.dcache.org/man
   Each file in a pool has one of the 4 primary states: “cached” (<C---), “precious” (<-P--), “from client” (<--C-), and        “from store” (<---S).  
 
 
-See [the section called “How to Store-/Restore files via the Admin Interface”](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-pools-admin-fhs.shtml) for more information about rep ls.  
+See [the section called “How to Store-/Restore files via the Admin Interface”](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-pools-admin-fhs.shtml) for more information about `rep ls`.  
 
-The most important commands in the PoolManager are: `rc ls` and `cm ls -r`.
+The most important commands in the `PoolManager` are: `rc ls` and `cm ls -r`.  
 
-`rc ls` lists the requests currently handled by the PoolManager. A typical line of output for a read request with an error condition is (all in one line):
+`rc ls` lists the requests currently handled by the `PoolManager`. A typical line of output for a read request with an error condition is (all in one line):  
+
+    Example:  
+    
+      (pool_1) admin > ..  
+      (local) admin > cd PoolManager  
+      (PoolManager) admin > rc ls  
+      000100000000000000001230@0.0.0.0/0.0.0.0 m=1 r=1 [<unknown>]  
+      [Waiting 08.28 19:14:16]  
+      {149,No pool candidates available or configured for 'staging'}  
+
+As the error message at the end of the line indicates, no pool was found containing the file and no pool could be used for staging the file from a tertiary storage system.  
+
+
+
+
+See [the section called “Obtain information via the dCache Command Line Admin Interface”](#obtain-information-via-the-dcache-command-line-admin-interface) for more information about the command `rc ls`
+
+Finally, [cm ls](https://www.dcache.org/manuals/Book-2.16/reference/cmd-cm_ls-fhs.shtml) with the option `-r` gives the information about the pools currently stored in the cost module of the pool manager. A typical output is:
 
     Example:
-    
-      (pool_1) admin > ..
-      (local) admin > **cd PoolManager**
-      (PoolManager) admin > rc ls
-      000100000000000000001230@0.0.0.0/0.0.0.0 m=1 r=1 [<unknown>]
-      [Waiting 08.28 19:14:16]
-      {149,No pool candidates available or configured for 'staging'}
 
-As the error message at the end of the line indicates, no pool was found containing the file and no pool could be used for staging the file from a tertiary storage system.
+      (PoolManager) admin > cm ls -r
+      pool_1={R={a=0;m=2;q=0};S={a=0;m=2;q=0};M={a=0;m=100;q=0};PS={a=0;m=20;q=0};PC={a=0;m=20;q=0};
+          (...continues...)   SP={t=2147483648;f=924711076;p=1222772572;r=0;lru=0;{g=20000000;b=0.5}}}
+      pool_1={Tag={{hostname=example.org}};size=0;SC=0.16221282938326134;CC=0.0;}
+      pool_2={R={a=0;m=2;q=0};S={a=0;m=2;q=0};M={a=0;m=100;q=0};PS={a=0;m=20;q=0};PC={a=0;m=20;q=0};
+          (...continues...)   SP={t=2147483648;f=2147483648;p=0;r=0;lru=0;{g=4294967296;b=250.0}}}
+      pool_2={Tag={{hostname=example.org}};size=0;SC=2.7939677238464355E-4;CC=0.0;}
+      
+      
+While the first line for each pool gives the information stored in the cache of the cost module, the second line gives        the    costs (SC: [space cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-space_cost), CC: [performance cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-performance_cost)) calculated for a (hypothetical) file of zero size. For details on how these are calculated and their meaning, see [the section called “Classic Partitions”](#classic-partitions).
 
-
-
-
-See [???][7] for more information about the command `rc ls`
-
-Finally, [???][8] with the option `-r` gives the information about the pools currently stored in the cost module of the pool manager. A typical output is:
-
-    DC-PROMPT-PM cm ls -r
-    pool_1={R={a=0;m=2;q=0};S={a=0;m=2;q=0};M={a=0;m=100;q=0};PS={a=0;m=20;q=0};PC={a=0;m=20;q=0};
-        (...continues...)   SP={t=2147483648;f=924711076;p=1222772572;r=0;lru=0;{g=20000000;b=0.5}}}
-    pool_1={Tag={{hostname=example.org}};size=0;SC=0.16221282938326134;CC=0.0;}
-    pool_2={R={a=0;m=2;q=0};S={a=0;m=2;q=0};M={a=0;m=100;q=0};PS={a=0;m=20;q=0};PC={a=0;m=20;q=0};
-        (...continues...)   SP={t=2147483648;f=2147483648;p=0;r=0;lru=0;{g=4294967296;b=250.0}}}
-    pool_2={Tag={{hostname=example.org}};size=0;SC=2.7939677238464355E-4;CC=0.0;}
-
-While the first line for each pool gives the information stored in the cache of the cost module, the second line gives the costs (SC: space cost, CC: performance cost) calculated for a (hypothetical) file of zero size. For details on how these are calculated and their meaning, see [???][9].
-
-Create a new user
+CREATE A NEW USER
 -----------------
 
-To create a new user, NEW-USER and set a new password for the user `cd` from the local prompt (DC-PROMPT-LOCAL) to the CELL-ACM, the access control manager, and run following command sequence:
+To create a new user, <new-user> and set a new password for the user `cd` from the local prompt `((local) admin >)` to the acm, the access control manager, and run following command sequence:   
 
-    DC-PROMPT-LOCAL cd acm
-    DC-PROMPT-ACM create user SIMPLE-NEW-USER
-    DC-PROMPT-ACM set passwd -user=SIMPLE-NEW-USER newPasswd newPasswd
+(local) admin > cd acm  
 
-For the new created users there will be an entry in the directory `PATH-ODE-EDA/users/meta`.
+    (local) admin > cd acm  
+    (acm) admin > create user <new-user>  
+    (acm) admin > set passwd -user=<new-user> <newPasswd> <newPasswd>  
 
-> **Note**
+
+For the new created users there will be an entry in the directory **/etc/dcache/admin/users/meta.**  
+
+> **NOTE**  
 >
-> As the initial user `admin` has not been created with the above command you will not find him in the directory `PATH-ODE-EDA/users/meta`.
+> As the initial user `admin` has not been created with the above command you will not find him in the directory **/etc/dcache/admin/users/meta.**  
 
-Give the new user access to a particular cell:
+Give the new user access to the PnfsManager.  
 
-    DC-PROMPT-ACM create acl cell.cellName.execute
-    DC-PROMPT-ACM add access -allowed cell.cellName.execute SIMPLE-NEW-USER
+      (acm) admin > create acl cell.<cellName>.execute   
+      (acm) admin > add access -allowed cell.<cellName>.execute <new-user>  
 
-Give the new user access to the CELL-PNFSMNGR.
+Example:  
+Give the new user access to the PnfsManager.  
+      (acm) admin > create acl cell.PnfsManager.execute  
+      (acm) admin > add access -allowed cell.PnfsManager.execute <new-user>  
+      
+Now you can check the permissions by:  
+      (acm) admin > check cell.PnfsManager.execute <new-user>  
+      Allowed  
+      (acm) admin > show acl cell.PnfsManager.execute  
+      <noinheritance>  
+      <new-user> -> true   
 
-    DC-PROMPT-ACM create acl cell.PnfsManager.execute
-    DC-PROMPT-ACM add access -allowed cell.PnfsManager.execute SIMPLE-NEW-USER
+The following commands allow access to every cell for a user <new-user>:  
 
-Now you can check the permissions by:
+    (acm) admin > create acl cell.*.execute  
+    (acm) admin > add access -allowed cell.*.execute <new-user>  
 
-    DC-PROMPT-ACM check cell.PnfsManager.execute SIMPLE-NEW-USER
-    Allowed
-    DC-PROMPT-ACM show acl cell.PnfsManager.execute
-    <noinheritance>
-    <new-user> -> true
 
-The following commands allow access to every cell for a user SIMPLE-NEW-USER:
+The following command makes a user as powerful as admin (dCache’s equivalent to the root user):
 
-    DC-PROMPT-ACM create acl cell.*.execute
-    DC-PROMPT-ACM add access -allowed cell.*.execute SIMPLE-NEW-USER
+    (acm) admin > create acl *.*.*
+    (acm) admin > add access -allowed *.*.* <new-user>
 
-The following command makes a user as powerful as ADMIN (DCACHE's equivalent to the ROOT user):
 
-    DC-PROMPT-ACM create acl *.*.*
-    DC-PROMPT-ACM add access -allowed *.*.* SIMPLE-NEW-USER
-
-Use of the SSH Admin Interface by scripts
+USE OF THE SSH ADMIN INTERFACE BY SCRIPTS
 -----------------------------------------
 
-The SSH admin interface can be used non-interactively by scripts. For this the DCACHE-internal SSH server uses public/private key pairs.
+The `ssh` admin interface can be used non-interactively by scripts. For this the dCache-internal ssh server uses public/private key pairs.
 
-The file `` contains one line per user. The file has the same format as `~/.ssh/authorized_keys` which is used by `sshd`. The keys in `` have to be of type RSA1 as DCACHE only supports SSH protocol 1. Such a key is generated with
+The file **/etc/dcache/authorized_keys** contains one line per user. The file has the same format as** ~/.ssh/authorized_keys** which is used by `sshd`. The keys in **/etc/dcache/authorized_keys** have to be of type RSA1 as dCache only supports SSH protocol 1. Such a key is generated with  
 
-    PROMPT-USER ssh-keygen -t rsa1 -C 'SSH1 key of user'
-    Generating public/private rsa1 key pair.
-    Enter file in which to save the key (/home/user/.ssh/identity):
-    Enter passphrase (empty for no passphrase):
-    Enter same passphrase again:
-    Your identification has been saved in /home/user/.ssh/identity.
-    Your public key has been saved in /home/user/.ssh/identity.pub.
-    The key fingerprint is:
-    c1:95:03:6a:66:21:3c:f3:ee:1b:8d:cb:46:f4:29:6a SSH1 key of user
+       [user] $ ssh-keygen -t rsa1 -C 'SSH1 key of <user>'  
+      Generating public/private rsa1 key pair.  
+      Enter file in which to save the key (/home/<user>/.ssh/identity):  
+      Enter passphrase (empty for no passphrase):  
+      Enter same passphrase again:  
+      Your identification has been saved in /home/<user>/.ssh/identity.  
+      Your public key has been saved in /home/<user>/.ssh/identity.pub.  
+      The key fingerprint is:  
+      c1:95:03:6a:66:21:3c:f3:ee:1b:8d:cb:46:f4:29:6a SSH1 key of <user>  
 
-The passphrase is used to encrypt the private key (now stored in `/home/user/.ssh/identity`). If you do not want to enter the passphrase every time the private key is used, you can use `ssh-add` to add it to a running `ssh-agent`. If no agent is running start it with
+The passphrase is used to encrypt the private key (now stored in **/home/<user>/.ssh/identity**). If you do not want to enter the passphrase every time the private key is used, you can use ssh-add to add it to a running ssh-agent. If no agent is running start it with
 
-    PROMPT-USER if [ -S $SSH_AUTH_SOCK ] ; then echo "Already running" ; else eval `ssh-agent` ; fi
+
+    [user] $ if [ -S $SSH_AUTH_SOCK ] ; then echo "Already running" ; else eval `ssh-agent` ; fi
 
 and add the key to it with
 
-    PROMPT-USER ssh-add
-    Enter passphrase for SSH1 key of user:
-    Identity added: /home/user/.ssh/identity (SSH1 key of user)
+    [user] $ ssh-add
+    Enter passphrase for SSH1 key of <user>:
+    Identity added: /home/<user>/.ssh/identity (SSH1 key of <user>)
 
-Now, insert the public key `~/.ssh/identity.pub` as a separate line into ``. The comment field in this line “SSH1 key of user” has to be changed to the DCACHE user name. An example file is:
+Now, insert the public key ~/.ssh/identity.pub as a separate line into /etc/dcache/authorized_keys. The comment field in this line “SSH1 key of <user>” has to be changed to the dCache user name. An example file is:
 
     1024 35 141939124(... many more numbers ...)15331 admin
 
-Using ssh-add -L &gt;&gt; FILE-AUTHORIZED\_KEYS will not work, because the line added is not correct. The key manager within DCACHE will read this file every minute.
+Using ssh-add -L >> **/etc/dcache/authorized_keys** will not work, because the line added is not correct. The key manager within dCache will read this file every minute.
 
-Now, the SSH program should not ask for a password anymore. This is still quite secure, since the unencrypted private key is only held in the memory of the `ssh-agent`. It can be removed from it with
+Now, the `ssh` program should not ask for a password anymore. This is still quite secure, since the unencrypted private key is only held in the memory of the `ssh-agent`. It can be removed from it with
 
-    PROMPT-USER ssh-add -d
-    Identity removed: /home/user/.ssh/identity (RSA1 key of user)
+
+    [user] $ ssh-add -d
+    Identity removed: /home/<user>/.ssh/identity (RSA1 key of <user>)
+
 
 In scripts, one can use a “Here Document” to list the commands, or supply them to `ssh` as standard-input (stdin). The following demonstrates using a Here Document:
 
@@ -559,6 +569,8 @@ or, the equivalent as stdin.
     echo -e 'cd pool_1\nrep ls\n(more commands here)\nlogoff' \
       | ssh -c blowfish -p 22223 admin@adminNode \
       | tr -d '\r' > rep_ls.out
+      
+      
 
 Authentication and Authorization in DCACHE
 ==========================================
