@@ -1,12 +1,13 @@
 CHIMERA
 =======
 
+###Table of Contents 
 
-    Table of Contents 
+* [Mounting Chimera through NFS](#mounting-chimera-through-nfs)
 
-    Mounting Chimera through NFS
-        Using dCap with a mounted file system
-    Communicating with Chimera
+             *[Using dCap with a mounted file system]
+             
+ * [Communicating with Chimera](#communicating-with-chimera)
     IDs
     Directory Tags
         Create, List and Read Directory Tags if the Namespace is not Mounted
