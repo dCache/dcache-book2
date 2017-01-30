@@ -228,47 +228,48 @@ Now you can login to the admin interface by
 
 To use `gPlazma` make sure that you defined a `gPlazmaDomain` in your layout file.
 
->   Example:  
->   Part of the layout file in **/etc/dcache/layouts**:  
+>   Example:   
+>   Part of the layout file in **/etc/dcache/layouts**:   
 >   
->    <gplazma-${host.name}>Domain  
->    <gplazma-${host.name}>Domain/gplazma  
+>    <gplazma-${host.name}>Domain    
+>    <gplazma-${host.name}>Domain/gplazma    
 
-To use gPlazma2 you need to specify it in the **/etc/dcache/dcache.conf** file:   
+To use gPlazma2 you need to specify it in the **/etc/dcache/dcache.conf** file:    
 
->    # This is the main configuration file of dCache.
->    #
->    ...
->    #
->    # use gPlazma2
->    gplazma.version=2
+>    # This is the main configuration file of dCache.  
+>    #  
+>    ...  
+>    #  
+>    # use gPlazma2  
+>    gplazma.version=2   
 
-Moreover, you need to create the file **/etc/dcache/gplazma.conf** with the content
+Moreover, you need to create the file **/etc/dcache/gplazma.conf** with the content  
 
->    auth optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"
->    map optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"
->    session optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"
+>    auth optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"   
+>    map optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"   
+>    session optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"   
 
-and add the user `admin` to the `/etc/dcache/dcache.kpwd` file using the `dcache` script.
+and add the user `admin` to the **`/etc/dcache/dcache.kpwd`** file using the `dcache` script.  
 
->    Example:
->    PROMPT-USER dcache kpwd dcuseradd admin -u 12345 -g 1000 -h / -r / -f / -w read-write -p password
->    writing to /etc/dcache/dcache.kpwd :
+>    Example:    
+>    [user] $ dcache kpwd dcuseradd admin -u 12345 -g 1000 -h / -r / -f / -w read-write -p password   
+>    writing to /etc/dcache/dcache.kpwd :  
+
 >
->    done writing to /etc/dcache/dcache.kpwd :
->
->    PROMPT-USER
+>    done writing to /etc/dcache/dcache.kpwd :     
+>       
+>    [user] $     
 
-adds this to the `PATH-ODE-ED/dcache.kpwd` file:
+adds this to the **/etc/dcache/dcache.kpwd** file:  
 
->    # set pwd
->    passwd admin 4091aba7 read-write 12345 1000 / /
+>    # set pwd    
+>    passwd admin 4091aba7 read-write 12345 1000 / /  
 
-Edit the file `PATH-ODE-ED/dcachesrm-gplazma.policy` to switch on the `kpwd-plugin`. For more information about CELL-GPLAZMA see [???][1].
+Edit the file **/etc/dcache/dcachesrm-gplazma.policy** to switch on the `kpwd-plugin`. For more information about `gPlazma` see [Chapter 10, Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-fhs.shtml).
 
 Now the user `admin` can login to the admin interface with his password `password` by:
 
-    PROMPT-USER ssh -l admin -p 22224 headnode.example.org
+    [user] $ ssh -l admin -p 22224 headnode.example.org
     admin@headnode.example.org's password:
 
         dCache Admin (VII) (user=admin)
@@ -276,11 +277,11 @@ Now the user `admin` can login to the admin interface with his password `passwor
 
     (local) admin > 
 
-To allow other users access to the admin interface add them to the `PATH-ODE-ED/dcache.kpwd` file as described above.
+To allow other users access to the admin interface add them to the `/etc/dcache/dcache.kpwd` file as described above.
 
-Just adding a user in the `dcache.kpwd` file is not sufficient. The generated user also needs access rights that can only be set within the admin interface itself.
+Just adding a user in the **dcache.kpwd** file is not sufficient. The generated user also needs access rights that can only be set within the admin interface itself.
 
-See [section\_title] to learn how to create the user in the admin interface and set the rights.
+See [the section called “Create a new user”](create-a-new-user) to learn how to create the user in the admin interface and set the rights.
 
 Access with SSH1
 ----------------
