@@ -269,13 +269,13 @@ Edit the file **/etc/dcache/dcachesrm-gplazma.policy** to switch on the `kpwd-pl
 
 Now the user `admin` can login to the admin interface with his password `password` by:
 
-    [user] $ ssh -l admin -p 22224 headnode.example.org
-    admin@headnode.example.org's password:
+    [user] $ ssh -l admin -p 22224 headnode.example.org  
+    admin@headnode.example.org's password:  
 
-        dCache Admin (VII) (user=admin)
+        dCache Admin (VII) (user=admin)  
 
 
-    (local) admin > 
+    (local) admin >   
 
 To allow other users access to the admin interface add them to the `/etc/dcache/dcache.kpwd` file as described above.
 
@@ -286,9 +286,10 @@ See [the section called “Create a new user”](create-a-new-user) to learn how
 Access with SSH1
 ----------------
 
-Connect to the server using SSH1 with:
+Connect to the server using `ssh1` with:
 
-    PROMPT-USER ssh -c blowfish -p 22223 -l admin headnode.example.org
+    [user] $ ssh -c blowfish -p 22223 -l admin headnode.example.org
+
 
 The initial password is “`dickerelch`” (which is German for “fat elk”) and you will be greeted by the prompt
 
