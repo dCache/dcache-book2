@@ -5,7 +5,7 @@ CHAPTER 4. CHIMERA
 
 * [Mounting Chimera through NFS] (#mounting-chimera-through-nfs)  
 
-             *[Using dCap with a mounted file system] (#using-dcap-with-a-mounted-file-system)  
+     *[Using dCap with a mounted file system] (#using-dcap-with-a-mounted-file-system)  
              
 * [Communicating with Chimera] (#communicating-with-chimera)  
 * [IDs] (#ids)  
