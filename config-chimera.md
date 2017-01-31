@@ -11,41 +11,45 @@ CHAPTER 4. CHIMERA
 * [IDs] (#ids)  
 * [Directory Tags] (#directory-tags)   
 
-             *[Create, List and Read Directory Tags if the Namespace is not Mounted] (#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)     
-             *[Create, List and Read Directory Tags if the Namespace is Mounted] (#create-list-and-read-directory-tags-if-the-namespace-is-mounted)   
-             *[Directory Tags and Command Files] (#directory-tags-and-command)   
-             *[Directory Tags for dCache] (#directory-tags-for-dcache)
-             *[Storage Class and Directory Tags] (#storage-class-and-directory-tags)
+     [Create, List and Read Directory Tags if the Namespace is not Mounted] (#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)     
+     [Create, List and Read Directory Tags if the Namespace is Mounted] (#create-list-and-read-directory-tags-if-the-namespace-is-mounted)   
+     [Directory Tags and Command Files] (#directory-tags-and-command)   
+     [Directory Tags for dCache] (#directory-tags-for-dcache)
+     [Storage Class and Directory Tags] (#storage-class-and-directory-tags)
 
 
-DCACHE is a distributed storage system, nevertheless it provides a single-rooted file system view. While DCACHE supports multiple namespace providers, CHIMERA is the recommended provider and is used by default.
+dCache is a distributed storage system, nevertheless it provides a single-rooted file system view. While dCache supports multiple namespace providers, Chimera is the recommended provider and is used by default.  
 
-The inner DCACHE components talk to the namespace via a module called CELL-PNFSMNGR, which in turn communicates with the CHIMERA database using a thin JAVA layer, which in turn communicates directly with the CHIMERA database. CHIMERA allows direct access to the namespace by providing an NFS3 and NFS4 server. Clients can NFS-mount the namespace locally. This offers the opportunity to use OS-level tools like PROG-LS, PROG-MKDIR, PROG-MV for CHIMERA. Direct I/O-operations like PROG-CP and PROG-CAT are possible with the NFS4 door.
+The inner dCache components talk to the namespace via a module called `PnfsManager`, which in turn communicates with the Chimera database using a thin Java layer, which in turn communicates directly with the Chimera database. Chimera allows direct access to the namespace by providing an `NFSv3` and `NFSv4.1` server. Clients can `NFS`-mount the namespace locally. This offers the opportunity to use OS-level tools like `ls, mkdir, mv` for Chimera. Direct I/O-operations like `cp` and `cat` are possible with the `NFSv4.1 door`.
 
-The properties of CHIMERA are defined in `PATH-ODS-USD/defaults/chimera.properties`. For customisation the files `PATH-ODE-ED/layouts/mylayout.conf` or `PATH-ODE-ED/dcache.conf` should be modified (see [???]).
+The properties of Chimera are defined in **/usr/share/dcache/defaults/chimera.properties**. For customisation the files **/etc/dcache/layouts/mylayout.conf** or **/etc/dcache/dcache.conf** should be modified (see [the section called “Defining domains and services”](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs-comments.shtml#in-install-layout)).
 
-This example shows an extract of the `PATH-ODE-ED/layouts/mylayout.conf` file in order to run DCACHE with NFS3.
+Example:
+
+This example shows an extract of the **/etc/dcache/layouts/mylayout.conf** file in order to run dCache with `NFSv3`.
 
     [namespaceDomain]
     [namespaceDomain/pnfsmanager]
     [namespaceDomain/nfs]
     nfs.version=3
 
-If you want to run the NFS4 server you need to add the corresponding NFS service to a domain in the `PATH-ODE-ED/layouts/mylayout.conf` file and start this domain.
+Example:
+
+If you want to run the NFSv4.1 server you need to add the corresponding nfs service to a domain in the **/etc/dcache/layouts/mylayout.conf** file and start this domain.
 
     [namespaceDomain]
     [namespaceDomain/pnfsmanager]
     [namespaceDomain/nfs]
     nfs.version = 4.1
 
-If you wish DCACHE to access your CHIMERA with a PSQL user other than chimera then you must specify the username and password in `PATH-ODE-ED/dcache.conf`.
+If you wish dCache to access your Chimera with a PostgreSQL user other than chimera then you must specify the username and password in **/etc/dcache/dcache.conf**.
 
     chimera.db.user=myuser
     chimera.db.password=secret
 
-> **Important**
+> **IMPORTANT**
 >
-> Do not update configuration values in `PATH-ODS-USD/defaults/chimera.properties`, since changes to this file will be overwritten by updates.
+> Do not update configuration values in **/usr/share/dcache/defaults/chimera.properties**, since changes to this file will be overwritten by updates.
 
 Mounting CHIMERA through NFS
 ============================
