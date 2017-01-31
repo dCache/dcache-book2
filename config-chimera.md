@@ -14,7 +14,7 @@ CHAPTER 4. CHIMERA
      [Create, List and Read Directory Tags if the Namespace is not Mounted] (#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)     
      [Create, List and Read Directory Tags if the Namespace is Mounted] (#create-list-and-read-directory-tags-if-the-namespace-is-mounted)   
      [Directory Tags and Command Files] (#directory-tags-and-command)   
-     [Directory Tags for dCache] (#directory-tags-for-dcache)
+     [Directory Tags for dCache] (#directory-tags-for-dcache)  
      [Storage Class and Directory Tags] (#storage-class-and-directory-tags)
 
 
