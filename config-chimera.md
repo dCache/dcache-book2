@@ -8,7 +8,7 @@ CHAPTER 4. CHIMERA
               *[Using dCap with a mounted file system](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml#chimera-useDcap)  
              
  * [Communicating with Chimera](#communicating-with-chimera)
- * [IDs](https://www.dcache.org/manuals/Book-2.16/config/cf-chimera-ids-fhs-comments.shtml)
+ * [IDs](#ids)
  * [Directory Tags](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml)
  
               *[Create, List and Read Directory Tags if the Namespace is not Mounted](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml#idp1248560)
