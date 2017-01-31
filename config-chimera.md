@@ -5,12 +5,12 @@ CHAPTER 4. CHIMERA
 
 * [Mounting Chimera through NFS](#mounting-chimera-through-nfs)  
 
-      *[Using dCap with a mounted file system](#using-dcap-with-a-mounted-file-system)  
+       *[Using dCap with a mounted file system](#using-dcap-with-a-mounted-file-system)  
              
 * [Communicating with Chimera](#communicating-with-chimera)  
 * [IDs](#ids)  
 * [Directory Tags](#directory-tags)  
-            *[Create, List and Read Directory Tags if the Namespace is not Mounted](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml#idp1248560)
+            *[Create, List and Read Directory Tags if the Namespace is not Mounted](#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)
                *[Create, List and Read Directory Tags if the Namespace is Mounted](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml#idp1248560)
                *[Directory Tags and Command Files](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml#idp1312144)
                *[Directory Tags for dCache](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml#idp1325136)
@@ -154,7 +154,7 @@ Some of these command files have a second parameter in a third pair of parenthes
     -rw-r--r-- 11 root root 7 Aug 6 2010 .(tag)(sGroup)
 
 Only a subset of file operations are allowed on these special command files. Any other operation will result in an appropriate error. Beware, that files with names of this form might accidentally be 
-  ed by typos. They will then be shown when listing the directory.
+��ed by typos. They will then be shown when listing the directory.
 
 IDs
 ===
