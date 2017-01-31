@@ -9,12 +9,12 @@ CHAPTER 4. CHIMERA
              
 * [Communicating with Chimera](#communicating-with-chimera)  
 * [IDs](#ids)  
-* [Directory Tags](#directory-tags)  
-            *[Create, List and Read Directory Tags if the Namespace is not Mounted](#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)
-               *[Create, List and Read Directory Tags if the Namespace is Mounted](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml#idp1248560)
-               *[Directory Tags and Command Files](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml#idp1312144)
-               *[Directory Tags for dCache](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml#idp1325136)
-              *[Storage Class and Directory Tags](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml#chimera-tags-storageClass)
+* [Directory Tags](#directory-tags)     
+          *[Create, List and Read Directory Tags if the Namespace is not Mounted](#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)     
+          *[Create, List and Read Directory Tags if the Namespace is Mounted](#create-list-and-read-directory-tags-if-the-namespace-is-mounted)   
+          *[Directory Tags and Command Files](#directory-tags-and-command)   
+          *[Directory Tags for dCache](#directory-tags-for-dcache)
+          *[Storage Class and Directory Tags](#storage-class-and-directory-tags)
 
 
 DCACHE is a distributed storage system, nevertheless it provides a single-rooted file system view. While DCACHE supports multiple namespace providers, CHIMERA is the recommended provider and is used by default.
