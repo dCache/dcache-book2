@@ -21,7 +21,7 @@ Getting in Touch with DCACHE
       * [Create a new user](#create-a-new-user)  
       * [Use of the ssh Admin Interface by scripts](#use-of-the-ssh-admin-interface-by-scripts)  
 
-* [Authentication and Authorization in dCache](#authentication-and-authorization-in-dcache)
+* [Authentication and Authorization in dCache](#authentication-and-authorization-in-dcache)  
 * [How to work with secured dCache](#how-to-work-with-secured-dCache)
 
       * [GSIdCap](#gsidcap)
