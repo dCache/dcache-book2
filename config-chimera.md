@@ -150,14 +150,14 @@ When the configuration is complete you can unmount Chimera:
 COMMUNICATING WITH CHIMERA
 ==========================
 
-Many configuration parameters of Chimera and the application specific meta data is accessed by reading, writing, or creating files of the form .(<command>)(<para>). For example, the following prints the ChimeraID of the file /data/some/dir/file.dat:
+Many configuration parameters of Chimera and the application specific meta data is accessed by reading, writing, or creating files of the form .(<command>)(<para>). For example, the following prints the ChimeraID of the file **/data/some/dir/file.dat**:
 
      [user] $ cat /data/any/sub/directory/'.(id)(file.dat)'
      0004000000000000002320B8 [user] $ 
 
-From the point of view of the NFS protocol, the file .(id)(file.dat) in the directory /data/some/dir/ is read. However, Chimera interprets it as the command id with the parameter file.dat executed in the directory /data/some/dir/. The quotes are important, because the shell would otherwise try to interpret the parentheses.
+From the point of view of the `NFS` protocol, the file **.(id)(file.dat)** in the directory **/data/some/dir/** is read. However, Chimera interprets it as the command id with the parameter file.dat executed in the directory **/data/some/dir/**. The quotes are important, because the shell would otherwise try to interpret the parentheses.
 
-Some of these command files have a second parameter in a third pair of parentheses. Note, that files of the form .(<command>)(<para>) are not really files. They are not shown when listing directories with ls. However, the command files are listed when they appear in the argument list of ls as in
+Some of these command files have a second parameter in a third pair of parentheses. Note, that files of the form .(<command>)(<para>) are not really files. They are not shown when listing directories with `ls`. However, the command files are listed when they appear in the argument list of `ls` as in
 
      [user] $ ls -l '.(tag)(sGroup)'
      -rw-r--r-- 11 root root 7 Aug 6 2010 .(tag)(sGroup)
@@ -169,34 +169,41 @@ Only a subset of file operations are allowed on these special command files. Any
 IDs
 ===
 
-Each file in CHIMERA has a unique 18 byte long ID. It is referred to as ChimeraID or as pnfsID. This is comparable to the inode number in other filesystems. The ID used for a file will never be reused, even if the file is deleted. DCACHE uses the ID for all internal references to a file.
+Each file in Chimera has a unique 18 byte long ID. It is referred to as ChimeraID or as pnfsID. This is comparable to the inode number in other filesystems. The ID used for a file will never be reused, even if the file is deleted. dCache uses the ID for all internal references to a file.
 
-The ID of the file `example.org/data/examplefile` can be obtained by reading the command-file `.(id)(examplefile)` in the directory of the file.
+Example:
 
-    PROMPT-USER cat /example.org/data/'.(id)(examplefile)'
-    0000917F4A82369F4BA98E38DBC5687A031D
+The ID of the file ** example.org/data/examplefile** can be obtained by reading the command-file ** .(id)(examplefile)** in the directory of the file.
 
-A file in CHIMERA can be referred to by the ID for most operations.
+     [user] $ cat /example.org/data/'.(id)(examplefile)'
+     0000917F4A82369F4BA98E38DBC5687A031D
+    
+A file in Chimera can be referred to by the ID for most operations.
+
+Example:
 
 The name of a file can be obtained from the ID with the command `nameof` as follows:
 
-    PROMPT-USER cd /example.org/data/
-    PROMPT-USER cat '.(nameof)(0000917F4A82369F4BA98E38DBC5687A031D)'
+    [user] $ cd /example.org/data/
+    [user] $ cat '.(nameof)(0000917F4A82369F4BA98E38DBC5687A031D)'
     examplefile
 
 And the ID of the directory it resides in is obtained by:
 
-    PROMPT-USER cat '.(parent)(0000917F4A82369F4BA98E38DBC5687A031D)'
+    [user] $ cat '.(parent)(0000917F4A82369F4BA98E38DBC5687A031D)'
     0000595ABA40B31A469C87754CD79E0C08F2
-
+    
 This way, the complete path of a file may be obtained starting from the ID.
 
-Directory Tags
+
+DIRECTORY TAGS
 ==============
 
-In the CHIMERA namespace, each directory can have a number of tags. These directory tags may be used within DCACHE to control the file placement policy in the pools (see [???][2]). They might also be used by a [tertiary storage system] for similar purposes (e.g. controlling the set of tapes used for the files in the directory).
+In the Chimera namespace, each directory can have a number of tags. These directory tags may be used within dCache to control the file placement policy in the pools (see the section called “The Pool Selection Mechanism”). They might also be used by a tertiary storage system for similar purposes (e.g. controlling the set of tapes used for the files in the directory).
 
-> **Note**
+
+
+> **NOTE**
 >
 > Directory tags are not needed to control the behaviour of DCACHE. DCACHE works well without directory tags.
 
