@@ -51,115 +51,120 @@ If you wish dCache to access your Chimera with a PostgreSQL user other than chim
 >
 > Do not update configuration values in **/usr/share/dcache/defaults/chimera.properties**, since changes to this file will be overwritten by updates.
 
-Mounting CHIMERA through NFS
+MOUNTING CHIMERA THROUGH NFS
 ============================
 
-DCACHE does not need the CHIMERA filesystem to be mounted but a mounted file system is convenient for administrative access. This offers the opportunity to use OS-level tools like `ls` and `mkdir` for CHIMERA. However, direct I/O-operations like `cp` are not possible, since the NFS3 interface provides the namespace part only. This section describes how to start the CHIMERA NFS3 server and mount the name space.
+dCache does not need the Chimera filesystem to be mounted but a mounted file system is convenient for administrative access. This offers the opportunity to use OS-level tools like `ls` and `mkdir` for Chimera. However, direct I/O-operations like `cp` are not possible, since the `NFSv3` interface provides the namespace part only. This section describes how to start the Chimera `NFSv3` server and mount the name space.
 
-If you want to mount CHIMERA for easier administrative access, you need to edit the `/etc/exports` file as the CHIMERA NFS server uses it to manage exports. If this file doesn't exist it must be created. The typical `exports` file looks like this:
+If you want to mount Chimera for easier administrative access, you need to edit the **/etc/exports** file as the Chimera `NFS` server uses it to manage exports. If this file doesn’t exist it must be created. The typical **exports** file looks like this:
 
     / localhost(rw)
     /data
     # or
     # /data *.my.domain(rw)
 
-As any RPC service CHIMERA NFS requires rpcbind service to run on the host. Nevertheless rpcbind has to be configured to accept requests from CHIMERA NFS.
+As any RPC service Chimera `NFS` requires `rpcbind` service to run on the host. Nevertheless rpcbind has to be configured to accept requests from Chimera NFS.
 
 On RHEL6 based systems you need to add
 
     RPCBIND_ARGS="-i"
 
-into `/etc/sysconfig/rpcbind` and restart rpcbind. Check your OS manual for details.
+into **/etc/sysconfig/rpcbind** and restart `rpcbind`. Check your OS manual for details.
 
-    PROMPT-ROOT service rpcbind restart
+    [root] # service rpcbind restart
     Stopping rpcbind:                                          [  OK  ]
     Starting rpcbind:                                          [  OK  ]
 
-If your OS does not provide rpcbind CHIMERA NFS can use an embedded rpcbind. This requires to disable the portmap service if it exists.
+If your OS does not provide `rpcbind` Chimera `NFS` can use an embedded `rpcbind`. This requires to disable the `portmap` service if it exists.
 
     PROMPT-ROOT /etc/init.d/portmap stop
     Stopping portmap: portmap
 
-and restart the domain in which the NFS server is running.
+and restart the domain in which the `NFS` server is running.
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache restart namespaceDomain
+    Example:
+    
+    [root] # dcache restart namespaceDomain
 
-Now you can mount CHIMERA by
+Now you can mount Chimera by
 
-    PROMPT-ROOT mount localhost:/ /mnt
+    [root] # mount localhost:/ /mnt
 
-and create the root of the CHIMERA namespace which you can call `data`:
+and create the root of the CHIMERA namespace which you can call **data**:
 
-    PROMPT-ROOT mkdir -p /mnt/data
+    [root] # mkdir -p /mnt/data
 
-If you don't want to mount chimera you can create the root of the CHIMERA namespace by
+If you don’t want to mount chimera you can create the root of the Chimera namespace by
 
-    PROMPT-ROOT CHIMERA-CLI mkdir /data
+    [root] # /usr/bin/chimera mkdir /data
 
-You can now add directory tags. For more information on tags see [section\_title].
+You can now add directory tags. For more information on tags see [the section called “Directory Tags”](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml).
 
-    PROMPT-ROOT CHIMERA-CLI writetag /data sGroup "chimera"
-    PROMPT-ROOT CHIMERA-CLI writetag /data OSMTemplate "StoreName sql"
+    [root] # /usr/bin/chimera writetag /data sGroup "chimera"
+    [root] # /usr/bin/chimera writetag /data OSMTemplate "StoreName sql"
 
-Using DCAP with a mounted file system
+
+USING DCAP WITH A MOUNTED FILE SYSTEM
 -------------------------------------
 
-If you plan to use DCAP with a mounted file system instead of the URL-syntax (e.g. PROG-DCCP `/data/file1` `/tmp/file1`), you need to mount the root of CHIMERA locally (remote mounts are not allowed yet). This will allow us to establish wormhole files so DCAP clients can discover the DCAP doors.
+If you plan to use `dCap` with a mounted file system instead of the URL-syntax (e.g. `dccp` **/data/file1 /tmp/file1**), you need to mount the root of Chimera locally (remote mounts are not allowed yet). This will allow us to establish wormhole files so `dCap` clients can discover the `dCap` doors.
 
-    PROMPT-ROOT mount localhost:/ /mnt
-    PROMPT-ROOT mkdir /mnt/admin/etc/config/dCache
-    PROMPT-ROOT touch /mnt/admin/etc/config/dCache/dcache.conf
-    PROMPT-ROOT touch /mnt/admin/etc/config/dCache/'.(fset)(dcache.conf)(io)(on)'
-    PROMPT-ROOT echo "door host:port" > /mnt/admin/etc/config/dCache/dcache.conf
+    [root] # mount localhost:/ /mnt
+    [root] # mkdir /mnt/admin/etc/config/dCache
+    [root] # touch /mnt/admin/etc/config/dCache/dcache.conf
+    [root] # touch /mnt/admin/etc/config/dCache/'.(fset)(dcache.conf)(io)(on)'
+    [root] # echo "<door host>:<port>" > /mnt/admin/etc/config/dCache/dcache.conf
 
-The default values for ports can be found in [???][1] (for DCAP the default port is `22125`) and in the file `PATH-ODS-USD/defaults/dcache.properties`. They can be altered in `PATH-ODE-ED/dcache.conf`
+
+The default values for ports can be found in [Chapter 29, dCache Default Port Values](https://www.dcache.org/manuals/Book-2.16/reference/rf-ports-fhs-comments.shtml) (for `dCap` the default port is 22125) and in the file **/usr/share/dcache/defaults/dcache.properties**. They can be altered in **/etc/dcache/dcache.conf**
 
 Create the directory in which the users are going to store their data and change to this directory.
 
-    PROMPT-ROOT mkdir -p /mnt/data
-    PROMPT-ROOT cd /mnt/data
+    [root] # mkdir -p /mnt/data
+    [root] # cd /mnt/data
+    
+Now you can copy a file into your dCache
 
-Now you can copy a file into your DCACHE
-
-    PROMPT-ROOT dccp /bin/sh test-file
+    [root] # dccp /bin/sh test-file
     735004 bytes (718 kiB) in 0 seconds
 
-and copy the data back using the PROG-DCCP command.
+and copy the data back using the `dccp` command.
 
-    PROMPT-ROOT dccp test-file /tmp/testfile
+    [root] # dccp test-file /tmp/testfile
     735004 bytes (718 kiB) in 0 seconds
 
 The file has been transferred succesfully.
 
-Now remove the file from the DCACHE.
+Now remove the file from the dCache.
 
-    PROMPT-ROOT rm  test-file
+    [root] # rm  test-file
 
-When the configuration is complete you can unmount CHIMERA:
+When the configuration is complete you can unmount Chimera:
 
-    PROMPT-ROOT umount /mnt
+    [root] # umount /mnt
 
-> **Note**
+> **NOTE**
 >
-> Please note that whenever you need to change the configuration, you have to remount the root `localhost:/` to a temporary location like `/mnt`.
+> Please note that whenever you need to change the configuration, you have to remount the root `localhost:/` to a temporary location like **/mnt**.
 
-Communicating with CHIMERA
+COMMUNICATING WITH CHIMERA
 ==========================
 
-Many configuration parameters of CHIMERA and the application specific meta data is accessed by reading, writing, or creating files of the form `.(command)(para)`. For example, the following prints the CHIMERAID of the file `/data/some/dir/file.dat`:
+Many configuration parameters of Chimera and the application specific meta data is accessed by reading, writing, or creating files of the form .(<command>)(<para>). For example, the following prints the ChimeraID of the file /data/some/dir/file.dat:
 
-    PROMPT-USER cat /data/any/sub/directory/'.(id)(file.dat)'
-    0004000000000000002320B8 PROMPT-USER 
+     [user] $ cat /data/any/sub/directory/'.(id)(file.dat)'
+     0004000000000000002320B8 [user] $ 
 
-From the point of view of the NFS protocol, the file `.(id)(file.dat)` in the directory `/data/some/dir/` is read. However, CHIMERA interprets it as the command `id` with the parameter `file.dat` executed in the directory `/data/some/dir/`. The quotes are important, because the shell would otherwise try to interpret the parentheses.
+From the point of view of the NFS protocol, the file .(id)(file.dat) in the directory /data/some/dir/ is read. However, Chimera interprets it as the command id with the parameter file.dat executed in the directory /data/some/dir/. The quotes are important, because the shell would otherwise try to interpret the parentheses.
 
-Some of these command files have a second parameter in a third pair of parentheses. Note, that files of the form `.(command)(para)` are not really files. They are not shown when listing directories with `ls`. However, the command files are listed when they appear in the argument list of `ls` as in
+Some of these command files have a second parameter in a third pair of parentheses. Note, that files of the form .(<command>)(<para>) are not really files. They are not shown when listing directories with ls. However, the command files are listed when they appear in the argument list of ls as in
 
-    PROMPT-USER ls -l '.(tag)(sGroup)'
-    -rw-r--r-- 11 root root 7 Aug 6 2010 .(tag)(sGroup)
+     [user] $ ls -l '.(tag)(sGroup)'
+     -rw-r--r-- 11 root root 7 Aug 6 2010 .(tag)(sGroup)
 
-Only a subset of file operations are allowed on these special command files. Any other operation will result in an appropriate error. Beware, that files with names of this form might accidentally be 
-��ed by typos. They will then be shown when listing the directory.
+Only a subset of file operations are allowed on these special command files. Any other operation will result in an appropriate error. Beware, that files with names of this form might accidentally be created by typos. They will then be shown when listing the directory.
+
+
 
 IDs
 ===
