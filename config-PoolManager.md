@@ -198,8 +198,8 @@ The cache class of a directory is set by the tag `cacheClass` as follows:
 
 Check the existing tags of a directory and their content by:  
 
-    [root] # /usr/bin/chimera lstag /path/to/directory  
-    Total: numberOfTags  
+    [root] # /usr/bin/chimera lstag /path/to/directory    
+    Total: numberOfTags    
     tag1  
     tag2  
     ...  
@@ -351,9 +351,9 @@ Assume, data of experiment A obtained in 2010 is written into subdirectories in 
    psu create unit -dcache important
    psu addto ugroup imp-cond important
 
-   psu create link exp-b-link allnet-cond exp-b-cond
-   psu set link exp-b-link -readpref=10 -writepref=10 -cachepref=10
-   psu add link exp-b-link exp-b-pools
+   psu create link exp-b-link allnet-cond exp-b-cond  
+   psu set link exp-b-link -readpref=10 -writepref=10 -cachepref=10  
+   psu add link exp-b-link exp-b-pools  
 
    psu create link exp-b-imp-link allnet-cond exp-b-cond imp-cond
    psu set link exp-b-imp-link -readpref=20 -writepref=20 -cachepref=20
@@ -366,13 +366,13 @@ Note again that these will never be used otherwise. Not even, if all pools in `e
 
 The central IT department might also want to set up a few pools, which are used as fall-back, if none of the pools of the experiments are functioning. These will also be used for internal testing. The following would have to be added to the previous setup:
 
-    psu create pgroup it-pools
-    psu create pool pool_it
-    psu addto pgroup it-pools pool_it
+    psu create pgroup it-pools  
+    psu create pool pool_it  
+    psu addto pgroup it-pools pool_it  
 
-    psu create link fallback-link allnet-cond
-    psu set link fallback-link -readpref=5 -writepref=5 -cachepref=5
-    psu add link fallback-link it-pools
+    psu create link fallback-link allnet-cond  
+    psu set link fallback-link -readpref=5 -writepref=5 -cachepref=5  
+    psu add link fallback-link it-pools  
 
 Note again that these will only be used, if none of the experiments pools can be reached, or if the storage class is not of the form `exp-a:run2009@osm`, `exp-a:run2010@osm`, or `exp-b:alldata@osm`. If the administrator fails to create the unit `exp-a:run2005@osm` and add it to the unit group `exp-a-cond`, the fall-back pools will be used eventually.
 
