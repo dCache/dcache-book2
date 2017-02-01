@@ -66,10 +66,10 @@ The location of the file in the file system is not used directly. Each file has 
 
 -   **Cache Class.** The cache class is a string with essentially the same functionality as the storage class, except that it is not used by a tertiary storage system. It is used in cases, where the storage class does not provide enough flexibility. It should only be used, if an existing configuration using storage classes does not provide sufficient flexibility.
 
-**IP Address **  
+**IP Address**  
 The IP address of the requesting host.
 
-**Protocol / Type of Door **  
+**Protocol / Type of Door**  
 The protocol respectively the type of door used by the transfer.
 
 **Type of Transfer**   
@@ -89,33 +89,33 @@ For each transfer at most one of each of the four unit types will match. If more
 
 The unit that matches is selected from all units defined in DCACHE, not just those for a particular unit group. This means that, if a unit group has a unit that could match a request but this request also matches a more restrictive unit defined elsewhere then the less restrictive unit will not match.
 
-**Network Unit ** 
+**Network Unit**  
 A *network unit* consists of an IP address and a net mask written as <IP-address>/<net mask>, say 111.111.111.0/255.255.255.0. It is satisfied, if the request is coming from a host with IP address within the subnet given by the address/netmask pair.
 
-    psu create ugroup <name-of-unitgroup>
-    psu create unit -net <IP-address>/<net mask>
-    psu addto ugroup <name-of-unitgroup> <IP-address>/<net mask>
+    **psu create ugroup** <name-of-unitgroup>
+    **psu create unit -net** <IP-address>/<net mask>
+    **psu addto ugroup** <name-of-unitgroup> <IP-address>/<net mask>
 
-Protocol Unit  
+**Protocol Unit**   
 A *protocol unit* consists of the name of the protocol and the version number written as protocol-name/version-number, e.g., `xrootd/3`.
 
-    psu create ugroup name-of-unitgroup
-    psu create unit -protocol protocol-name/version-number
-    psu addto ugroup name-of-unitgroup protocol-name/version-number
+    **psu create ugroup** <name-of-unitgroup>
+    **psu create unit -protocol** <protocol-name>/<version-number>
+    **psu addto ugroup** <name-of-unitgroup> <protocol-name>/<version-number>
 
-Storage Class Unit  
-A *storage class unit* is given by a storage class. It is satisfied if the requested file has this storage class. Simple wild cards are allowed: for this it is important to know that a storage class must always contain exactly one `@`-symbol as will be explained in [section\_title][1]. In a storage class unit, either the part before the `@`-symbol or both parts may be replaced by a `*`-symbol; for example, `*@osm` and `*@*` are both valid storage class units whereas `something@*` is invalid. The `*`-symbol represents a limited wildcard: any string that doesn't contain an `@`-symbol will match.
+**Storage Class Unit**  
+A *storage class* unit is given by a storage class. It is satisfied if the requested file has this storage class. Simple wild cards are allowed: for this it is important to know that a storage class must always contain exactly one @-symbol as will be explained in [the section called “Storage Classes”](#storage-classes). In a storage class unit, either the part before the @-symbol or both parts may be replaced by a *-symbol; for example, *@osm and *@* are both valid storage class units whereas `something@*` is invalid. The *-symbol represents a limited wildcard: any string that doesn’t contain an @-symbol will match.
 
-    psu create ugroup name-of-unitgroup
-    psu create unit -store StoreName:StorageGroup@type-of-storage-system
-    psu addto ugroup name-of-unitgroup StoreName:StorageGroup@type-of-storage-system
+    **psu create ugroup** <name-of-unitgroup>
+    **psu create unit -store** <StoreName>:<StorageGroup>@<type-of-storage-system>
+    **psu addto ugroup** <name-of-unitgroup> <StoreName>:<StorageGroup>@<type-of-storage-system>
 
-Cache Class Unit  
+**Cache Class Unit**  
 A *cache class unit* is given by a cache class. It is satisfied, if the cache class of the requested file agrees with it.
 
-    psu create ugroup name-of-unitgroup
-    psu create unit -dcache name-of-cache-class
-    psu addto ugroup name-of-unitgroup name-of-cache-class
+    **psu create ugroup** <name-of-unitgroup>
+    **psu create unit -dcache** <name-of-cache-class>
+    **psu addto ugroup** <name-of-unitgroup> <name-of-cache-class>
 
 ### Preference Values for Type of Transfer
 
@@ -123,7 +123,7 @@ The conditions for the *type of transfer* are not specified with units. Instead,
 
 #### Multiple non-zero Preference Values
 
-> **Note**
+> **NOTE**
 >
 > This explanation of the preference values can be skipped at first reading. It will not be relevant, if all non-zero preference values are the same. If you want to try configuring the pool manager right now without bothering about the preferences, you should only use `0` (for `no`) and, say, `10` (for `yes`) as preferences. You can choose `-p2ppref=-1` if it should match the value for `-readpref`. The first examples below are of this type.
 
@@ -133,29 +133,30 @@ If several different non-zero preference values are used, the PSU will not gener
 
 Pools can be grouped together to pool groups.
 
-    psu create pgroup name-of-poolgroup
-    psu create pool name-of-pool
-    psu addto pgroup name-of-poolgroup name-of-pool
+    **psu create pgroup** <name-of-poolgroup>
+    **psu create pool** <name-of-pool>
+    **psu addto pgroup** <name-of-poolgroup> <name-of-pool>
 
+Example:
 Consider a host `pool1` with two pools, `pool1_1` and `pool1_2`, and a host `pool2` with one pool `pool2_1`. If you want to treat them in the same way, you would create a pool group and put all of them in it:
 
-    psu create pgroup normal-pools
-    psu create pool pool1_1
-    psu addto pgroup normal-pools pool1_1
-    psu create pool pool1_2
-    psu addto pgroup normal-pools pool1_2
-    psu create pool pool2_1
-    psu addto pgroup normal-pools pool2_1
+    **psu create pgroup** normal-pools  
+    **psu create pool** pool1_1  
+    **psu addto pgroup** normal-pools pool1_1  
+    **psu create pool** pool1_2  
+    **psu addto pgroup** normal-pools pool1_2  
+    **psu create pool** pool2_1  
+    **psu addto pgroup** normal-pools pool2_1  
 
 If you later want to treat `pool1_2` differently from the others, you would remove it from this pool group and add it to a new one:
 
-    psu removefrom pgroup normal-pools pool1_2
-    psu create pgroup special-pools
-    psu addto pgroup special-pools pool1_2
+    **psu removefrom pgroup** normal-pools pool1_2  
+    **psu create pgroup** special-pools  
+    **psu addto pgroup** special-pools pool1_2  
 
 In the following, we will assume that the necessary pool groups already exist. All names ending with `-pools` will denote pool groups.
 
-Note that a pool-node will register itself with the CELL-POOLMNGR: The pool will be created within the PSU and added to the pool group `default`, if that exists. This is why the DCACHE system will automatically use any new pool-nodes in the standard configuration: All pools are in `default` and can therefore handle any request.
+Note that a pool-node will register itself with the `PoolManager:` The pool will be created within the PSU and added to the pool group `default`, if that exists. This is why the DCACHE system will automatically use any new pool-nodes in the standard configuration: All pools are in `default` and can therefore handle any request.
 
 ### Storage Classes
 
@@ -163,19 +164,20 @@ The storage class is a string of the form `StoreName:StorageGroup@type-of-storag
 
 Consider for example the following setup:
 
-    PROMPT-ROOT CHIMERA-CLI lstag /data/experiment-a
-    Total: 2
-    OSMTemplate
-    sGroup
-    PROMPT-ROOT CHIMERA-CLI readtag /data/experiment-a OSMTemplate
-    StoreName myStore
-    PROMPT-ROOT CHIMERA-CLI readtag /data/experiment-a sGroup
-    STRING
+    Example:  
+    [root] # /usr/bin/chimera lstag /data/experiment-a  
+    Total: 2  
+    OSMTemplate  
+    sGroup  
+    [root] # /usr/bin/chimera readtag /data/experiment-a OSMTemplate  
+    StoreName myStore  
+    [root] # /usr/bin/chimera readtag /data/experiment-a sGroup  
+    STRING  
 
 This is the setup after a fresh installation and it will lead to the storage class `myStore:STRING@osm`. An adjustment to more sensible values will look like
 
-    PROMPT-ROOT CHIMERA-CLI writetag /data/experiment-a OSMTemplate "StoreName exp-a"
-    PROMPT-ROOT CHIMERA-CLI writetag /data/experiment-a sGroup "run2010"
+    [root] # /usr/bin/chimera writetag /data/experiment-a OSMTemplate "StoreName exp-a"  
+    [root] # /usr/bin/chimera writetag /data/experiment-a sGroup "run2010"  
 
 and will result in the storage class `exp-a:run2010@osm` for any data stored in the `/data/experiment-a` directory.
 
@@ -189,21 +191,22 @@ Consider for example a situation, where data produced by an experiment always ha
 
 The cache class of a directory is set by the tag `cacheClass` as follows:
 
-    PROMPT-ROOT CHIMERA-CLI writetag /data/experiment-a cacheClass "metaData"
+    Example:  
+    [root] # /usr/bin/chimera writetag /data/experiment-a cacheClass "metaData"  
 
-In this example the meta-data is stored in directories which are tagged in this way.
+    In this example the meta-data is stored in directories which are tagged in this way.  
 
-Check the existing tags of a directory and their content by:
+Check the existing tags of a directory and their content by:  
 
-    PROMPT-ROOT CHIMERA-CLI lstag /path/to/directory
-    Total: numberOfTags
-    tag1
-    tag2
-    ...
-    PROMPT-ROOT CHIMERA-CLI readtag /path/to/directory tag1
-    contentOfTag1
+    [root] # /usr/bin/chimera lstag /path/to/directory  
+    Total: numberOfTags  
+    tag1  
+    tag2  
+    ...  
+    [root] # /usr/bin/chimera readtag /path/to/directory tag1  
+    contentOfTag1  
 
-> **Note**
+> **NOTE**
 >
 > A new directory will inherit the tags from the parent directory. But updating a tag will *not* update the tags of any child directories.
 
@@ -211,90 +214,96 @@ Check the existing tags of a directory and their content by:
 
 Now we have everything we need to define a link.
 
-    psu create ugroup name-of-unitgroup
-    psu create unit - type unit
-    psu addto ugroup name-of-unitgroup unit
+    **psu create ugroup** <name-of-unitgroup>
+    **psu create unit** - <type> <unit>
+    **psu addto ugroup** <name-of-unitgroup> <unit>
 
-    psu create pgroup poolgroup
-    psu create pool pool
-    psu addto pgroup poolgroup pool
+    **psu create pgroup** <poolgroup>
+    **psu create pool** <pool>
+    **psu addto pgroup** <poolgroup> <pool>
 
-    psu create link link name-of-unitgroup
-    psu set link link -readpref=10 -writepref=0 -cachepref=10-p2ppref=-1
-    psu add link link  poolgroup
+    **psu create link** <link> <name-of-unitgroup>
+    **psu set link** <link> -readpref=<10> -writepref=<0> -cachepref=<10>-p2ppref=<-1>
+    **psu add link** <link>  <poolgroup>
+[return to top](#the-pool-selection-mechanism)
 
-Examples
+EXAMPLES
 --------
 
 Find some examples for the configuration of the PSU below.
 
 ### Separate Write and Read Pools
 
-The DCACHE we are going to configure receives data from a running experiment, stores the data onto a tertiary storage system, and serves as a read cache for users who want to analyze the data. While the new data from the experiment should be stored on highly reliable and therefore expensive systems, the cache functionality may be provided by inexpensive hardware. It is therefore desirable to have a set of pools dedicated for writing the new data and a separate set for reading.
+The dCache we are going to configure receives data from a running experiment, stores the data onto a tertiary storage system, and serves as a read cache for users who want to analyze the data. While the new data from the experiment should be stored on highly reliable and therefore expensive systems, the cache functionality may be provided by inexpensive hardware. It is therefore desirable to have a set of pools dedicated for writing the new data and a separate set for reading.
 
+Example:
 The simplest configuration for such a setup would consist of two links “write-link” and “read-link”. The configuration is as follows:
 
-    psu create pgroup read-pools
-    psu create pool pool1
-    psu addto pgroup read-pools pool1
-    psu create pgroup write-pools
-    psu create pool pool2
-    psu addto pgroup write-pools pool2
+    **psu create pgroup** read-pools
+    **psu create pool** pool1
+    **psu addto pgroup** read-pools pool1
+    **psu create pgroup** write-pools
+    **psu create pool** pool2
+    **psu addto pgroup** write-pools pool2
 
-    psu create unit -net 0.0.0.0/0.0.0.0
-    psu create ugroup allnet-cond
-    psu addto ugroup allnet-cond 0.0.0.0/0.0.0.0
+    **psu create unit** -net 0.0.0.0/0.0.0.0
+    **psu create ugroup** allnet-cond
+    **psu addto ugroup** allnet-cond 0.0.0.0/0.0.0.0
 
-    psu create link read-link allnet-cond
-    psu set link read-link -readpref=10 -writepref=0 -cachepref=10
-    psu add link read-link read-pools
+    **psu create link** read-link allnet-cond
+    **psu set link** read-link -readpref=10 -writepref=0 -cachepref=10
+    **psu add link** read-link read-pools
 
-    psu create link write-link allnet-cond
-    psu set link write-link -readpref=0 -writepref=10 -cachepref=0
-    psu add link write-link write-pools
+    **psu create link** write-link allnet-cond
+    **psu set link** write-link -readpref=0 -writepref=10 -cachepref=0
+    **psu add link** write-link write-pools
 
 Why is the unit group `allnet-cond` necessary? It is used as a condition which is always true in both links. This is needed, because each link must contain at least one unit group.
 
+[return to top](#the-pool-selection-mechanism)
+
 ### Restricted Access by IP Address
 
-You might not want to give access to the pools for the whole network, as in the previous example ([section\_title][2]), though.
+You might not want to give access to the pools for the whole network, as in the previous example ([the section called “Separate Write and Read Pools”](#separate-write-and-read-pools)), though.
 
+Example:
 Assume, the experiment data is copied into the cache from the hosts with IP `111.111.111.201`, `111.111.111.202`, and `111.111.111.203`. As you might guess, the subnet of the site is `111.111.111.0/255.255.255.0`. Access from outside should be denied. Then you would modify the above configuration as follows:
 
-    psu create pgroup read-pools
-    psu create pool pool1
-    psu addto pgroup read-pools pool1
-    psu create pgroup write-pools
-    psu create pool pool2
-    psu addto pgroup write-pools pool2
+    
+    **psu create pgroup** read-pools
+    **psu create pool** pool1
+    **psu addto pgroup** read-pools pool1
+    **psu create pgroup** write-pools
+    **psu create pool** pool2
+    **psu addto pgroup** write-pools pool2
 
-    psu create unit -store *@*
+    **psu create unit** -store *@*
 
-    psu create unit -net 111.111.111.0/255.255.255.0
-    psu create unit -net 111.111.111.201/255.255.255.255
-    psu create unit -net 111.111.111.202/255.255.255.255
-    psu create unit -net 111.111.111.203/255.255.255.255
+    **psu create unit** -net 111.111.111.0/255.255.255.0
+    **psu create unit** -net 111.111.111.201/255.255.255.255
+    **psu create unit** -net 111.111.111.202/255.255.255.255
+    **psu create unit** -net 111.111.111.203/255.255.255.255
 
-    psu create ugroup write-cond
-    psu addto ugroup write-cond 111.111.111.201/255.255.255.255
-    psu addto ugroup write-cond 111.111.111.202/255.255.255.255
-    psu addto ugroup write-cond 111.111.111.203/255.255.255.255
+    **psu create ugroup** write-cond
+    **psu addto ugroup** write-cond 111.111.111.201/255.255.255.255
+    **psu addto ugroup** write-cond 111.111.111.202/255.255.255.255
+    **psu addto ugroup** write-cond 111.111.111.203/255.255.255.255
 
-    psu create ugroup read-cond
-    psu addto ugroup read-cond 111.111.111.0/255.255.255.0
-    psu addto ugroup read-cond 111.111.111.201/255.255.255.255
-    psu addto ugroup read-cond 111.111.111.202/255.255.255.255
-    psu addto ugroup read-cond 111.111.111.203/255.255.255.255
+    **psu create ugroup** read-cond
+    **psu addto ugroup** read-cond 111.111.111.0/255.255.255.0
+    **psu addto ugroup** read-cond 111.111.111.201/255.255.255.255
+    **psu addto ugroup** read-cond 111.111.111.202/255.255.255.255
+    **psu addto ugroup** read-cond 111.111.111.203/255.255.255.255
 
-    psu create link read-link read-cond
-    psu set link read-link -readpref=10 -writepref=0 -cachepref=10
-    psu add link read-link read-pools
+    **psu create link** read-link read-cond
+    **psu set link** read-link -readpref=10 -writepref=0 -cachepref=10
+    **psu add link** read-link read-pools
 
-    psu create link write-link write-cond
-    psu set link write-link -readpref=0 -writepref=10 -cachepref=0
-    psu add link write-link write-pools
+    **psu create link** write-link write-cond
+    **psu set link** write-link -readpref=0 -writepref=10 -cachepref=0
+    **psu add link** write-link write-pools
 
-> **Important**
+> **IMPORTANT**
 >
 > For a given transfer exactly zero or one storage class unit, cache class unit, net unit and protocol unit will match. As always the most restrictive one will match, the IP `111.111.111.201` will match the `111.111.111.201/255.255.255.255` unit and not the `111.111.111.0/255.255.255.0` unit. Therefore if you only add `111.111.111.0/255.255.255.0` to the unit group “read-cond”, the transfer request coming from the IP `111.111.111.201` will only be allowed to write and not to read. The same is true for transfer requests from `111.111.111.202` and `111.111.111.203`.
 
@@ -302,49 +311,52 @@ Assume, the experiment data is copied into the cache from the hosts with IP `111
 
 If pools are financed by one experimental group, they probably do not like it if they are also used by another group. The best way to restrict data belonging to one experiment to a set of pools is with the help of storage class conditions. If more flexibility is needed, cache class conditions can be used for the same purpose.
 
-Assume, data of experiment A obtained in 2010 is written into subdirectories in the namespace tree which are tagged with the storage class `exp-a:run2010@osm`, and similarly for the other years. (How this is done is described in [section\_title][1].) Experiment B uses the storage class `exp-b:alldata@osm` for all its data. Especially important data is tagged with the cache class `important`. (This is described in [section\_title][3].) A suitable setup would be
+Example:
+Assume, data of experiment A obtained in 2010 is written into subdirectories in the namespace tree which are tagged with the storage class `exp-a:run2010@osm`, and similarly for the other years. (How this is done is described in [the section called “Storage Classes”](#storage-classes).) Experiment B uses the storage class `exp-b:alldata@osm` for all its data. Especially important data is tagged with the cache class `important`. (This is described in [the section called “Cache Class”](#cache-class).) A suitable setup would be
 
-    psu create pgroup exp-a-pools
-    psu create pool pool1
-    psu addto pgroup exp-a-pools pool1
+   **psu create pgroup** exp-a-pools
+   **psu create pool** pool1
+   **psu addto pgroup** exp-a-pools pool1
 
-    psu create pgroup exp-b-pools
-    psu create pool pool2
-    psu addto pgroup exp-b-pools pool2
+   **psu create pgroup** exp-b-pools
+   **psu create pool** pool2
+   **psu addto pgroup** exp-b-pools pool2
 
-    psu create pgroup exp-b-imp-pools
-    psu create pool pool3
-    psu addto pgroup exp-b-imp-pools pool3
+   **psu create pgroup** exp-b-imp-pools
+   **psu create pool** pool3
+   **psu addto pgroup** exp-b-imp-pools pool3
 
-    psu create unit -net 111.111.111.0/255.255.255.0
-    psu create ugroup allnet-cond
-    psu addto ugroup allnet-cond 111.111.111.0/255.255.255.0
+   **psu create unit** -net 111.111.111.0/255.255.255.0
+   **psu create ugroup** allnet-cond
+   **psu addto ugroup** allnet-cond 111.111.111.0/255.255.255.0
 
-    psu create ugroup exp-a-cond
-    psu create unit -store exp-a:run2011@osm
-    psu addto ugroup exp-a-cond exp-a:run2011@osm
-    psu create unit -store exp-a:run2010@osm
-    psu addto ugroup exp-a-cond exp-a:run2010@osm
+psu create ugroup exp-a-cond
+psu create unit -store exp-a:run2011@osm
+psu addto ugroup exp-a-cond exp-a:run2011@osm
+psu create unit -store exp-a:run2010@osm
+psu addto ugroup exp-a-cond exp-a:run2010@osm
 
-    psu create link exp-a-link allnet-cond exp-a-cond
-    psu set link exp-a-link -readpref=10 -writepref=10 -cachepref=10
-    psu add link exp-a-link exp-a-pools
+psu create link exp-a-link allnet-cond exp-a-cond
+psu set link exp-a-link -readpref=10 -writepref=10 -cachepref=10
+psu add link exp-a-link exp-a-pools
 
-    psu create ugroup exp-b-cond
-    psu create unit -store exp-b:alldata@osm
-    psu addto ugroup exp-b-cond exp-b:alldata@osm
+psu create ugroup exp-b-cond
+psu create unit -store exp-b:alldata@osm
+psu addto ugroup exp-b-cond exp-b:alldata@osm
 
-    psu create ugroup imp-cond
-    psu create unit -dcache important
-    psu addto ugroup imp-cond important
+psu create ugroup imp-cond
+psu create unit -dcache important
+psu addto ugroup imp-cond important
 
-    psu create link exp-b-link allnet-cond exp-b-cond
-    psu set link exp-b-link -readpref=10 -writepref=10 -cachepref=10
-    psu add link exp-b-link exp-b-pools
+psu create link exp-b-link allnet-cond exp-b-cond
+psu set link exp-b-link -readpref=10 -writepref=10 -cachepref=10
+psu add link exp-b-link exp-b-pools
 
-    psu create link exp-b-imp-link allnet-cond exp-b-cond imp-cond
-    psu set link exp-b-imp-link -readpref=20 -writepref=20 -cachepref=20
-    psu add link exp-b-link exp-b-imp-pools
+psu create link exp-b-imp-link allnet-cond exp-b-cond imp-cond
+psu set link exp-b-imp-link -readpref=20 -writepref=20 -cachepref=20
+psu add link exp-b-link exp-b-imp-pools
+
+
 
 Data tagged with cache class “`important`” will always be written and read from pools in the pool group `exp-b-imp-pools`, except when all pools in this group cannot be reached. Then the pools in `exp-a-pools` will be used.
 
