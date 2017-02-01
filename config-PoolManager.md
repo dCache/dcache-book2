@@ -3,25 +3,31 @@ CHAPTER 7. THE POOLMANAGER SERVICE
 
 Table of Contents
 
-   * [The Pool Selection Mechanism](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml)
-      * [Links]()
-[Examples]()
-[The Partition Manager]()
-[Overview]()
-[Managing Partitions]()
-[Using Partitions]()
-[Classic Partitions]()
-[Link Groups]()
+   * [The Pool Selection Mechanism](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml)  
+   
+      * [Links](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#cf-pm-links)   
+      * [Examples](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#idp1926336)  
+      
+  * [The Partition Manager](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml)  
+  
+     * [Overview](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-overview)  
+     * [Managing Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-commands)  
+     * [Using Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-usingPartitions)  
+     * [Classic Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-classic)  
+     
+  * [Link Groups](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs-comments.shtml)  
 
-The heart of a DCACHE system is the POOLMNGR. When a user performs an action on a file - reading or writing - a transfer request is sent to the DCACHE system. The POOLMNGR then decides how to handle this request.
+The heart of a dCache system is the poolmanager. When a user performs an action on a file - reading or writing - a transfer request is sent to the dCache system. The poolmanager then decides how to handle this request.
 
-If a file the user wishes to read resides on one of the storage-pools within the DCACHE system, it will be transferred from that pool to the user. If it resides on several pools, the file will be retrieved from one of the pools determined by a configurable load balancing policy. If all pools the file is stored on are busy, a new copy of the file on an idle pool will be created and this pool will answer the request.
+If a file the user wishes to read resides on one of the storage-pools within the dCache system, it will be transferred from that pool to the user. If it resides on several pools, the file will be retrieved from one of the pools determined by a configurable load balancing policy. If all pools the file is stored on are busy, a new copy of the file on an idle pool will be created and this pool will answer the request.
 
-A new copy can either be created by a pool to pool transfer (p2p) or by fetching it from a connected tertiary storage system (sometimes called HSM - hierarchical storage manager). Fetching a file from a tertiary storage system is called staging. It is also performed if the file is not present on any of the pools in the DCACHE system. The pool manager has to decide on which pool the new copy will be created, i.e. staged or p2p-copied.
+A new copy can either be created by a pool to pool transfer (p2p) or by fetching it from a connected tertiary storage system (sometimes called HSM - hierarchical storage manager). Fetching a file from a tertiary storage system is called staging. It is also performed if the file is not present on any of the pools in the dCache system. The pool manager has to decide on which pool the new copy will be created, i.e. staged or p2p-copied.
 
-The behaviour of the POOLMNGR service is highly configurable. In order to exploit the full potential of the software it is essential to understand the mechanisms used and how they are configured. The POOLMNGR service creates the CELL-POOLMNGR cell, which is a unique cell in DCACHE and consists of several sub-modules: The important ones are the pool selection unit (PSU) and the load balancing policy as defined by the partition manager (PM).
+The behaviour of the poolmanager service is highly configurable. In order to exploit the full potential of the software it is essential to understand the mechanisms used and how they are configured. The poolmanager service creates the PoolManager cell, which is a unique cell in dCache and consists of several sub-modules: The important ones are the pool selection unit (PSU) and the load balancing policy as defined by the partition manager (PM).
 
-The POOLMNGR can be configured by either directly editing the file `` or via the [Admin Interface]. Changes made via the Admin Interface will be saved in the file `` by the `save` command. This file will be parsed, whenever the DCACHE starts up. It is a simple text file containing the corresponding Admin Interface commands. It can therefore also be edited before the system is started. It can also be loaded into a running system with the `reload` command. In this chapter we will describe the commands allowed in this file.
+The poolmanager can be configured by either directly editing the file /var/lib/dcache/config/poolmanager.conf or via the Admin Interface. Changes made via the Admin Interface will be saved in the file /var/lib/dcache/config/poolmanager.conf by the save command. This file will be parsed, whenever the dCache starts up. It is a simple text file containing the corresponding Admin Interface commands. It can therefore also be edited before the system is started. It can also be loaded into a running system with the reload command. In this chapter we will describe the commands allowed in this file.
+
+
 
 The Pool Selection Mechanism
 ============================
