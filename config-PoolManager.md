@@ -1,5 +1,17 @@
-The POOLMNGR Service
-=========================
+CHAPTER 7. THE POOLMANAGER SERVICE
+==================================
+
+Table of Contents
+
+   * [The Pool Selection Mechanism](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml)
+      * [Links]()
+[Examples]()
+[The Partition Manager]()
+[Overview]()
+[Managing Partitions]()
+[Using Partitions]()
+[Classic Partitions]()
+[Link Groups]()
 
 The heart of a DCACHE system is the POOLMNGR. When a user performs an action on a file - reading or writing - a transfer request is sent to the DCACHE system. The POOLMNGR then decides how to handle this request.
 
