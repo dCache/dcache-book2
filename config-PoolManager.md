@@ -47,9 +47,9 @@ A link consists of a set of unit groups and a list of pools. If all the unit gro
 
 A link is defined in the file **/var/lib/dcache/config/poolmanager.conf** by
 
-**psu create link** <link> <unitgroup> 
-**psu set link** <link> -readpref=<rpref> -writepref=<wpref> -cachepref=<cpref> -p2ppref=<ppref> 
-**psu add link** <link> <poolgroup>
+**psu create link** <link> <unitgroup>   
+**psu set link** <link> -readpref=<rpref> -writepref=<wpref> -cachepref=<cpref> -p2ppref=<ppref>   
+**psu add link** <link> <poolgroup>  
 
 For the preference values see the [section called “Preference Values for Type of Transfer”](#preference-values-for-type-of-transfer).
 
@@ -58,7 +58,8 @@ The main task is to understand how the unit groups in a link are defined. After 
 The four properties of a transfer request, which are relevant for the PSU, are the following:
 
 
-Location of the File  
+-  **Location of the File**
+
 The location of the file in the file system is not used directly. Each file has the following two properties which can be set per directory:
 
 -   **Storage Class.**
