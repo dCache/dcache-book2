@@ -58,7 +58,7 @@ The main task is to understand how the unit groups in a link are defined. After 
 The four properties of a transfer request, which are relevant for the PSU, are the following:
 
 
--  **Location of the File**
+**Location of the File**
 
 The location of the file in the file system is not used directly. Each file has the following two properties which can be set per directory:
 
@@ -66,13 +66,13 @@ The location of the file in the file system is not used directly. Each file has 
 
 -   **Cache Class.** The cache class is a string with essentially the same functionality as the storage class, except that it is not used by a tertiary storage system. It is used in cases, where the storage class does not provide enough flexibility. It should only be used, if an existing configuration using storage classes does not provide sufficient flexibility.
 
--   **IP Address **  
+**IP Address **  
 The IP address of the requesting host.
 
--   **Protocol / Type of Door **  
+**Protocol / Type of Door **  
 The protocol respectively the type of door used by the transfer.
 
--   **Type of Transfer**   
+**Type of Transfer**   
 The type of transfer is either read, write, p2p request or cache.
 
 A request for reading a file which is not on a read pool will trigger a p2p request and a subsequent read request. These will be treated as two separate requests.
@@ -89,7 +89,7 @@ For each transfer at most one of each of the four unit types will match. If more
 
 The unit that matches is selected from all units defined in DCACHE, not just those for a particular unit group. This means that, if a unit group has a unit that could match a request but this request also matches a more restrictive unit defined elsewhere then the less restrictive unit will not match.
 
-Network Unit  
+**Network Unit ** 
 A *network unit* consists of an IP address and a net mask written as <IP-address>/<net mask>, say 111.111.111.0/255.255.255.0. It is satisfied, if the request is coming from a host with IP address within the subnet given by the address/netmask pair.
 
     psu create ugroup <name-of-unitgroup>
