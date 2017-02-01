@@ -214,17 +214,18 @@ Check the existing tags of a directory and their content by:
 
 Now we have everything we need to define a link.
 
-    **psu create ugroup** <name-of-unitgroup>
-    **psu create unit** - <type> <unit>
-    **psu addto ugroup** <name-of-unitgroup> <unit>
+    psu create ugroup <name-of-unitgroup>
+    psu create unit - <type> <unit>
+    psu addto ugroup <name-of-unitgroup> <unit>
 
-    **psu create pgroup** <poolgroup>
-    **psu create pool** <pool>
-    **psu addto pgroup** <poolgroup> <pool>
+    psu create pgroup <poolgroup>
+    psu create pool <pool>
+    psu addto pgroup <poolgroup> <pool>
 
-    **psu create link** <link> <name-of-unitgroup>
-    **psu set link** <link> -readpref=<10> -writepref=<0> -cachepref=<10>-p2ppref=<-1>
-    **psu add link** <link>  <poolgroup>
+    psu create link <link> <name-of-unitgroup>
+    psu set link <link> -readpref=<10> -writepref=<0> -cachepref=<10>-p2ppref=<-1>
+    psu add link <link>  <poolgroup>
+    
 [return to top](#the-pool-selection-mechanism)
 
 EXAMPLES
@@ -239,24 +240,24 @@ The dCache we are going to configure receives data from a running experiment, st
 Example:
 The simplest configuration for such a setup would consist of two links “write-link” and “read-link”. The configuration is as follows:
 
-    **psu create pgroup** read-pools
-    **psu create pool** pool1
-    **psu addto pgroup** read-pools pool1
-    **psu create pgroup** write-pools
-    **psu create pool** pool2
-    **psu addto pgroup** write-pools pool2
+    psu create pgroup read-pools
+    psu create pool pool1
+    psu addto pgroup read-pools pool1
+    psu create pgroup write-pools
+    psu create pool pool2
+    psu addto pgroup write-pools pool2
 
-    **psu create unit** -net 0.0.0.0/0.0.0.0
-    **psu create ugroup** allnet-cond
-    **psu addto ugroup** allnet-cond 0.0.0.0/0.0.0.0
+    psu create unit -net 0.0.0.0/0.0.0.0
+    psu create ugroup allnet-cond
+    psu addto ugroup allnet-cond 0.0.0.0/0.0.0.0
 
-    **psu create link** read-link allnet-cond
-    **psu set link** read-link -readpref=10 -writepref=0 -cachepref=10
-    **psu add link** read-link read-pools
+    psu create link read-link allnet-cond
+    psu set link read-link -readpref=10 -writepref=0 -cachepref=10
+    psu add link read-link read-pools
 
-    **psu create link** write-link allnet-cond
-    **psu set link** write-link -readpref=0 -writepref=10 -cachepref=0
-    **psu add link** write-link write-pools
+    psu create link write-link allnet-cond
+    psu set link write-link -readpref=0 -writepref=10 -cachepref=0
+    psu add link write-link write-pools
 
 Why is the unit group `allnet-cond` necessary? It is used as a condition which is always true in both links. This is needed, because each link must contain at least one unit group.
 
@@ -270,42 +271,44 @@ Example:
 Assume, the experiment data is copied into the cache from the hosts with IP `111.111.111.201`, `111.111.111.202`, and `111.111.111.203`. As you might guess, the subnet of the site is `111.111.111.0/255.255.255.0`. Access from outside should be denied. Then you would modify the above configuration as follows:
 
     
-    **psu create pgroup** read-pools
-    **psu create pool** pool1
-    **psu addto pgroup** read-pools pool1
-    **psu create pgroup** write-pools
-    **psu create pool** pool2
-    **psu addto pgroup** write-pools pool2
+    psu create pgroup read-pools
+    psu create pool pool1
+    psu addto pgroup read-pools pool1
+    psu create pgroup write-pools
+    psu create pool pool2
+    psu addto pgroup write-pools pool2
 
-    **psu create unit** -store *@*
+    psu create unit -store *@*
 
-    **psu create unit** -net 111.111.111.0/255.255.255.0
-    **psu create unit** -net 111.111.111.201/255.255.255.255
-    **psu create unit** -net 111.111.111.202/255.255.255.255
-    **psu create unit** -net 111.111.111.203/255.255.255.255
+    psu create unit -net 111.111.111.0/255.255.255.0
+    psu create unit -net 111.111.111.201/255.255.255.255
+    psu create unit -net 111.111.111.202/255.255.255.255
+    psu create unit -net 111.111.111.203/255.255.255.255
 
-    **psu create ugroup** write-cond
-    **psu addto ugroup** write-cond 111.111.111.201/255.255.255.255
-    **psu addto ugroup** write-cond 111.111.111.202/255.255.255.255
-    **psu addto ugroup** write-cond 111.111.111.203/255.255.255.255
+    psu create ugroup write-cond
+    psu addto ugroup write-cond 111.111.111.201/255.255.255.255
+    psu addto ugroup write-cond 111.111.111.202/255.255.255.255
+    psu addto ugroup write-cond 111.111.111.203/255.255.255.255
 
-    **psu create ugroup** read-cond
-    **psu addto ugroup** read-cond 111.111.111.0/255.255.255.0
-    **psu addto ugroup** read-cond 111.111.111.201/255.255.255.255
-    **psu addto ugroup** read-cond 111.111.111.202/255.255.255.255
-    **psu addto ugroup** read-cond 111.111.111.203/255.255.255.255
+    psu create ugroup read-cond
+    psu addto ugroup read-cond 111.111.111.0/255.255.255.0
+    psu addto ugroup read-cond 111.111.111.201/255.255.255.255
+    psu addto ugroup read-cond 111.111.111.202/255.255.255.255
+    psu addto ugroup read-cond 111.111.111.203/255.255.255.255
 
-    **psu create link** read-link read-cond
-    **psu set link** read-link -readpref=10 -writepref=0 -cachepref=10
-    **psu add link** read-link read-pools
+    psu create link read-link read-cond
+    psu set link read-link -readpref=10 -writepref=0 -cachepref=10
+    psu add link read-link read-pools
 
-    **psu create link** write-link write-cond
-    **psu set link** write-link -readpref=0 -writepref=10 -cachepref=0
-    **psu add link** write-link write-pools
+    psu create link write-link write-cond
+    psu set link write-link -readpref=0 -writepref=10 -cachepref=0
+    psu add link write-link write-pools
 
 > **IMPORTANT**
 >
 > For a given transfer exactly zero or one storage class unit, cache class unit, net unit and protocol unit will match. As always the most restrictive one will match, the IP `111.111.111.201` will match the `111.111.111.201/255.255.255.255` unit and not the `111.111.111.0/255.255.255.0` unit. Therefore if you only add `111.111.111.0/255.255.255.0` to the unit group “read-cond”, the transfer request coming from the IP `111.111.111.201` will only be allowed to write and not to read. The same is true for transfer requests from `111.111.111.202` and `111.111.111.203`.
+
+[return to top](#the-pool-selection-mechanism)
 
 ### Reserving Pools for Storage and Cache Classes
 
@@ -314,52 +317,51 @@ If pools are financed by one experimental group, they probably do not like it if
 Example:
 Assume, data of experiment A obtained in 2010 is written into subdirectories in the namespace tree which are tagged with the storage class `exp-a:run2010@osm`, and similarly for the other years. (How this is done is described in [the section called “Storage Classes”](#storage-classes).) Experiment B uses the storage class `exp-b:alldata@osm` for all its data. Especially important data is tagged with the cache class `important`. (This is described in [the section called “Cache Class”](#cache-class).) A suitable setup would be
 
-   **psu create pgroup** exp-a-pools
-   **psu create pool** pool1
-   **psu addto pgroup** exp-a-pools pool1
+   psu create pgroup exp-a-pools
+   psu create pool pool1
+   psu addto pgroup exp-a-pools pool1
 
-   **psu create pgroup** exp-b-pools
-   **psu create pool** pool2
-   **psu addto pgroup** exp-b-pools pool2
+   psu create pgroup exp-b-pools
+   psu create pool pool2
+   psu addto pgroup exp-b-pools pool2
 
-   **psu create pgroup** exp-b-imp-pools
-   **psu create pool** pool3
-   **psu addto pgroup** exp-b-imp-pools pool3
+   psu create pgroup exp-b-imp-pools
+   psu create pool pool3
+   psu addto pgroup exp-b-imp-pools pool3
 
-   **psu create unit** -net 111.111.111.0/255.255.255.0
-   **psu create ugroup** allnet-cond
-   **psu addto ugroup** allnet-cond 111.111.111.0/255.255.255.0
+   psu create unit -net 111.111.111.0/255.255.255.0
+   psu create ugroup allnet-cond
+   psu addto ugroup allnet-cond 111.111.111.0/255.255.255.0
 
-psu create ugroup exp-a-cond
-psu create unit -store exp-a:run2011@osm
-psu addto ugroup exp-a-cond exp-a:run2011@osm
-psu create unit -store exp-a:run2010@osm
-psu addto ugroup exp-a-cond exp-a:run2010@osm
+   psu create ugroup exp-a-cond
+   psu create unit -store exp-a:run2011@osm
+   psu addto ugroup exp-a-cond exp-a:run2011@osm
+   psu create unit -store exp-a:run2010@osm
+   psu addto ugroup exp-a-cond exp-a:run2010@osm
 
-psu create link exp-a-link allnet-cond exp-a-cond
-psu set link exp-a-link -readpref=10 -writepref=10 -cachepref=10
-psu add link exp-a-link exp-a-pools
+   psu create link exp-a-link allnet-cond exp-a-cond
+   psu set link exp-a-link -readpref=10 -writepref=10 -cachepref=10
+   psu add link exp-a-link exp-a-pools
 
-psu create ugroup exp-b-cond
-psu create unit -store exp-b:alldata@osm
-psu addto ugroup exp-b-cond exp-b:alldata@osm
+   psu create ugroup exp-b-cond
+   psu create unit -store exp-b:alldata@osm
+   psu addto ugroup exp-b-cond exp-b:alldata@osm
 
-psu create ugroup imp-cond
-psu create unit -dcache important
-psu addto ugroup imp-cond important
+   psu create ugroup imp-cond
+   psu create unit -dcache important
+   psu addto ugroup imp-cond important
 
-psu create link exp-b-link allnet-cond exp-b-cond
-psu set link exp-b-link -readpref=10 -writepref=10 -cachepref=10
-psu add link exp-b-link exp-b-pools
+   psu create link exp-b-link allnet-cond exp-b-cond
+   psu set link exp-b-link -readpref=10 -writepref=10 -cachepref=10
+   psu add link exp-b-link exp-b-pools
 
-psu create link exp-b-imp-link allnet-cond exp-b-cond imp-cond
-psu set link exp-b-imp-link -readpref=20 -writepref=20 -cachepref=20
-psu add link exp-b-link exp-b-imp-pools
+   psu create link exp-b-imp-link allnet-cond exp-b-cond imp-cond
+   psu set link exp-b-imp-link -readpref=20 -writepref=20 -cachepref=20
+   psu add link exp-b-link exp-b-imp-pools
 
 
 
 Data tagged with cache class “`important`” will always be written and read from pools in the pool group `exp-b-imp-pools`, except when all pools in this group cannot be reached. Then the pools in `exp-a-pools` will be used.
-
 Note again that these will never be used otherwise. Not even, if all pools in `exp-b-imp-pools` are very busy and some pools in `exp-a-pools` have nothing to do and lots of free space.
 
 The central IT department might also want to set up a few pools, which are used as fall-back, if none of the pools of the experiments are functioning. These will also be used for internal testing. The following would have to be added to the previous setup:
@@ -374,7 +376,7 @@ The central IT department might also want to set up a few pools, which are used 
 
 Note again that these will only be used, if none of the experiments pools can be reached, or if the storage class is not of the form `exp-a:run2009@osm`, `exp-a:run2010@osm`, or `exp-b:alldata@osm`. If the administrator fails to create the unit `exp-a:run2005@osm` and add it to the unit group `exp-a-cond`, the fall-back pools will be used eventually.
 
-The Partition Manager
+THE PARTITION MANAGER
 =====================
 
 The partition manager defines one or more load balancing policies. Whereas the PSU produces a prioritized set of candidate pools using a collection of rules defined by the administrator, the load balancing policy determines the specific pool to use. It is also the load balancing policy that determines when to fall back to lesser prirority links, or when to trigger creation of additional copies of a file.
@@ -383,7 +385,7 @@ Since the load balancing policy and parameters are defined per partition, unders
 
 This section documents the use of the partition manager, how to create partitions, set parameters and how to associate links with partitions. In the following sections the available partition types and their configuration parameters are described.
 
-Overview
+OVERVIEW
 --------
 
 There are various parameters that affect the load balancing policy. Some of them are generic and apply to any load balancing policy, but many are specific to a particular policy. To avoid limiting the complete DCACHE instance to a single configuration, the choice of load balancing policy and the various parameters apply to partitions of the instance. The load balancing algorithm and the available parameters is determined by the partition type.
@@ -394,7 +396,7 @@ The `default` partition has a hard-coded partition type called `classic`. This t
 
 To ease the management of partition parameters, a common set of shared parameters can be defined outside all partitions. Any parameter not explicitly set on a partition inherits the value from the common set. If not defined in the common set, a default value determined by the partition type is used. Currently, the common set of parameters happens to be the same as the parameters of the `default` partition, however this is only due to compatibility constraints and may change in future versions.
 
-Managing Partitions
+MANAGING PARTITIONS
 -------------------
 
 For each partition you can choose the load balancing policy. You do this by chosing the type of the partition.
@@ -402,7 +404,7 @@ For each partition you can choose the load balancing policy. You do this by chos
 Currently four different partition types are supported:
 
 `classic`:  
-This is the pool selection algorithm used in the versions of DCACHE prior to version `2.0`. See [section\_title][4] for a detailed description.
+This is the pool selection algorithm used in the versions of dCache prior to version 2.0. See [the section called “Classic Partitions”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-classic) for a detailed description.
 
 `random`:  
 This pool selection algorithm selects a pool randomly from the set of available pools.
