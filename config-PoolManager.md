@@ -17,61 +17,46 @@ Table of Contents
      
 * [Link Groups](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs-comments.shtml)  
 
-The heart of a dCache system is the poolmanager. When a user performs an action on a file - reading or writing - a transfer request is sent to the dCache system. The poolmanager then decides how to handle this request.
+The heart of a dCache system is the `poolmanager`. When a user performs an action on a file - reading or writing - a `transfer request` is sent to the dCache system. The `poolmanager` then decides how to handle this request.
 
 If a file the user wishes to read resides on one of the storage-pools within the dCache system, it will be transferred from that pool to the user. If it resides on several pools, the file will be retrieved from one of the pools determined by a configurable load balancing policy. If all pools the file is stored on are busy, a new copy of the file on an idle pool will be created and this pool will answer the request.
 
-A new copy can either be created by a pool to pool transfer (p2p) or by fetching it from a connected tertiary storage system (sometimes called HSM - hierarchical storage manager). Fetching a file from a tertiary storage system is called staging. It is also performed if the file is not present on any of the pools in the dCache system. The pool manager has to decide on which pool the new copy will be created, i.e. staged or p2p-copied.
+A new copy can either be created by a `pool to pool transfer` (p2p) or by fetching it from a connected tertiary storage system (sometimes called HSM - hierarchical storage manager). Fetching a file from a tertiary storage system is called staging. It is also performed if the file is not present on any of the pools in the dCache system. The pool manager has to decide on which pool the new copy will be created, i.e. staged or p2p-copied.
 
-The behaviour of the poolmanager service is highly configurable. In order to exploit the full potential of the software it is essential to understand the mechanisms used and how they are configured. The poolmanager service creates the PoolManager cell, which is a unique cell in dCache and consists of several sub-modules: The important ones are the pool selection unit (PSU) and the load balancing policy as defined by the partition manager (PM).
+The behaviour of the `poolmanager` service is highly configurable. In order to exploit the full potential of the software it is essential to understand the mechanisms used and how they are configured. The `poolmanager` service creates the `PoolManager` cell, which is a unique cell in dCache and consists of several sub-modules: The important ones are the `pool selection unit` (PSU) and the load balancing policy as defined by the partition manager (PM).
 
-The poolmanager can be configured by either directly editing the file /var/lib/dcache/config/poolmanager.conf or via the Admin Interface. Changes made via the Admin Interface will be saved in the file /var/lib/dcache/config/poolmanager.conf by the save command. This file will be parsed, whenever the dCache starts up. It is a simple text file containing the corresponding Admin Interface commands. It can therefore also be edited before the system is started. It can also be loaded into a running system with the reload command. In this chapter we will describe the commands allowed in this file.
+The `poolmanager` can be configured by either directly editing the file **/var/lib/dcache/config/poolmanager.conf** or via the Admin Interface. Changes made via the [Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs-comments.shtml) will be saved in the file **/var/lib/dcache/config/poolmanager.conf** by the `save` command. This file will be parsed, whenever the dCache starts up. It is a simple text file containing the corresponding Admin Interface commands. It can therefore also be edited before the system is started. It can also be loaded into a running system with the `reload` command. In this chapter we will describe the commands allowed in this file.
 
 
 
-The Pool Selection Mechanism
+THE POOL SELECTION MECHANISM
 ============================
 
-The PSU is responsible for finding the set of pools which can be used for a specific transfer-request. By telling the PSU which pools are permitted for which type of transfer-request, the administrator of the DCACHE system can adjust the system to any kind of scenario: Separate organizations served by separate pools, special pools for writing the data to a tertiary storage system, pools in a DMZ which serves only a certain kind of data (e.g., for the grid). This section explains the mechanism employed by the PSU and shows how to configure it with several examples.
+The PSU is responsible for finding the set of pools which can be used for a specific transfer-request. By telling the PSU which pools are permitted for which type of transfer-request, the administrator of the dCache system can adjust the system to any kind of scenario: Separate organizations served by separate pools, special pools for writing the data to a tertiary storage system, pools in a DMZ which serves only a certain kind of data (e.g., for the grid). This section explains the mechanism employed by the PSU and shows how to configure it with several examples.
 
 The PSU generates a list of allowed storage-pools for each incoming transfer-request. The PSU configuration described below tells the PSU which combinations of transfer-request and storage-pool are allowed. Imagine a two-dimensional table with a row for each possible transfer-request and a column for each pool - each field in the table containing either “yes” or “no”. For an incoming transfer-request the PSU will return a list of all pools with “yes” in the corresponding row.
 
-Instead of “yes” and “no” the table really contains a preference - a non-negative integer. However, the PSU configuration is easier to understand if this is ignored.
+Instead of “yes” and “no” the table really contains a *preference* - a non-negative integer. However, the PSU configuration is easier to understand if this is ignored.
 
 Actually maintaining such a table in memory (and as user in a configuration file) would be quite inefficient, because there are many possibilities for the transfer-requests. Instead, the PSU consults a set of rules in order to generate the list of allowed pools. Each such rule is called a link because it links a set of transfer-requests to a group of pools.
 
-Links
+LINKS
 -----
 
 A link consists of a set of unit groups and a list of pools. If all the unit groups are matched, the pools belonging to the link are added to the list of allowable pools.
 
-A link is defined in the file `` by
+A link is defined in the file **/var/lib/dcache/config/poolmanager.conf** by
 
-psu create link
-link
-unitgroup
-psu set link
-link
--readpref
-=
-rpref
--writepref
-=
-wpref
--cachepref
-=
-cpref
--p2ppref
-=
-ppref
-psu add link
-link
-poolgroup
-For the preference values see [section\_title].
+**psu create link** <link> <unitgroup> 
+**psu set link** <link> -readpref=<rpref> -writepref=<wpref> -cachepref=<cpref> -p2ppref=<ppref> 
+**psu add link** <link> <poolgroup>
+
+For the preference values see the [section called “Preference Values for Type of Transfer”](#preference-values-for-type-of-transfer).
 
 The main task is to understand how the unit groups in a link are defined. After we have dealt with that, the preference values will be discussed and a few examples will follow.
 
 The four properties of a transfer request, which are relevant for the PSU, are the following:
+
 
 Location of the File  
 The location of the file in the file system is not used directly. Each file has the following two properties which can be set per directory:
