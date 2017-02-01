@@ -5,17 +5,17 @@ Table of Contents
 
 * [The Pool Selection Mechanism](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml)  
    
-      * [Links](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#cf-pm-links)   
-      * [Examples](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#idp1926336)  
+       [Links](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#cf-pm-links)   
+       [Examples](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#idp1926336)  
       
- * [The Partition Manager](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml)  
+* [The Partition Manager](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml)  
   
-     * [Overview](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-overview)  
-     * [Managing Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-commands)  
-     * [Using Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-usingPartitions)  
-     * [Classic Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-classic)  
+       [Overview](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-overview)  
+       [Managing Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-commands)  
+       [Using Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-usingPartitions)  
+       [Classic Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-classic)  
      
- * [Link Groups](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs-comments.shtml)  
+* [Link Groups](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs-comments.shtml)  
 
 The heart of a dCache system is the poolmanager. When a user performs an action on a file - reading or writing - a transfer request is sent to the dCache system. The poolmanager then decides how to handle this request.
 
