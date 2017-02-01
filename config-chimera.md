@@ -370,33 +370,32 @@ Data from experiment-a taken in 2010 shall be written into the directory **/data
 
 List the content of the tags by
 
-     [user] $ /usr/bin/chimera readtag /data/experiment-a/2010 OSMTemplate
-     StoreName exp-a
-     [user] $ /usr/bin/chimera readtag /data/experiment-a/2010 sGroup
-     run2010
-     [user] $ /usr/bin/chimera readtag /data/experiment-a/2011 OSMTemplate
-     StoreName exp-a
-     [user] $ /usr/bin/chimera readtag /data/experiment-a/2011 sGroup
-     run2011
-     [user] $ /usr/bin/chimera readtag /data/experiment-b/2011 OSMTemplate
-     StoreName exp-b
-     [user] $ /usr/bin/chimera readtag /data/experiment-b/2011 sGroup
-     alldata
+     [user] $ /usr/bin/chimera readtag /data/experiment-a/2010 OSMTemplate  
+     StoreName exp-a  
+     [user] $ /usr/bin/chimera readtag /data/experiment-a/2010 sGroup  
+     run2010  
+     [user] $ /usr/bin/chimera readtag /data/experiment-a/2011 OSMTemplate  
+     StoreName exp-a  
+     [user] $ /usr/bin/chimera readtag /data/experiment-a/2011 sGroup  
+     run2011  
+     [user] $ /usr/bin/chimera readtag /data/experiment-b/2011 OSMTemplate  
+     StoreName exp-b  
+     [user] $ /usr/bin/chimera readtag /data/experiment-b/2011 sGroup  
+     alldata  
 
 
 As the tag OSMTemplate was created the HSMType is assumed to be osm.
 The storage classes of the files which are copied into these directories after the tags have been set will be
 
-exp-a:run2010@osm for the files in **/data/experiment-a/2010**
-exp-a:run2011@osm for the files in **/data/experiment-a/2011
-exp-b:alldata@osm for the files in */data/experiment-b
+exp-a:run2010@osm for the files in **/data/experiment-a/2010**  
+exp-a:run2011@osm for the files in **/data/experiment-a/2011**  
+exp-b:alldata@osm for the files in */data/experiment-b**  
 
 To see how storage classes are used for pool selection have a look at the example ’Reserving Pools for Storage and Cache Classes’ in the PoolManager chapter.
 
-To see how storage classes are used for pool selection have a look at the example 'Reserving Pools for Storage and Cache Classes' in the PoolManager chapter.
-
 There are more tags used by DCACHE if the `HSMType` is `enstore`.
 
+<!--
   [???]: #in-install-layout
   [section\_title]: #chimera-tags
   [1]: #rf-ports
