@@ -92,30 +92,30 @@ The unit that matches is selected from all units defined in DCACHE, not just tho
 **Network Unit**  
 A *network unit* consists of an IP address and a net mask written as <IP-address>/<net mask>, say 111.111.111.0/255.255.255.0. It is satisfied, if the request is coming from a host with IP address within the subnet given by the address/netmask pair.
 
-    **psu create ugroup** <name-of-unitgroup>
-    **psu create unit -net** <IP-address>/<net mask>
-    **psu addto ugroup** <name-of-unitgroup> <IP-address>/<net mask>
+    psu create ugroup <name-of-unitgroup>
+    psu create unit -net <IP-address>/<net mask>
+    psu addto ugroup <name-of-unitgroup> <IP-address>/<net mask>
 
 **Protocol Unit**   
 A *protocol unit* consists of the name of the protocol and the version number written as protocol-name/version-number, e.g., `xrootd/3`.
 
-    **psu create ugroup** <name-of-unitgroup>
-    **psu create unit -protocol** <protocol-name>/<version-number>
-    **psu addto ugroup** <name-of-unitgroup> <protocol-name>/<version-number>
+    psu create ugroup <name-of-unitgroup>
+    psu create unit -protocol <protocol-name>/<version-number>
+    psu addto ugroup <name-of-unitgroup> <protocol-name>/<version-number>
 
 **Storage Class Unit**  
 A *storage class* unit is given by a storage class. It is satisfied if the requested file has this storage class. Simple wild cards are allowed: for this it is important to know that a storage class must always contain exactly one @-symbol as will be explained in [the section called “Storage Classes”](#storage-classes). In a storage class unit, either the part before the @-symbol or both parts may be replaced by a *-symbol; for example, *@osm and *@* are both valid storage class units whereas `something@*` is invalid. The *-symbol represents a limited wildcard: any string that doesn’t contain an @-symbol will match.
 
-    **psu create ugroup** <name-of-unitgroup>
-    **psu create unit -store** <StoreName>:<StorageGroup>@<type-of-storage-system>
-    **psu addto ugroup** <name-of-unitgroup> <StoreName>:<StorageGroup>@<type-of-storage-system>
+    psu create ugroup <name-of-unitgroup>
+    psu create unit -store <StoreName>:<StorageGroup>@<type-of-storage-system>
+    psu addto ugroup <name-of-unitgroup> <StoreName>:<StorageGroup>@<type-of-storage-system>
 
 **Cache Class Unit**  
 A *cache class unit* is given by a cache class. It is satisfied, if the cache class of the requested file agrees with it.
 
-    **psu create ugroup** <name-of-unitgroup>
-    **psu create unit -dcache** <name-of-cache-class>
-    **psu addto ugroup** <name-of-unitgroup> <name-of-cache-class>
+    psu create ugroup <name-of-unitgroup>
+    psu create unit -dcache <name-of-cache-class>
+    psu addto ugroup <name-of-unitgroup> <name-of-cache-class>
 
 ### Preference Values for Type of Transfer
 
@@ -133,26 +133,26 @@ If several different non-zero preference values are used, the PSU will not gener
 
 Pools can be grouped together to pool groups.
 
-    **psu create pgroup** <name-of-poolgroup>
-    **psu create pool** <name-of-pool>
-    **psu addto pgroup** <name-of-poolgroup> <name-of-pool>
+    psu create pgroup <name-of-poolgroup>
+    psu create pool <name-of-pool>
+    psu addto pgroup <name-of-poolgroup> <name-of-pool>
 
 Example:
 Consider a host `pool1` with two pools, `pool1_1` and `pool1_2`, and a host `pool2` with one pool `pool2_1`. If you want to treat them in the same way, you would create a pool group and put all of them in it:
 
-    **psu create pgroup** normal-pools  
-    **psu create pool** pool1_1  
-    **psu addto pgroup** normal-pools pool1_1  
-    **psu create pool** pool1_2  
-    **psu addto pgroup** normal-pools pool1_2  
-    **psu create pool** pool2_1  
-    **psu addto pgroup** normal-pools pool2_1  
+    psu create pgroup normal-pools  
+    psu create pool pool1_1  
+    psu addto pgroup normal-pools pool1_1  
+    psu create pool pool1_2  
+    psu addto pgroup normal-pools pool1_2  
+    psu create pool pool2_1  
+    psu addto pgroup normal-pools pool2_1  
 
 If you later want to treat `pool1_2` differently from the others, you would remove it from this pool group and add it to a new one:
 
-    **psu removefrom pgroup** normal-pools pool1_2  
-    **psu create pgroup** special-pools  
-    **psu addto pgroup** special-pools pool1_2  
+    psu removefrom pgroup normal-pools pool1_2  
+    psu create pgroup special-pools  
+    psu addto pgroup special-pools pool1_2  
 
 In the following, we will assume that the necessary pool groups already exist. All names ending with `-pools` will denote pool groups.
 
