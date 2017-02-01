@@ -62,28 +62,24 @@ The four properties of a transfer request, which are relevant for the PSU, are t
 
 The location of the file in the file system is not used directly. Each file has the following two properties which can be set per directory:
 
--   **Storage Class.**
+-   **Storage Class.** The storage class is a string. It is used by a tertiary storage system to decide where to store the file (i.e. on which set of tapes) and DCACHE can use the storage class for a similar purpose (i.e. on which pools the file can be stored.). A detailed description of the syntax and how to set the storage class of a directory in the namespace is given in [the section called “Storage Classes”](#storage-classes).
 
-    The storage class is a string. It is used by a tertiary storage system to decide where to store the file (i.e. on which set of tapes) and DCACHE can use the storage class for a similar purpose (i.e. on which pools the file can be stored.). A detailed description of the syntax and how to set the storage class of a directory in the namespace is given in [section\_title][1].
+-   **Cache Class.** The cache class is a string with essentially the same functionality as the storage class, except that it is not used by a tertiary storage system. It is used in cases, where the storage class does not provide enough flexibility. It should only be used, if an existing configuration using storage classes does not provide sufficient flexibility.
 
--   **Cache Class.**
-
-    The cache class is a string with essentially the same functionality as the storage class, except that it is not used by a tertiary storage system. It is used in cases, where the storage class does not provide enough flexibility. It should only be used, if an existing configuration using storage classes does not provide sufficient flexibility.
-
-IP Address  
+-   **IP Address **  
 The IP address of the requesting host.
 
-Protocol / Type of Door  
+-   **Protocol / Type of Door **  
 The protocol respectively the type of door used by the transfer.
 
-Type of Transfer  
-The type of transfer is either READ, WRITE, P2P request or CACHE.
+-   **Type of Transfer**   
+The type of transfer is either read, write, p2p request or cache.
 
-A request for reading a file which is not on a read pool will trigger a P2P request and a subsequent READ request. These will be treated as two separate requests.
+A request for reading a file which is not on a read pool will trigger a p2p request and a subsequent read request. These will be treated as two separate requests.
 
-A request for reading a file which is not stored on disk, but has to be staged from a connected tertiary storage system will trigger a CACHE request to fetch the file from the tertiary storage system and a subsequent READ request. These will be treated as two separate requests.
+A request for reading a file which is not stored on disk, but has to be staged from a connected tertiary storage system will trigger a `cache` request to fetch the file from the tertiary storage system and a subsequent `read` request. These will be treated as two separate requests.
 
-Each link contains one or more unit groups, all of which have to be matched by the transfer request. Each unit group in turn contains several units. The unit group is matched if at least one of the units is matched.
+Each link contains one or more `unit groups`, all of which have to be matched by the transfer request. Each unit group in turn contains several `units`. The unit group is matched if at least one of the units is matched.
 
 ### Types of Units
 
@@ -94,12 +90,11 @@ For each transfer at most one of each of the four unit types will match. If more
 The unit that matches is selected from all units defined in DCACHE, not just those for a particular unit group. This means that, if a unit group has a unit that could match a request but this request also matches a more restrictive unit defined elsewhere then the less restrictive unit will not match.
 
 Network Unit  
-A *network unit* consists of an IP address and a net mask written as `IP-address/net
-		mask`, say `111.111.111.0/255.255.255.0`. It is satisfied, if the request is coming from a host with IP address within the subnet given by the address/netmask pair.
+A *network unit* consists of an IP address and a net mask written as <IP-address>/<net mask>, say 111.111.111.0/255.255.255.0. It is satisfied, if the request is coming from a host with IP address within the subnet given by the address/netmask pair.
 
-    psu create ugroup name-of-unitgroup
-    psu create unit -net IP-address/net mask
-    psu addto ugroup name-of-unitgroup IP-address/net mask
+    psu create ugroup <name-of-unitgroup>
+    psu create unit -net <IP-address>/<net mask>
+    psu addto ugroup <name-of-unitgroup> <IP-address>/<net mask>
 
 Protocol Unit  
 A *protocol unit* consists of the name of the protocol and the version number written as protocol-name/version-number, e.g., `xrootd/3`.
