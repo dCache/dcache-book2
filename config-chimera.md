@@ -199,105 +199,110 @@ This way, the complete path of a file may be obtained starting from the ID.
 DIRECTORY TAGS
 ==============
 
-In the Chimera namespace, each directory can have a number of tags. These directory tags may be used within dCache to control the file placement policy in the pools (see the section called “The Pool Selection Mechanism”). They might also be used by a tertiary storage system for similar purposes (e.g. controlling the set of tapes used for the files in the directory).
-
+In the Chimera namespace, each directory can have a number of tags. These directory tags may be used within dCache to control the file placement policy in the pools (see [the section called “The Pool Selection Mechanism”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml)). They might also be used by a [tertiary storage system](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-fhs-comments.shtml) for similar purposes (e.g. controlling the set of tapes used for the files in the directory).
 
 
 > **NOTE**
 >
-> Directory tags are not needed to control the behaviour of DCACHE. DCACHE works well without directory tags.
+> Directory tags are not needed to control the behaviour of dCache. dCache works well without directory tags.
 
-Create, List and Read Directory Tags if the Namespace is not Mounted
+CREATE, LIST AND READ DIRECTORY TAGS IF THE NAMESPACE IS NOT MOUNTED
 --------------------------------------------------------------------
 
 You can create tags with
 
-    PROMPT-USER CHIMERA-CLI writetag directory tagName "content"
+    [user] $ /usr/bin/chimera writetag <directory> <tagName> "<content>"
 
 list tags with
 
-    PROMPT-USER CHIMERA-CLI lstag directory 
+    [user] $ /usr/bin/chimera lstag <directory>  
 
 and read tags with
 
-    PROMPT-USER CHIMERA-CLI readtag directory tagName
+    [user] $ /usr/bin/chimera readtag <directory> <tagName>
 
+Example:
 Create tags for the directory `data` with
 
-    PROMPT-USER CHIMERA-CLI writetag /data sGroup "myGroup"
-    PROMPT-USER CHIMERA-CLI writetag /data OSMTemplate "StoreName myStore"
+    [user] $ /usr/bin/chimera writetag /data sGroup "myGroup"
+    [user] $ /usr/bin/chimera writetag /data OSMTemplate "StoreName myStore"
 
 list the existing tags with
 
-    PROMPT-USER CHIMERA-CLI lstag /data
+    [user] $ /usr/bin/chimera lstag /data
     Total: 2
     OSMTemplate
     sGroup
+    
+and their content with    
+  
+   [user] $ /usr/bin/chimera readtag /data OSMTemplate
+   StoreName myStore
+   [user] $ /usr/bin/chimera readtag /data sGroup
+   myGroup
 
-and their content with
 
-    PROMPT-USER CHIMERA-CLI readtag /data OSMTemplate
-    StoreName myStore
-    PROMPT-USER CHIMERA-CLI readtag /data sGroup
-    myGroup
 
-Create, List and Read Directory Tags if the Namespace is Mounted
+CREATE, LIST AND READ DIRECTORY TAGS IF THE NAMESPACE IS MOUNTED
 ----------------------------------------------------------------
 
 If the namespace is mounted, change to the directory for which the tag should be set and create a tag with
 
-    PROMPT-USER cd directory
-    PROMPT-USER echo 'content1' > '.(tag)(tagName1)'
-    PROMPT-USER echo 'content2' > '.(tag)(tagName2)'
+     [user] $ cd <directory>
+     [user] $ echo '<content1>' > '.(tag)(<tagName1>)'
+     [user] $ echo '<content2>' > '.(tag)(<tagName2>)'
+
 
 Then the existing tags may be listed with
 
-    PROMPT-USER cat '.(tags)()'
-    .(tag)(tagname1)
-    .(tag)(tagname2)
+    [user] $ cat '.(tags)()'
+    .(tag)(<tagname1>)
+    .(tag)(<tagname2>)
+
 
 and the content of a tag can be read with
 
-    PROMPT-USER cat '.(tag)(tagname1)'
-    content1
-    PROMPT-USER cat '.(tag)(tagName2)'
-    content2
+    [user] $ cat '.(tag)(<tagname1>)'
+    <content1>
+    [user] $ cat '.(tag)(<tagName2>)'
+    <content2>
 
-Create tags for the directory `data` with
 
-    PROMPT-USER cd data
-    PROMPT-USER echo 'StoreName myStore' > '.(tag)(OSMTemplate)'
-    PROMPT-USER echo 'myGroup' > '.(tag)(sGroup)'
+Create tags for the directory **data** with
+
+    [user] $ cd data
+    [user] $ echo 'StoreName myStore' > '.(tag)(OSMTemplate)'
+    [user] $ echo 'myGroup' > '.(tag)(sGroup)'
 
 list the existing tags with
 
-    PROMPT-USER cat '.(tags)()'
+    [user] $ cat '.(tags)()'
     .(tag)(OSMTemplate)
     .(tag)(sGroup)
-
+    
 and their content with
 
-    PROMPT-USER cat '.(tag)(OSMTemplate)'
+    [user] $ cat '.(tag)(OSMTemplate)'
     StoreName myStore
-    PROMPT-USER cat '.(tag)(sGroup)'
-     myGroup
+    [user] $ cat '.(tag)(sGroup)'
+    myGroup
 
 A nice trick to list all tags with their contents is
 
-    PROMPT-USER grep "" $(cat  ".(tags)()")
+    [user] $ grep "" $(cat  ".(tags)()")
     .(tag)(OSMTemplate):StoreName myStore
     .(tag)(sGroup):myGroup
 
-Directory Tags and Command Files
+DIRECTORY TAGS AND COMMAND FILES
 --------------------------------
 
 When creating or changing directory tags by writing to the command file as in
 
-    PROMPT-USER echo 'content' > '.(tag)(tagName)'
+    [user] $ echo '<content>' > '.(tag)(<tagName>)'
 
 one has to take care not to treat the command files in the same way as regular files, because tags are different from files in the following aspects:
 
-1.  The tagName is limited to 62 characters and the content to 512 bytes. Writing more to the command file, will be silently ignored.
+1.  The <tagName> is limited to 62 characters and the <content> to 512 bytes. Writing more to the command file, will be silently ignored.
 
 2.  If a tag which does not exist in a directory is created by writing to it, it is called a *primary* tag.
 
@@ -307,86 +312,86 @@ one has to take care not to treat the command files in the same way as regular f
 
 4.  Empty tags are ignored.
 
-Directory Tags for DCACHE
+DIRECTORY TAGS FOR DCACHE
 -------------------------
 
 The following directory tags appear in the DCACHE context:
 
 OSMTemplate  
-Must contain a line of the form “`StoreName` storeName” and specifies the name of the store that is used by DCACHE to construct the [storage class] if the HSM Type is `osm`.
+Must contain a line of the form “`StoreName` <storeName>” and specifies the name of the store that is used by dCache to construct the [storage class](#storage-class-and-directory-tags) if the [HSM Type](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-hsm_type) is `osm`.
 
 HSMType  
-The `HSMType` tag is normally determined from the other existing tags. E.g., if the tag `OSMTemplate` exists, `HSMType`=`osm` is assumed. With this tag it can be set explicitly. A class implementing that HSM type has to exist. Currently the only implementations are `osm` and `enstore`.
+The [`HSMType`](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-hsm_type) tag is normally determined from the other existing tags. E.g., if the tag `OSMTemplate` exists, `HSMType`=`osm` is assumed. With this tag it can be set explicitly. A class implementing that HSM type has to exist. Currently the only implementations are `osm` and `enstore`.
 
 sGroup  
-The storage group is also used to construct the [storage class] if the `HSMType` is `osm`.
+The storage group is also used to construct the [storage class](#storage-class-and-directory-tags) if the [`HSMType`](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-hsm_type) is `osm`.
 
 cacheClass  
 The cache class is only used to control on which pools the files in a directory may be stored, while the storage class (constructed from the two above tags) might also be used by the HSM. The cache class is only needed if the above two tags are already fixed by HSM usage and more flexibility is needed.
 
 hsmInstance  
-If not set, the `hsmInstance` tag will be the same as the `HSMType` tag. Setting this tag will only change the name as used in the [storage class] and in the pool commands.
+If not set, the `hsmInstance` tag will be the same as the `HSMType` tag. Setting this tag will only change the name as used in the [storage class](#storage-class-and-directory-tags) and in the pool commands.
 
 WriteToken  
-Assign a `WriteToken` tag to a directory in order to be able to write to a space token without using the SRM.
+Assign a `WriteToken` tag to a directory in order to be able to write to a space token without using the `SRM`.
 
-Storage Class and Directory Tags
+STORAGE CLASS AND DIRECTORY TAGS
 --------------------------------
 
-The [storage class][3] is a string of the form StoreName:StorageGroup@hsm-type, where StoreName is given by the `OSMTemplate` tag, StorageGroup by the `sGroup` tag and hsm-type by the `HSMType` tag. As mentioned above the `HSMType` tag is assumed to be `osm` if the tag `OSMTemplate` exists.
+The [storage class](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#secStorageClass) is a string of the form <StoreName>:<StorageGroup>@<hsm-type>, where <StoreName> is given by the OSMTemplate tag, <StorageGroup> by the sGroup tag and <hsm-type> by the HSMType tag. As mentioned above the HSMType tag is assumed to be osm if the tag OSMTemplate exists.
 
 In the examples above two tags have been created.
 
-    PROMPT-USER CHIMERA-CLI lstag /data
-    Total: 2
-    OSMTemplate
-    sGroup
 
-As the tag `OSMTemplate` was created the tag `HSMType` is assumed to be `osm`.
+     Example:
 
-The storage class of the files which are copied into the directory `/data` after the tags have been set will be `myStore:myGroup@osm`.
+     [user] $ /usr/bin/chimera lstag /data
+     Total: 2
+     OSMTemplate
+     sGroup
+     
+As the tag OSMTemplate was created the tag HSMType is assumed to be osm.
+The storage class of the files which are copied into the directory **/data** after the tags have been set will be myStore:myGroup@osm.
 
-If directory tags are used to control the behaviour of DCACHE and/or a tertiary storage system, it is a good idea to plan the directory structure in advance, thereby considering the necessary tags and how they should be set up. Moving directories should be done with great care or even not at all. Inherited tags can only be created by creating a new directory.
+If directory tags are used to control the behaviour of dCache and/or a tertiary storage system, it is a good idea to plan the directory structure in advance, thereby considering the necessary tags and how they should be set up. Moving directories should be done with great care or even not at all. Inherited tags can only be created by creating a new directory.
 
-Assume that data of two experiments, `experiment-a` and `experiment-b` is written into a namespace tree with subdirectories `/data/experiment-a` and `/data/experiment-b`. As some pools of the DCACHE are financed by `experiment-a` and others by `experiment-b` they probably do not like it if they are also used by the other group. To avoid this the directories of `experiment-a` and `experiment-b` can be tagged.
+Example:
 
-    PROMPT-USER CHIMERA-CLI writetag /data/experiment-a OSMTemplate "StoreName exp-a"
-    PROMPT-USER CHIMERA-CLI writetag /data/experiment-b OSMTemplate "StoreName exp-b"
+Assume that data of two experiments, experiment-a and experiment-b is written into a namespace tree with subdirectories **/data/experiment-a** and **/data/experiment-b**. As some pools of the dCache are financed by experiment-a and others by experiment-b they probably do not like it if they are also used by the other group. To avoid this the directories of experiment-a and experiment-b can be tagged.
+     
+     [user] $ /usr/bin/chimera writetag /data/experiment-a OSMTemplate "StoreName exp-a"
+     [user] $ /usr/bin/chimera writetag /data/experiment-b OSMTemplate "StoreName exp-b"
+     
+Data from experiment-a taken in 2010 shall be written into the directory **/data/experiment-a/2010** and data from experiment-a taken in 2011 shall be written into **/data/experiment-a/2011**. Data from experiment-b shall be written into **/data/experiment-b**. Tag the directories correspondingly.
 
-Data from `experiment-a` taken in 2010 shall be written into the directory `/data/experiment-a/2010` and data from `experiment-a` taken in 2011 shall be written into `/data/experiment-a/2011`. Data from `experiment-b` shall be written into `/data/experiment-b`. Tag the directories correspondingly.
-
-    PROMPT-USER CHIMERA-CLI writetag /data/experiment-a/2010 sGroup "run2010"
-    PROMPT-USER CHIMERA-CLI writetag /data/experiment-a/2011 sGroup "run2011"
-    PROMPT-USER CHIMERA-CLI writetag /data/experiment-b sGroup "alldata"
+     [user] $ /usr/bin/chimera writetag /data/experiment-a/2010 sGroup "run2010"
+     [user] $ /usr/bin/chimera writetag /data/experiment-a/2011 sGroup "run2011"
+     [user] $ /usr/bin/chimera writetag /data/experiment-b sGroup "alldata"
 
 List the content of the tags by
 
-    PROMPT-USER CHIMERA-CLI readtag /data/experiment-a/2010 OSMTemplate
-    StoreName exp-a
-    PROMPT-USER CHIMERA-CLI readtag /data/experiment-a/2010 sGroup
-    run2010
-    PROMPT-USER CHIMERA-CLI readtag /data/experiment-a/2011 OSMTemplate
-    StoreName exp-a
-    PROMPT-USER CHIMERA-CLI readtag /data/experiment-a/2011 sGroup
-    run2011
-    PROMPT-USER CHIMERA-CLI readtag /data/experiment-b/2011 OSMTemplate
-    StoreName exp-b
-    PROMPT-USER CHIMERA-CLI readtag /data/experiment-b/2011 sGroup
-    alldata
+     [user] $ /usr/bin/chimera readtag /data/experiment-a/2010 OSMTemplate
+     StoreName exp-a
+     [user] $ /usr/bin/chimera readtag /data/experiment-a/2010 sGroup
+     run2010
+     [user] $ /usr/bin/chimera readtag /data/experiment-a/2011 OSMTemplate
+     StoreName exp-a
+     [user] $ /usr/bin/chimera readtag /data/experiment-a/2011 sGroup
+     run2011
+     [user] $ /usr/bin/chimera readtag /data/experiment-b/2011 OSMTemplate
+     StoreName exp-b
+     [user] $ /usr/bin/chimera readtag /data/experiment-b/2011 sGroup
+     alldata
 
-As the tag `OSMTemplate` was created the `HSMType` is assumed to be `osm`.
 
+As the tag OSMTemplate was created the HSMType is assumed to be osm.
 The storage classes of the files which are copied into these directories after the tags have been set will be
 
--   exp-a:run2010@osm
-    for the files in
-    /data/experiment-a/2010
--   exp-a:run2011@osm
-    for the files in
-    /data/experiment-a/2011
--   exp-b:alldata@osm
-    for the files in
-    /data/experiment-b
+exp-a:run2010@osm for the files in **/data/experiment-a/2010**
+exp-a:run2011@osm for the files in **/data/experiment-a/2011
+exp-b:alldata@osm for the files in */data/experiment-b
+
+To see how storage classes are used for pool selection have a look at the example ’Reserving Pools for Storage and Cache Classes’ in the PoolManager chapter.
 
 To see how storage classes are used for pool selection have a look at the example 'Reserving Pools for Storage and Cache Classes' in the PoolManager chapter.
 
