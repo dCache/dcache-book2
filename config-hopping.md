@@ -24,52 +24,51 @@ File hopping is a collective term in dCache, summarizing the possibility of havi
 FILE HOPPING ON ARRIVAL FROM OUTSIDE DCACHE
 ===========================================
 
-File Hopping on arrival is a term, denoting the possibility of initiating a pool to pool transfer as the result of a file successfully arriving on a pool from some external client. Files restored from HSM or arriving on a pool as the result of a pool to pool transfer will not yet be forwarded.
+*File Hopping on arrival* is a term, denoting the possibility of initiating a pool to pool transfer as the result of a file successfully arriving on a pool from some external client. Files restored from HSM or arriving on a pool as the result of a pool to pool transfer will not yet be forwarded.
 
-Forwarding of incoming files can be enabled by setting the pool.destination.replicate property in the /etc/dcache/dcache.conf file or per pool in the layout file. It can be set to on, PoolManager or HoppingManager, where on does the same as PoolManager.
+Forwarding of incoming files can be enabled by setting the `pool.destination.replicate` property in the **/etc/dcache/dcache.conf** file or per pool in the layout file. It can be set to on, `PoolManager` or `HoppingManager`, where on does the same as `PoolManager`.
 
-The pool is requested to send a replicateFile message to either the PoolManager or to the HoppingManager, if available. The different approaches are briefly described below and in more detail in the subsequent sections.
+The pool is requested to send a `replicateFile` message to either the `PoolManager` or to the `HoppingManager`, if available. The different approaches are briefly described below and in more detail in the subsequent sections.
 
--   The `replicateFile` message is sent to the CELL-POOLMNGR. This happens for all files arriving at that pool from outside (no restore or p2p). No intermediate CELL-HOPMNGR is needed. The restrictions are
+-   The `replicateFile` message is sent to the `PoolManager`. This happens for all files arriving at that pool from outside (no restore or p2p). No intermediate `HoppingManager` is needed. The restrictions are
 
     -   All files are replicated. No pre-selection, e.g. on the storage class can be done.
 
-    -   The mode of the replicated file is determined by the destination pool and cannot be overwritten. See [section\_title]
+    -   The mode of the replicated file is determined by the destination pool and cannot be overwritten. See [the section called “File mode of replicated files”](#file-mode-of-replicated-files)
 
--   The `replicateFile` message is sent to the CELL-HOPMNGR. The CELL-HOPMNGR can be configured to replicate certain storage classes only and to set the mode of the replicated file according to rules. The file mode of the source file cannot be modified.
+-   The `replicateFile` message is sent to the `HoppingManager`. The `HoppingManager` can be configured to replicate certain storage classes only and to set the mode of the replicated file according to rules. The file mode of the source file cannot be modified.
 
-File mode of replicated files
+FILE MODE OF REPLICATED FILES
 -----------------------------
 
-The mode of a replicated file can either be determined by settings in the destination pool or by the CELL-HOPMNGR. It can be `cached` or `precious`.
+The mode of a replicated file can either be determined by settings in the destination pool or by the `HoppingManager`. It can be `cached` or `precious`.
 
--   If the CELL-POOLMNGR is used for replication, the mode of the replicated file is determined by the destination pool. The default setting is `cached`.
+-   If the `PoolManager` is used for replication, the mode of the replicated file is determined by the destination pool. The default setting is `cached`.
 
--   If a CELL-HOPMNGR is used for file replication, the mode of the replicated file is determined by the CELL-HOPMNGR rule responsible for this particular replication. If the destination mode is set to `keep` in the rule, the mode of the destination pool determines the final mode of the replicated file.
+-   If a `HoppingManager` is used for file replication, the mode of the replicated file is determined by the `HoppingManager` rule responsible for this particular replication. If the destination mode is set to `keep` in the rule, the mode of the destination pool determines the final mode of the replicated file.
 
-File Hopping managed by the CELL-POOLMNGR
------------------------------------------
+FILE HOPPING MANAGED BY THE POOLMANAGER
+---------------------------------------
 
-To enable replication on arrival by the CELL-POOLMNGR set the property `pool.destination.replicate` to `PoolManager` for the particular pool
+To enable replication on arrival by the `PoolManager` set the property `pool.destination.replicate` to `PoolManager` for the particular pool
 
     [exampleDomain]
     [exampleDomain/pool]
     ...
     pool.destination.replicate=PoolManager
 
-or for several pools in the `PATH-ODE-ED/dcache.conf` file.
+or for several pools in the **/etc/dcache/dcache.conf** file.
 
     ...
     pool.destination.replicate=PoolManager
 
-File hopping configuration instructs a pool to send a `replicateFile` request to the CELL-POOLMNGR as the result of a file arriving on that pool from some external client. All arriving files will be treated the same. The CELL-POOLMNGR will process this transfer request by trying to find a matching link (Please find detailed information at [???].
+File hopping configuration instructs a pool to send a `replicateFile` request to the `PoolManager` as the result of a file arriving on that pool from some external client. All arriving files will be treated the same. The `PoolManager` will process this transfer request by trying to find a matching link (Please find detailed information at [Chapter 7, The poolmanager Service](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-fhs.shtml).
 
 It is possible to configure the CELL-POOLMNGR such that files are replicated from this pool to a special set of destination pools.
 
+Example:
 Assume that we want to have all files, arriving on pool `ocean` to be immediately replicated to a subset of read pools. This subset of pools is described by the poolgroup `ocean-copies`. No other pool is member of the poolgroup `ocean-copies`.
-
-Other than that, files arriving at the pool `mountain` should be replicated to all read pools from which farm nodes on the 131.169.10.0/24 subnet are allowed to read.
-
+Other than that, files arriving at the pool `mountain` should be replicated to all read pools from which farm nodes on the `131.169.10.0/24` subnet are allowed to read.
 The layout file defining the pools `ocean` and `mountain` should read like this:
 
     [exampleDomain]
@@ -85,7 +84,7 @@ The layout file defining the pools `ocean` and `mountain` should read like this:
     pool.wait-for-files=${path}/data
     pool.destination.replicate=PoolManager
 
-In the layout file it is defined that all files arriving on the pools `ocean` or `mountain` should be replicated immediately. The following `PoolManager.conf` file contains instructions for the CELL-POOLMNGR how to replicate these files. Files arriving at the `ocean` pool will be replicated to the `ocean-copies` subset of the read pools and files arriving at the pool `mountain` will be replicated to all read pools from which farm nodes on the 131.169.10.0/24 subnet are allowed to read.
+In the layout file it is defined that all files arriving on the pools `ocean` or `mountain` should be replicated immediately. The following **PoolManager.conf** file contains instructions for the CELL-POOLMNGR how to replicate these files. Files arriving at the `ocean` pool will be replicated to the `ocean-copies` subset of the read pools and files arriving at the pool `mountain` will be replicated to all read pools from which farm nodes on the 131.169.10.0/24 subnet are allowed to read.
 
     #
     # define the units
@@ -175,27 +174,29 @@ In the layout file it is defined that all files arriving on the pools `ocean` or
     #
     #
 
-While 131.169.10.1 is a legal IP address e.g. of one of your farm nodes, the 192.1.1.1 IP address must not exist anywhere at your site.
+While `131.169.10.1` is a legal IP address e.g. of one of your farm nodes, the `192.1.1.1` IP address must not exist anywhere at your site.
 
-File Hopping managed by the CELL-HOPMNGR
-----------------------------------------
+FILE HOPPING MANAGED BY THE HOPPINGMANAGER
+------------------------------------------
 
-With the CELL-HOPMNGR you have several configuration options for `file hopping on arrival`, e.g.:
+With the `HoppingManager` you have several configuration options for file `hopping on arrival`, e.g.:
 
--   With the CELL-HOPMNGR you can define a rule such that only the files with a specific storage class should be replicated.
+-   With the `HoppingManager` you can define a rule such that only the files with a specific storage class should be replicated.
 -   You can specify the protocol the replicated files can be accessed with.
 -   You can specify from which ip-adresses it should be possible to access the files.
 
 ### Starting the FileHopping Manager service
 
-Add the HOPPINGMANAGER service to a domain in your layout file and restart the domain.
+Add the `HoppingManager` service to a domain in your layout file and restart the domain.
 
-    [DomainName]
-    [DomainName/hoppingmanager]
+    [<DomainName>]
+    [<DomainName>/hoppingmanager]
 
-Initially no rules are configured for the CELL-HOPMNGR. You may add rules by either edit the file `PATH-OD-VLD/config/HoppingManager.conf` and restart the HOPPINGMANAGER service, or use the admin interface and save the modifications by the `save` command into the `HoppingManager.conf`
+Initially no rules are configured for the HoppingManager. You may add rules by either edit the file **/var/lib/dcache/config/HoppingManager.conf** and restart the hoppingmanager service, or use the admin interface and `save` the modifications by the save command into the **HoppingManager.conf**
 
-### Configuring pools to use the CELL-HOPMNGR
+
+
+### Configuring pools to use the HoppingManager
 
 To enable replication on arrival by the CELL-HOPMNGR set the property `pool.destination.replicate` to `HoppingManager` for the particular pool
 
