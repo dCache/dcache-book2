@@ -3,13 +3,13 @@ CHAPTER 6. THE REPLICA SERVICE (REPLICA MANAGER)
 
 Table of Contents
 
-* [The Basic Setup](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-basics-fhs.shtml)  
+* [The Basic Setup](#the-basic-setup)  
         
-	[Define a poolgroup for resilient pools](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-basics-fhs.shtml#idp27980416)  
+	[Define a poolgroup for resilient pools](#define-a-poolgroup-for-resilient-pools)  
 
-* [Operation](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml)  
+* [Operation](#operation)  
 
-	[Pool States](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml#cf-repman-op-pool-states)  
+	[Pool States](#pool-states)  
 	[Startup](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml#cf-repman-op-start)  
 	[Avoid replicas on the same host](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml#cf-repman-op-same-host)  
 	[Hybrid dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml#cf-repman-op-hybrid)  
@@ -22,41 +22,47 @@ The replica service (which is also referred to as Replica Manager) controls the 
 
 
 
-The Basic Setup
+THE BASIC SETUP
 ===============
 
-The standard configuration assumes that the database server is installed on the same machine as the REPLICA service MDASH usually the admin node of the DCACHE instance. If this is not the case you need to set the property `replica.db.host`.
+The standard configuration assumes that the database server is installed on the same machine as the `replica` service — usually the admin node of the dCache instance. If this is not the case you need to set the property `replica.db.host`.
 
-To create and configure the database replica used by the REPLICA service in the database server do:
+To create and configure the database *replica* used by the `replica` service in the database server do:
 
-    PROMPT-ROOT createdb -U dcache replica
-    PROMPT-ROOT psql -U dcache -d replica -f PATH-ODE-USDR/psql_install_replicas.sql
 
-To activate the REPLICA service you need to
+   [root] # createdb -U dcache replica
+   [root] # psql -U dcache -d replica -f /usr/share/dcache/replica/psql_install_replicas.sql
 
-1.  Enable the REPLICA service in a layout file.
 
-        [someDomain]
-        ...
+To activate the replica service you need to
 
-        [someDomain/replica]
+1.  Enable the replica service in a layout file.
 
-2.  Configure the service in the `PATH-ODE-ED/dcache.conf` file on the node with the DOMAIN-DCACHE and on the node on which the PNFSMNGR is running.
+        [<someDomain>]
+         ...
+
+        [<someDomain>/replica]
+
+2.  Configure the service in the **/etc/dcache/dcache.conf** file on the node with the dCacheDomain and on the node on which the `pnfsmanager` is running.
 
         dcache.enable.replica=true
 
-    > **Note**
+    > **NOTE**
     >
-    > It will not work properly if you defined the REPLICA service in one of the layout files and set this property to `no` on the node with the DOMAIN-DCACHE or on the node on which the PNFSMNGR is running.
+    > It will not work properly if you defined the `replica` service in one of the layout files and set this property to `no` on the node with the `dCacheDomain` or on the node on which the `pnfsmanager` is running.
 
 3.  Define a pool group for the resilient pools if necessary.
 
-4.  Start the REPLICA service.
+4.  Start the `replica` service.
 
-In the default configuration, all pools of the DCACHE instance which have been created with the command `dcache pool
-      create` will be managed. These pools are in the pool group named `default` which does exist by default. The REPLICA service will keep the number of replicas between 2 and 3 (including). At each restart of the REPLICA service the pool configuration in the database will be recreated.
+In the default configuration, all pools of the dCache instance which have been created with the command `dcache pool create` will be managed. These pools are in the pool group named default which does exist by default. The replica service will keep the number of replicas between 2 and 3 (including). At each restart of the replica service the pool configuration in the database will be recreated.
 
-1.  In your layout file in the directory `PATH-ODE-ED/layouts` define the REPLICA service.
+Example:
+
+This is a simple example to get started with. All your pools are assumed to be in the pool group default.
+
+1.  In your layout file in the directory /etc/dcache/layouts define the replica service.
+
 
         [dCacheDomain]
         ...
@@ -64,25 +70,26 @@ In the default configuration, all pools of the DCACHE instance which have been c
         [replicaDomain]
         [replicaDomain/replica]
 
-2.  In the file `PATH-ODE-ED/dcache.conf` set the value for the property `replicaManager` to `true` and the `replica.poolgroup` to `default`.
+2.  In the file **/etc/dcache/dcache.conf** set the value for the property `replicaManager` to `true` and the `replica.poolgroup` to `default`.
 
         dcache.enable.replica=true
         replica.poolgroup=default
 
 3.  The pool group `default` exists by default and does not need to be defined.
 
-4.  To start the REPLICA service restart DCACHE.
+4.  To start the `replica` service restart DCACHE.
 
-        PROMPT-ROOT dcache restart
+        [root] # dcache restart
 
-Define a poolgroup for resilient pools
+DEFINE A POOLGROUP FOR RESILIENT POOLS
 --------------------------------------
 
-For more complex installations of DCACHE you might want to define a pool group for the resilient pools.
+For more complex installations of dCache you might want to define a pool group for the resilient pools.
 
-Define the resilient pool group in the `` file on the host running the POOLMNGR service. Only pools defined in the resilient pool group will be managed by the REPLICA service.
+Define the resilient pool group in the **/var/lib/dcache/config/poolmanager.conf** file on the host running the `poolmanager` service. Only pools defined in the resilient pool group will be managed by the `replica` service.
 
-Login to the admin interface and cd to the CELL-POOLMNGR. Define a poolgroup for resilient pools and add pools to that poolgroup.
+Example:
+Login to the admin interface and cd to the `PoolManager`. Define a poolgroup for resilient pools and add pools to that poolgroup.
 
     DC-PROMPT-LOCAL cd PoolManager
     DC-PROMPT-PM psu create pgroup ResilientPools
@@ -94,22 +101,23 @@ Login to the admin interface and cd to the CELL-POOLMNGR. Define a poolgroup for
 
 By default the pool group named `ResilientPools` is used for replication.
 
-To use another pool group defined in `` for replication, please specify the group name in the `etc/dcache.conf` file.
+To use another pool group defined in **/var/lib/dcache/config/poolmanager.conf** for replication, please specify the group name in the **etc/dcache.conf** file.
 
-    replica.poolgroup=NameOfResilientPoolGroup.
+    replica.poolgroup=<NameOfResilientPoolGroup>.
 
-Operation
+OPERATION
 =========
 
-When a file is transfered into DCACHE its replica is copied into one of the pools. Since this is the only replica and normally the required range is higher (e.g., by default at least 2 and at most 3), this file will be replicated to other pools.
+When a file is transfered into dCache its replica is copied into one of the pools. Since this is the only replica and normally the required range is higher (e.g., by default at least 2 and at most 3), this file will be replicated to other pools.
 
-When some pools go down, the replica count for the files in these pools may fall below the valid range and these files will be replicated. Replicas of the file with replica count below the valid range and which need replication are called deficient replicas.
+When some pools go down, the replica count for the files in these pools may fall below the valid range and these files will be replicated. Replicas of the file with replica count below the valid range and which need replication are called *deficient* replicas.
 
-Later on some of the failed pools can come up and bring online more valid replicas. If there are too many replicas for some file these extra replicas are called redundant replicas and they will be “reduced”. Extra replicas will be deleted from pools.
+Later on some of the failed pools can come up and bring online more valid replicas. If there are too many replicas for some file these extra replicas are called *redundant* replicas and they will be “reduced”. Extra replicas will be deleted from pools.
 
-The REPLICA service counts the number of replicas for each file in the pools which can be used online (see Pool States below) and keeps the number of replicas within the valid range (`replica.limits.replicas.min`, `replica.limits.replicas.max`).
+The replica service counts the number of replicas for each file in the pools which can be used online (see Pool States below) and keeps the number of replicas within the valid range (`replica.limits.replicas.min, replica.limits.replicas.max`).
 
-Pool States
+
+POOL STATES
 -----------
 
 The possible states of a pool are `online`, `down`, `offline`, `offline-prepare` and `drainoff`. They can be set by the admin through the admin interface. (See [section\_title].)
