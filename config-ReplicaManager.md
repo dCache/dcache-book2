@@ -252,19 +252,16 @@ enable/disable DEBUG messages in the log file
 PROPERTIES OF THE REPLICA SERVICE
 =================================
 
-replica.cell.name  
+`replica.cell.name` 
 Default: `dcache.enable.replica`
-
 Cell name of the REPLICA service
 
-dcache.enable.replica  
+`dcache.enable.replica`
 Default: `false`
-
 Set this value to `true` if you want to use the REPLICA service.
 
-replica.poolgroup  
+**replica.poolgroup**  
 Default: `ResilientPools`
-
 If you want to use another pool group for the resilient pools set this value to the name of the resilient pool group.
 
 replica.db.host  
