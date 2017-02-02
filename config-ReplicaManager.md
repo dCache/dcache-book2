@@ -1,5 +1,19 @@
-The REPLICA Service (Replica Manager)
-==========================================
+CHAPTER 6. THE REPLICA SERVICE (REPLICA MANAGER)
+================================================
+
+Table of Contents
+
+* [The Basic Setup](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-basics-fhs.shtml)
+        [Define a poolgroup for resilient pools](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-basics-fhs.shtml#idp27980416)
+
+* [Operation](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml)
+Pool States
+Startup
+Avoid replicas on the same host
+Hybrid dCache
+Commands for the admin interface
+Properties of the replica service
+
 
 The REPLICA service (which is also referred to as Replica Manager) controls the number of replicas of a file on the pools. If no tertiary storage system is connected to a DCACHE instance (i.e., it is configured as a large file store), there might be only one copy of each file on disk. (At least the precious replica.) If a higher security and/or availability is required, the resilience feature of DCACHE can be used: If running in the default configuration, the REPLICA service will make sure that the number of replicas of a file will be at least 2 and not more than 3. If only one replica is present it will be copied to another pool by a pool to pool transfer. If four or more replicas exist, some of them will be deleted.
 
