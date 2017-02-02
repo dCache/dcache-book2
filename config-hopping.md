@@ -6,9 +6,9 @@ Table of Contents
 
 * [File Hopping on arrival from outside dCache](#file-hopping-on-arrival-from-outside-dcache)  
 
-        [File mode of replicated files](#file-mode-of-replicated-files)  
-        [File Hopping managed by the PoolManager](#file-hopping-managed-by-the-poolmanager)  
-        [File Hopping managed by the HoppingManager](#file-hopping-managed-by-th-hoppingmanager)  
+        * [File mode of replicated files](#file-mode-of-replicated-files)  
+        * [File Hopping managed by the PoolManager](#file-hopping-managed-by-the-poolmanager)  
+        * [File Hopping managed by the HoppingManager](#file-hopping-managed-by-th-hoppingmanager)  
 
 
 File hopping is a collective term in dCache, summarizing the possibility of having files being transferred between dCache pools triggered by a variety of conditions. The most prominent examples are:
