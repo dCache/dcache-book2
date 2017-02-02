@@ -122,57 +122,61 @@ POOL STATES
 
 The possible states of a pool are `online`, `down`, `offline`, `offline-prepare` and `drainoff`. They can be set by the admin through the admin interface.  (See the section called “Commands for the admin interface”.)
 
-![Pool State Diagram](dcache-book2/resilient.jpg)
+![Figure 6.1. Pool State Diagram](master/dcache-book2/resilient.jpg)
+
+
 
 online  
-Normal operation.
+	Normal operation.
 
-Replicas in this state are readable and can be counted. Files can be written (copied) to this pool.
+	Replicas in this state are readable and can be counted. Files can be written (copied) to this pool.
 
 down  
-A pool can be `down` because
+	A pool can be `down` because
 
--   the admin stopped the domain in which the pool was running.
--   the admin set the state value via the admin interface.
--   the pool crashed
+	-   the admin stopped the domain in which the pool was running.
+	-   the admin set the state value via the admin interface.
+	-   the pool crashed
 
-To confirm that it is safe to turn pool down there is the command `ls unique` in the admin interface to check number of files which can be locked in this pool. (See [section\_title].)
+	To confirm that it is safe to turn pool down there is the command `ls unique` in the admin interface to check number of 	files which can be locked in this pool. (See [section\_title].)
 
-Replicas in pools which are `down` are not counted, so when a pool crashes the number of `online` replicas for some files is reduced. The crash of a pool (pool departure) may trigger replication of multiple files.
+	Replicas in pools which are `down` are not counted, so when a pool crashes the number of `online` replicas for some 		files is reduced. The crash of a pool (pool departure) may trigger replication of multiple files.
 
-On startup, the pool comes briefly to the `online` state, and then it goes `down` to do pool “Inventory” to cleanup files which broke when the pool crashed during transfer. When the pool comes online again, the REPLICA service will update the list of replicas in the pool and store it in the database.
+	On startup, the pool comes briefly to the `online` state, and then it goes `down` to do pool “Inventory” to cleanup 		files which broke when the pool crashed during transfer. When the pool comes online again, the REPLICA service will 		update the list of replicas in the pool and store it in the database.
 
-Pool recovery (arrival) may trigger massive deletion of file replicas, not necessarily in this pool.
+	Pool recovery (arrival) may trigger massive deletion of file replicas, not necessarily in this pool.
 
 offline  
-The admin can set the pool state to be `offline`. This state was introduced to avoid unnecessary massive replication if the operator wants to bring the pool down briefly without triggering massive replication.
+	The admin can set the pool state to be `offline`. This state was introduced to avoid unnecessary massive replication if 	the operator wants to bring the pool down briefly without triggering massive replication.
 
-Replicas in this pool are counted, therefore it does not matter for replication purpose if an `offline` pool goes down or up.
+	Replicas in this pool are counted, therefore it does not matter for replication purpose if an `offline` pool goes down 		or up.
 
-When a pool comes `online` from an `offline` state replicas in the pool will be inventoried to make sure we know the real list of replicas in the pool.
+	When a pool comes `online` from an `offline` state replicas in the pool will be inventoried to make sure we know the 		real list of replicas in the pool.
 
 offline-prepare  
-This is a transient state betweeen `online` and `offline`.
+	This is a transient state betweeen `online` and `offline`.
 
-The admin will set the pool state to be `offline-prepare` if he wants to change the pool state and does not want to trigger massive replication.
+ 	The admin will set the pool state to be `offline-prepare` if he wants to change the pool state and does not want to 		trigger massive replication.
 
-Unique files will be evacuated MDASH at least one replica for each unique file will be copied out. It is unlikely that a file will be locked out when a single pool goes down as normally a few replicas are online. But when several pools go down or set drainoff or offline file lockout might happen.
+	Unique files will be evacuated MDASH at least one replica for each unique file will be copied out. It is unlikely that a 	 file will be locked out when a single pool goes down as normally a few replicas are online. But when several pools go 		down or set drainoff or offline file lockout might happen.
 
-Now the admin can set the pool state `offline` and then `down` and no file replication will be triggered.
+	Now the admin can set the pool state `offline` and then `down` and no file replication will be triggered.
 
 drainoff  
-This is a transient state betweeen `online` and `down`.
+	This is a transient state betweeen `online` and `down`.
 
-The admin will set the pool state to be `drainoff` if he needs to set a pool or a set of pools permanently out of operation and wants to make sure that there are no replicas “locked out”.
+	The admin will set the pool state to be `drainoff` if he needs to set a pool or a set of pools permanently out of 		operation and wants to make sure that there are no replicas “locked out”.
 
-Unique files will be evacuated MDASH at least one replica for each unique file will be copied out. It is unlikely that a file will be locked out when a single pool goes down as normally a few replicas are online. But when several pools go down or set drainoff or offline file lockout might happen.
+	Unique files will be evacuated MDASH at least one replica for each unique file will be copied out. It is unlikely that a 	 file will be locked out when a single pool goes down as normally a few replicas are online. But when several pools go 		down or set drainoff or offline file lockout might happen.
 
-Now the admin can set the pool state down. Files from other pools might be replicated now, depending on the values of `replica.limits.replicas.min` and `replica.limits.replicas.max`.
+	Now the admin can set the pool state down. Files from other pools might be replicated now, depending on the values of 	 	`replica.limits.replicas.min` and `replica.limits.replicas.max`.
 
-Startup
+STARTUP
 -------
 
-When the REPLICA service starts it cleans up the database. Then it waits for some time to give a chance to most of the pools in the system to connect. Otherwise unnecessary massive replication would start. Currently this is implemented by some delay to start adjustments to give the pools a chance to connect.
+When the replica service starts it cleans up the database. Then it waits for some time to give a chance to most of the pools in the system to connect. Otherwise unnecessary massive replication would start. Currently this is implemented by some delay to start adjustments to give the pools a chance to connect.
+
+
 
 ### Cold Start
 
