@@ -120,7 +120,7 @@ The replica service counts the number of replicas for each file in the pools whi
 POOL STATES
 -----------
 
-The possible states of a pool are `online`, `down`, `offline`, `offline-prepare` and `drainoff`. They can be set by the admin through the admin interface. (See [section\_title].)
+The possible states of a pool are `online`, `down`, `offline`, `offline-prepare` and `drainoff`. They can be set by the admin through the admin interface.  (See the section called “Commands for the admin interface”.)
 
 ![Pool State Diagram]
 
