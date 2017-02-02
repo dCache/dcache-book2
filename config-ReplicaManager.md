@@ -10,12 +10,12 @@ Table of Contents
 * [Operation](#operation)  
 
 	[Pool States](#pool-states)  
-	[Startup](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml#cf-repman-op-start)  
-	[Avoid replicas on the same host](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml#cf-repman-op-same-host)  
-	[Hybrid dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml#cf-repman-op-hybrid)  
-	[Commands for the admin interface](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-fhs.shtml#cf-repman-op-cmds)  
+	[Startup](#startup)  
+	[Avoid replicas on the same host](#avoid-replicas-on-the-same-host)  
+	[Hybrid dCache](#hybrid-dcache)  
+	[Commands for the admin interface](#commands-for-the-admin-interface)  
 	
-* [Properties of the replica service](https://www.dcache.org/manuals/Book-2.16/config/cf-repman-op-args-fhs.shtml)  
+* [Properties of the replica service](#properties-of-the-replica-service)  
 
 
 The replica service (which is also referred to as Replica Manager) controls the number of replicas of a file on the pools. If no [tertiary storage system](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-tss) is connected to a dCache instance (i.e., it is configured as a [large file store](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-lfs)), there might be only one copy of each file on disk. (At least the [precious replica](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-precious).) If a higher security and/or availability is required, the resilience feature of dCache can be used: If running in the default configuration, the replica service will make sure that the number of [replicas](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-replica) of a file will be at least 2 and not more than 3. If only one replica is present it will be copied to another pool by a [pool to pool transfer](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-p2p). If four or more replicas exist, some of them will be deleted.
