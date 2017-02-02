@@ -84,11 +84,11 @@ This is a simple example to get started with. All your pools are assumed to be i
 DEFINE A POOLGROUP FOR RESILIENT POOLS
 --------------------------------------
 
-For more complex installations of dCache you might want to define a pool group for the resilient pools.
+For more complex installations of dCache you might want to define a pool group for the resilient pools.  
 
-Define the resilient pool group in the **/var/lib/dcache/config/poolmanager.conf** file on the host running the `poolmanager` service. Only pools defined in the resilient pool group will be managed by the `replica` service.
+Define the resilient pool group in the **/var/lib/dcache/config/poolmanager.conf** file on the host running the `poolmanager` service. Only pools defined in the resilient pool group will be managed by the `replica` service.  
 
-Example:
+Example:  
 Login to the admin interface and cd to the `PoolManager`. Define a poolgroup for resilient pools and add pools to that poolgroup.
 
     DC-PROMPT-LOCAL cd PoolManager
