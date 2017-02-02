@@ -252,98 +252,82 @@ enable/disable DEBUG messages in the log file
 PROPERTIES OF THE REPLICA SERVICE
 =================================
 
-`replica.cell.name` 
-Default: `dcache.enable.replica`
-Cell name of the REPLICA service
+**replica.cell.name**     
+Default: `dcache.enable.replica`  
+Cell name of the REPLICA service  
 
-`dcache.enable.replica`
-Default: `false`
-Set this value to `true` if you want to use the REPLICA service.
+**dcache.enable.replica**   
+Default: `false`  
+Set this value to `true` if you want to use the REPLICA service.  
 
-**replica.poolgroup**  
-Default: `ResilientPools`
-If you want to use another pool group for the resilient pools set this value to the name of the resilient pool group.
+**replica.poolgroup**     
+Default: `ResilientPools`  
+If you want to use another pool group for the resilient pools set this value to the name of the resilient pool group.  
 
-replica.db.host  
-Default: `localhost
-	   `
+**replica.db.host**     
+Default: `localhost  
+Set this value to the name of host of the REPLICA service database.  
 
-Set this value to the name of host of the REPLICA service database.
+**replica.db.name**  
+Default: `replica`  
+Name of the replica database table.  
 
-replica.db.name  
-Default: `replica`
+**replica.db.user** 
+Default: `dcache`  
+Change if the `replicas` database was created with a user other than `dcache`.  
 
-Name of the replica database table.
+**replica.db.password.file**   
+Default: no password  
 
-replica.db.user  
-Default: `dcache`
+**replica.db.driver**  
+Default: `org.postgresql.Driver`  
+replica service was tested with PSQL only.  
 
-Change if the `replicas` database was created with a user other than `dcache`.
+**replica.limits.pool-watchdog-period **
+Default: `600` (10 min)  
+Pools Watch Dog poll period. Poll the pools with this period to find if some pool went south without sending a notice (messages). Can not be too short because a pool can have a high load and not send pings for some time. Can not be less than pool ping period.  
 
-replica.db.password.file  
-Default: no password
+**replica.limits.excluded-files-expiration-timeout** 
+Default: `43200` (12 hours)  
 
-replica.db.driver  
-Default: `org.postgresql.Driver`
-
-REPLICA service was tested with PSQL only.
-
-replica.limits.pool-watchdog-period  
-Default: `600` (10 min)
-
-Pools Watch Dog poll period. Poll the pools with this period to find if some pool went south without sending a notice (messages). Can not be too short because a pool can have a high load and not send pings for some time. Can not be less than pool ping period.
-
-replica.limits.excluded-files-expiration-timeout  
-Default: `43200` (12 hours)
-
-replica.limits.delay-db-start-timeout  
-Default: `1200` (20 min)
-
+**replica.limits.delay-db-start-timeout**
+Default: `1200` (20 min)  
 On first start it might take some time for the pools to get connected. If replication started right away, it would lead to massive replications when not all pools were connected yet. Therefore the database init thread sleeps some time to give a chance to the pools to get connected.
 
-replica.limits.adjust-start-timeout  
-Default: `1200` (20 min)
-
+**replica.limits.adjust-start-timeout**  
+Default: `1200` (20 min)  
 Normally Adjuster waits for database init thread to finish. If by some abnormal reason it cannot find a database thread then it will sleep for this delay.
 
-replica.limits.wait-replicate-timeout  
-Default: `43200` (12 hours)
+**replica.limits.wait-replicate-timeout**   
+Default: `43200` (12 hours)  
+Timeout for pool-to-pool replica copy transfer.  
 
-Timeout for pool-to-pool replica copy transfer.
+**replica.limits.wait-reduce-timeout**   
+Default: `43200` (12 hours)  
+Timeout to delete replica from the pool.  
 
-replica.limits.wait-reduce-timeout  
-Default: `43200` (12 hours)
-
-Timeout to delete replica from the pool.
-
-replica.limits.workers  
-Default: `6`
-
+**replica.limits.workers**  
+Default: `6`  
 Number of worker threads to do the replication. The same number of worker threads is used for reduction. Must be more for larger systems but avoid situation when requests get queued in the pool.
 
-replica.limits.replicas.min  
-Default: `2`
+**replica.limits.replicas.min**    
+Default: `2`  
+Minimum number of replicas in pools which are `online` or `offline`.  
 
-Minimum number of replicas in pools which are `online` or `offline`.
-
-replica.limits.replicas.max  
+**replica.limits.replicas.max**   
 Default: `3`
+Maximum number of replicas in pools which are `online` or `offline`.  
 
-Maximum number of replicas in pools which are `online` or `offline`.
+**replica.enable.check-pool-host**    
+Default: `true`  
+Checks `tag.hostname` which can be specified in the layout file for each pool.  
+Set this property to `false` if you do not want to perform this check.  
 
-replica.enable.check-pool-host  
-Default: `true`
+**replica.enable.same-host-replica**    
+Default: `false`  
+If set to `true` you allow files to be copied to a pool, which has the same `tag.hostname` as the source pool.  
 
-Checks `tag.hostname` which can be specified in the layout file for each pool.
-
-Set this property to `false` if you do not want to perform this check.
-
-replica.enable.same-host-replica  
-Default: `false`
-
-If set to `true` you allow files to be copied to a pool, which has the same `tag.hostname` as the source pool.
-
-> **Note**
+> **NOTE**
 >
 > The property
 > replica.enable.check-pool-host
