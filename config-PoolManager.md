@@ -5,15 +5,15 @@ Table of Contents
 
 * [The Pool Selection Mechanism](#the-pool-selection-mechanism)  
    
-       [Links](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#cf-pm-links)   
-       [Examples](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#idp1926336)  
+       [Links](#links)   
+       [Examples](#examples)  
       
 * [The Partition Manager](#the-partition-manager)  
   
-       [Overview](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-overview)  
-       [Managing Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-commands)  
-       [Using Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-usingPartitions)  
-       [Classic Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-classic)  
+       [Overview](#overview)  
+       [Managing Partitions](#managing-partitions)  
+       [Using Partitions](#using-partitions)  
+       [Classic Partitions](#classic-partitions)  
      
 * [Link Groups](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs-comments.shtml)  
 
