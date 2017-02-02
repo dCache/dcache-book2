@@ -403,7 +403,7 @@ For each partition you can choose the load balancing policy. You do this by chos
 
 Currently four different partition types are supported:
 
-`classic`:  
+**classic**:  
 This is the pool selection algorithm used in the versions of dCache prior to version 2.0. See [the section called “Classic Partitions”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-classic) for a detailed description.
 
 `random`:  
