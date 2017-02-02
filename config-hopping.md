@@ -4,14 +4,14 @@ CHAPTER 9. FILE HOPPING
 
 Table of Contents
 
-* [File Hopping on arrival from outside dCache](#file-hopping-on-arrival-from-outside-dcache)
+* [File Hopping on arrival from outside dCache](#file-hopping-on-arrival-from-outside-dcache)  
 
-        [File mode of replicated files](#File mode of replicated files)
-        [File Hopping managed by the PoolManager](#File Hopping managed by the PoolManager)
-        [File Hopping managed by the HoppingManager](#File Hopping managed by the HoppingManager)
+        [File mode of replicated files](#file-mode-of-replicated-files)  
+        [File Hopping managed by the PoolManager](#file-hopping-managed-by-the-poolmanager)  
+        [File Hopping managed by the HoppingManager](#file-hopping-managed-by-th-hoppingmanager)  
 
 
-File hopping is a collective term in DCACHE, summarizing the possibility of having files being transferred between DCACHE pools triggered by a variety of conditions. The most prominent examples are:
+File hopping is a collective term in dCache, summarizing the possibility of having files being transferred between dCache pools triggered by a variety of conditions. The most prominent examples are:
 
 -   If a file is requested by a client but the file resides on a pool from which this client, by configuration, is not allowed to read data, the dataset is transferred to an “allowed” pool first.
 
@@ -21,14 +21,14 @@ File hopping is a collective term in DCACHE, summarizing the possibility of havi
 
 -   If a dataset has been written into DCACHE it might become necessary to have this file replicated instantly. The reasons can be, to either have a second, safe copy, or to make sure that clients don't access the file for reading on the write pools.
 
-File Hopping on arrival from outside DCACHE
+FILE HOPPING ON ARRIVAL FROM OUTSIDE DCACHE
 ===========================================
 
 File Hopping on arrival is a term, denoting the possibility of initiating a pool to pool transfer as the result of a file successfully arriving on a pool from some external client. Files restored from HSM or arriving on a pool as the result of a pool to pool transfer will not yet be forwarded.
 
-Forwarding of incoming files can be enabled by setting the `pool.destination.replicate` property in the `PATH-ODE-ED/dcache.conf` file or per pool in the layout file. It can be set to `on`, `PoolManager` or `HoppingManager`, where `on` does the same as `PoolManager`.
+Forwarding of incoming files can be enabled by setting the pool.destination.replicate property in the /etc/dcache/dcache.conf file or per pool in the layout file. It can be set to on, PoolManager or HoppingManager, where on does the same as PoolManager.
 
-The pool is requested to send a `replicateFile` message to either the CELL-POOLMNGR or to the CELL-HOPMNGR, if available. The different approaches are briefly described below and in more detail in the subsequent sections.
+The pool is requested to send a replicateFile message to either the PoolManager or to the HoppingManager, if available. The different approaches are briefly described below and in more detail in the subsequent sections.
 
 -   The `replicateFile` message is sent to the CELL-POOLMNGR. This happens for all files arriving at that pool from outside (no restore or p2p). No intermediate CELL-HOPMNGR is needed. The restrictions are
 
