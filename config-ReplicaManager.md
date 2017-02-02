@@ -127,9 +127,9 @@ The possible states of a pool are `online`, `down`, `offline`, `offline-prepare`
 
 
 online  
-	Normal operation.
+	 Normal operation.
 
-	Replicas in this state are readable and can be counted. Files can be written (copied) to this pool.
+	 Replicas in this state are readable and can be counted. Files can be written (copied) to this pool.
 
 down  
 	A pool can be `down` because
