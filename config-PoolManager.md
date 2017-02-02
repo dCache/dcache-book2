@@ -773,49 +773,50 @@ To set the space cost factor on the `default` partition to `0.3`, use the follow
 Link Groups
 ===========
 
-The CELL-POOLMNGR supports a type of objects called link groups. These link groups are used by the [SRM CELL-SPACEMNGR] to make reservations against space. Each link group corresponds to a number of DCACHE pools in the following way: A link group is a collection of [links] and each link points to a set of pools. Each link group knows about the size of its available space, which is the sum of all sizes of available space in all the pools included in this link group.
+The PoolManager supports a type of objects called link groups. These link groups are used by the [SRM SpaceManager](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs-comments.shtml) to make reservations against space. Each link group corresponds to a number of dCache pools in the following way: A link group is a collection of [links](#links) and each link points to a set of pools. Each link group knows about the size of its available space, which is the sum of all sizes of available space in all the pools included in this link group.
 
-To create a new link group login to the [Admin Interface][Admin Interface] and `cd` to the CELL-POOLMNGR.
+To create a new link group login to the [Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs-comments.shtml) and `cd` to the PoolManager.
 
-    DC-PROMPT-LOCAL cd PoolManager
-    DC-PROMPT-PM psu create linkGroup linkgroup
-    DC-PROMPT-PM psu addto linkGroup linkgroup link
-    DC-PROMPT-PM save
+    (local) admin > cd PoolManager
+    (PoolManager) admin > psu create linkGroup <linkgroup>
+    (PoolManager) admin > psu addto linkGroup <linkgroup> <link>
+    (PoolManager) admin > save
 
-With `save` the changes will be saved to the file ``.
 
-> **Note**
->
-> You can also edit the file `` to create a new link group. Please make sure that it already exists. Otherwise you will have to create it first via the Admin Interface by
->
->     DC-PROMPT-PM save
->
-> Edit the file ``
->
->     psu create linkGroup linkgroup
->     psu addto linkGroup linkgroup link
->
-> After editing this file you will have to restart the domain which contains the CELL-POOLMNGR cell to apply the changes.
+With `save` the changes will be saved to the file **/var/lib/dcache/config/poolmanager.conf**.
 
-> **Note**
+> **NOTE**
+>
+> You can also edit the file **/var/lib/dcache/config/poolmanager.conf** to create a new link group. Please make sure that it already exists. Otherwise you will have to create it first via the Admin Interface by
+>
+>     (PoolManager) admin > save
+>
+> Edit the file **/var/lib/dcache/config/poolmanager.conf**
+>
+>     psu create linkGroup <linkgroup>
+>     psu addto linkGroup <linkgroup> <link>
+>
+> After editing this file you will have to restart the domain which contains the PoolManager cell to apply the changes.
+
+> **NOTE**
 >
 > Administrators will have to take care, that no pool is present in more than one link group.
 
 **Access latency and retention policy.**
 
-A space reservation has a retention policy and an access latency, where retention policy describes the quality of the storage service that will be provided for files in the space reservation and access latency describes the availability of the files. See [???][12] for further details.
+A space reservation has a *retention policy* and an *access latency*, where retention policy describes the quality of the storage service that will be provided for files in the space reservation and access latency describes the availability of the files. See [the section called “Properties of Space Reservation”](https://www.dcache.org/manuals/Book-2.16/config/ch13s03-fhs-comments.shtml#cf-srm-intro-spaceReservation) for further details.
 
-A link group has five boolean properties called `replicaAllowed`, `outputAllowed`, `custodialAllowed`, `onlineAllowed` and `nearlineAllowed`, which determine the access latencies and retention policies allowed in the link group. The values of these properties (`true` or `false`) can be configured via the Admin Interface or directly in the file ``.
+A link group has five boolean properties called `replicaAllowed, outputAllowed, custodialAllowed, onlineAllowed` and `nearlineAllowed`, which determine the access latencies and retention policies allowed in the link group. The values of these properties (true or false) can be configured via the Admin Interface or directly in the file **/var/lib/dcache/config/poolmanager.conf**.
 
 For a space reservation to be allowed in a link group, the the retention policy and access latency of the space reservation must be allowed in the link group.
 
-    DC-PROMPT-PM psu set linkGroup custodialAllowed linkgroup true|false
-    DC-PROMPT-PM psu set linkGroup outputAllowed linkgroup true|false
-    DC-PROMPT-PM psu set linkGroup replicaAllowed linkgroup true|false
-    DC-PROMPT-PM psu set linkGroup onlineAllowed linkgroup true|false
-    DC-PROMPT-PM psu set linkGroup nearlineAllowed linkgroup true|false
+    (PoolManager) admin > psu set linkGroup custodialAllowed <linkgroup> <true|false>
+    (PoolManager) admin > psu set linkGroup outputAllowed <linkgroup> <true|false>
+    (PoolManager) admin > psu set linkGroup replicaAllowed <linkgroup> <true|false>
+    (PoolManager) admin > psu set linkGroup onlineAllowed <linkgroup> <true|false>
+    (PoolManager) admin > psu set linkGroup nearlineAllowed <linkgroup> <true|false>
 
-> **Important**
+> **IMPORTANT**
 >
 > It is up to the administrator to ensure that the link groups' properties are specified correctly.
 >
