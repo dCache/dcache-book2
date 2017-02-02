@@ -120,7 +120,7 @@ The replica service counts the number of replicas for each file in the pools whi
 POOL STATES
 -----------
 
-The possible states of a pool are `online`, `down`, `offline`, `offline-prepare` and `drainoff`. They can be set by the admin through the admin interface.  (See the section called “Commands for the admin interface”.)
+The possible states of a pool are `online`, `down`, `offline`, `offline-prepare` and `drainoff`. They can be set by the admin through the admin interface.  (See [the section called “Commands for the admin interface”](#commands-for-the-admin-interface).)
 
 ![Pool State Diagram] (resilient.jpg "Figure 6.1. Pool State Diagram")
 
@@ -128,17 +128,15 @@ The possible states of a pool are `online`, `down`, `offline`, `offline-prepare`
 
 online  
 	 Normal operation.
-
 	 Replicas in this state are readable and can be counted. Files can be written (copied) to this pool.
 
 down  
 	A pool can be `down` because
-
 	-   the admin stopped the domain in which the pool was running.
 	-   the admin set the state value via the admin interface.
 	-   the pool crashed
 
-	To confirm that it is safe to turn pool down there is the command `ls unique` in the admin interface to check number of 	files which can be locked in this pool. (See [section\_title].)
+	To confirm that it is safe to turn pool down there is the command `ls unique` in the admin interface to check number  		of files which can be locked in this pool. (See [the section called “Commands for the admin interface”](#commands-for-the-admin-interface).)
 
 	Replicas in pools which are `down` are not counted, so when a pool crashes the number of `online` replicas for some 		files is reduced. The crash of a pool (pool departure) may trigger replication of multiple files.
 
@@ -174,29 +172,29 @@ drainoff
 STARTUP
 -------
 
-When the replica service starts it cleans up the database. Then it waits for some time to give a chance to most of the pools in the system to connect. Otherwise unnecessary massive replication would start. Currently this is implemented by some delay to start adjustments to give the pools a chance to connect.
+When the `replica` service starts it cleans up the database. Then it waits for some time to give a chance to most of the pools in the system to connect. Otherwise unnecessary massive replication would start. Currently this is implemented by some delay to start adjustments to give the pools a chance to connect.
 
 
 
 ### Cold Start
 
-Normally (during Cold Start) all information in the database is cleaned up and recreated again by polling pools which are `online` shortly after some minimum delay after the REPLICA service starts. The REPLICA service starts to track the pools' state (pool up/down messages and polling list of online pools) and updates the list of replicas in the pools which came online. This process lasts for about 10-15 minutes to make sure all pools came up online and/or got connected. Pools which once get connected to the REPLICA service are in online or down state.
+Normally (during Cold Start) all information in the database is cleaned up and recreated again by polling pools which are `online` shortly after some minimum delay after the `replica` service starts. The `replica` service starts to track the pools' state (pool up/down messages and polling list of online pools) and updates the list of replicas in the pools which came online. This process lasts for about 10-15 minutes to make sure all pools came up online and/or got connected. Pools which once get connected to the `replica` service are in online or down state.
 
 It can be annoying to wait for some large period of time until all known “good” pools get connected. There is a “Hot Restart” option to accelerate the restart of the system after the crash of the head node.
 
 ### Hot Restart
 
-On Hot Restart the REPLICA service retrieves information about the pools' states before the crash from the database and saves the pools' states to some internal structure. When a pool gets connected the REPLICA service checks the old pool state and registers the old pool's state in the database again if the state was `offline`, `offline-prepare` or `drainoff` state. The REPLICA service also checks if the pool was `online` before the crash. When all pools which were `online` get connected once, the REPLICA service supposes it recovered its old configuration and the REPLICA service starts adjustments. If some pools went down during the connection process they were already accounted and adjustment would take care of it.
+On Hot Restart the `replica` service retrieves information about the pools' states before the crash from the database and saves the pools' states to some internal structure. When a pool gets connected the `replica` service checks the old pool state and registers the old pool's state in the database again if the state was `offline`, `offline-prepare` or `drainoff` state. The `replica` service also checks if the pool was `online` before the crash. When all pools which were `online` get connected once, the `replica` service supposes it recovered its old configuration and the `replica` service starts adjustments. If some pools went down during the connection process they were already accounted and adjustment would take care of it.
 
-Suppose we have ten pools in the system, where eight pools were `online` and two were `offline` before a crash. The REPLICA service does not care about the two `offline` pools to get connected to start adjustments. For the other eight pools which were `online`, suppose one pool gets connected and then it goes down while the other pools try to connect. The REPLICA service considers this pool in known state, and when the other seven pools get connected it can start adjustments and does not wait any more.
+Example:
+Suppose we have ten pools in the system, where eight pools were `online` and two were `offline` before a crash. The `replica` service does not care about the two `offline` pools to get connected to start adjustments. For the other eight pools which were `online`, suppose one pool gets connected and then it goes down while the other pools try to connect. The `replica` service considers this pool in known state, and when the other seven pools get connected it can start adjustments and does not wait any more. If the system was in equilibrium state before the crash, the `replica` service may find some deficient replicas because of the crashed pool and start replication right away.
 
-If the system was in equilibrium state before the crash, the REPLICA service may find some deficient replicas because of the crashed pool and start replication right away.
-
-Avoid replicas on the same host
+AVOID REPLICAS ON THE SAME HOST
 -------------------------------
 
 For security reasons you might want to spread your replicas such that they are not on the same host, or in the same building or even in the same town. To configure this you need to set the `tag.hostname` label for your pools and check the properties `replica.enable.check-pool-host` and `replica.enable.same-host-replica`.
 
+Example:
 We assume that some pools of your DCACHE are in Hamburg and some are in Berlin. In the layout files where the respective pools are defined you can set
 
     [poolDomain]
@@ -219,40 +217,40 @@ and
 
 By default the property `replica.enable.check-pool-host` is `true` and `replica.enable.same-host-replica` is `false`. This means that the `tag.hostname` will be checked and the replication to a pool with the same `tag.hostname` is not allowed.
 
-Hybrid DCACHE
+HYBRID DCACHE
 -------------
 
-A hybrid DCACHE operates on a combination of pools (maybe connected to tape) which are not in a resilient pool group and the set of resilient pools. The REPLICA service takes care only of the subset of pools configured in the pool group for resilient pools and ignores all other pools.
+A * hybrid dCache*  operates on a combination of pools (maybe connected to tape) which are not in a resilient pool group and the set of resilient pools. The `replica` service takes care only of the subset of pools configured in the pool group for resilient pools and ignores all other pools.
 
-> **Note**
+> **NOTE**
 >
 > If a file in a resilient pool is marked precious and the pool were connected to a tape system, then it would be flushed to tape. Therefore, the pools in the resilient pool group are not allowed to be connected to tape.
 
-Commands for the admin interface
+COMMANDS FOR THE ADMIN INTERFACE
 --------------------------------
 
-If you are an advanced user, have proper privileges and you know how to issue a command to the admin interface you may connect to the CELL-REPLICAMNGR cell and issue the following commands. You may find more commands in online help which are for debug only MDASH do not use them as they can stop REPLICA service operating properly.
+If you are an advanced user, have proper privileges and you know how to issue a command to the admin interface you may connect to the `ReplicaManager` cell and issue the following commands. You may find more commands in online help which are for debug only — do not use them as they can stop `replica` service operating properly.
 
-`set pool` poolstate  
+`set pool` <pool><state>
 set pool state
 
-`show pool` pool  
+`show pool` <pool>
 show pool state
 
-`ls unique` pool  
+`ls unique` <pool>
 Reports number of unique replicas in this pool.
 
-`exclude` pnfsId  
-exclude pnfsId from adjustments
+`exclude` <pnfsId> 
+exclude <pnfsId> from adjustments
 
-`release` pnfsId  
-removes transaction/`BAD` status for pnfsId
+`release` <pnfsId>  
+removes transaction/`BAD` status for <pnfsId>
 
 `debug true | false`  
 enable/disable DEBUG messages in the log file
 
-Properties of the REPLICA service
-======================================
+PROPERTIES OF THE REPLICA SERVICE
+=================================
 
 replica.cell.name  
 Default: `dcache.enable.replica`
