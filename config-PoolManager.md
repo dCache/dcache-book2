@@ -689,7 +689,7 @@ The total cost is a linear combination of the [performance](https://www.dcache.o
 
 will give the [space cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-space_cost) three times the weight of the [performance cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-performance_cost).
 
-### Parameters of Classic Partitions
+### Parameters of Classic Partitions  
 
 Classic partitions have a large number of tunable parameters. These parameters are set using the `pm set` command.
 
