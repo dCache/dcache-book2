@@ -3,12 +3,12 @@ CHAPTER 7. THE POOLMANAGER SERVICE
 
 Table of Contents
 
-* [The Pool Selection Mechanism](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml)  
+* [The Pool Selection Mechanism](#the-pool-selection-mechanism)  
    
        [Links](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#cf-pm-links)   
        [Examples](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#idp1926336)  
       
-* [The Partition Manager](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml)  
+* [The Partition Manager](#the-partition-manager)  
   
        [Overview](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-overview)  
        [Managing Partitions](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-pm-fhs-comments.shtml#cf-pm-pm-commands)  
