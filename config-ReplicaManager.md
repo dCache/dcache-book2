@@ -122,7 +122,7 @@ POOL STATES
 
 The possible states of a pool are `online`, `down`, `offline`, `offline-prepare` and `drainoff`. They can be set by the admin through the admin interface.  (See the section called “Commands for the admin interface”.)
 
-![Figure 6.1. Pool State Diagram](master/dcache-book2/resilient.jpg)
+![Pool State Diagram] (resilient.jpg "Figure 6.1. Pool State Diagram")
 
 
 
