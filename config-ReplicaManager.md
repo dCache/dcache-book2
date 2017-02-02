@@ -280,11 +280,12 @@ Change if the `replicas` database was created with a user other than `dcache`.
 Default: no password  
 
 **replica.db.driver**    
-Default: `org.postgresql.Driver`  
-replica service was tested with PSQL only.  
+Default: `org.postgresql.Driver`    
+replica service was tested with PSQL only.    
 
-**replica.limits.pool-watchdog-period **  
-Default: `600` (10 min)   
+
+**replica.limits.pool-watchdog-period **    
+Default: `600` (10 min)     
 Pools Watch Dog poll period. Poll the pools with this period to find if some pool went south without sending a notice (messages). Can not be too short because a pool can have a high load and not send pings for some time. Can not be less than pool ping period.  
 
 **replica.limits.excluded-files-expiration-timeout** 
