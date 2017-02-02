@@ -15,7 +15,7 @@ Table of Contents
        [Using Partitions](#using-partitions)  
        [Classic Partitions](#classic-partitions)  
      
-* [Link Groups](#links-groups)  
+* [Link Groups](#link-groups)  
 
 The heart of a dCache system is the `poolmanager`. When a user performs an action on a file - reading or writing - a `transfer request` is sent to the dCache system. The `poolmanager` then decides how to handle this request.
 
