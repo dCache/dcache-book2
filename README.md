@@ -3,10 +3,10 @@ Preface
 
 **Table of Contents**
 
-[Who should read this book?]
-[Minimum System Requirements?]
-[What is inside?]
-[Looking for help?]
+[Who should read this book?](#who-should-read-this-book)    
+[Minimum System Requirements?](#minimum-system-requirements)  
+[What is inside?](#what-is-inside)  
+[Looking for help?](#looking-for-help)  
 
 Welcome to the DCACHE. DCACHE is a distributed storage solution for storing huge amounts of data without a hard limit, used to provide storage in the petabyte range. Therefore it qualifies as the storage system supporting data intensive experiments.
 
@@ -60,7 +60,7 @@ DCACHE / **SRM** can transparently manage data distributed among dozens of disk 
 
 Access to the data is provided by various standard protocols. Furthermore the software comes with an implementation of the Storage Resource Manager protocol (**SRM**), which is an open standard for grid middleware to communicate with site specific storage fabrics.
 
-[Who should read this book?]: Who should read this book?
+Who should read this book?
 --------------------------
 
 This book is primerally targeted at system administrators.
