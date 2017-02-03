@@ -69,7 +69,7 @@ It is possible to configure the CELL-POOLMNGR such that files are replicated fro
 Example:
 Assume that we want to have all files, arriving on pool `ocean` to be immediately replicated to a subset of read pools. This subset of pools is described by the poolgroup `ocean-copies`. No other pool is member of the poolgroup `ocean-copies`.
 Other than that, files arriving at the pool `mountain` should be replicated to all read pools from which farm nodes on the `131.169.10.0/24` subnet are allowed to read.
-The layout file defining the pools `ocean` and `mountain` should read like this:
+The layout file defining the pools `ocean` and `mountain` should read like this: 
 
     [exampleDomain]
     [exampleDomain/pool]
