@@ -4,14 +4,14 @@ CHAPTER 16. THE ALARMS SERVICE
 Table of Contents
 -----------------
 
-* [The Basic Setup]  
+* [The Basic Setup](#the-basic-setup)  
 
-        * [Configure where the alarms service is Running]  
-        * [Types of Alarms]  
-        * [Alarm Priority]  
-        * [Working with Alarms: Shell Commands]  
-        * [Working with Alarms: Admin Commands]  
-        * [Working with Alarms: The Webadmin Alarms Page]  
+         [Configure where the alarms service is Running](#configure-where-the-alarms-service-is-running)  
+         [Types of Alarms]  
+         [Alarm Priority]  
+         [Working with Alarms: Shell Commands]  
+         [Working with Alarms: Admin Commands]  
+         [Working with Alarms: The Webadmin Alarms Page]  
         
 * [Advanced Service Configuration: Enabling Automatic Cleanup]  
 * [Advanced Service Configuration: Enabling Email Alerts]  
