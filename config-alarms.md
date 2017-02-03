@@ -24,11 +24,11 @@ dCache has an `alarms` service which records errors (*alarms*) requiring more or
 THE BASIC SETUP
 ===============
 
-It is not necessary to run the ALARMS service in a separate domain, though depending on the individual system configuration it may still be advisable not to embed the service in a domain already burdened with higher memory requirements. To handle alarms under a relatively high load (100Hz on the server end) requires only about 2% more of the cpu, but about 75-100 MiB of additional space. In order to capture any alarms from other domains at startup, it is also necessary to arrange for the alarm service to start before the other doors and pools.
+It is not necessary to run the `alarms` service in a separate domain, though depending on the individual system configuration it may still be advisable not to embed the service in a domain already burdened with higher memory requirements. To handle alarms under a relatively high load (100Hz on the server end) requires only about 2% more of the cpu, but about 75-100 MiB of additional space. In order to capture any alarms from other domains at startup, it is also necessary to arrange for the alarm service to start before the other doors and pools.
 
-While there is nothing strictly preventing the use of multiple ALARMS services, under normal circumstances this should not be necessary. The only constraint on the service set-up has to do with the storage option. Unlike for the RDBMS (relational database) back-end, there is currently no option for remote access of the XML file. Since the alarms storage needs to be written to by the ALARMS service but also read by the HTTPD service, it is thus necessary for that file to exist on a shared or mounted partition visible to both. Obviously, no such requirement exists for the RDBMS option.
+While there is nothing strictly preventing the use of multiple `alarms` services, under normal circumstances this should not be necessary. The only constraint on the service set-up has to do with the storage option. Unlike for the RDBMS (relational database) back-end, there is currently no option for remote access of the XML file. Since the alarms storage needs to be written to by the alarms service but also read by the httpd service, it is thus necessary for that file to exist on a shared or mounted partition visible to both. Obviously, no such requirement exists for the RDBMS option.
 
-Add the ALARMS service to a domain in the layout file:
+Add the `alarms` service to a domain in the layout file:
 
         [alarmsDomain]
         [alarmsDomain/alarms]
