@@ -4,22 +4,24 @@ CHAPTER 16. THE ALARMS SERVICE
 Table of Contents
 -----------------
 
-The Basic Setup
-Configure where the alarms service is Running
-Types of Alarms
-Alarm Priority
-Working with Alarms: Shell Commands
-Working with Alarms: Admin Commands
-Working with Alarms: The Webadmin Alarms Page
-Advanced Service Configuration: Enabling Automatic Cleanup
-Advanced Service Configuration: Enabling Email Alerts
-Advanced Service Configuration: Custom Alarm Definitions
-Miscellaneous Properties of the alarms Service
+* [The Basic Setup]  
+
+        * [Configure where the alarms service is Running]  
+        * [Types of Alarms]  
+        * [Alarm Priority]  
+        * [Working with Alarms: Shell Commands]  
+        * [Working with Alarms: Admin Commands]  
+        * [Working with Alarms: The Webadmin Alarms Page]  
+        
+* [Advanced Service Configuration: Enabling Automatic Cleanup]  
+* [Advanced Service Configuration: Enabling Email Alerts]  
+* [Advanced Service Configuration: Custom Alarm Definitions]  
+* [Miscellaneous Properties of the alarms Service]  
 
 
-DCACHE has an ALARMS service which records errors (alarms) requiring more or less urgent intervention. The webadmin servlet running inside the HTTPD service has a special page for querying, displaying and tracking these alarms. There is also an option for sending alarm notifications via email. The alarms data can be stored either in an XML file or in a database. The alarms service is turned off by default.
+dCache has an `alarms` service which records errors (*alarms*) requiring more or less urgent intervention. The webadmin servlet running inside the `httpd` service has a special page for querying, displaying and tracking these alarms. There is also an option for sending alarm notifications via email. The alarms data can be stored either in an XML file or in a database. The alarms service is turned off by default.
 
-The Basic Setup
+THE BASIC SETUP
 ===============
 
 It is not necessary to run the ALARMS service in a separate domain, though depending on the individual system configuration it may still be advisable not to embed the service in a domain already burdened with higher memory requirements. To handle alarms under a relatively high load (100Hz on the server end) requires only about 2% more of the cpu, but about 75-100 MiB of additional space. In order to capture any alarms from other domains at startup, it is also necessary to arrange for the alarm service to start before the other doors and pools.
