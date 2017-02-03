@@ -1,5 +1,20 @@
-The ALARMS Service
-=======================
+CHAPTER 16. THE ALARMS SERVICE
+==============================
+
+###Table of Contents
+
+The Basic Setup
+Configure where the alarms service is Running
+Types of Alarms
+Alarm Priority
+Working with Alarms: Shell Commands
+Working with Alarms: Admin Commands
+Working with Alarms: The Webadmin Alarms Page
+Advanced Service Configuration: Enabling Automatic Cleanup
+Advanced Service Configuration: Enabling Email Alerts
+Advanced Service Configuration: Custom Alarm Definitions
+Miscellaneous Properties of the alarms Service
+
 
 DCACHE has an ALARMS service which records errors (alarms) requiring more or less urgent intervention. The webadmin servlet running inside the HTTPD service has a special page for querying, displaying and tracking these alarms. There is also an option for sending alarm notifications via email. The alarms data can be stored either in an XML file or in a database. The alarms service is turned off by default.
 
