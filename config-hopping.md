@@ -187,7 +187,7 @@ With the `HoppingManager` you have several configuration options for file `hoppi
 
 ### Starting the FileHopping Manager service
 
-Add the `HoppingManager` service to a domain in your layout file and restart the domain.
+Add the `hoppingManager` service to a domain in your layout file and restart the domain.
 
     [<DomainName>]
     [<DomainName>/hoppingmanager]
@@ -205,16 +205,16 @@ To enable replication on arrival by the CELL-HOPMNGR set the property `pool.dest
     ...
     pool.destination.replicate=HoppingManager
 
-or for several pools in the `PATH-ODE-ED/dcache.conf` file.
+or for several pools in the **/etc/dcache/dcache.conf** file.
 
     ...
     pool.destination.replicate=HoppingManager
 
-### CELL-HOPMNGR Configuration Introduction
+### HoppingManager Configuration Introduction
 
--   The CELL-HOPMNGR essentially receives `replicateFile` messages from pools, configured to support file hopping, and either discards or modifies and forwards them to the CELL-POOLMNGR, depending on rules described below.
+-   The `HoppingManager` essentially receives `replicateFile` messages from pools, configured to support file hopping, and either discards or modifies and forwards them to the `PoolManager`, depending on rules described below.
 
--   The CELL-HOPMNGR decides on the action to perform, based on a set of configurable rules. Each rule has a name. Rules are checked in alphabetic order concerning their names.
+-   The `HoppingManager` decides on the action to perform, based on a set of configurable rules. Each rule has a name. Rules are checked in alphabetic order concerning their names.
 
 -   A rule it triggered if the storage class matches the storage class pattern assigned to that rule. If a rule is triggered, it is processed and no further rule checking is performed. If no rule is found for this request the file is not replicated.
 
@@ -224,7 +224,7 @@ or for several pools in the `PATH-ODE-ED/dcache.conf` file.
 
     -   The message is discarded. No replication is done for this particular storage class.
 
-    -   The rule modifies the `replicateFile` message, before it is forwarded to the CELL-POOLMNGR.
+    -   The rule modifies the `replicateFile` message, before it is forwarded to the `PoolManager`.
 
         An ip-number of a farm-node of the farm that should be allowed to read the file can be added to the `replicateFile` message.
 
@@ -232,47 +232,47 @@ or for several pools in the `PATH-ODE-ED/dcache.conf` file.
 
         The requested protocol can be specified.
 
-### CELL-HOPMNGR Configuration Reference
+### HoppingManager Configuration Reference
 
-             define hop OPTIONS name pattern precious|cached|keep
+             define hop OPTIONS <name> <pattern> precious|cached|keep
                 OPTIONS
-                  -destination=cellDestination # default : PoolManager
+                  -destination=<cellDestination> # default : PoolManager
                   -overwrite
                   -continue
                   -source=write|restore|*   #  !!!! for experts only      StorageInfoOptions
-                  -host=destinationHostIp
+                  -host=<destinationHostIp>
                   -protType=dCap|ftp...
-                  -protMinor=minorProtocolVersion
-                  -protMajor=majorProtocolVersion 
+                  -protMinor=<minorProtocolVersion>
+                  -protMajor=<majorProtocolVersion>
 
-name  
+**name**  
 This is the name of the hopping rule. Rules are checked in alphabetic order concerning their names.
 
-pattern  
-`pattern` is a [storage class] pattern. If the incoming storage class matches this pattern, this rule is processed.
+**pattern**   
+`pattern` is a [storage class](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs.shtml#secStorageClass) pattern. If the incoming storage class matches this pattern, this rule is processed.
 
-precious|cached|keep  
+**precious|cached|keep**  
 `precious|cached|keep` determines the mode of the replicated file. With `keep` the mode of the file will be determined by the mode of the destination pool.
 
--destination  
+**-destination**  
 This defines which `cell` to use for the pool to pool transfer. By default this is the CELL-POOLMNGR and this should not be changed.
 
--overwrite  
+**-overwrite**  
 In case, a rule with the same name already exists, it is overwritten.
 
--continue  
+**-continue**  
 If a rule has been triggered and the corresponding action has been performed, no other rules are checked. If the `continue` option is specified, rule checking continues. This is for debugging purposes only.
 
--source  
+**-source**  
 `-source` defines the event on the pool which has triggered the hopping. Possible values are `restore` and `write`. `restore` means that the rule should be triggered if the file was restored from a tape and `write` means that it should be triggered if the file was written by a client.
 
--host  
+**-host**
 Choose the id of a node of the farm of worker-nodes that should be allowed to access the file. Configure the POOLMNGR respectively.
 
--protType, -protMajor, -protMinor  
+**-protType, -protMajor, -protMinor**  
 Specify the protocol which should be used to access the replicated files.
 
-### CELL-HOPMNGR configuration examples
+### HoppingManager configuration examples
 
 In order to instruct a particular pool to send a `replicateFile` message to the HOPPINGMANAGER service, you need to add the line `pool.destination.replicate=HoppingManager` to the layout file.
 
@@ -287,15 +287,15 @@ In order to instruct a particular pool to send a `replicateFile` message to the 
 
 Assume that all files of experiment-a will be written to an expensive write pool and subsequently flushed to tape. Now some of these files need to be accessed without delay. The files that need fast acceess possibility will be given the storage class `exp-a:need-fast-access@osm`.
 
-In this example we will configure the file hopping such that a user who wants to access a file that has the above storage info with the NFS4 protocol will be able to do so.
+In this example we will configure the file hopping such that a user who wants to access a file that has the above storage info with the NFSv4.1 protocol will be able to do so.
 
-Define a rule for hopping in the `PATH-OD-VLD/config/HoppingManager.conf` file.
+Define a rule for hopping in the **/var/lib/dcache/config/HoppingManager.conf ** file.
 
     define hop nfs-hop exp-a:need-fast-access@osm cached -protType=nfs -protMajor=4 -protMinor=1
 
 This assumes that the storage class of the file is `exp-a:nfs@osm`. The mode of the file, which was `precious` on the write pool will have to be changed to `cached` on the read pool.
 
-The corresponding `PATH-OD-VLD/config/poolmanager.conf` file could read like this:
+The corresponding **/var/lib/dcache/config/poolmanager.conf** file could read like this:
 
     #
     # define the units
