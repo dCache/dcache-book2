@@ -13,7 +13,7 @@ Table of Contents
          [Working with Alarms: Admin Commands](#)  
          [Working with Alarms: The Webadmin Alarms Page](#)  
         
-* [Advanced Service Configuration: Enabling Automatic Cleanup](#dvanced-service-configuration:-enabling-automatic-cleanup)  
+* [Advanced Service Configuration: Enabling Automatic Cleanup](#advanced-service-configuration:-enabling-automatic-cleanup)  
 * [Advanced Service Configuration: Enabling Email Alerts]()  
 * [Advanced Service Configuration: Custom Alarm Definitions]  
 * [Miscellaneous Properties of the alarms Service]  
