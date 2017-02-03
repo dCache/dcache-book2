@@ -1,7 +1,7 @@
 CHAPTER 16. THE ALARMS SERVICE
 ==============================
 
-##Table of Contents
+#Table of Contents
 
 The Basic Setup
 Configure where the alarms service is Running
