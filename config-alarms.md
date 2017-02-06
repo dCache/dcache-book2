@@ -57,7 +57,7 @@ For the XML option, the storage file is usually found in the shared directory fo
 As a rule of thumb, the choice between XML and RDBMS is dictated by two factors: whether it is feasible to share the XML file between the two services as noted, and how much history is to be preserved. While the XML option is more lightweight and easier to configure, it is limited by performance, experiencing considerable read and write slowdown as the file fills (beyond 1000 entries or so). If you do not need to maintain records of alarms (and either manually delete alarms which have been serviced, or use the built-in cleanup feature – see below), then this option should be sufficient. Otherwise, the extra steps of installing postgreSQL on the appropriate node and creating the alarms database (as above) may be worth the effort.
 
 Configure where the ALARMS service is Running
---------------------------------------------------
+-----------------------------------------------
 
 The alarms infrastructure is actually a wrapper around the logging layer and makes use of a simple tcp socket logger to transmit logging events to the server. In each domain, the `PATH-ODE-ED/logback.xml` configuration references the following properties to control remote logging:
 
