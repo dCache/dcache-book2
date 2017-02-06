@@ -343,7 +343,7 @@ The alarm key (the property `keyWords`) is the set of attributes whose values un
 -   domain
 -   service
 -   host
--   message (= group0)
+-   message (= group0)  
 -   groupN
 
 These attribute names should be delimited by (an arbitrary number of) whitespace characters. Note that `timestamp` and `message` derive from the logging event, while `host`, `domain` and `service` are properties added to the event's diagnostic context map.
