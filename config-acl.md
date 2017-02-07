@@ -16,24 +16,24 @@ Table of Contents
 
 * [Viewing configured ACLs](#viewing-configured-acls)
 
-DCACHE includes support for Access Control Lists (ACLs). This support is conforming to the [NFS version 4 Protocol specification].
+dCache includes support for Access Control Lists (ACLs). This support is conforming to the [NFS version 4 Protocol specification].
 
-This chapter provides some background information and details on configuring DCACHE to use ACLs and how to administer the resulting system.
+This chapter provides some background information and details on configuring dCache to use ACLs and how to administer the resulting system.
 
-> **Note**
+> **ACLS AND PNFS**
 >
-> ACLs are only supported with the CHIMERA name space backend. Versions before 1.9.12 had partial support for ACLs with the PNFS backend, however due to the limitations of that implementation ACLs were practically useless with PNFS.
+> ACLs are only supported with the Chimera name space backend. Versions before 1.9.12 had partial support for ACLs with the pnfs backend, however due to the limitations of that implementation ACLs were practically useless with pnfs.
 
-Introduction
+INTRODUCTION
 ============
 
-DCACHE allows control over namespace operations (e.g., creating new files and directories, deleting items, renaming items) and data operations (reading data, writing data) using the standard Unix permission model. In this model, files and directories have both owner and group-owner attributes and a set of permissions that apply to the owner, permissions for users that are members of the group-owner group and permissions for other users.
+dCache allows control over namespace operations (e.g., creating new files and directories, deleting items, renaming items) and data operations (reading data, writing data) using the standard Unix permission model. In this model, files and directories have both owner and group-owner attributes and a set of permissions that apply to the owner, permissions for users that are members of the group-owner group and permissions for other users.
 
-Although Unix permission model is flexible enough for many deployment scenarios there are configurations that either cannot configured easily or are impossible. To satisfy these more complex permission handling DCACHE has support for ACL-based permission handling.
+Although Unix permission model is flexible enough for many deployment scenarios there are configurations that either cannot configured easily or are impossible. To satisfy these more complex permission handling dCache has support for ACL-based permission handling.
 
 An Access Control List (ACL) is a set of rules for determining whether an end-user is allowed to undertake some specific operation. Each ACL is tied to a specific namespace entry: a file or directory. When an end-user wishes to undertake some operation then the ACL for that namespace entry is checked to see if that user is authorised. If the operation is to create a new file or directory then the ACL of the parent directory is checked.
 
-> **Note**
+> **FILE- AND DIRECTORY- ACLS**
 >
 > Each ACL is associated with a specific file or directory in DCACHE. Although the general form is the same whether the ACL is associated with a file or directory, some aspects of an ACL may change. Because of this, we introduce the terms file-ACL and directory-ACL when taking about ACLs associated with a file or a directory respectively. If the term ACL is used then it refers to both file-ACLs and directory-ACLs.
 
@@ -49,39 +49,39 @@ Inheritance only happens when a new file or directory is created. After creation
 
 Inheritance is optional. Within a directory's ACL some ACEs may be inherited whilst others are not. New files or directories will receive only those ACEs that are configured; the remaining ACEs will not be copied.
 
-Database configuration
+DATABASE CONFIGURATION
 ======================
 
 ACL support requires database tables to store ACL and ACE information. These tables are part of the CHIMERA name space backend and for a new installation no additional steps are needed to prepare the database.
 
-Early versions of CHIMERA (before DCACHE 1.9.3) did not create the ACL table during installation. If the database is lacking the extra table then it has to be created before enabling ACL support. This is achieved by applying two SQL files:
+Early versions of Chimera (before dCache 1.9.3) did not create the ACL table during installation. If the database is lacking the extra table then it has to be created before enabling ACL support. This is achieved by applying two SQL files:
 
-    PROMPT-ROOT psql chimera < PATH-ODL-USD/chimera/sql/addACLtoChimeraDB.sql
-    PROMPT-ROOT psql chimera < PATH-ODL-USD/chimera/sql/pgsql-procedures.sql
+    [root] # psql chimera < /usr/share/dcache/chimera/sql/addACLtoChimeraDB.sql
+    [root] # psql chimera < /usr/share/dcache/chimera/sql/pgsql-procedures.sql
 
-Configuring ACL support
+CONFIGURING ACL SUPPORT
 =======================
 
-The `dcache.conf` and layout files contain a number of settings that may be adjusted to configure DCACHE's permission settings. These settings are are described in this section.
+The **dcache.conf** and layout files contain a number of settings that may be adjusted to configure DCACHE's permission settings. These settings are are described in this section.
 
-Enabling ACL support
+ENABLING ACL SUPPORT
 --------------------
 
 To enable ACL support set `pnfsmanager.enable.acl`=`true` in the layout file.
 
     ..
-    [domainName/pnfsmanager]
+    [<domainName>/pnfsmanager]
     pnfsmanager.enable.acl=true
     ..
 
-Administrating ACLs
+ADMINISTRATING ACLS
 ===================
 
-Altering DCACHE ACL behaviour is achieved by connecting to the CELL-PNFSMNGR well-known cell using the administrator interface. For further details about how to use the administrator interface, see [???].
+Altering dCache ACL behaviour is achieved by connecting to the `PnfsManager` [well-known cell](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-well-known-cell) using the administrator interface. For further details about how to use the administrator interface, see [the section called “The Admin Interface”](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml).
 
-The `info` and `help` commands are available within CELL-PNFSMNGR and fulfil their usual functions.
+The `info` and `help` commands are available within PnfsManager and fulfil their usual functions.
 
-How to set ACLs
+HOW TO SET ACLS
 ---------------
 
 The `setfacl` command is used to set a new ACL. This command accepts arguments with the following form:
