@@ -7,8 +7,8 @@ Table of Contents
 * [The Basic Setup](#the-basic-setup)  
 
          [Configure where the alarms service is Running](#configure-where-the-alarms-service-is-running)  
-         [Types of Alarms](#)  
-         [Alarm Priority](#)
+         [Types of Alarms](#types-of-alarms)  
+         [Alarm Priority](#alarm-priority)
          [Working with Alarms: Shell Commands](#)  
          [Working with Alarms: Admin Commands](#)  
          [Working with Alarms: The Webadmin Alarms Page](#)  
