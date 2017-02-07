@@ -127,119 +127,97 @@ WORKING WITH ALARMS: SHELL COMMANDS
 
 Some basic alarm commands are available as part of the dCache shell. The following is an abbreviated description; for fuller information, see the dCache man page.
 
-`alarm send`  
-Send an arbitrary alarm message to the alarm server. The remote server address is taken from the local values for dcache.log.server.host and dcache.log.server.port. If the \[-t=TYPE\] option is used, it must be a predefined (internal) alarm type.
+**alarm send**    
+Send an arbitrary alarm message to the alarm server. The remote server address is taken from the local values for <variable>dcache.log.server.host</variable> and <variable>dcache.log.server.port</variable>. If the [-t=TYPE] option is used, it must be a predefined (internal) alarm type.
 
-`alarm list`  
-Displays a list of all alarm types currently defined in dCache code (i.e., predefined, internal types). Since these types can be modified with any incremental release, a listing in this manual would be of limited value. It is easy enough to check which ones currently are defined using this command, the `predefined ls` admin command, or the auto-completing `Alarm Type` combo box on the webadmin alarms page.
+**alarm list**  
+Displays a list of all alarm types currently defined in dCache code (i.e., predefined, internal types). Since these types can be modified with any incremental release, a listing in this manual would be of limited value. It is easy enough to check which ones currently are defined using this command, the predefined ls admin command, or the auto-completing Alarm Type combo box on the webadmin alarms page.
 
-`alarm [add | modify | remove]`  
-Activates an interpreter for adding, modifying or removing a filter definition. The interpreter walks you through the steps and choices. The results are written to the definitions file given by the local value for alarms.custom-definitions.path.
+**alarm [add | modify | remove]**  
+Activates an interpreter for adding, modifying or removing a filter definition. The interpreter walks you through the steps and choices. The results are written to the definitions file given by the local value for <variable>alarms.custom-definitions.path</variable>.
 
-Working with Alarms: Admin Commands
+
+WORKING WITH ALARMS: ADMIN COMMANDS
 -----------------------------------
 
 A similar set of commands is available through the admin interface. To see fuller information for each of these, do `help [command]`.
 
-`definition add [OPTIONS]`  
+**definition add [OPTIONS]**     
 Add a new custom definition; if a definition of this type already exists, the new definition will overwrite it.
 
-`definition keywords`  
+**definition keywords**     
 Print the list of attribute names whose values can be used as keyword identifiers for the alarm.
 
-`definition ls [type]`  
+**definition ls [type]**      
 Print a single definition or sorted list of definitions.
 
-`definition reload [path]`  
+**definition reload [path]**     
 Reinitialize the definitions from the saved changes.
 
-`definition rm type`  
+**definition rm type**   
 Remove the existing alarm definition.
 
-`definition save [path]`  
+**definition save [path]**   
 Save the current definitions to persistent back-up.
 
-`definition set type name value `  
+**definition set type name value**    
 Set the attribute of an existing alarm definition.
 
-`definition unset type name `  
+**definition unset type name**    
 Unset (remove) the attribute of an existing alarm definition.
 
-`predefined ls`  
+**predefined ls**   
 Print a list of all internally defined alarms.
 
-`priority get default`  
+**priority get default**   
 Get the current default alarm priority value.
 
-`priority ls [type]`  
+**priority ls [type]**  
 Print a single priority level or sorted list of priority levels for all known alarms.
 
-`priority reload [path]`  
+**priority reload [path]**   
 Reinitialize priority mappings from saved changes.
 
-`priority restore all`  
+**priority restore all**   
 Set all defined alarms to the current default priority value.
 
-`priority save [path]`  
+**priority save [path]**    
 Save the current priority mappings to persistent back-up.
 
-`priority set type low|moderate|high|critical`  
+**priority set type low|moderate|high|critical**  
 Set the priority of the alarm type.
 
-`priority set default low|moderate|high|critical`  
+**priority set default low|moderate|high|critical**    
 Set the default alarm priority value.
 
-`send [OPTIONS] message`  
+**send [OPTIONS] message**    
 Send an alarm to the alarm service.
 
-> **Note**
+> **NOTE**
 >
-> Custom definitions and priority mappings are backed by files corresponding to the properties
-> alarms.custom-definitions.path
-> and
-> alarms.priority-mapping.path
-> , respectively. It is always possible to modify these files directly by hand. These by default are mapped to
-> PATH-OD-VLD/alarms.custom-definitions.xml
-> and
-> PATH-OD-VLD/alarms-priority.properties
-> . In order for the changes to take effect, either restart the alarms domain, or use the respective
-> reload
-> admin command. It should be understood that when using the admin commands, any modifications are done in memory only and are not flushed automatically to the underlying file, so any permanent changes need to be made via the
-> save
-> command.
+> Custom definitions and priority mappings are backed by files corresponding to the properties <variable>alarms.custom-definitions.path</variable> and <variable>alarms.priority-mapping.path</variable>, respectively. It is always possible to modify these files directly by hand. These by default are mapped to /var/lib/dcache/alarms.custom-definitions.xml and /var/lib/dcache/alarms-priority.properties. In order for the changes to take effect, either restart the alarms domain, or use the respective reload admin command. It should be understood that when using the admin commands, any modifications are done in memory only and are not flushed automatically to the underlying file, so any permanent changes need to be made via the save command.
 
-> **Note**
+> **NOTE**
 >
-> It is possible to change the file locations by setting the above-mentioned properties in the layout or
-> PATH-ODE-ED/dcache.conf
-> . As can be seen from the admin commands, it is also possible to specify the path as an option on the respective
-> save
-> and
-> reload
-> commands. Note, however, that this is meant mainly for temporary or back-up purposes, as the path defined in the local dcache configuration will remain unaltered after that command completes and the priority map or definitions will be reloaded from there once again whenever the domain is restarted.
+> It is possible to change the file locations by setting the above-mentioned properties in the layout or /etc/dcache/dcache.conf. As can be seen from the admin commands, it is also possible to specify the path as an option on the respective save and reload commands. Note, however, that this is meant mainly for temporary or back-up purposes, as the path defined in the local dcache configuration will remain unaltered after that command completes and the priority map or definitions will be reloaded from there once again whenever the domain is restarted.
 
-> **Note**
+> **NOTE**
 >
-> Any changes made via the
-> priority set default
-> command are in-memory only. To change this default permanently, set the
-> alarms.priority-mapping.default
-> property in the layout or
-> PATH-ODE-ED/dcache.conf
-> .
+> Any changes made via the priority set default command are in-memory only. To change this default permanently, set the <variable>alarms.priority-mapping.default</variable> property in the layout or /etc/dcache/dcache.conf.
 
-Working with Alarms: The Webadmin Alarms Page
+
+WORKING WITH ALARMS: THE WEBADMIN ALARMS PAGE
 ---------------------------------------------
 
 The Alarms Web Page is an admin page and thus requires authentication. You must enable HTTPS and set an admin gid (0 by default):
 
-> **Note**
+> **NOTE**
 >
-> For the authenticated mode you need to generate a pk12 hostcert for SSL. This can be done by running the dcache command: `import hostcert [--hostcert=FILE] [--hostkey=FILE] [--out=FILE] [--password=PASSWORD]` after obtaining a hostcert and hostkey, which are by default placed in `/etc/grid-security`.
+> For the authenticated mode you need to generate a pk12 hostcert for SSL. This can be done by running the dcache command: import hostcert [--hostcert=FILE] [--hostkey=FILE] [--out=FILE] [--password=PASSWORD] after obtaining a hostcert and hostkey, which are by default placed in **/etc/grid-security.**
 
         [httpdDomain]
             httpd.enable.authn=true
-            httpd.authz.admin-gid=1234
+            httpd.authz.admin-gid=<1234>
         [httpdDomain/httpd]
         
 
