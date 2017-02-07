@@ -4,19 +4,19 @@ CHAPTER 16. THE ALARMS SERVICE
 Table of Contents
 -----------------
 
-    * [The Basic Setup](#the-basic-setup)  
+ * [The Basic Setup](#the-basic-setup)  
 
-         * [Configure where the alarms service is Running](#configure-where-the-alarms-service-is-running)  
-           [Types of Alarms](#types-of-alarms)  
-         [Alarm Priority](#alarm-priority)
-         [Working with Alarms: Shell Commands](#)  
-         [Working with Alarms: Admin Commands](#)  
-         [Working with Alarms: The Webadmin Alarms Page](#)  
+         [Configure where the alarms service is Running](#configure-where-the-alarms-service-is-running)  
+         [Types of Alarms](#types-of-alarms)    
+         [Alarm Priority](#alarm-priority)  
+         [Working with Alarms: Shell Commands](#working-with-alarms:-shell-commands)   
+         [Working with Alarms: Admin Commands](#working-with-alarms:-admin-commands)    
+         [Working with Alarms: The Webadmin Alarms Page](#working-with-alarms:-the-webadmin-alarms-page)    
         
-* [Advanced Service Configuration: Enabling Automatic Cleanup](#advanced-service-configuration:-enabling-automatic-cleanup)  
-* [Advanced Service Configuration: Enabling Email Alerts](#advanced-service-configuration:-enabling-email-alerts)  
-* [Advanced Service Configuration: Custom Alarm Definitions]  
-* [Miscellaneous Properties of the alarms Service]  
+* [Advanced Service Configuration: Enabling Automatic Cleanup](#advanced-service-configuration:-enabling-automatic-cleanup)   
+* [Advanced Service Configuration: Enabling Email Alerts](#advanced-service-configuration:-enabling-email-alerts)    
+* [Advanced Service Configuration: Custom Alarm Definitions](#custom-alarm-definitions)    
+* [Miscellaneous Properties of the alarms Service](#miscellaneous-properties-of-the-alarm-service)    
 
 
 dCache has an `alarms` service which records errors (*alarms*) requiring more or less urgent intervention. The webadmin servlet running inside the `httpd` service has a special page for querying, displaying and tracking these alarms. There is also an option for sending alarm notifications via email. The alarms data can be stored either in an XML file or in a database. The alarms service is turned off by default.
@@ -263,35 +263,35 @@ The Alarms Web Page is an admin page and thus requires authentication. You must 
 
 When `Refresh` is clicked, any updates to `Closed` and `Notes` are first saved, then any `Deletes` are processed, and finally, the table is repopulated using the current query filter. The entire form is set to auto-refresh every 60 seconds.
 
-Advanced Service Configuration: Enabling Automatic Cleanup
+ADVANCED SERVICE CONFIGURATION: ENABLING AUTOMATIC CLEANUP
 ==========================================================
 
 An additional feature of the alarms infrastructure is automatic cleanup of processed alarms. An internal thread runs every so often, and purges all alarms marked as `closed` with a timestamp earlier than the given window. This daemon can be configured using the properties `alarms.enable.cleaner`, `alarms.cleaner.timeout`, `alarms.cleaner.timeout.unit`, `alarms.cleaner.delete-entries-before` and `alarms.cleaner.delete-entries-before.unit`. The cleaner is off by default. This feature is mainly useful when running over an XML store, to mitigate slow-down due to bloat; nevertheless, there is nothing prohibiting its use with RDBMS.
 
-Advanced Service Configuration: Enabling Email Alerts
+ADVANCED SERVICE CONFIGURATION: ENABLING EMAIL ALERTS
 =====================================================
 
-To configure the server to send alarms via email, you need to set a series of alarm properties. No changes are necessary to any `logback.xml` file. The most important properties:
+To configure the server to send alarms via email, you need to set a series of alarm properties. No changes are necessary to any **logback.xml** file. The most important properties:
 
-`alarms.enable.email, alarms.email.threshold`  
+**alarms.enable.email, alarms.email.threshold** 
 Off (false) and `critical` by default.
 
-`alarms.email.smtp-host, alarms.email.smtp-port`  
+**alarms.email.smtp-host, alarms.email.smtp-port**  
 Email server destination. The port defaults to 25.
 
-`SMTP authentication and encryption`  
+**SMTP authentication and encryption**  
 The SMTP client used by dCache supports authentication via plain user passwords as well as both the STARTTLS and SSL protocols. Note that STARTTLS differs from SSL in that, in STARTTLS, the connection is initially non-encrypted and only after the STARTTLS command is issued by the client (if the server supports it) does the connection switch to SSL. In SSL mode, the connection is encrypted right from the start. Which of these to use is usually determined by the server.
 
 If username and password are left undefined, unauthenticated sends will be attempted, which may not be supported by the server.
 
 The values to use for plain user/password authentication default to undefined. NOTE: while using SSL will guarantee encryption over the wire, there is currently no way of storing an encrypted password. Two possible workarounds: a. Set up an admin account with a plaintext password that is protected by root privileges but which can be shared among adminstrators or those with access to the host containing this file; b. Set up a host-based authentication to the server; the email admin will usually require the client IP, and it will need to be static in that case.
 
-`sender and recipient`  
+**sender and recipient**  
 Only one sender may be listed, but multiple recipients can be indicated by a comma-separated list of email addresses.
 
-See the shared defaults `PATH-ODS-USD/alarms.properties` file for additional settings.
+See the shared defaults **/usr/share/dcache/alarms.properties** file for additional settings.
 
-Advanced Service Configuration: Custom Alarm Definitions
+ADVANCED SERVICE CONFIGURATION: CUSTOM ALARM DEFINITIONS
 ========================================================
 
 It should be fairly straightforward to add or modify custom definitions via either the interpreter from the dcache shell, or the admin `definition` commands.
@@ -337,7 +337,7 @@ Alarms that are generated by the code at the origin of the problem may carry wit
 Miscellaneous Properties of the ALARMS Service
 ===================================================
 
-There are a number of other settings avaible for customization; check the files `PATH-ODS-USD/alarms.properties` and `PATH-ODS-USD/httpd.properties` for the complete list with explanations.
+There are a number of other settings avaible for customization; check the files **/usr/share/dcache/alarms.properties** and **/usr/share/dcache/httpd.properties** for the complete list with explanations.
 
   []: images/Alarms.png
   [Regular Expressions]: http://docs.oracle.com/javase/tutorial/essential/regex
