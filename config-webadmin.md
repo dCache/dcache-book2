@@ -1,7 +1,8 @@
 CHAPTER 17. DCACHE WEBADMIN INTERFACE
 =====================================
 
-#Table of contents
+Table of contents
+-----------------
 
 [Installation](https://www.dcache.org/manuals/Book-2.16/config/cf-webadmin-install-fhs.shtml)
 
