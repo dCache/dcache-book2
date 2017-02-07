@@ -98,53 +98,26 @@ An ACL has one or more ACEs. Each ACE defines permissions to access this resourc
 
 The <ACE> arguments to the `setfacl` command have a specific format. This format is described below in Extended Backus-Naur Form (EBNF).
 
-ACE
-Subject
-':'
-Access
-|
-Subject
-':'
-Access
-':'
-Inheritance
-Subject
-'USER:'
-UserID
-|
-'GROUP:'
-GroupID
-|
-'OWNER@' |
-'GROUP@' |
-'EVERYONE@' |
-'ANONYMOUS@' |
-'AUTHENTICATED@'
-Access
-'+'
-Mask
-|
-'-'
-Mask
-Mask
-Mask
-MaskItem
-|
-MaskItem
-MaskItem
-'r' | 'l' | 'w' | 'f' | 's' | 'a' | 'n' | 'N' | 'x' | 'd' | 'D' | 't' | 'T' | 'c' | 'C' | 'o'
-Inheritance
-Inheritance
-Flag
-|
-Flag
-Flag
-'f' | 'd' | 'o'
-UserID
-INTEGER
-GroupID
-INTEGER
-The various options are described below.
+[1]	ACE	::=	Subject ':' Access |   
+Subject ':' Access ':' Inheritance	   
+[2]	Subject	::=	'USER:' UserID |   
+'GROUP:' GroupID |   
+'OWNER@' |   
+'GROUP@' |   
+'EVERYONE@' |   
+'ANONYMOUS@' |   
+'AUTHENTICATED@'	  
+[3]	Access	::=	'+' Mask |  
+'-' Mask	  
+[4]	Mask	::=	Mask MaskItem |   
+MaskItem	   
+[5]	MaskItem	::=	'r' | 'l' | 'w' | 'f' | 's' | 'a' | 'n' | 'N' | 'x' | 'd' | 'D' | 't' | 'T' | 'c' | 'C' | 'o'	 
+[6]	Inheritance	::=	Inheritance Flag |   
+Flag	 
+[7]	Flag	::=	'f' | 'd' | 'o'	   
+[8]	UserID	::=	INTEGER	   
+[9]	GroupID	::=	INTEGER    
+The various options are described below.  
 
 #### The Subject
 
