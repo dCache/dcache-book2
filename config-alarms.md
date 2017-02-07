@@ -4,10 +4,10 @@ CHAPTER 16. THE ALARMS SERVICE
 Table of Contents
 -----------------
 
-    *[The Basic Setup](#the-basic-setup)  
+    * [The Basic Setup](#the-basic-setup)  
 
-         *[Configure where the alarms service is Running](#configure-where-the-alarms-service-is-running)  
-         [Types of Alarms](#types-of-alarms)  
+         * [Configure where the alarms service is Running](#configure-where-the-alarms-service-is-running)  
+           [Types of Alarms](#types-of-alarms)  
          [Alarm Priority](#alarm-priority)
          [Working with Alarms: Shell Commands](#)  
          [Working with Alarms: Admin Commands](#)  
@@ -45,30 +45,33 @@ OR
         ...
         
 
-Note that the storage type setting `alarms.db.type` must be defined either in the layout or `PATH-ODE-ED/dcache.conf` file because its default value is `off`; this can be set to either `xml`, or `rdbms`. In the latter case, the standard set of properties can be used to configure the connection url, db user, and so forth. Before using the `rdbms` option for the first time, be sure to run:
+Note that the storage type setting `alarms.db.type` must be defined either in the layout or **/etc/dcache/dcache.conf** file because its default value is `off`; this can be set to either `xml`, or `rdbms`. In the latter case, the standard set of properties can be used to configure the connection url, db user, and so forth. Before using the `rdbms` option for the first time, be sure to run:
+
+
 
             createdb -U alarms.db.user alarms
         
 
 to create the database; as usual, the actual schema will be initialized automatically when the service is started.
 
-For the XML option, the storage file is usually found in the shared directory for alarms (corresponding to `alarms.dir`); the usual path is `PATH-OD-VLD/store.xml`, but the location can be changed by setting `alarms.db.xml.path`. This will automatically be propagated to `alarms.db.url` and consequently to `httpd.alarms.db.url` if the two domains are on the same host; if they are not (and share this file path via a mount, for instance), be sure to set the httpd property in the layout or `PATH-ODE-ED/dcache.conf` on the httpd host to correspond to the new `alarms.db.url`.
+For the XML option, the storage file is usually found in the shared directory for alarms (corresponding to alarms.dir); the usual path is **/var/lib/dcache/store.xml**, but the location can be changed by setting `alarms.db.xml.path`. This will automatically be propagated to `alarms.db.url` and consequently to `httpd.alarms.db.url` if the two domains are on the same host; if they are not (and share this file path via a mount, for instance), be sure to set the httpd property in the layout or **/etc/dcache/dcache.conf** on the httpd host to correspond to the new `alarms.db.url`.
 
 As a rule of thumb, the choice between XML and RDBMS is dictated by two factors: whether it is feasible to share the XML file between the two services as noted, and how much history is to be preserved. While the XML option is more lightweight and easier to configure, it is limited by performance, experiencing considerable read and write slowdown as the file fills (beyond 1000 entries or so). If you do not need to maintain records of alarms (and either manually delete alarms which have been serviced, or use the built-in cleanup feature – see below), then this option should be sufficient. Otherwise, the extra steps of installing postgreSQL on the appropriate node and creating the alarms database (as above) may be worth the effort.
 
-Configure where the ALARMS service is Running
+
+CONFIGURE WHERE THE ALARMS SERVICE IS RUNNING
 -----------------------------------------------
 
-The alarms infrastructure is actually a wrapper around the logging layer and makes use of a simple tcp socket logger to transmit logging events to the server. In each domain, the `PATH-ODE-ED/logback.xml` configuration references the following properties to control remote logging:
+The alarms infrastructure is actually a wrapper around the logging layer and makes use of a simple tcp socket logger to transmit logging events to the server. In each domain, the **/etc/dcache/logback.xml** configuration references the following properties to control remote logging:
 
             dcache.log.level.remote=off
             dcache.log.server.host=localhost
             dcache.log.server.port=9867
         
 
-As with the ALARMS service database type, remote logging is turned off by default. Under normal circumstances it should be sufficient to set this to `error` in order to receive alarms. All internally generated alarms (see below) are in fact guaranteed to be sent at this logging level. Remote transmission of events at lower logging levels is possible, but caution should be taken inasmuch anything below `warn` significantly increases network traffic and could risk overloading the server or creating a bottleneck. This service was not designed to provide robust centralized debugging.
+As with the `alarms` service database type, remote logging is turned off by default. Under normal circumstances it should be sufficient to set this to `error` in order to receive alarms. All internally generated alarms (see below) are in fact guaranteed to be sent at this logging level. Remote transmission of events at lower logging levels is possible, but caution should be taken inasmuch anything below warn significantly increases network traffic and could risk overloading the server or creating a bottleneck. This service was not designed to provide robust centralized debugging.
 
-If all of your DCACHE domains run on the same host, then the default (`localhost` value will work. But usually your DCACHE will not be configured to run on a single node, so each node will need to know the destination of the remote logging events. On all the nodes except where the actual ALARMS service resides, you will thus need to modify the `PATH-ODE-ED/dcache.conf` file or the layout file to set the `dcache.log.server.host` property (and restart DCACHE if it is already up). The default port should usually not need to be modified; in any case, it needs to correspond to whatever port the service is running on. From inspection of the `PATH-ODS-USD/alarms.properties` file, you can see that the alarms-specific properties mirror the logger properties:
+If all of your dCache domains run on the same host, then the default (`localhost` value will work. But usually your dCache will not be configured to run on a single node, so each node will need to know the destination of the remote logging events. On all the nodes except where the actual `alarms` service resides, you will thus need to modify the **/etc/dcache/dcache.conf** file or the layout file to set the `dcache.log.server.host` property (and restart dCache if it is already up). The default port should usually not need to be modified; in any case, it needs to correspond to whatever port the service is running on. From inspection of the **/usr/share/dcache/alarms.properties** file, you can see that the alarms-specific properties mirror the logger properties:
 
          #  ---- Host on which this service is running
          alarms.net.host=${dcache.log.server.host}
@@ -78,15 +81,16 @@ If all of your DCACHE domains run on the same host, then the default (`localhost
 
 The first property should not need any adjustment, but if `alarms.net.port` is modified, be sure to modify the `dcache.log.server.port` property on the other nodes to correspond to it. In general, it is advisable to work directly with the `dcache.log.server` properties everywhere.
 
-An example of a DCACHE which consists of a head node, some door nodes and some pool nodes. Assume that the HTTPD service and the ALARMS service are running on the head node. Then you would need to set the property `dcache.log.server.host` on the pool nodes and on the door nodes to the host on which the ALARMS service is running.
+Example:
+An example of a dCache which consists of a head node, some door nodes and some pool nodes. Assume that the `httpd` service and the `alarms` service are running on the head node. Then you would need to set the property `dcache.log.server.host` on the pool nodes and on the door nodes to the host on which the `alarms` service is running.
 
-                dcache.log.server.host=head-node
+                dcache.log.server.host=<head-node>
            
 
-Types of Alarms
+TYPES OF ALARMS
 ---------------
 
-As stated previously, the DCACHE alarm system runs on top of the logging system (and more specifically, depends on the `ch.qos.logback` logging library). It promotes normal logging events to alarm status in one of two ways.
+As stated previously, the dCache alarm system runs on top of the logging system (and more specifically, depends on the `ch.qos.logback` logging library). It promotes normal logging events to alarm status in one of two ways.
 
 `BUILT-IN (MARKED) ALARMS`  
 Some alarms are already coded into dCache. These bear the general logging marker `ALARM` and also can carry sub-markers for type and uniqueness identifiers. They also carry information indicating the host, domain and service which emits them. All such alarms are logged at the ERROR event level.
@@ -94,10 +98,10 @@ Some alarms are already coded into dCache. These bear the general logging marker
 `SERVER-SIDE (OPTIONAL) ALARMS`  
 Logging events which arrive at the alarm server, but which do not carry a specific alarm type marker (these may be events at any logging level, not just ERROR), can nevertheless be redefined as a specific type of alarm via a set of filters provided by the administrator. These filters or custom alarm definitions reside in a special XML file usually written to the alarms space. Further explanation as to how to create such filters is given in another section below.
 
-Alarm Priority
+ALARM PRIORITY
 --------------
 
-The notion of alarm or alert carries the implication that this particular error or condition requires user attention/intervention; there may be, however, differences in urgency which permit the ordering of such notices in terms of degree of importance. DCACHE allows the administrator complete control over this prioritization.
+The notion of alarm or alert carries the implication that this particular error or condition requires user attention/intervention; there may be, however, differences in urgency which permit the ordering of such notices in terms of degree of importance. dCache allows the administrator complete control over this prioritization.
 
 The available priority levels are:
 
@@ -106,19 +110,19 @@ The available priority levels are:
 -   MODERATE
 -   LOW
 
-Any alarm can be set to whatever priority level is deemed appropriate. This can be done through the admin interface commands (see below). Without any customization, all alarms (of both types) are given a default priority level. This level can be changed via the value of alarms.priority-mapping.default, which by default is `critical`.
+Any alarm can be set to whatever priority level is deemed appropriate. This can be done through the admin interface commands (see below). Without any customization, all alarms (of both types) are given a default priority level. This level can be changed via the value of <variable>alarms.priority-mapping.default</variable>, which by default is `critical`.
 
-Filtering based on priority is possible both in the webadmin page (see below), and for alarms sent via email (alarms.email.threshold; fuller discussion of how to enable email alarms is given in a later section).
+Filtering based on priority is possible both in the webadmin page (see below), and for alarms sent via email (<variable>alarms.email.threshold</variable>; fuller discussion of how to enable email alarms is given in a later section).
 
-> **Note**
+> **NOTE**
 >
 > There also exists the possibility of filtering out only alarms from the main database into a separate log file. This option is enabled using
-> alarms.enable.history
+>  <variable>alarms.enable.history</variable>
 > , and similarly has a priority threshold,
-> alarms.history.threshold
-> . This is particularly useful in tandem with the XML storage option; it allows preservation of a condensed record of the alarms even after their full entries have been deleted from the database.
+>  <variable>alarms.history.threshold</variable>.
+>  This is particularly useful in tandem with the XML storage option; it allows preservation of a condensed record of the alarms even after their full entries have been deleted from the database.
 
-Working with Alarms: Shell Commands
+WORKING WITH ALARMS: SHELL COMMANDS
 -----------------------------------
 
 Some basic alarm commands are available as part of the dCache shell. The following is an abbreviated description; for fuller information, see the dCache man page.
