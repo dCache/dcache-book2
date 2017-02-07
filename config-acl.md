@@ -84,21 +84,19 @@ The `info` and `help` commands are available within PnfsManager and fulfil their
 HOW TO SET ACLS
 ---------------
 
-The `setfacl` command is used to set a new ACL. This command accepts arguments with the following form:
+The `setfacl` command is used to set a new ACL. This command accepts arguments with the following form:  
 
-setfacl
-ID
-ACE
-ACE
-The ID argument is either a PNFS-ID or the absolute path of some file or directory in DCACHE. The `setfacl` command requires one or more ACE arguments seperated by spaces.
+setfacl <ID> <ACE> [<ACE>...]  
 
-The `setfacl` command creates a new ACL for the file or directory represented by ID. This new ACL replaces any existing ACEs for ID.
+The <ID> argument is either a pnfs-ID or the absolute path of some file or directory in dCache. The setfacl command requires one or more <ACE> arguments seperated by spaces.  
 
-An ACL has one or more ACEs. Each ACE defines permissions to access this resource for some [Subject]. The ACEs are space-separated and the ordering is significant. The format and description of these ACE values are described below.
+The setfacl command creates a new ACL for the file or directory represented by <ID>. This new ACL replaces any existing ACEs for <ID>.  
 
-### Description of the ACE structure
+An ACL has one or more ACEs. Each ACE defines permissions to access this resource for some [Subject](#the-subject). The ACEs are space-separated and the ordering is significant. The format and description of these ACE values are described below.  
 
-The ACE arguments to the `setfacl` command have a specific format. This format is described below in Extended Backus-Naur Form (EBNF).
+### Description of the ACE structure  
+
+The <ACE> arguments to the `setfacl` command have a specific format. This format is described below in Extended Backus-Naur Form (EBNF).
 
 ACE
 Subject
@@ -154,10 +152,10 @@ The [Subject] defines to which user or group of users the ACE will apply. It act
 
 As indicated by the EBNF above, the Subject of an ACE can take one of several forms. These are described below:
 
-`USER:`id  
+`USER:`<id>
 The `USER:` prefix indicates that the ACE applies only to the specific end-user: the DCACHE user with ID id. For example, `USER:0:+w` is an ACE that allows user 0 to write over a file's existing data.
 
-`GROUP:`id  
+`GROUP:`<id>
 The `GROUP:` prefix indicates that the ACE applies only to those end-users who are a member of the specific group: the DCACHE group with ID id. For example, `GROUP:20:+a` is an ACE that allows any user who is a member of group 20 to append data to the end of a file.
 
 `OWNER@`  
@@ -175,13 +173,13 @@ The `ANONYMOUS@` Subject indicates that the ACE applies to all users who have no
 `AUTHENTICATED@`  
 The `AUTHENTICATED@` Subject indicates that an ACE applies to all authenticated users. For example, `AUTHENTICATED@:+r` is an ACE that allows any authenticated user to read a file's contents.
 
-> **Note**
+> **AUTHENTICATED OR ANONYMOUS**
 >
 > An end user of DCACHE is either authenticated or is unauthenticated, but never both. Because of this, an end user operation will either match ACEs with `ANONYMOUS@` Subjects or `AUTHENTICATED@` Subjects but the request will never match both at the same time.
 
 #### Access mask
 
-ACE-ACCESS (defined in the [ACE EBNF] above) describes what kind of operations are being described by the ACE and whether the ACE is granting permission or denying it.
+[Access](#description-of-the-ace-structure) (defined in the [ACE EBNF] above) describes what kind of operations are being described by the ACE and whether the ACE is granting permission or denying it.
 
 An individual ACE can either grant permissions or deny them, but never both. However, an ACL may be composed of any mixture of authorising- and denying- ACEs. The first character of ACE-ACCESS describes whether the ACE is authorising or denying.
 
