@@ -90,6 +90,7 @@ In order to enable the database, the following steps must be taken.
     No further manual preparation is needed, as the necessary tables, indices, functions and triggers will automatically be generated when you (re)start the domain with the billing database logging turned on (see below).
 
 2.  The property `billing.enable.db` controls whether the billing cell sends billing messages to the database. By default the option is disabled. To activate, set the value to `true` and restart the domain in which the HTTPD service is running.
+CUSTOMIZING THE DATABASE
 
     > **NOTE**
     >
@@ -178,7 +179,7 @@ In most cases, the billing service will be run out-of-the-box; nevertheless, the
 
     You can also generate a Java thread dump by issuing the `"dump threads"` command.
 
--   Should finer control over the DataNucleus layer (which talks to the database) be needed, then a new `datanucleus.properties` file must be provided. The path to this file, which will override the internal settings, should be indicated using:
+-   Should finer control over the DataNucleus layer (which talks to the database) be needed, then a new **datanucleus.properties** file must be provided. The path to this file, which will override the internal settings, should be indicated using:
 
     -   billing.db.config.path
         (defaults to
@@ -187,7 +188,7 @@ In most cases, the billing service will be run out-of-the-box; nevertheless, the
 
     Changing this configuration requires an understanding of [DataNucleus] , and we expect it will be rather uncommon to utilize this option (it is suggested that the administrator in this case consult with a member of the DCACHE team).
 
--   Changing the database type (which defaults to PSQL) to something else would entail the above-mentioned necessary modification of the `datanucleus.properties` as well as changing the `billing.db.driver` and `billing.db.url` properties appropriately. This is not a recommended procedure, though in certain exceptional circumstances, it may be desirable or necessary. Once again, consultation with the DCACHE team is suggested in this case.
+-   Changing the database type (which defaults to PSQL) to something else would entail the above-mentioned necessary modification of the **datanucleus.properties** as well as changing the `billing.db.driver` and `billing.db.url` properties appropriately. This is not a recommended procedure, though in certain exceptional circumstances, it may be desirable or necessary. Once again, consultation with the DCACHE team is suggested in this case.
 
 Generating and Displaying Billing Plots
 =======================================
