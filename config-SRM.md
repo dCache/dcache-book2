@@ -121,7 +121,7 @@ UTILIZATION OF SPACE RESERVATIONS FOR DATA STORAGE
 
 `SRM` version 2.2 introduced a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
 
-Users can create space reservations using an appropriate `SRM` client, although it is more common for the DCACHE administrator to make space reservations for VOs (see [section\_title]. Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the DCACHE administrator.
+Users can create space reservations using an appropriate `SRM` client, although it is more common for the DCACHE administrator to make space reservations for VOs (see [the section called “SpaceManager configuration”](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml). Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the dCache administrator.
 
 When a file is about to be transferred to a storage system, the space available in the space reservation is checked if it can accomodate the entire file. If yes, this chunk of space is marked as allocated, so that it can not be taken by another, concurrently transferred file. If the file is transferred successfully the allocated space becomes used space within the space reservation, else the allocated space is released back to the space reservation as free space.
 
@@ -129,16 +129,16 @@ When a file is about to be transferred to a storage system, the space available 
 
 DCACHE only manages write space, i.e. space on disk can be reserved only for write operations. Once files are migrated to tape, and if no copy is required on disk, space used by these files is returned back into space reservation. When files are read back from tape and cached on disk, they are not counted as part of any space.
 
-Properties of Space Reservation
+PROPERTIES OF SPACE RESERVATION
 -------------------------------
 
 A space reservation has a retention policy and an access latency.
 
-Retention policy describes the quality of the storage service that will be provided for the data (files) stored in the space reservation and access latency describes the availability of this data. The SRM specification requires that if a space reservation is given on upload, then the specified retention policy and access latency must match those of the space reservation.
+Retention policy describes the quality of the storage service that will be provided for the data (files) stored in the space reservation and access latency describes the availability of this data. The `SRM` specification requires that if a space reservation is given on upload, then the specified retention policy and access latency must match those of the space reservation.
 
-The default values for the retention policy and access latency can be changed in the file `PATH-ODE-ED/dcache.conf`.
+The default values for the retention policy and access latency can be changed in the file **/etc/dcache/dcache.conf**.
 
-Retention policy  
+**Retention policy**  
 The values of retention policy supported by DCACHE are `REPLICA` and `CUSTODIAL`.
 
 -   `REPLICA` corresponds to the lowest quality of the service, usually associated with storing a single copy of each file on the disk.
@@ -149,17 +149,18 @@ Once a file is written into a given space reservation, it inherits the reservati
 
 If the space reservation request does not specify a retention policy, we will assign a value given by `spacemanager.default-retention-policy`. The default value is `CUSTODIAL`.
 
-Edit the file `PATH-ODE-ED/dcache.conf` to change the default value.
+Edit the file **/etc/dcache/dcache.conf** to change the default value.
 
+Example:
 Change the default value to `REPLICA`.
 
     spacemanager.default-retention-policy=REPLICA
 
-> **Note**
+> **NOTE**
 >
 > `spacemanager.default-retention-policy` merely specifies to value to use while allocating space reservations when no value was given by the client or DCACHE admin. It is not to be confused with `pnfsmanager.default-retention-policy` which specifies the default retention policy of files uploaded outside of any space reservation.
 
-Access latency  
+**Access latency**  
 The two values allowed for access latency are `NEARLINE` and `ONLINE`.
 
 -   `NEARLINE` means that data stored in this reservation is allowed to migrate to permanent media. Retrieving these data may result in delays associated with preparatory steps that the storage system has to perform to make these data available for the user I/O (e.g., staging data from tape to a disk cache).
@@ -170,45 +171,47 @@ In case of DCACHE `ONLINE` means that there will always be a copy of the file on
 
 If a space reservation request does not specify an access latency, we will assign a value given by `spacemanager.default-access-latency`. The default value is `NEARLINE`.
 
-Edit the file `PATH-ODE-ED/dcache.conf` to change the default value.
+Edit the file **/etc/dcache/dcache.conf** to change the default value.
 
+Example:
 Change the default value to `ONLINE`.
 
     spacemanager.default-access-latency=ONLINE
 
-> **Note**
+> **NOTE**
 >
 > `spacemanager.default-access-latency` merely specifies to value to use while allocating space reservations when no value was given by the client or DCACHE admin. It is not to be confused with `pnfsmanager.default-access-latency` which specifies the default retention policy of files uploaded outside of any space reservation.
 
-> **Important**
+> **IMPORTANT**
 >
 > Please make sure to use capital letters for `REPLICA`, `CUSTODIAL`, `ONLINE` and `NEARLINE` otherwise you will receive an error message.
 
-DCACHE specific concepts
+DCACHE SPECIFIC CONCEPTS
 ========================
 
-Activating SRM CELL-SPACEMNGR
+ACTIVATING SRM SPACEMANAGER
 -----------------------------
 
-In order to enable the SRM CELL-SPACEMNGR you need to add the SPACEMNGR service to your layout file
+In order to enable the `SRM SpaceManager` you need to add the `spacemanager` service to your layout file
 
-    [dCacheDomain]
-    [dCacheDomain/spacemanager]
+   [<dCacheDomain>]
+   [<dCacheDomain>/spacemanager]
 
-and add the following definition in the file `PATH-ODE-ED/dcache.conf`
+and add the following definition in the file **/etc/dcache/dcache.conf**
 
     dcache.enable.space-reservation=true
 
-Unless you have reason not to, we recommend placing the SPACEMNGR service in the same domain as the POOLMNGR service.
+Unless you have reason not to, we recommend placing the `spacemanager` service in the same domain as the `poolmanager` service.
 
-Explicit and Implicit Space Reservations for Data Storage in DCACHE
+
+EXPLICIT AND IMPLICIT SPACE RESERVATIONS FOR DATA STORAGE IN DCACHE
 -------------------------------------------------------------------
 
 ### Explicit Space Reservations
 
-Each SRM space reservation is made against the total available disk space of a particular link group. If DCACHE is configured correctly each byte of disk space, that can be reserved, belongs to one and only one link group. See [section\_title] for a detailed description.
+Each SRM space reservation is made against the total available disk space of a particular link group. If dCache is configured correctly each byte of disk space, that can be reserved, belongs to one and only one link group. See [the section called “SpaceManager configuration”](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml) for a detailed description.
 
-> **Important**
+> **IMPORTANT**
 >
 > Make sure that no pool belongs to more than one pool group, no pool group belongs to more than one link and no link belongs to more than one link group.
 
@@ -220,58 +223,61 @@ The total space in DCACHE that can be reserved is the sum of the available space
 
 ### Implicit Space Reservations
 
-DCACHE can perform implicit space reservations for non-SRM transfers, SRM Version 1 transfers and for SRM Version 2.2 data transfers that are not given the space token explicitly. The parameter that enables this behavior is `srm.enable.space-reservation.implicit`, which is described in [section\_title][3]. If no implicit space reservation can be made, the transfer will fail.
+dCache can perform implicit space reservations for non-`SRM` transfers, `SRM` Version 1 transfers and for `SRM` Version 2.2 data transfers that are not given the space token explicitly. The parameter that enables this behavior is srm.enable.space-reservation.implicit, which is described in [the section called “SRM configuration for experts”](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml#cf-srm-expert-config). If no implicit space reservation can be made, the transfer will fail.
 
-Implicit space reservation means that the SRM will create a space reservation for a single upload while negotiating the transfer parameters with the client. The space reservation will be created in a link group for which the user is authorized to create space reservations, which has enough available space, and which is able to hold the type of file being uploaded. The space reservation will be short lived. Once it expires, it will be released and the file it held will live on outside any space reservation, but still within the link group to which it was uploaded. Implicit space reservations are thus a technical means to upload files to link groups without using explicit space reservations.
+Implicit space reservation means that the `srm` will create a space reservation for a single upload while negotiating the transfer parameters with the client. The space reservation will be created in a link group for which the user is authorized to create space reservations, which has enough available space, and which is able to hold the type of file being uploaded. The space reservation will be short lived. Once it expires, it will be released and the file it held will live on outside any space reservation, but still within the link group to which it was uploaded. Implicit space reservations are thus a technical means to upload files to link groups without using explicit space reservations.
 
-The reason DCACHE cannot just allow the file to be uploaded to the link group without any space reservation at all is, that we have to guarantee, that space already allocated for other reservations isn't used by the file being uploaded. The best way to guarantee that there is enough space for the file is to make a space reservation to which to upload it.
+The reason dCache cannot just allow the file to be uploaded to the link group without any space reservation at all is, that we have to guarantee, that space already allocated for other reservations isn’t used by the file being uploaded. The best way to guarantee that there is enough space for the file is to make a space reservation to which to upload it.
 
-In case of SRM version 1.1 data transfers, where the access latency and retention policy cannot be specified, and in case of SRM V2.2 clients, when the access latency and retention policy are not specified, default values will be used. First SRM will attempt to use the values of access latency and retention policy tags from the directory to which a file is being written. If the tags are not present, then the access latency and retention policy will be set on basis of PNFSMNGR defaults controlled by `pnfsmanager.default-retention-policy` and `pnfsmanager.default-access-latency` variables in `PATH-ODE-ED/dcache.conf`.
+In case of `SRM` version 1.1 data transfers, where the access latency and retention policy cannot be specified, and in case of `SRM` V2.2 clients, when the access latency and retention policy are not specified, default values will be used. First `SRM` will attempt to use the values of access latency and retention policy tags from the directory to which a file is being written. If the tags are not present, then the access latency and retention policy will be set on basis of `pnfsmanager` defaults controlled by `pnfsmanager.default-retention-policy` and `pnfsmanager.default-access-latency` variables in **/etc/dcache/dcache.conf**.
 
 You can check if the `AccessLatency` and `RetentionPolicy` tags are present by using the following command:
 
-    PROMPT-ROOT CHIMERA-CLI lstag /path/to/directory
-    Total: numberOfTags
-    tag1
-    tag2
-    ..
-    AccessLatency
-    RetentionPolicy
+        [root] # /usr/bin/chimera lstag /path/to/directory
+	Total: numberOfTags
+	tag1
+	tag2
+	..
+	AccessLatency
+	RetentionPolicy
 
-If the output contains the lines `AccessLatency` and `RetentionPolicy` then the tags are already present and you can get the actual values of these tags by executing the following commands, which are shown together with example outputs:
+If the output contains the lines AccessLatency and RetentionPolicy then the tags are already present and you can get the actual values of these tags by executing the following commands, which are shown together with example outputs:
 
-    PROMPT-ROOT CHIMERA-CLI readtag /data/experiment-a AccessLatency
-    ONLINE
-    PROMPT-ROOT CHIMERA-CLI readtag /data/experiment-a RetentionPolicy
-    CUSTODIAL
+     Example:
+     [root] # /usr/bin/chimera readtag /data/experiment-a AccessLatency
+     ONLINE
+     [root] # /usr/bin/chimera readtag /data/experiment-a RetentionPolicy
+     CUSTODIAL
 
 The valid `AccessLatency` values are `ONLINE` and `NEARLINE`, valid `RetentionPolicy` values are `REPLICA` and `CUSTODIAL`.
 
 To create/change the values of the tags, please execute :
 
-    PROMPT-ROOT CHIMERA-CLI writetag /path/to/directory AccessLatency "New AccessLatency"
-    PROMPT-ROOT CHIMERA-CLI writetag /path/to/directory RetentionPolicy "New RetentionPolicy"
+    [root] # /usr/bin/chimera writetag /path/to/directory AccessLatency "<New AccessLatency>"
+    [root] # /usr/bin/chimera writetag /path/to/directory RetentionPolicy "<New RetentionPolicy>"
 
-> **Note**
+
+> **NOTE**
 >
 > Some clients also have default values, which are used when not explicitly specified by the user. In this case server side defaults will have no effect.
 
-> **Note**
+> **NOTE**
 >
 > If the implicit space reservation is not enabled, pools in link groups will be excluded from consideration and only the remaining pools will be considered for storing the incoming data, and classical pool selection mechanism will be used.
+
 
 CELL-SPACEMNGR configuration
 ============================
 
-SRM CELL-SPACEMNGR and Link Groups
-----------------------------------
+SRM SPACEMANAGER AND LINK GROUPS
+--------------------------------
 
-CELL-SPACEMNGR is making reservations against free space available in [link groups]. The total free space in the given link group is the sum of available spaces in all links. The available space in each link is the sum of all sizes of available space in all pools assinged to a given link. Therefore for the space reservation to work correctly it is essential that each pool belongs to one and only one link, and each link belongs to only one link group. Link groups are assigned several parameters that determine what kind of space the link group corresponds to and who can make reservations against this space.
+`SpaceManager` is making reservations against free space available in [link groups](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs.shtml). The total free space in the given link group is the sum of available spaces in all links. The available space in each link is the sum of all sizes of available space in all pools assinged to a given link. Therefore for the space reservation to work correctly it is essential that each pool belongs to one and only one link, and each link belongs to only one link group. Link groups are assigned several parameters that determine what kind of space the link group corresponds to and who can make reservations against this space.
 
-Making a Space Reservation
+MAKING A SPACE RESERVATION
 --------------------------
 
-Now that the SRM CELL-SPACEMNGR is activated you can make a space reservation. As mentioned above you need link groups to make a space reservation.
+Now that the `SRM SpaceManager` is activated you can make a space reservation. As mentioned above you need link groups to make a space reservation.
 
 ### Prerequisites for Space Reservations
 
