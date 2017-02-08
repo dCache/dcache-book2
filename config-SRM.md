@@ -6,27 +6,27 @@ Table of Contents
 -----------------
 
 + [Introduction](#introduction)
-[Configuring the srm service
-The Basic Setup
-Important srm configuration options
-Utilization of Space Reservations for Data Storage
-Properties of Space Reservation
-dCache specific concepts
-Activating SRM SpaceManager
-Explicit and Implicit Space Reservations for Data Storage in dCache
-SpaceManager configuration
-SRM SpaceManager and Link Groups
-Making a Space Reservation
-SRM configuration for experts
-Configuring the PostgreSQL Database
-SRM or srm monitoring on a separate node
-General SRM Concepts (for developers)
-The SRM service
-Space Management Functions
-Data Transfer Functions
-Request Status Functions
-Directory Functions
-Permission functions
++ [Configuring the srm service](#configuring-the-srm-service)
++ [The Basic Setup](#
++ [Important srm configuration options](#
++ [Utilization of Space Reservations for Data Storage](#
++ [Properties of Space Reservation](#
++ [dCache specific concepts](#
++ [Activating SRM SpaceManager](#
++ [Explicit and Implicit Space Reservations for Data Storage in dCache](#
++ [SpaceManager configuration](#
++ [SRM SpaceManager and Link Groups](#
++ [Making a Space Reservation](#
++ [SRM configuration for experts](#
++ [Configuring the PostgreSQL Database](#
++ [SRM or srm monitoring on a separate node](#
++ [General SRM Concepts (for developers)](#
++ [The SRM service](#
++ [Space Management Functions](#
++ [Data Transfer Functions](#
++ [Request Status Functions](#
++ [Directory Functions](#
++ [Permission functions](#
 
 Introduction
 ============
