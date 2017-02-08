@@ -251,11 +251,11 @@ When a file or directory inherits from an ACE with `o` in the inheritance flags 
 
 An `o` in the inheritance flag allows child files or directories to inherit authorisation behaviour that is different from the parent directory.
 
-## Examples
+## Examples  
 
-This section gives some specific examples of how to set ACLs to achieve some specific behaviour.
+This section gives some specific examples of how to set ACLs to achieve some specific behaviour.  
 
-Example 18.1. ACL allowing specific user to delete files in a directory
+Example 18.1. ACL allowing specific user to delete files in a directory  
 This example demonstrates how to configure a directory-ACL so user 3750 can delete any file within the directory **/pnfs/example.org/data/exampleDir**.
 
     (PnfsManager) admin > setfacl /pnfs/example.org/data/exampleDir EVERYONE@:+l USER:3750:D
@@ -270,7 +270,7 @@ The first command creates an ACL for the directory. This ACL has three ACEs. The
 The second and third commands creates an ACL for files that already exists within the directory. Since ACL inheritance only applies to newly created files or directories, any existing files must have an ACL explicitly set.
 
 
-Example 18.2. ACL to deny a group
+Example 18.2. ACL to deny a group  
 The following example demonstrates authorising all end users to list a directory. Members of group 1000 can also create subdirectories. However, any member of group 2000 can do neither.
 
     (PnfsManager) admin > setfacl /pnfs/example.org/data/exampleDir GROUP:2000:-sl
@@ -283,7 +283,7 @@ The second ACE allows everyone to list the directory's content. If an end user w
 The final ACE authorises members of group 1000 to create subdirectories. If an end user who is a member of group 1000 and group 2000 attempts to create a subdirectory then their request will match the first ACE and be denied.
 
 
-Example 18.3. ACL to allow a user to delete all files and subdirectories
+Example 18.3. ACL to allow a user to delete all files and subdirectories  
 This example is an extension to [Example 18.1, “ACL allowing specific user to delete files in a directory”. The previous example allowed deletion of the contents of a directory](#example-18.1.-acl-allowing-specific-user-to-delete-files-in-a-directory) but not the contents of any subdirectories. This example allows user 3750 to delete all files and subdirectories within the directory.
 
 
@@ -300,15 +300,15 @@ Since the second ACE has both the `d` and `f` inheritance flags, it will be inhe
 
 Subdirectories (and files) will inherit the second ACE with both `d` and `f` inheritance flags. This implies that all files and sub-subdirecties within a subdirectory of **/pnfs/example.org/data/exampleDir** will also inherit this ACE, so will also be deletable by user 3750.
 
-VIEWING CONFIGURED ACLS
+VIEWING CONFIGURED ACLS  
 -----------------------
-The `getfacl` is used to obtain the current ACL for some item in DCACHE namespace. It takes the following arguments.
+The `getfacl` is used to obtain the current ACL for some item in DCACHE namespace. It takes the following arguments.  
 
-getfacl [<pnfsId>] | [<globalPath>]  
+getfacl [<pnfsId>] | [<globalPath>]    
 
 The `getfacl` command fetches the ACL information of a namespace item (a file or directory). The item may be specified by its PNFS-ID or its absolute path.
 
-Example 18.4. Obtain ACL information by absolute path
+Example 18.4. Obtain ACL information by absolute path  
        (PnfsManager) admin > getfacl /pnfs/example.org/data/exampleDir  
         ACL: rsId = 00004EEFE7E59A3441198E7EB744B0D8BA54, rsType = DIR  
         order = 0, type = A, accessMsk = lfsD, who = USER, whoID = 12457  
