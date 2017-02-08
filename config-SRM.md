@@ -281,22 +281,23 @@ Now that the `SRM SpaceManager` is activated you can make a space reservation. A
 
 ### Prerequisites for Space Reservations
 
-Login to the [admin interface] and `cd` to the cell `SrmSpaceManager`.
+Login to the [admin interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml) and `cd` to the cell `SrmSpaceManager`.
 
-    PROMPT-USER ssh -p 22224 -l admin admin.example.org
-    DC-PROMPT-LOCAL cd SrmSpaceManager
+    [user] $ ssh -p 22224 -l admin admin.example.org
+    (local) admin > cd SrmSpaceManager
 
 Type `ls link groups` to get information about link groups.
 
-    DC-PROMPT-SPACEMNGR ls link groups
+    (SrmSpaceManager) admin > ls link groups
 
 The lack of output tells you that there are no link groups. As there are no link groups, no space can be reserved.
 
 #### The Link Groups
 
-For a general introduction about link groups see [???][link groups].
+For a general introduction about link groups see [the section called “Link Groups”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs.shtml).
 
-In this example we will create a link group for the VO `desy`. In order to do so we need to have a pool, a pool group and a link. Moreover, we define unit groups named `any-store`, `world-net` and `any-protocol`. (See [???][4].)
+Example:
+In this example we will create a link group for the VO desy. In order to do so we need to have a pool, a pool group and a link. Moreover, we define unit groups named any-store, world-net and any-protocol. (See [the section called “Types of Units”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs.shtml#cf-pm-links-units).)
 
 Define a pool in your layout file, add it to your pool directory and restart the `poolDomain`.
 
@@ -305,35 +306,36 @@ Define a pool in your layout file, add it to your pool directory and restart the
     path=/srv/dcache/spacemanager-pool
     name=spacemanager-pool
 
-    PROMPT-ROOT mkdir -p /srv/dcache/spacemanager-pool
-    PROMPT-ROOT PATH-ODB-UBdcache restart
+    [root] # mkdir -p /srv/dcache/spacemanager-pool
+    [root] # /usr/bin/dcache restart
 
 In the admin interface, `cd` to the CELL-POOLMNGR and create a pool group, a link and a link group.
 
-    DC-PROMPT-SPACEMNGR ..
-    DC-PROMPT-LOCAL cd PoolManager
-    DC-PROMPT-PM psu create pgroup spacemanager_poolGroup
-    DC-PROMPT-PM psu addto pgroup spacemanager_poolGroup spacemanager-pool
-    DC-PROMPT-PM psu removefrom pgroup default spacemanager-pool
-    DC-PROMPT-PM psu create link spacemanager_WriteLink any-store world-net any-protocol
-    DC-PROMPT-PM psu set link spacemanager_WriteLink -readpref=10 -writepref=10 -cachepref=0 -p2ppref=-1
-    DC-PROMPT-PM psu add link spacemanager_WriteLink  spacemanager_poolGroup
-    DC-PROMPT-PM psu create linkGroup spacemanager_WriteLinkGroup
-    DC-PROMPT-PM psu set linkGroup custodialAllowed spacemanager_WriteLinkGroup true
-    DC-PROMPT-PM psu set linkGroup replicaAllowed spacemanager_WriteLinkGroup true
-    DC-PROMPT-PM psu set linkGroup nearlineAllowed spacemanager_WriteLinkGroup true
-    DC-PROMPT-PM psu set linkGroup onlineAllowed spacemanager_WriteLinkGroup true
-    DC-PROMPT-PM psu addto linkGroup spacemanager_WriteLinkGroup spacemanager_WriteLink
-    DC-PROMPT-PM save
-    DC-PROMPT-PM ..
-    	
-
+    (SrmSpaceManager) admin > ..
+    (local) admin > cd PoolManager
+    (PoolManager) admin > psu create pgroup spacemanager_poolGroup
+    (PoolManager) admin > psu addto pgroup spacemanager_poolGroup spacemanager-pool
+    (PoolManager) admin > psu removefrom pgroup default spacemanager-pool
+    (PoolManager) admin > psu create link spacemanager_WriteLink any-store world-net any-protocol
+    (PoolManager) admin > psu set link spacemanager_WriteLink -readpref=10 -writepref=10 -cachepref=0 -p2ppref=-1
+    (PoolManager) admin > psu add link spacemanager_WriteLink  spacemanager_poolGroup
+    (PoolManager) admin > psu create linkGroup spacemanager_WriteLinkGroup
+    (PoolManager) admin > psu set linkGroup custodialAllowed spacemanager_WriteLinkGroup true
+    (PoolManager) admin > psu set linkGroup replicaAllowed spacemanager_WriteLinkGroup true
+    (PoolManager) admin > psu set linkGroup nearlineAllowed spacemanager_WriteLinkGroup true
+    (PoolManager) admin > psu set linkGroup onlineAllowed spacemanager_WriteLinkGroup true
+    (PoolManager) admin > psu addto linkGroup spacemanager_WriteLinkGroup spacemanager_WriteLink
+    (PoolManager) admin > save
+    (PoolManager) admin > ..
+	
+ 	
 Check whether the link group is available. Note that this can take several minutes to propagate to SPACEMNGR.
 
-    DC-PROMPT-LOCAL cd SrmSpaceManager
-    DC-PROMPT-SPACEMNGR ls link groups
+    (local) admin > cd SrmSpaceManager
+    (SrmSpaceManager) admin > ls link groups
     FLAGS CNT RESVD        AVAIL         FREE             UPDATED NAME
     --rc:no 0     0 + 7278624768 = 7278624768 2011-11-28 12:12:51 spacemanager_WriteLinkGroup
+    
         
 
 The link group `spacemanager_WriteLinkGroup` was created. Here the flags indicate first the status (- indicates that neither the expired \[e\] nor the released flags \[r\] are set), followed by the type of reservations allowed in the link group (here replica \[r\], custodial \[c\], nearline \[n\] and online \[o\] files; output \[o\] files are not allowed - see `help ls
@@ -349,26 +351,28 @@ Specify the location of the `LinkGroupAuthorization.conf` file in the `PATH-ODE-
 
 The file `LinkGroupAuthorization.conf` has following syntax:
 
-LinkGroup NameOfLinkGroup followed by the list of the Fully Qualified Attribute Names (FQANs). Each FQAN is on a separate line, followed by an empty line, which is used as a record separator, or by the end of the file.
+LinkGroup <NameOfLinkGroup> followed by the list of the Fully Qualified Attribute Names (FQANs). Each FQAN is on a separate line, followed by an empty line, which is used as a record separator, or by the end of the file.
 
-FQAN is usually a string of the form VO/Role=VORole. Both VO and VORole can be set to `*`, in this case all VOs or VO Roles will be allowed to make reservations in this link group. Any line that starts with \# is a comment and may appear anywhere.
+FQAN is usually a string of the form <VO>/Role=<VORole>. Both <VO> and <VORole> can be set to *, in this case all VOs or VO Roles will be allowed to make reservations in this link group. Any line that starts with # is a comment and may appear anywhere.
 
 Rather than an FQAN, a mapped user name can be used. This allows clients or protocols that do not provide VOMS attributes to make use of space reservations.
+
 
     #SpaceManagerLinkGroupAuthorizationFile
 
     LinkGroup NameOfLinkGroup
     /VO/Role=VORole
 
-> **Note**
+> **NOTE**
 >
 > You do not need to restart the DOMAIN-SRM or DCACHE after changing the `LinkGroupAuthorization.conf` file. The changes will be applied automatically after a few minutes.
 >
 > Use `update link groups` to be sure that the `LinkGroupAuthorization.conf` file and the link groups have been updated.
 >
->     DC-PROMPT-SPACEMNGR update link groups
+>     (SrmSpaceManager) admin > update link groups
 >     Update started.
 
+Example:
 In the example above you created the link group `spacemanager_WriteLinkGroup`. Now you want to allow members of the VO `desy` with the role `production` to make a space reservation in this link group.
 
     #SpaceManagerLinkGroupAuthorizationFile
@@ -378,54 +382,55 @@ In the example above you created the link group `spacemanager_WriteLinkGroup`. N
     #
     /desy/Role=production
 
+Example:
 In this more general example for a `SpaceManagerLinkGroupAuthorizationFile` members of the VO `desy` with role `test` are authorized to make a space reservation in a link group called `desy-test-LinkGroup`. Moreover, all members of the VO `desy` are authorized to make a reservation in the link group called `desy-anyone-LinkGroup` and anyone is authorized to make a space reservation in the link group called `default-LinkGroup`.
 
-    #SpaceManagerLinkGroupAuthorizationFile
-    # this is a comment and is ignored
+    #SpaceManagerLinkGroupAuthorizationFile  
+    # this is a comment and is ignored  
 
-    LinkGroup desy-test-LinkGroup
-    /desy/Role=test
+    LinkGroup desy-test-LinkGroup  
+    /desy/Role=test  
 
-    LinkGroup desy-anyone-LinkGroup
-    /desy/Role=*
+    LinkGroup desy-anyone-LinkGroup  
+    /desy/Role=*  
 
-    LinkGroup default-LinkGroup
-    # allow anyone :-)
-    */Role=*
+    LinkGroup default-LinkGroup  
+    # allow anyone :-)  
+    */Role=*  
 
-### Making and Releasing a Space Reservation as DCACHE Administrator
+### Making and Releasing a Space Reservation as DCACHE Administrator  
 
-#### Making a Space Reservation
+#### Making a Space Reservation  
 
-Now you can make a space reservation for the VO `desy`.
+Now you can make a space reservation for the VO `desy`.  
 
-    DC-PROMPT-SPACEMNGR reserve space -owner=/desy/Role=production -desc=DESY_TEST -lifetime=10000 -lg=spacemanager_WriteLinkGroup 5MB
-    110000 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Fri Dec 09 12:43:48 CET 2011 lifetime:10000000ms expiration:Fri Dec 09 15:30:28 CET 2011 description:DESY_TEST state:RESERVED used:0 allocated:0
+   (SrmSpaceManager) admin > reserve space -owner=/desy/Role=production -desc=DESY_TEST -lifetime=10000 -lg=spacemanager_WriteLinkGroup 5MB
+110000 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Fri Dec 09 12:43:48 CET 2011 lifetime:10000000ms expiration:Fri Dec 09 15:30:28 CET 2011 description:DESY_TEST state:RESERVED used:0 allocated:0  
 
 The space token of the reservation is `110000`.
 
 Check the status of the reservation by
 
-    DC-PROMPT-SPACEMNGR ls spaces -e -h
-     TOKEN RETENTION LATENCY FILES ALLO   USED   FREE   SIZE             EXPIRES DESCRIPTION
-    110000 CUSTODIAL NEARLINE    0   0B +   0B + 5.0M = 5.0M 2011-12-09 12:43:48 DESY_TEST
+    (SrmSpaceManager) admin > ls spaces -e -h
+ TOKEN RETENTION LATENCY FILES ALLO   USED   FREE   SIZE             EXPIRES DESCRIPTION
+110000 CUSTODIAL NEARLINE    0   0B +   0B + 5.0M = 5.0M 2011-12-09 12:43:48 DESY_TEST
 
-    DC-PROMPT-SPACEMNGR ls link groups -h
-    FLAGS CNT RESVD   AVAIL   FREE             UPDATED NAME
-    --rc:no 1  5.0M +  7.3G = 7.3G 2011-11-28 12:12:51 spacemanager_WriteLinkGroup
+(SrmSpaceManager) admin > ls link groups -h
+FLAGS CNT RESVD   AVAIL   FREE             UPDATED NAME
+--rc:no 1  5.0M +  7.3G = 7.3G 2011-11-28 12:12:51 spacemanager_WriteLinkGroup
 
 Here the `-h` option indicates that approximate, but human readable, byte sizes are to be used, and `-e` indicates that ephemeral (time limited) reservations should be displayed too (by default time limited reservations are not displayed as they are often implicit reservations). As can be seen, 5 MB are now reserved in the link group, although with approximate byte sizes, 5 MB do not make a visible difference in the 7.3 GB total size.
 
 You can now copy a file into that space token.
 
-    PROMPT-USER srmcp file:////bin/sh srm://dcache.example.org:8443/data/world-writable/space-token-test-file -space_token=110000
+   [user] $ srmcp file:////bin/sh srm://<dcache.example.org>:8443/data/world-writable/space-token-test-file -space_token=110000
 
-Now you can check via the [Webadmin Interface] or the [Web Interface] that the file has been copied to the pool `spacemanager-pool`.
+Now you can check via the [Webadmin Interface](https://www.dcache.org/manuals/Book-2.16/config/cf-webadmin-fhs.shtml) or the [Web Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml) that the file has been copied to the pool `spacemanager-pool`.
 
 There are several parameters to be specified for a space reservation.
 
-    DC-PROMPT-SPACEMNGR reserve space [-al=online|nearline] [-desc=string] -lg=name
-    [-lifetime=seconds] [-owner=user|fqan] [-rp=output|replica|custodial] size
+    (SrmSpaceManager) admin > reserve space [-al=online|nearline] [-desc=<string>] -lg=<name>  
+    [-lifetime=<seconds>] [-owner=<user>|<fqan>] [-rp=output|replica|custodial] <size>  
 
 \[-owner=user|fqan\]  
 The owner of the space is identified by either mapped user name or FQAN. The owner must be authorized to reserve space in the link group in which the space is to be created. Besides the DCACHE admin, only the owner can release the space. Anybody can however write into the space (although the link group may only allow certain storage groups and thus restrict which file system paths can be written to space reservation, which in turn limits who can upload files to it).
@@ -452,18 +457,19 @@ The life time of the space reservation should be specified in seconds. If no lif
 
 If a space reservation is not needed anymore it can be released with
 
-    DC-PROMPT-SPACEMNGR release space spaceTokenId
+    (SrmSpaceManager) admin > release space <spaceTokenId>
 
-    DC-PROMPT-SPACEMNGR reserve space -owner=/desy -desc=DESY_TEST -lifetime=600 5000000
-    110042 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Thu Dec 15 12:00:35 CET 2011 lifetime:600000ms expiration:Thu Dec 15 12:10:35 CET 2011 description:DESY_TEST state:RESERVED used:0 allocated:0
-    DC-PROMPT-SPACEMNGR release space 110042
-    110042 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Thu Dec 15 12:00:35 CET 2011 lifetime:600000ms expiration:Thu Dec 15 12:10:35 CET 2011 description:DESY_TEST state:RELEASED used:0 allocated:0
+Example:    
+   (SrmSpaceManager) admin > reserve space -owner=/desy -desc=DESY_TEST -lifetime=600 5000000
+110042 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Thu Dec 15 12:00:35 CET 2011 lifetime:600000ms expiration:Thu Dec 15 12:10:35 CET 2011 description:DESY_TEST state:RESERVED used:0 allocated:0
+(SrmSpaceManager) admin > release space 110042
+110042 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Thu Dec 15 12:00:35 CET 2011 lifetime:600000ms expiration:Thu Dec 15 12:10:35 CET 2011 description:DESY_TEST state:RELEASED used:0 allocated:0
 
 You can see that the value for `state` has changed from `RESERVED` to `RELEASED`.
 
 ### Making and Releasing a Space Reservation as a User
 
-If so authorized, a user can make a space reservation through the SRM protocol. A user is authorized to do so using the `LinkGroupAuthorization.conf` file.
+If so authorized, a user can make a space reservation through the SRM protocol. A user is authorized to do so using the **LinkGroupAuthorization.conf** file.
 
 #### VO based Authorization Prerequisites
 
@@ -471,19 +477,19 @@ In order to be able to take advantage of the virtual organization (VO) infrastru
 
 -   User needs to be registered with the VO.
 
--   User needs to use [`voms-proxy-init`] to create a VO proxy.
+-   User needs to use [`voms-proxy-init`](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml#cf-gplazma-certificates-voms-proxy-init) to create a VO proxy.
 
--   DCACHE needs to use CELL-GPLAZMA with modules that extract VO attributes from the user's proxy. (See [???][1], have a look at `voms` plugin and see [???][2] for an example with `voms`.
+-   dCache needs to use gPlazma with modules that extract VO attributes from the user’s proxy. (See [Chapter 10, Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-fhs.shtml), have a look at `voms` plugin and see the [section called “Authentication and Authorization in dCache”](https://www.dcache.org/manuals/Book-2.16/start/intouch-certificates-fhs.shtml) for an example with voms.
 
-Only if these 3 conditions are satisfied the VO based authorization of the CELL-SPACEMNGR will work.
+Only if these 3 conditions are satisfied the VO based authorization of the SpaceManager will work.
 
 #### VO based Access Control Configuration
 
-As mentioned [above] DCACHE space reservation functionality access control is currently performed at the level of the link groups. Access to making reservations in each link group is controlled by the [`SpaceManagerLinkGroupAuthorizationFile`].
+As mentioned [above](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml#cf-srm-space-linkgroups) dCache space reservation functionality access control is currently performed at the level of the link groups. Access to making reservations in each link group is controlled by the [`SpaceManagerLinkGroupAuthorizationFile`](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml#cf-srm-linkgroupauthfile).
 
 This file contains a list of the link groups and all the VOs and the VO Roles that are permitted to make reservations in a given link group.
 
-When a SRM Space Reservation request is executed, its parameters, such as reservation size, lifetime, access latency and retention policy as well as user's VO membership information is forwarded to the SRM CELL-SPACEMNGR.
+When a `SRM` Space Reservation request is executed, its parameters, such as reservation size, lifetime, access latency and retention policy as well as user's VO membership information is forwarded to the `SRM SpaceManager.
 
 Once a space reservation is created, no access control is performed, any user can store the files in this space reservation, provided he or she knows the exact space token.
 
@@ -491,8 +497,8 @@ Once a space reservation is created, no access control is performed, any user ca
 
 A user who is given the rights in the `SpaceManagerLinkGroupAuthorizationFile` can make a space reservation by
 
-    PROMPT-USER srm-reserve-space -retention_policy=RetentionPolicy -lifetime=lifetimeInSecs -desired_size=sizeInBytes -guaranteed_size=sizeInBytes  srm://example.org:8443
-    Space token =SpaceTokenId
+    [user] $ srm-reserve-space -retention_policy=<RetentionPolicy> -lifetime=<lifetimeInSecs> -desired_size=<sizeInBytes> -guaranteed_size=<sizeInBytes>  srm://<example.org>:8443  
+Space token =SpaceTokenId  
 
 and release it by
 
@@ -507,11 +513,13 @@ and release it by
 
 The space reservation can be released by:
 
-    PROMPT-USER srm-release-space srm://srm.example.org:8443 -space_token=110044
+    [user] $ srm-release-space srm://srm.example.org:8443 -space_token=110044
+
+
 
 #### Space Reservation without VOMS certificate
 
-If a client uses a regular grid proxy, created with `grid-proxy-init`, and not a VO proxy, which is created with the `voms-proxy-init`, when it is communicating with SRM server in DCACHE, then the VO attributes can not be extracted from its credential. In this case the name of the user is extracted from the Distinguished Name (DN) to use name mapping. For the purposes of the space reservation the name of the user as mapped by GPLAZMA is used as its VO Group name, and the VO Role is left empty. The entry in the `SpaceManagerLinkGroupAuthorizationFile` should be:
+If a client uses a regular grid proxy, created with `grid-proxy-init`, and not a VO proxy, which is created with the `voms-proxy-init`, when it is communicating with `SRM` server in DCACHE, then the VO attributes can not be extracted from its credential. In this case the name of the user is extracted from the Distinguished Name (DN) to use name mapping. For the purposes of the space reservation the name of the user as mapped by `gplazma` is used as its VO Group name, and the VO Role is left empty. The entry in the `SpaceManagerLinkGroupAuthorizationFile` should be:
 
     #LinkGroupAuthorizationFile
     #
@@ -519,24 +527,24 @@ If a client uses a regular grid proxy, created with `grid-proxy-init`, and not a
 
 #### Space Reservation for non SRM Transfers
 
-Edit the file `PATH-ODE-ED/dcache.conf` to enable space reservation for non SRM transfers.
+Edit the file **/etc/dcache/dcache.conf** to enable space reservation for non `SRM` transfers.
 
     spacemanager.enable.reserve-space-for-non-srm-transfers=true
 
-If the SPACEMNGR is enabled, `spacemanager.enable.reserve-space-for-non-srm-transfers` is set to `true`, and if the transfer request comes from a door, and there was no prior space reservation made for this file, the CELL-SPACEMNGR will try to reserve space before satisfying the request.
+If the `spacemanager` is enabled, `spacemanager.enable.reserve-space-for-non-srm-transfers` is set to true, and if the transfer request comes from a door, and there was no prior space reservation made for this file, the `SpaceManager` will try to reserve space before satisfying the request.
 
-Possible values are `true` or `false` and the default value is `false`.
+Possible values are `true` or `false` and the default value is false.
 
-This is analogous to implicit space reservations performed by the SRM, except that these reservations are created by the SPACEMNGR itself. Since an SRM client uses a non-SRM protocol for the actual upload, setting the above option to true while disabling implicit space reservations in the SRM, will still allow files to be uploaded to a link group even when no space token is provided. Such a configuration should however be avoided: If the SRM does not create the reservation itself, it has no way of communicating access latency, retention policy, file size, nor lifetime to SPACEMNGR.
+This is analogous to implicit space reservations performed by the srm, except that these reservations are created by the `spacemanager` itself. Since an `SRM` client uses a non-`SRM` protocol for the actual upload, setting the above option to true while disabling implicit space reservations in the `srm`, will still allow files to be uploaded to a link group even when no space token is provided. Such a configuration should however be avoided: If the srm does not create the reservation itself, it has no way of communicating access latency, retention policy, file size, nor lifetime to `spacemanager`.
 
-CELL-SRM configuration for experts
-----------------------------------
+SRM CONFIGURATION FOR EXPERTS
+------------------------------
 
-There are a few parameters in `PATH-ODS-USD/defaults/*.properties` that you might find useful for nontrivial CELL-SRM deployment.
+There are a few parameters in **/usr/share/dcache/defaults/*.properties** that you might find useful for nontrivial `SRM` deployment.
 
 ### dcache.enable.space-reservation
 
-`dcache.enable.space-reservation` tells if the space management is activated in CELL-SRM.
+`dcache.enable.space-reservation` tells if the space management is activated in `SRM`.
 
 Possible values are `true` and `false`. Default is `true`.
 
@@ -576,7 +584,7 @@ Usage example:
 
 ### srm.db.host
 
-`srm.db.host` tells CELL-SRM which database host to connect to.
+`srm.db.host` tells `SRM` which database host to connect to.
 
 Default value is `localhost`.
 
@@ -586,7 +594,7 @@ Usage example:
 
 ### spaceManagerDatabaseHost
 
-`spaceManagerDatabaseHost` tells CELL-SPACEMNGR which database host to connect to.
+`spaceManagerDatabaseHost` tells SpaceManager which database host to connect to.
 
 Default value is `localhost`.
 
@@ -596,7 +604,7 @@ Usage example:
 
 ### pinmanager.db.host
 
-`pinmanager.db.host` tells CELL-PINMNGR which database host to connect to.
+`pinmanager.db.host` tells PinManager which database host to connect to.
 
 Default value is `localhost`.
 
@@ -606,7 +614,7 @@ Usage example:
 
 ### srm.db.name
 
-`srm.db.name` tells CELL-SRM which database to connect to.
+`srm.db.name` tells `SRM` which database to connect to.
 
 Default value is `srm`.
 
@@ -616,7 +624,7 @@ Usage example:
 
 ### srm.db.user
 
-`srm.db.user` tells CELL-SRM which database user name to use when connecting to database. Do not change unless you know what you are doing.
+`srm.db.user` tells `SRM` which database user name to use when connecting to database. Do not change unless you know what you are doing.
 
 Default value is `dcache`.
 
@@ -626,7 +634,7 @@ Usage example:
 
 ### srm.db.password
 
-`srm.db.password` tells CELL-SRM which database password to use when connecting to database. The default value is an `empty` value (no password).
+`srm.db.password` tells SRM which database password to use when connecting to database. The default value is an `empty` value (no password).
 
 Usage example:
 
@@ -634,7 +642,7 @@ Usage example:
 
 ### srm.db.password.file
 
-`srm.db.password.file` tells CELL-SRM which database password file to use when connecting to database. Do not change unless you know what you are doing. It is recommended that MD5 authentication method is used. To learn about file format please see []. To learn more about authentication methods please visit [][5], Please read "Encrypting Passwords Across A Network" section.
+`srm.db.password.file` tells `SRM` which database password file to use when connecting to database. Do not change unless you know what you are doing. It is recommended that MD5 authentication method is used. To learn about file format please see http://www.postgresql.org/docs/8.1/static/libpq-pgpass.html. To learn more about authentication methods please visit http://www.postgresql.org/docs/8.1/static/encryption-options.html, Please read "Encrypting Passwords Across A Network" section.
 
 This option is not set by default.
 
@@ -644,7 +652,7 @@ Usage example:
 
 ### srm.request.enable.history-database
 
-`srm.request.enable.history-database` enables logging of the transition history of the SRM request in the database. The request transitions can be examined through the command line interface. Activation of this option might lead to the increase of the database activity, so if the PSQL load generated by CELL-SRM is excessive, disable it.
+`srm.request.enable.history-database` enables logging of the transition history of the `SRM` request in the database. The request transitions can be examined through the command line interface. Activation of this option might lead to the increase of the database activity, so if the PSQL load generated by `SRM` is excessive, disable it.
 
 Possible values are `true` and `false`. Default is `false`.
 
@@ -654,7 +662,7 @@ Usage example:
 
 ### transfermanagers.enable.log-to-database
 
-`transfermanagers.enable.log-to-database` tells CELL-SRM to store the information about the remote (copy, srmCopy) transfer details in the database. Activation of this option might lead to the increase of the database activity, so if the PSQL load generated by CELL-SRM is excessive, disable it.
+`transfermanagers.enable.log-to-database` tells `SRM` to store the information about the remote (copy, srmCopy) transfer details in the database. Activation of this option might lead to the increase of the database activity, so if the PSQL load generated by SRM is excessive, disable it.
 
 Possible values are `true` and `false`. Default is `false`.
 
@@ -664,13 +672,13 @@ Usage example:
 
 ### srmVersion
 
-`srmVersion` is not used by CELL-SRM; it was mentioned that this value is used by some publishing scripts.
+`srmVersion` is not used by `SRM` it was mentioned that this value is used by some publishing scripts.
 
 Default is `version1`.
 
 ### srm.root
 
-`srm.root` tells CELL-SRM what the root of all SRM paths is in pnfs. CELL-SRM will prepend path to all the local SURL paths passed to it by SRM client. So if the `srm.root` is set to `/pnfs/fnal.gov/THISISTHEPNFSSRMPATH` and someone requests the read of <srm://srm.example.org:8443/file1>, SRM will translate the SURL path `/file1` into `/pnfs/fnal.gov/THISISTHEPNFSSRMPATH/file1`. Setting this variable to something different from `/` is equivalent of performing Unix `chroot` for all SRM operations.
+`srm.root` tells `SRM` what the root of all `SRM` paths is in pnfs. `SRM` will prepend path to all the local SURL paths passed to it by `SRM` client. So if the `srm.root` is set to `/pnfs/fnal.gov/THISISTHEPNFSSRMPATH` and someone requests the read of <srm://srm.example.org:8443/file1>, `SRM` will translate the SURL path `/file1` into `/pnfs/fnal.gov/THISISTHEPNFSSRMPATH/file1`. Setting this variable to something different from `/` is equivalent of performing Unix `chroot` for all `SRM` operations.
 
 Default value is `/`.
 
@@ -680,7 +688,7 @@ Usage example:
 
 ### srm.limits.parallel-streams
 
-`srm.limits.parallel-streams` specifies the number of the parallel streams that CELL-SRM will use when performing third party transfers between this system and remote GSIFTP servers, in response to SRM v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the SRM clients.
+`srm.limits.parallel-streams` specifies the number of the parallel streams that `SRM` will use when performing third party transfers between this system and remote GSIFTP servers, in response to `SRM` v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the `SRM` clients.
 
 Default value is `10`.
 
@@ -690,7 +698,7 @@ Usage example:
 
 ### srm.limits.transfer-buffer.size
 
-`srm.limits.transfer-buffer.size` specifies the number of bytes to use for the in memory buffers for performing third party transfers between this system and remote GSIFTP servers, in response to SRM v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the SRM clients.
+`srm.limits.transfer-buffer.size` specifies the number of bytes to use for the in memory buffers for performing third party transfers between this system and remote GSIFTP servers, in response to SRM v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the `SRM` clients.
 
 Default value is `1048576`.
 
@@ -700,7 +708,7 @@ Usage example:
 
 ### srm.limits.transfer-tcp-buffer.size
 
-`srm.limits.transfer-tcp-buffer.size` specifies the number of bytes to use for the tcp buffers for performing third party transfers between this system and remote GSIFTP servers, in response to SRM v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the SRM clients.
+`srm.limits.transfer-tcp-buffer.size` specifies the number of bytes to use for the tcp buffers for performing third party transfers between this system and remote GSIFTP servers, in response to `SRM` v1.1 copy or `SRM` V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the `SRM` clients.
 
 Default value is `1048576`.
 
@@ -710,7 +718,7 @@ Usage example:
 
 ### srm.service.gplazma.cache.timeout
 
-`srm.service.gplazma.cache.timeout` specifies the duration that authorizations will be cached. Caching decreases the volume of messages to the CELL-GPLAZMA cell or other authorization mechanism. To turn off caching, set the value to `0`.
+`srm.service.gplazma.cache.timeout` specifies the duration that authorizations will be cached. Caching decreases the volume of messages to the `gplazma` cell or other authorization mechanism. To turn off caching, set the value to `0`.
 
 Default value is `120`.
 
@@ -743,7 +751,7 @@ Usage example:
 
 ### srm.limits.request.copy.scheduler.thread.pool.size and transfermanagers.limits.external-transfers
 
-`srm.limits.request.copy.scheduler.thread.pool.size` and `transfermanagers.limits.external-transfers`. `srm.limits.request.copy.scheduler.thread.pool.size` is used to specify how many parallel srmCopy file copies to execute simultaneously. Once the CELL-SRM contacted the remote SRM system, and obtained a Transfer URL (usually GSIFTP URL), it contacts a Copy Manager module (usually CELL-REMOTEGSITRANSFERMNGR), and asks it to perform a GRIDFTP transfer between the remote GRIDFTP server and a DCACHE pool. The maximum number of simultaneous transfers that CELL-REMOTEGSITRANSFERMNGR will support is `transfermanagers.limits.external-transfers`, therefore it is important that `transfermanagers.limits.external-transfers` is greater than or equal to `srm.limits.request.copy.scheduler.thread.pool.size`.
+`srm.limits.request.copy.scheduler.thread.pool.size` and `transfermanagers.limits.external-transfers`. `srm.limits.request.copy.scheduler.thread.pool.size` is used to specify how many parallel srmCopy file copies to execute simultaneously. Once the `SRM` contacted the remote `SRM` system, and obtained a Transfer URL (usually GSI-FTP URL), it contacts a Copy Manager module (usually RemoteGSIFTPTransferManager), and asks it to perform a GRIDFTP transfer between the remote GRIDFTP server and a DCACHE pool. The maximum number of simultaneous transfers that RemoteGSIFTPTransferManager will support is `transfermanagers.limits.external-transfers`, therefore it is important that `transfermanagers.limits.external-transfers` is greater than or equal to `srm.limits.request.copy.scheduler.thread.pool.size`.
 
 Usage example:
 
@@ -788,7 +796,7 @@ By changing this parameter you can control how long the set of trust anchors rem
 
 Please note that the value of this parameter has to be specified in seconds.
 
-> **Tip**
+> **TIP**
 >
 > Trust-anchors usually change more often than the host certificate. Thus, it might be sensible to set the refresh period of the trust anchors lower than the refresh period of the host certificate.
 
@@ -796,8 +804,8 @@ Usage example:
 
     trustAnchorRefreshPeriod=3600
 
-Configuring the PSQL Database
-=============================
+CONFIGURING THE POSTGRESQL DATABASE
+===================================
 
 We highly recommend to make sure that PSQL database files are stored on a separate disk that is not used for anything else (not even PSQL logging). BNL Atlas Tier 1 observed a great improvement in srm-database communication performance after they deployed PSQL on a separate dedicated machine.
 
