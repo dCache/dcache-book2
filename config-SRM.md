@@ -21,13 +21,13 @@ Table of Contents
 	   
 + [SpaceManager configuration](#spacemanager-configuration)
 
-		+ [SRM SpaceManager and Link Groups](#srm-spacemanager-and-link-groups)
-		+ [Making a Space Reservation](#making-a-space-reservation)
-		+ [SRM configuration for experts](#srm-configuration-for-experts)
+	   + [SRM SpaceManager and Link Groups](#srm-spacemanager-and-link-groups)
+           + [Making a Space Reservation](#making-a-space-reservation)
+	   + [SRM configuration for experts](#srm-configuration-for-experts)
 		
-+ [Configuring the PostgreSQL Database](#configuring the PostgreSQL Database)
++ [Configuring the PostgreSQL Database](#configuring-the-postgresql-database)
 
-	     + [SRM or srm monitoring on a separate node](#sRM or srm monitoring on a separate node)
+	   + [SRM or srm monitoring on a separate node](#sRM or srm monitoring on a separate node)
 	     
 + [General SRM Concepts (for developers)](#general SRM Concepts (for developers))
 
@@ -53,38 +53,40 @@ CONFIGURING THE SRM SERVICE
 THE BASIC SETUP
 ---------------
 
-Like other services, the SRM service can be enabled in the layout file `PATH-ODE-ED/layouts/mylayout` of your DCACHE installation. For an overview of the layout file format, please see [???].
+Like other services, the srm service can be enabled in the layout file **/etc/dcache/layouts/<mylayout>** of your dCache installation. For an overview of the layout file format, please see [the section called “Defining domains and services”](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-layout).
 
-To enable SRM in a separate srm-${host.name}Domain in DCACHE, add the following lines to your layout file:
+Example:
+To enable SRM in a separate <srm-${host.name}Domain> in dCache, add the following lines to your layout file:
 
-    [srm-${host.name}Domain]
-    [srm-${host.name}Domain/srm]
+    [<srm-${host.name}Domain>]
+    [<srm-${host.name}Domain>/srm]
 
-The use of the SRM service requires an authentication setup, see [???][1] for a general description or [???][2] for an example setup with X509 certificates.
+The use of the srm service requires an authentication setup, see [Chapter 10, Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-fhs.shtml) for a general description or the [section called “Authentication and Authorization in dCache”](https://www.dcache.org/manuals/Book-2.16/start/intouch-certificates-fhs.shtml) for an example setup with X.509 certificates.
 
-You can now copy a file into your DCACHE using the SRM,
+You can now copy a file into your dCache using the SRM,
 
-> **Note**
+> **NOTE**
 >
 > Please make sure to use latest srmcp client otherwise you will need to specify `-2` in order to use the right version.
 
-    PROMPT-USER srmcp file:////bin/sh srm://dcache.example.org:8443/data/world-writable/srm-test-file
+    [user] $ srmcp file:////bin/sh srm://<dcache.example.org>:<8443>/data/world-writable/srm-test-file
 
 copy it back
 
-    PROMPT-USER srmcp srm://dcache.example.org:8443/data/world-writable/srm-test-file file:////tmp/srmtestfile.tmp
+    [user] $ srmcp srm://<dcache.example.org>:<8443>/data/world-writable/srm-test-file file:////tmp/srmtestfile.tmp
 
 and delete it
 
-    PROMPT-USER srmrm srm://dcache.example.org:8443/data/world-writable/srm-test-file
+    [user] $ srmrm srm://<dcache.example.org>:<8443>/data/world-writable/srm-test-file
 
-Important SRM configuration options
+IMPORTANT SRM CONFIGURATION OPTIONS
 ----------------------------------------
 
-The defaults for the following configuration parameters can be found in the `.properties` files in the directory `PATH-ODS-USD/defaults`.
+The defaults for the following configuration parameters can be found in the **.properties** files in the directory **/usr/share/dcache/defaults**.
 
-If you want to modify parameters, copy them to `PATH-ODE-ED/dcache.conf` or to your layout file `PATH-ODE-ED/layouts/mylayout` and update their value.
+If you want to modify parameters, copy them to **/etc/dcache/dcache.conf** or to your layout file **/etc/dcache/layouts/<mylayout>** and update their value.
 
+Example:
 Change the value for `srm.db.host` in the layout file.
 
     [srm-${host.name}Domain]
@@ -98,30 +100,32 @@ The property `srm.request.copy.threads` controls number of copy requests in the 
 
 The common value should be the roughly equal to the maximum number of the SRM - to -SRM copies your system can sustain.
 
+Example:
 So if you think about 3 gridftp transfers per pool and you have 30 pools then the number should be 3x30=90.
 
     srm.request.copy.threads=90
     transfermanagers.limits.external-transfers=90
 
+Example:
 US-CMS T1 has:
 
     srm.request.copy.threads=2000
     transfermanagers.limits.external-transfers=2000
 
-> **Note**
+> **NOTE**
 >
-> CELL-SRM might produce a lot of log entries, especially if it runs in debug mode. It is recommended to make sure that logs are redirected into a file on a large disk.
+> `SRM` might produce a lot of log entries, especially if it runs in debug mode. It is recommended to make sure that logs are redirected into a file on a large disk.
 
-Utilization of Space Reservations for Data Storage
+UTILIZATION OF SPACE RESERVATIONS FOR DATA STORAGE
 ==================================================
 
-SRM version 2.2 introduced a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
+`SRM` version 2.2 introduced a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
 
-Users can create space reservations using an appropriate SRM client, although it is more common for the DCACHE administrator to make space reservations for VOs (see [section\_title]. Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the DCACHE administrator.
+Users can create space reservations using an appropriate `SRM` client, although it is more common for the DCACHE administrator to make space reservations for VOs (see [section\_title]. Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the DCACHE administrator.
 
 When a file is about to be transferred to a storage system, the space available in the space reservation is checked if it can accomodate the entire file. If yes, this chunk of space is marked as allocated, so that it can not be taken by another, concurrently transferred file. If the file is transferred successfully the allocated space becomes used space within the space reservation, else the allocated space is released back to the space reservation as free space.
 
-SRM space reservation can be assigned a non-unique description which can be used to query the system for space reservations with a given description.
+`SRM` space reservation can be assigned a non-unique description which can be used to query the system for space reservations with a given description.
 
 DCACHE only manages write space, i.e. space on disk can be reserved only for write operations. Once files are migrated to tape, and if no copy is required on disk, space used by these files is returned back into space reservation. When files are read back from tape and cached on disk, they are not counted as part of any space.
 
