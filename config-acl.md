@@ -79,7 +79,7 @@ ADMINISTRATING ACLS
 
 Altering dCache ACL behaviour is achieved by connecting to the `PnfsManager` [well-known cell](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-well-known-cell) using the administrator interface. For further details about how to use the administrator interface, see [the section called “The Admin Interface”](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml).
 
-The `info` and `help` commands are available within PnfsManager and fulfil their usual functions.
+The `info` and `help` commands are available within `PnfsManager` and fulfil their usual functions.
 
 HOW TO SET ACLS
 ---------------
@@ -88,9 +88,9 @@ The `setfacl` command is used to set a new ACL. This command accepts arguments w
 
 setfacl <ID> <ACE> [<ACE>...]  
 
-The <ID> argument is either a pnfs-ID or the absolute path of some file or directory in dCache. The setfacl command requires one or more <ACE> arguments seperated by spaces.  
+The <ID> argument is either a pnfs-ID or the absolute path of some file or directory in dCache. The `setfacl` command requires one or more <ACE> arguments seperated by spaces.  
 
-The setfacl command creates a new ACL for the file or directory represented by <ID>. This new ACL replaces any existing ACEs for <ID>.  
+The `setfacl` command creates a new ACL for the file or directory represented by <ID>. This new ACL replaces any existing ACEs for <ID>.  
 
 An ACL has one or more ACEs. Each ACE defines permissions to access this resource for some [Subject](#the-subject). The ACEs are space-separated and the ordering is significant. The format and description of these ACE values are described below.  
 
@@ -121,26 +121,26 @@ The various options are described below.
 
 #### The Subject
 
-The [Subject] defines to which user or group of users the ACE will apply. It acts as a filter so that only those users that match the Subject will have their access rights affected.
+The [Subject](#the-subject) defines to which user or group of users the ACE will apply. It acts as a filter so that only those users that match the Subject will have their access rights affected.
 
 As indicated by the EBNF above, the Subject of an ACE can take one of several forms. These are described below:
+ 
+**USER:**<id>  
+The `USER:` prefix indicates that the ACE applies only to the specific end-user: the DCACHE user with ID <id>. For example, `USER:0:+w` is an ACE that allows user 0 to write over a file's existing data.
 
-`USER:`<id>
-The `USER:` prefix indicates that the ACE applies only to the specific end-user: the DCACHE user with ID id. For example, `USER:0:+w` is an ACE that allows user 0 to write over a file's existing data.
+**GROUP:**<id>  
+The `GROUP:` prefix indicates that the ACE applies only to those end-users who are a member of the specific group: the DCACHE group with ID <id>. For example, `GROUP:20:+a` is an ACE that allows any user who is a member of group 20 to append data to the end of a file.
 
-`GROUP:`<id>
-The `GROUP:` prefix indicates that the ACE applies only to those end-users who are a member of the specific group: the DCACHE group with ID id. For example, `GROUP:20:+a` is an ACE that allows any user who is a member of group 20 to append data to the end of a file.
-
-`OWNER@`  
+**OWNER@**    
 The `OWNER@` subject indicates that the ACE applies only to whichever end-user owns the file or directory. For example, `OWNER@:+d` is an ACE that allows the file's or directory's owner to delete it.
 
-`GROUP@`  
+**GROUP@**   
 The `GROUP@` subject indicates that the ACE applies only to all users that are members of the group-owner of the file or directory. For example, `GROUP@:+l` is an ACE that allows any user that is in a directory's group-owner to list the directory's contents.
 
-`EVERYONE@`  
+**EVERYONE@**   
 The `EVERYONE@` subject indicates that the ACE applies to all users. For example, `EVERYONE@:+r` is an ACE that makes a file world-readable.
 
-`ANONYMOUS@`  
+**ANONYMOUS@**   
 The `ANONYMOUS@` Subject indicates that the ACE applies to all users who have not authenticated themselves. For example, `ANONYMOUS@:-l` is an ACE that prevents unauthenticated users from listing the contents of a directory.
 
 `AUTHENTICATED@`  
@@ -148,101 +148,101 @@ The `AUTHENTICATED@` Subject indicates that an ACE applies to all authenticated 
 
 > **AUTHENTICATED OR ANONYMOUS**
 >
-> An end user of DCACHE is either authenticated or is unauthenticated, but never both. Because of this, an end user operation will either match ACEs with `ANONYMOUS@` Subjects or `AUTHENTICATED@` Subjects but the request will never match both at the same time.
+> An end user of dCache is either authenticated or is unauthenticated, but never both. Because of this, an end user operation will either match ACEs with `ANONYMOUS@` Subjects or `AUTHENTICATED@` Subjects but the request will never match both at the same time.
 
 #### Access mask
 
-[Access](#description-of-the-ace-structure) (defined in the [ACE EBNF] above) describes what kind of operations are being described by the ACE and whether the ACE is granting permission or denying it.
+[Access](#description-of-the-ace-structure) (defined in the [ACE EBNF](#description-of-the-ace-structure) above) describes what kind of operations are being described by the ACE and whether the ACE is granting permission or denying it.
 
-An individual ACE can either grant permissions or deny them, but never both. However, an ACL may be composed of any mixture of authorising- and denying- ACEs. The first character of ACE-ACCESS describes whether the ACE is authorising or denying.
+An individual ACE can either grant permissions or deny them, but never both. However, an ACL may be composed of any mixture of authorising- and denying- ACEs. The first character of [Access](##description-of-the-ace-structure) describes whether the ACE is authorising or denying.
 
-If ACE-ACCESS begins with a plus symbol (`+`) then the ACE authorises the ACE-SUBJECT some operations. The ACE `EVERYONE@:+r` authorises all users to read a file since the ACE-ACCESS begins with a `+`.
+If [Access](#description-of-the-ace-structure) begins with a plus symbol (`+`) then the ACE authorises the [Subject](#description-of-the-ace-structure) some operations. The ACE `EVERYONE@:+r` authorises all users to read a file since the ACE-ACCESS begins with a `+`.
 
-If the ACE-ACCESS begins with a minus symbol (`-`) then the ACE denies the ACE-SUBJECT some operations. The ACE `EVERYONE@:-r` prevents any user from reading a file since the Access begins with a `-`.
+If the [Access](#description-of-the-ace-structure) begins with a minus symbol (`-`) then the ACE denies the [Subject](#description-of-the-ace-structure) some operations. The ACE `EVERYONE@:-r` prevents any user from reading a file since the Access begins with a `-`.
 
-The first character of ACE-ACCESS must be `+` or `-`, no other possibility is allowed. The initial `+` or `-` of ACE-ACCESS is followed by one or more operation letters. These letters form the ACE's access mask (ACE-MASK in [ACE EBNF] above).
+The first character of [Access](#description-of-the-ace-structure) must be `+` or `-`, no other possibility is allowed. The initial `+` or `-` of [Access](#description-of-the-ace-structure) is followed by one or more operation letters. These letters form the ACE's *access mask* ([Mask](#description-of-the-ace-structure) in [ACE EBNF](#description-of-the-ace-structure) above).
 
 The access mask describes which operations may be allowed or denied by the ACE. Each type of operation has a corresponding letter; for example, obtaining a directory listing has a corresponding letter `l`. If a user attempts an operation of a type corresponding to a letter present in the access mask then the ACE may affect whether the operation is authorised. If the corresponding letter is absent from the access mask then the ACE will be ignored for this operation.
 
 The following table describes the access mask letters and the corresponding operations:
 
-> **Note**
+> **FILE- AND DIRECTORY- SPECIFIC OPERATIONS**
 >
 > Some operations and, correspondingly, some access mask letters only make sense for ACLs attached to certain types of items. Some operations only apply to directories, some operations are only for files and some operations apply to both files and directories.
 >
 > When configuring an ACL, if an ACE has an operation letter in the access mask that is not applicable to whatever the ACL is associated with then the letter is converted to an equivalent. For example, if `l` (list directory) is in the access mask of an ACE that is part of a file-ACL then it is converted to `r`. These mappings are described in the following table.
 
-`r`  
+**r**   
 reading data from a file. Specifying `r` in an ACE's access mask controls whether end-users are allowed to read a file's contents. If the ACE is part of a directory-ACL then the letter is converted to `l`.
 
-`l`  
+**l**   
 listing the contents of a directory. Specifying `l` in an ACE's access mask controls whether end-users are allowed to list a directory's contents. If the ACE is part of a file-ACL then the letter is converted to `r`.
 
-`w`  
+**w**   
 overwriting a file's existing contents. Specifying `w` in an ACE's access mask controls whether end-users are allowed to write data anywhere within the file's current offset range. This includes the ability to write to any arbitrary offset and, as a result, to grow the file. If the ACE is part of a directory-ACL then the letter is converted to `f`.
 
-`f`  
+**f** 
 creating a new file within a directory. Specifying `f` in an ACE's access mask controls whether end-users are allowed to create a new file. If the ACE is part of an file-ACL then then the letter is converted to `w`.
 
-`s`  
+**s**  
 creating a subdirectory within a directory. Specifying `s` in an ACE's access mask controls whether end-users are allowed to create new subdirectories. If the ACE is part of a file-ACL then the letter is converted to `a`.
 
-`a`  
+**a**  
 appending data to the end of a file. Specifying `a` in an ACE's access mask controls whether end-users are allowed to add data to the end of a file. If the ACE is part of a directory-ACL then the letter is converted to `s`.
 
-`n`  
+**n**    
 reading attributes. Specifying `n` in an ACE's access mask controls whether end-users are allowed to read attributes. This letter may be specified in ACEs that are part of a file-ACL and those that are part of a directory-ACL.
 
-`N`  
+**N**   
 write attributes. Specifying `N` in an ACE's access mask controls whether end-users are allowed to write attributes. This letter may be specified in ACEs that are part of a file-ACL and those that are part of a directory-ACL.
 
-`x`  
+**x**   
 executing a file or entering a directory. `x` may be specified in an ACE that is part of a file-ACL or a directory-ACL; however, the operation that is authorised will be different.
 
-Specifying `x` in an ACEs access mask that is part of a file-ACL will control whether end users matching the ACE Subject are allowed to execute that file.
+Specifying **x** in an ACEs access mask that is part of a file-ACL will control whether end users matching the ACE Subject are allowed to execute that file.
 
-Specifying `x` in an ACEs access mask that is part of a directory-ACL will control whether end users matching ACE Subject are allowed to search a directory for a named file or subdirectory. This operation is needed for end users to change their current working directory.
+Specifying **x** in an ACEs access mask that is part of a directory-ACL will control whether end users matching ACE Subject are allowed to search a directory for a named file or subdirectory. This operation is needed for end users to change their current working directory.
 
-`d`  
-deleting a namespace entry. Specifying `d` in an ACE's access mask controls whether end-users are allowed to delete the file or directory the ACL is attached. The end user must be also authorised for the parent directory (see `D`).
+**d**   
+deleting a namespace entry. Specifying **d** in an ACE's access mask controls whether end-users are allowed to delete the file or directory the ACL is attached. The end user must be also authorised for the parent directory (see `D`).
 
-`D`  
-deleting a child of a directory. Specifying `D` in the access mask of an ACE that is part of a directory-ACL controls whether end-users are allowed to delete items within that directory. The end user must be also authorised for the existing item (see `d`).
-
-`t`  
+**D**  
+deleting a child of a directory. Specifying **D** in the access mask of an ACE that is part of a directory-ACL controls whether end-users are allowed to delete items within that directory. The end user must be also authorised for the existing item (see **d**).
+ 
+**t**   
 reading basic attributes. Specifying `t` in the access mask of an ACE controls whether end users are allowed to read basic (i.e., non-ACL) attributes of that item.
 
-`T`  
+**T**   
 altering basic attributes. Specifying `T` in an ACE's access mask controls whether end users are allowed to alter timestamps of the item the ACE's ACL is attached.
 
-`c`  
+**c**    
 reading ACL information. Specifying `c` in an ACE's access mask controls whether end users are allowed to read the ACL information of the item to which the ACE's ACL is attached.
 
-`C`  
+**C**   
 writing ACL information. Specifying `C` in an ACE's access mask controls whether end users are allowed to update ACL information of the item to which the ACE's ACL is attached.
 
-`o`  
+**o**  
 altering owner and owner-group information. Specifying `o` controls whether end users are allowed to change ownership information of the item to which the ACE's ACL is attached.
 
 #### ACL inheritance
 
-To enable ACL inheritance, the optional [inheritance flags] must be defined. The flag is a list of letters. There are three possible letters that may be included and the order doesn't matter.
+To enable ACL inheritance, the optional [inheritance flags](#description-of-the-ace-structure) must be defined. The flag is a list of letters. There are three possible letters that may be included and the order doesn't matter.
 
-`f`  
+**f**   
 This inheritance flag only affects those ACEs that form part of an directory-ACL. If the ACE is part of a file-ACL then specifying `f` has no effect.
 
 If a file is created in a directory with an ACE with `f` in inheritance flags then the ACE is copied to the newly created file's ACL. This ACE copy will not have the `f` inheritance flag.
 
 Specifying `f` in an ACE's inheritance flags does not affect whether this ACE is inherited by a newly created subdirectory. See `d` for more details.
 
-`d`  
+**d**    
 This inheritance flag only affect those ACEs that form part of an directory-ACL. If the ACE is part of a file-ACL then specifying `d` has no effect.
 
 Specifying `d` in an ACE's inheritance flags does not affect whether this ACE is inherited by a newly created file. See `f` for more details.
 
 If a subdirectory is created in a directory with an ACE with `d` in the ACE's inheritance flag then the ACE is copied to the newly created subdirectory's ACL. This ACE copy will have the `d` inheritance flag specified. If the `f` inheritance flag is specified then this, too, will be copied.
 
-`o`  
+**o**   
 The `o` flag may only be used when the ACE also has the `f`, `d` or both `f` and `d` inheritance flags.
 
 Specifying `o` in the inheritance flag will suppress the ACE. No user operations will be authorised or denied as a result of such an ACE.
@@ -255,22 +255,25 @@ An `o` in the inheritance flag allows child files or directories to inherit auth
 
 This section gives some specific examples of how to set ACLs to achieve some specific behaviour.
 
-This example demonstrates how to configure a directory-ACL so user 3750 can delete any file within the directory `/pnfs/example.org/data/exampleDir`.
+Example 18.1. ACL allowing specific user to delete files in a directory
+This example demonstrates how to configure a directory-ACL so user 3750 can delete any file within the directory **/pnfs/example.org/data/exampleDir**.
 
-    DC-PROMPT-PNFSMNGR setfacl /pnfs/example.org/data/exampleDir EVERYONE@:+l USER:3750:D
+    (PnfsManager) admin > setfacl /pnfs/example.org/data/exampleDir EVERYONE@:+l USER:3750:D
         (...line continues...)   USER:3750:+d:of
-    DC-PROMPT-PNFSMNGR setfacl /pnfs/example.org/data/exampleDir/existingFile1
+    (PnfsManager) admin > setfacl /pnfs/example.org/data/exampleDir/existingFile1
         (...line continues...)   USER:3750:+d:f
-    DC-PROMPT-PNFSMNGR setfacl /pnfs/example.org/data/exampleDir/existingFile2
+    (PnfsManager) admin > setfacl /pnfs/example.org/data/exampleDir/existingFile2
         (...line continues...)   USER:3750:+d:f
 
 The first command creates an ACL for the directory. This ACL has three ACEs. The first ACE allows anyone to list the contents of the directory. The second ACE allows user 3750 to delete content within the directory in general. The third ACE is inherited by all newly created files and specifies that user 3750 is authorised to delete the file independent of that file's ownership.
 
 The second and third commands creates an ACL for files that already exists within the directory. Since ACL inheritance only applies to newly created files or directories, any existing files must have an ACL explicitly set.
 
+
+Example 18.2. ACL to deny a group
 The following example demonstrates authorising all end users to list a directory. Members of group 1000 can also create subdirectories. However, any member of group 2000 can do neither.
 
-    DC-PROMPT-PNFSMNGR setfacl /pnfs/example.org/data/exampleDir GROUP:2000:-sl
+    (PnfsManager) admin > setfacl /pnfs/example.org/data/exampleDir GROUP:2000:-sl
         (...line continues...)    EVERYONE@:+l GROUP:1000:+s
 
 The first ACE denies any member of group 2000 the ability to create subdirectories or list the directory contents. As this ACE is first, it takes precedence over other ACEs.
@@ -279,38 +282,40 @@ The second ACE allows everyone to list the directory's content. If an end user w
 
 The final ACE authorises members of group 1000 to create subdirectories. If an end user who is a member of group 1000 and group 2000 attempts to create a subdirectory then their request will match the first ACE and be denied.
 
-This example is an extension to [example\_title]. The previous example allowed deletion of the contents of a directory but not the contents of any subdirectories. This example allows user 3750 to delete all files and subdirectories within the directory.
 
-    DC-PROMPT-PNFSMNGR setfacl /pnfs/example.org/data/exampleDir USER:3750:+D:d
+Example 18.3. ACL to allow a user to delete all files and subdirectories
+This example is an extension to [Example 18.1, “ACL allowing specific user to delete files in a directory”. The previous example allowed deletion of the contents of a directory](#example-18.1.-acl-allowing-specific-user-to-delete-files-in-a-directory) but not the contents of any subdirectories. This example allows user 3750 to delete all files and subdirectories within the directory.
+
+
+   (PnfsManager) admin > setfacl /pnfs/example.org/data/exampleDir USER:3750:+D:d
         (...line continues...)    USER:3750:+d:odf
 
-The first ACE is `USER:3750:+D:d`. This authorises user 3750 to delete any contents of directory `/pnfs/example.org/data/exampleDir` that has an ACL authorising them with `d` operation.
+The first ACE is `USER:3750:+D:d`. This authorises user 3750 to delete any contents of directory **/pnfs/example.org/data/exampleDir** that has an ACL authorising them with `d` operation.
 
 The first ACE also contains the inheritance flag `d` so newly created subdirectories will inherit this ACE. Since the inherited ACE will also contain the `d` inheritance flag, this ACE will be copied to all subdirectories when they are created.
 
-The second ACE is `USER:3750:+d:odf`. The ACE authorises user 3750 to delete whichever item the ACL containing this ACE is associated with. However, since the ACE contains the `o` in the inheritance flags, user 3750 is *not* authorised to delete the directory `/pnfs/example.org/data/exampleDir`
+The second ACE is `USER:3750:+d:odf`. The ACE authorises user 3750 to delete whichever item the ACL containing this ACE is associated with. However, since the ACE contains the `o` in the inheritance flags, user 3750 is *not* authorised to delete the directory **/pnfs/example.org/data/exampleDir**
 
-Since the second ACE has both the `d` and `f` inheritance flags, it will be inherited by all files and subdirectories of `/pnfs/example.org/data/exampleDir`, but without the `o` flag. This authorises user 3750 to delete these items.
+Since the second ACE has both the `d` and `f` inheritance flags, it will be inherited by all files and subdirectories of **/pnfs/example.org/data/exampleDir**, but without the `o` flag. This authorises user 3750 to delete these items.
 
-Subdirectories (and files) will inherit the second ACE with both `d` and `f` inheritance flags. This implies that all files and sub-subdirecties within a subdirectory of `/pnfs/example.org/data/exampleDir` will also inherit this ACE, so will also be deletable by user 3750.
+Subdirectories (and files) will inherit the second ACE with both `d` and `f` inheritance flags. This implies that all files and sub-subdirecties within a subdirectory of **/pnfs/example.org/data/exampleDir** will also inherit this ACE, so will also be deletable by user 3750.
 
-Viewing configured ACLs
+VIEWING CONFIGURED ACLS
 -----------------------
-
 The `getfacl` is used to obtain the current ACL for some item in DCACHE namespace. It takes the following arguments.
 
-getfacl
-pnfsId
-globalPath
+getfacl [<pnfsId>] | [<globalPath>]  
+
 The `getfacl` command fetches the ACL information of a namespace item (a file or directory). The item may be specified by its PNFS-ID or its absolute path.
 
-    DC-PROMPT-PNFSMNGR getfacl /pnfs/example.org/data/exampleDir
-    ACL: rsId = 00004EEFE7E59A3441198E7EB744B0D8BA54, rsType = DIR
-    order = 0, type = A, accessMsk = lfsD, who = USER, whoID = 12457
-    order = 1, type = A, flags = f, accessMsk = lfd, who = USER, whoID = 87552
-    In extra format:
-    USER:12457:+lfsD
-    USER:87552:+lfd:f
+Example 18.4. Obtain ACL information by absolute path
+       (PnfsManager) admin > getfacl /pnfs/example.org/data/exampleDir  
+        ACL: rsId = 00004EEFE7E59A3441198E7EB744B0D8BA54, rsType = DIR  
+        order = 0, type = A, accessMsk = lfsD, who = USER, whoID = 12457  
+        order = 1, type = A, flags = f, accessMsk = lfd, who = USER, whoID = 87552  
+        In extra format:  
+        USER:12457:+lfsD  
+        USER:87552:+lfd:f  
 
 The information is provided twice. The first part gives detailed information about the ACL. The second part, after the `In extra format:` heading, provides a list of ACEs that may be used when updating the ACL using the `setfacl` command.
 
