@@ -190,11 +190,12 @@ In most cases, the billing service will be run out-of-the-box; nevertheless, the
 
 -   Changing the database type (which defaults to PSQL) to something else would entail the above-mentioned necessary modification of the **datanucleus.properties** as well as changing the `billing.db.driver` and `billing.db.url` properties appropriately. This is not a recommended procedure, though in certain exceptional circumstances, it may be desirable or necessary. Once again, consultation with the DCACHE team is suggested in this case.
 
-Generating and Displaying Billing Plots
+GENERATING AND DISPLAYING BILLING PLOTS
 =======================================
 
 If you have selected to store billing messages to the database, it is also possible to generate and display a set of histograms from the data in these tables. To turn on plot generation, set the property `httpd.enable.plots.billing` to `true` and restart the domain in which the HTTPD is running.
 
+Example:
 Extract from the layout file:
 
     [httpdDomain]
@@ -204,17 +205,17 @@ Extract from the layout file:
     [httpdDomain/billing]
     ...
 
-The the frequency of plot refreshing and the type of plot produced can be controlled by:
+The frequency of plot refreshing and the type of plot produced can be controlled by:
 
--   billingPlotsTimeoutInMins
+-   `billingPlotsTimeoutInMins`
     (defaults to
     30
     )
--   httpd.plots.billing.type
+-   `httpd.plots.billing.type`
     (defaults to
-    png
+    `png`
     and can be set to
-    gif
+    `gif`
     )
 
 The plots provide aggregate views of the data for 24-hour, 7-day, 30-day and 365-day periods.
@@ -229,21 +230,22 @@ The plot types are:
 
 -   Cache hits and misses
 
-    > **Note**
+    > **NOTE**
     >
-    > The data for this last histogram is not automatically sent, since it contributes significantly to message traffic between the pool manager and the billing service. To store this data (and thus generate the relevant plots), the `poolmanager.enable.cache-hit-message` property must be set either in `dcache.conf` or in the layout file for the domain where the POOLMNGR runs:
+    > The data for this last histogram is not automatically sent, since it contributes significantly to message traffic between the pool manager and the billing service. To store this data (and thus generate the relevant plots), the `poolmanager.enable.cache-hit-message` property must be set either in **dcache.conf** or in the layout file for the domain where the poolmanager runs:
     >
     >     poolmanager.enable.cache-hit-message=true
 
 Each individual plot can be magnified by clicking on it.
 
-Upgrading a Previous Installation
+UPGRADING A PREVIOUS INSTALLATION
 =================================
 
 Because it is possible that the newer version may be deployed over an existing installation which already uses the billing database, the Liquibase change-set has been written in such a way as to look for existing tables and to modify them only as necessary.
 
-If you start the domain containing the BILLING service over a pre-existing installation of the billing database, depending on what was already there, you may observe some messages like the following in the domain log having to do with the logic governing table initialization.
+If you start the domain containing the `billing` service over a pre-existing installation of the billing database, depending on what was already there, you may observe some messages like the following in the domain log having to do with the logic governing table initialization.
 
+Example:
     INFO 8/23/12 10:35 AM:liquibase: Successfully acquired change log lock
     INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog
     INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog
@@ -268,20 +270,20 @@ Anything logged at a level lower than `ERROR` is usually entirely normal. Liquib
 
 If, on the other hand, there is an `ERROR` logged by Liquibase, it is possible there may be some other conflict resulting from the upgrade (this should be rare). Such an error will block the domain from starting. One remedy which often works in this case is to do a clean re-initialization by dropping the Liquibase tables from the database:
 
-    PROMPT-ROOT psql -U dcache billing
+    [root] # psql -U dcache billing
 
     billing=> drop table databasechangelog
     billing=> drop table databasechangeloglock
     billing-> \q
-    PROMPT-ROOT
+    [root] #
 
 and then restarting the domain.
 
-> **Note**
+> **NOTE**
 >
 > If the billing database already exists, but contains tables other than the following:
 >
->     PROMPT-ROOT psql -U dcache billing
+>     [root] # psql -U dcache billing
 >     billing=> \dt
 >                          List of relations
 >      Schema	|         Name          | Type  |   Owner
