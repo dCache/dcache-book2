@@ -1,7 +1,20 @@
-The BILLING Service
-========================
+CHAPTER 15. THE BILLING SERVICE
+===============================
 
-DCACHE has built-in monitoring capabilities which provide an overview of the activity and performance of the installation's doors and pools. There are two options for how this data can be represented and stored:
+Table of Contents
+-----------------
+
+
+* [The billing log files](#the-billing-log-files)
+* [The billing database](#the-billing-database)
+
+
+        Customizing the database](#customizing-the-database)
+
+* [Generating and Displaying Billing Plots](#generating-and-displaying-billing-plots)
+* [Upgrading a Previous Installation](#upgrading-a-previous-installation)
+
+dCache has built-in monitoring capabilities which provide an overview of the activity and performance of the installation’s doors and pools. There are two options for how this data can be represented and stored:
 
 -   a set of log files written to a known location
 -   a database (the
@@ -10,10 +23,10 @@ DCACHE has built-in monitoring capabilities which provide an overview of the act
 
 These options can be enabled simultaneously. If the database option is selected, the data in those tables will also be displayed as a set of histogram plots on the installation's web page.
 
-The billing log files
+THE BILLING LOG FILES
 =====================
 
-If you installed DCACHE following the instructions in the Chapter [Installing DCACHE] you enabled the BILLING in the domain where the HTTPD service is running (see the extract of the layout file).
+If you installed DCACHE following the instructions in the Chapter [Installing dCache](https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml) you enabled the BILLING in the domain where the HTTPD service is running (see the extract of the layout file).
 
     ...
     [httpdDomain]
