@@ -9,26 +9,34 @@ Table of Contents
 + [Configuring the srm service](#configuring-the-srm-service)
 
 	   + [The Basic Setup](#the-basic-setup)
+	   + [Important srm configuration options](#important-srm-configuration-options)
+	   
++ [Utilization of Space Reservations for Data Storage](#utilization-of-space-reservations-for-data-storage)
 
-+ [Important srm configuration options](#
-+ [Utilization of Space Reservations for Data Storage](#
-+ [Properties of Space Reservation](#
-+ [dCache specific concepts](#
-+ [Activating SRM SpaceManager](#
-+ [Explicit and Implicit Space Reservations for Data Storage in dCache](#
-+ [SpaceManager configuration](#
-+ [SRM SpaceManager and Link Groups](#
-+ [Making a Space Reservation](#
-+ [SRM configuration for experts](#
-+ [Configuring the PostgreSQL Database](#
-+ [SRM or srm monitoring on a separate node](#
-+ [General SRM Concepts (for developers)](#
-+ [The SRM service](#
-+ [Space Management Functions](#
-+ [Data Transfer Functions](#
-+ [Request Status Functions](#
-+ [Directory Functions](#
-+ [Permission functions](#
+	   + [Properties of Space Reservation](#Properties of Space Reservation)
++ [dCache specific concepts](#dCache specific concepts)
+
+	   + [Activating SRM SpaceManager](#Activating SRM SpaceManager)
+	   + [Explicit and Implicit Space Reservations for Data Storage in dCache](#Explicit and Implicit Space Reservations for Data Storage in dCache)
+	   
++ [SpaceManager configuration](#SpaceManager configuration)
+
+		+ [SRM SpaceManager and Link Groups](#sRM SpaceManager and Link Groups)
+		+ [Making a Space Reservation](#Making a Space Reservation)
+		+ [SRM configuration for experts](#SRM configuration for experts)
+		
++ [Configuring the PostgreSQL Database](#configuring the PostgreSQL Database)
+
+	     + [SRM or srm monitoring on a separate node](#sRM or srm monitoring on a separate node)
+	     
++ [General SRM Concepts (for developers)](#general SRM Concepts (for developers))
+
+		+ [The SRM service](#the-SRM service)
+		+ [Space Management Functions](#Space Management Functions)
+		+ [Data Transfer Functions](#Data Transfer Functions)
+		+ [Request Status Functions](#Request Status Functions)
+		+ [Directory Functions](#Directory Functions
+		+ [Permission functions](#Permission functions)
 
 Introduction
 ============
@@ -39,10 +47,10 @@ The SRM utilizes the Grid Security Infrastructure (GSI) for authentication. The 
 
 The SRM protocol uses HTTP over GSI as a transport. The DCACHE SRM implementation added HTTPS as a transport layer option. The main benefits of using HTTPS rather than HTTP over GSI is that HTTPS is a standard protocol and has support for sessions, improving latency in case a client needs to connect to the same server multiple times. The current implementation does not offer a delegation service. Hence `srmCopy` will not work with SRM over HTTPS. A separate delegation service will be added in a later release.
 
-Configuring the SRM service
-================================
+CONFIGURING THE SRM SERVICE
+============================
 
-The Basic Setup
+THE BASIC SETUP
 ---------------
 
 Like other services, the SRM service can be enabled in the layout file `PATH-ODE-ED/layouts/mylayout` of your DCACHE installation. For an overview of the layout file format, please see [???].
