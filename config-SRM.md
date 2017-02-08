@@ -13,17 +13,17 @@ Table of Contents
 	   
 + [Utilization of Space Reservations for Data Storage](#utilization-of-space-reservations-for-data-storage)
 
-	   + [Properties of Space Reservation](#Properties of Space Reservation)
-+ [dCache specific concepts](#dCache specific concepts)
+	   + [Properties of Space Reservation](#properties-of-space-reservation)
++ [dCache specific concepts](#dcache-specific-concepts)
 
-	   + [Activating SRM SpaceManager](#Activating SRM SpaceManager)
-	   + [Explicit and Implicit Space Reservations for Data Storage in dCache](#Explicit and Implicit Space Reservations for Data Storage in dCache)
+	   + [Activating SRM SpaceManager](#activating-srm-spacemanager)
+	   + [Explicit and Implicit Space Reservations for Data Storage in dCache](#explicit-and-implicit-space-reservations-for-data-storage-in-dcache)
 	   
-+ [SpaceManager configuration](#SpaceManager configuration)
++ [SpaceManager configuration](#spacemanager-configuration)
 
-		+ [SRM SpaceManager and Link Groups](#sRM SpaceManager and Link Groups)
-		+ [Making a Space Reservation](#Making a Space Reservation)
-		+ [SRM configuration for experts](#SRM configuration for experts)
+		+ [SRM SpaceManager and Link Groups](#srm-spacemanager-and-link-groups)
+		+ [Making a Space Reservation](#making-a-space-reservation)
+		+ [SRM configuration for experts](#srm-configuration-for-experts)
 		
 + [Configuring the PostgreSQL Database](#configuring the PostgreSQL Database)
 
