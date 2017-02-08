@@ -7,7 +7,9 @@ Table of Contents
 
 + [Introduction](#introduction)
 + [Configuring the srm service](#configuring-the-srm-service)
-+ [The Basic Setup](#
+
+	   + [The Basic Setup](#the-basic-setup)
+
 + [Important srm configuration options](#
 + [Utilization of Space Reservations for Data Storage](#
 + [Properties of Space Reservation](#
