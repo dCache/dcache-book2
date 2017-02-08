@@ -99,7 +99,7 @@ An ACL has one or more ACEs. Each ACE defines permissions to access this resourc
 The <ACE> arguments to the `setfacl` command have a specific format. This format is described below in Extended Backus-Naur Form (EBNF).
 
 [1]	ACE	::=	Subject ':' Access |   
-Subject ':' Access ':' Inheritance	   
+                        Subject ':' Access ':' Inheritance	   
 [2]	Subject	::=	'USER:' UserID |   
 'GROUP:' GroupID |   
 'OWNER@' |   
