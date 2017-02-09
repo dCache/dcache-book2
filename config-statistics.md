@@ -30,63 +30,65 @@ The statistics service automatically creates a directory tree, structured accord
 
 Once per hour, a **total.raw** file is produced underneath the active **year**, **month** and **day** directories, containing the sum over all pools and storage classes of the corresponding time interval. The **day** directory contains detailed statistics per hour and for the whole day.
 
-    PATH-OD-VLD/statistics/YYYY/total.raw
-    PATH-OD-VLD/statistics/YYYY/MM/total.raw
-    PATH-OD-VLD/statistics/YYYY/MM/DD/total.raw
-    PATH-OD-VLD/statistics/YYYY/MM/DD/YYYY-MM-DD-day.raw
-    PATH-OD-VLD/statistics/YYYY/MM/DD/YYYY-MM-DD-HH.raw
+    /var/lib/dcache/statistics/YYYY/total.raw
+    /var/lib/dcache/statistics/YYYY/MM/total.raw
+    /var/lib/dcache/statistics/YYYY/MM/DD/total.raw
+    /var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-day.raw
+    /var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-HH.raw
 
 In the same directory tree the HTML files are created for each day, month and year.
 
-    PATH-OD-VLD/statistics/YYYY/index.html
-    PATH-OD-VLD/statistics/YYYY/MM/index.html
-    PATH-OD-VLD/statistics/YYYY/MM/DD/index.html
+    /var/lib/dcache/statistics/YYYY/index.html
+    /var/lib/dcache/statistics/YYYY/MM/index.html
+    /var/lib/dcache/statistics/YYYY/MM/DD/index.html
 
-By default the path for the statistics data is `/var/lib/dcache/statistics`. You can modify this path by setting the property `dcache.paths.statistics` to a different value.
+By default the path for the statistics data is **/var/lib/dcache/statistics**. You can modify this path by setting the property **dcache.paths.statistics** to a different value.
 
-The Statistics Web Page
+THE STATISTICS WEB PAGE
 =======================
 
-Point a web browser to your DCACHE webpage at <http://:2288/>. On the bottom you find the link to `Statistics`.
+Point a web browser to your dCache webpage at http://<head-node.example.org>:2288/. On the bottom you find the link to Statistics.
 
 The statistics data needs to be collected for a day before it will appear on the web page.
 
-> **Note**
+> **NOTE**
 >
 > You will get an error if you try to read the statistics web page right after you enabled the STATISTICS as the web page has not yet been created.
 >
 > Create data and the web page by logging in to the admin interface and running the commands `create
 > 	stat` and `create html`.
 >
->     DC-PROMPT-LOCAL cd PoolStatistics@httpdDomain
->     (PoolStatistics@)httpdDomain admin > create stat
+>     (local) admin > cd PoolStatistics@<httpdDomain>
+>     (PoolStatistics@)<httpdDomain> admin > create stat
 >     Thread started for internal run
->     (PoolStatistics@)httpdDomain admin > create html
+>     (PoolStatistics@)<httpdDomain> admin > create html
 >     java.lang.NullPointerException
+
 >
 > Now you can see a statistics web page.
 
-Statistics is calculated once per hour at `HH:55`. The daily stuff is calculated at `23:55`. Without manual intervention, it takes two midnights before all HTML statistics pages are available. There is a way to get this done after just one midnight. After the first midnight following the first startup of the statistics module, log into the CELL-POOLSTAT cell and run the following commands in the given sequence. The specified date has to be the Year/Month/Day of today.
+Statistics is calculated once per hour at `<HH>:55`. The daily stuff is calculated at `23:55`. Without manual intervention, it takes two midnights before all HTML statistics pages are available. There is a way to get this done after just one midnight. After the first midnight following the first startup of the statistics module, log into the `PoolStatistics` cell and run the following commands in the given sequence. The specified date has to be the Year/Month/Day of today.
 
-    (PoolStatistics@)httpdDomain admin > create html YYYY MM DD
+    (PoolStatistics@)<httpdDomain> admin > create html <YYYY> <MM> <DD>
     done
-    (PoolStatistics@)httpdDomain admin > create html YYYY MM
+    (PoolStatistics@)<httpdDomain> admin > create html <YYYY> <MM>
     done
-    (PoolStatistics@)httpdDomain admin > create html YYYY
+    (PoolStatistics@)<httpdDomain> admin > create html <YYYY>
     done
-    (PoolStatistics@)httpdDomain admin > create html
+    (PoolStatistics@)<httpdDomain> admin > create html
     done
 
-You will see an empty statistics page at <http://:2288/statistics/>.
+You will see an empty statistics page athttp://<head-node.example.org>:2288/statistics/.
 
-On the `Statistics Help Page` <http://:2288/docs/statisticsHelp.html> you find an explanation for the colors.
+On the `Statistics Help Page`  http://<head-node.example.org>:2288/docs/statisticsHelp.html you find an explanation for the colors.
 
-Explanation of the File Format of the `xxx.raw` Files
+EXPLANATION OF THE FILE FORMAT OF THE XXX.RAW FILES
 =====================================================
 
-The file formats of the `PATH-OD-VLD/statistics/YYYY/MM/DD/YYYY-MM-DD-HH.raw` and the `PATH-OD-VLD/statistics/YYYY/MM/DD/YYYY-MM-DD-day.raw` files are similar. The file `PATH-OD-VLD/statistics/YYYY/MM/DD/YYYY-MM-DD-HH.raw` does not contain columns 2 and 3 as these are related to the day and not to the hour.
+The file formats of the **/var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-HH.raw** and the **/var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-day.raw** files are similar. The file **/var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-HH.raw** does not contain columns 2 and 3 as these are related to the day and not to the hour.
 
-The file format of the `PATH-OD-VLD/statistics/YYYY/MM/DD/YYYY-MM-DD-day.raw` files:
+Example:
+The file format of the **/var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-day.raw** files:
 
     #
     # timestamp=1361364900897
