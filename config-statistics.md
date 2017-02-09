@@ -1,25 +1,34 @@
-The STATISTICS Service
-===========================
+CHAPTER 14. THE STATISTICS SERVICE
+==================================
 
-The STATISTICS service collects information on the amount of data stored on all pools and the total data flow including streams from and to tertiary storage systems.
+Table of Contents
+------------------
+
+[The Basic Setup](#)
+[The Statistics Web Page](#)
+[Explanation of the File Format of the xxx.raw Files](#)
+
+
+The statistics service collects information on the amount of data stored on all pools and the total data flow including streams from and to tertiary storage systems.
 
 Once per hour an ASCII file is produced, containing a table with information on the amount of used disk space and the data transferred starting midnight up to this point in time. Data is sorted per pool and storage class.
 
-In addition to the hourly statistics, files are produced reporting on the daily, monthly and yearly DCACHE activities. An HTML tree is produced and updated once per hour allowing to navigate through the collected statistics information.
+In addition to the hourly statistics, files are produced reporting on the daily, monthly and yearly dCache activities. An HTML tree is produced and updated once per hour allowing to navigate through the collected statistics information.
 
-The Basic Setup
+
+THE BASIC SETUP
 ===============
 
-Define the STATISTICS service in the domain, where the HTTPD is running.
+Define the statistics service in the domain, where the httpd is running.
 
     [httpdDomain]
     [httpdDomain/httpd]
     ...
     [httpdDomain/statistics]
 
-The STATISTICS service automatically creates a directory tree, structured according to years, months and days.
+The statistics service automatically creates a directory tree, structured according to years, months and days.
 
-Once per hour, a `total.raw` file is produced underneath the active `year`, `month` and `day` directories, containing the sum over all pools and storage classes of the corresponding time interval. The `day` directory contains detailed statistics per hour and for the whole day.
+Once per hour, a **total.raw** file is produced underneath the active **year**, **month** and **day** directories, containing the sum over all pools and storage classes of the corresponding time interval. The **day** directory contains detailed statistics per hour and for the whole day.
 
     PATH-OD-VLD/statistics/YYYY/total.raw
     PATH-OD-VLD/statistics/YYYY/MM/total.raw
