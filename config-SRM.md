@@ -809,15 +809,15 @@ CONFIGURING THE POSTGRESQL DATABASE
 
 We highly recommend to make sure that PSQL database files are stored on a separate disk that is not used for anything else (not even PSQL logging). BNL Atlas Tier 1 observed a great improvement in srm-database communication performance after they deployed PSQL on a separate dedicated machine.
 
-SRM or srm monitoring on a separate node
+SRM OR SRM MONITORING ON A SEPARATE NODE
 ----------------------------------------
 
-If SRM or srm monitoring is going to be installed on a separate node, you need to add an entry in the file `/var/lib/pgsql/data/pg_hba.conf` for this node as well:
+If `SRM` or srm monitoring is going to be installed on a separate node, you need to add an entry in the file **/var/lib/pgsql/data/pg_hba.conf** for this node as well:
 
-    host    all         all       monitoring node    trust
-    host    all         all       srm node    trust
+    host    all         all       <monitoring node>    trust
+    host    all         all       <srm node>           trust
 
-The file `postgresql.conf` should contain the following:
+The file **postgresql.conf** should contain the following:
 
     #to enable network connection on the default port
     max_connections = 100
@@ -851,26 +851,26 @@ The file `postgresql.conf` should contain the following:
     # - Planner Cost Constants -
     effective_cache_size = 16384            # typically 8KB each
 
-General SRM Concepts (for developers)
+GENERAL SRM CONCEPTS (FOR DEVELOPERS)
 =====================================
 
-The CELL-SRM service
---------------------
+THE SRM SERVICE
+---------------
 
-DCACHE CELL-SRM is implemented as a Web Service running in a JETTY servlet container and an Axis Web Services engine. The JETTY server is executed as a cell, embedded in DCACHE and started automatically by the CELL-SRM service. Other cells started automatically by CELL-SRM are CELL-SPACEMNGR, CELL-PINMNGR and CELL-REMOTEGSITRANSFERMNGR. Of these services only CELL-SRM and CELL-SPACEMNGR require special configuration.
+dCache `SRM` is implemented as a Web Service running in a Jetty servlet container and an Axis Web Services engine. The Jetty server is executed as a cell, embedded in dCache and started automatically by the `SRM` service. Other cells started automatically by `SRM` are `SpaceManager`, `PinManager` and `RemoteGSIFTPTransferManager`. Of these services only `SRM` and SpaceManager require special configuration.
 
-The SRM consists of the five categories of functions:
+The `SRM` consists of the five categories of functions:
 
--   Space Management Functions
--   Data Transfer Functions
--   Request Status Functions
--   Directory Functions
--   Permission Functions
+-   [Space Management Functions](#space-management-functions)
+-   [Data Transfer Functions](#data-transfer-functions)
+-   [Request Status Functions](#request-status-functions)
+-   [Directory Functions](#directory-functions)
+-   [Permission Functions](#permission-functions)
 
-Space Management Functions
+SPACE MANAGEMENT FUNCTIONS
 --------------------------
 
-SRM version 2.2 introduces a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
+`SRM` version 2.2 introduces a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
 
 We use three functions for space management:
 
@@ -882,20 +882,21 @@ Space reservation is made using the `srmReserveSpace` function. In case of succe
 
 DCACHE only manages write space, i.e. space on disk can be reserved only for write operations. Once files are migrated to tape, and if no copy is required on disk, space used by these files is returned back into space reservation. When files are read back from tape and cached on disk, they are not counted as part of any space. SRM space reservation can be assigned a non-unique description that can be used to query the system for space reservations with a given description.
 
-[Properties of the SRM space reservations] can be discovered using the `SrmGetSpaceMetadata` function.
+[Properties of the SRM space reservations](#properties-of-the-srm-space-reservations) can be discovered using the `SrmGetSpaceMetadata` function.
 
 Space Reservations might be released with the function `srmReleaseSpace`.
 
-For a complete description of the available space management functions please see the [SRM Version 2.2 Specification].
+For a complete description of the available space management functions please see the [SRM Version 2.2 Specification](https://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html#_Toc241633085).
 
-Data Transfer Functions
+DATA TRANSFER FUNCTIONS
 -----------------------
 
 ### SURLs and TURLs
 
-SRM defines a protocol named SRM, and introduces a way to address the files stored in the SRM managed storage by site URL (SURL of the format `srm://<host>:<port>/[<web service
+`SRM` defines a protocol named `SRM`, and introduces a way to address the files stored in the `SRM` managed storage by site URL (SURL of the format `srm://<host>:<port>/[<web service
 	  path>?SFN=]<path>`.
 
+Example:
 Examples of the SURLs a.k.a. SRM URLs are:
 
     srm://fapl110.fnal.gov:8443/srm/managerv2?SFN=//pnfs/fnal.gov/data/test/file1
@@ -904,15 +905,16 @@ Examples of the SURLs a.k.a. SRM URLs are:
 
 A transfer URL (TURL) encodes the file transport protocol in the URL.
 
+Example:
     gsiftp://gridftpdoor.fnal.gov:2811/data/test/file1
 
-SRM version 2.2 provides three functions for performing data transfers:
+`SRM` version 2.2 provides three functions for performing data transfers:
 
 -   srmPrepareToGet
 -   srmPrepareToPut
 -   srmCopy
 
-(in SRM version 1.1 these functions were called `get`, `put` and `copy`).
+(in `SRM` version 1.1 these functions were called `get`, `put` and `copy`).
 
 All three functions accept lists of SURLs as parameters. All data transfer functions perform file/directory access verification and `srmPrepareToPut` and `srmCopy` check if the receiving storage element has sufficient space to store the files.
 
@@ -922,21 +924,21 @@ All three functions accept lists of SURLs as parameters. All data transfer funct
 
 Both functions support transfer protocol negotiation. A client supplies a list of transfer protocols and the SRM server computes the TURL using the first protocol from the list that it supports. Function invocation on the Storage Element depends on implementation and may range from simple SURL to TURL translation to stage from tape to disk cache and dynamic selection of transfer host and transfer protocol depending on the protocol availability and current load on each of the transfer server load.
 
-The function `srmCopy` is used to copy files between SRM managed storage elements. If both source and target are local to the SRM, it performes a local copy. There are two modes of remote copies:
+The function `srmCopy` is used to copy files between `SRM` managed storage elements. If both source and target are local to the `SRM`, it performes a local copy. There are two modes of remote copies:
 
--   PULL mode : The target SRM initiates an `srmCopy` request. Upon the client\\u0411\\u2500\\u2265s `srmCopy` request, the target SRM makes a space at the target storage, executes `srmPrepareToGet` on the source SRM. When the TURL is ready at the source SRM, the target SRM transfers the file from the source TURL into the prepared target storage. After the file transfer completes, `srmReleaseFiles` is issued to the source SRM.
+-   PULL mode : The target `SRM` initiates an `srmCopy` request. Upon the client\\u0411\\u2500\\u2265s `srmCopy` request, the target `SRM` makes a space at the target storage, executes `srmPrepareToGet` on the source `SRM`. When the TURL is ready at the source `SRM`, the target `SRM` transfers the file from the source TURL into the prepared target storage. After the file transfer completes, `srmReleaseFiles` is issued to the source `SRM`.
 
--   PUSH mode : The source SRM initiates an `srmCopy` request. Upon the client\\u0411\\u2500\\u2265s `srmCopy` request, the source SRM prepares a file to be transferred out to the target SRM, executes `srmPrepareToPut` on the target SRM. When the TURL is ready at the target SRM, the source SRM transfers the file from the prepared source into the prepared target TURL. After the file transfer completes, `srmPutDone` is issued to the target SRM.
+-   PUSH mode : The source `SRM` initiates an `srmCopy` request. Upon the client\\u0411\\u2500\\u2265s `srmCopy` request, the source `SRM` prepares a file to be transferred out to the target `SRM`, executes `srmPrepareToPut` on the target `SRM`. When the TURL is ready at the target `SRM`, the source SRM transfers the file from the prepared source into the prepared target TURL. After the file transfer completes, `srmPutDone` is issued to the target `SRM`.
 
 When a specified target space token is provided, the files will be located in the space associated with the space token.
 
-SRM Version 2.2 `srmPrepareToPut` and `srmCopy` PULL mode transfers allow the user to specify a space reservation token or a retention policy and access latency. Any of these parameters are optional, and it is up to the implementation to decide what to do, if these properties are not specified. The specification requires that if a space reservation is given, then the specified access latency or retention policy must match those of the space reservation.
+`SRM` Version 2.2 `srmPrepareToPut` and `srmCopy` PULL mode transfers allow the user to specify a space reservation token or a retention policy and access latency. Any of these parameters are optional, and it is up to the implementation to decide what to do, if these properties are not specified. The specification requires that if a space reservation is given, then the specified access latency or retention policy must match those of the space reservation.
 
-The Data Transfer Functions are asynchronous, an initial SRM call starts a request execution on the server side and returns a request status that contains a unique request token. The status of request is polled periodically by SRM get request status functions. Once a request is completed and the client receives the TURLs the data transfers are initiated. When the transfers are completed the client notifies the SRM server by executing `srmReleaseFiles` in case of `srmPrepareToGet` or `srmPutDone` in case of `srmPrepareToPut`. In case of `srmCopy`, the system knows when the transfers are completed and resources can be released, so it requires no special function at the end.
+The Data Transfer Functions are asynchronous, an initial `SRM` call starts a request execution on the server side and returns a request status that contains a unique request token. The status of request is polled periodically by `SRM` get request status functions. Once a request is completed and the client receives the TURLs the data transfers are initiated. When the transfers are completed the client notifies the `SRM` server by executing `srmReleaseFiles` in case of `srmPrepareToGet` or `srmPutDone` in case of `srmPrepareToPut`. In case of `srmCopy`, the system knows when the transfers are completed and resources can be released, so it requires no special function at the end.
 
 Clients are free to cancel the requests at any time by execution of `srmAbortFiles` or `srmAbortRequest`.
 
-Request Status Functions
+REQUEST STATUS FUNCTIONS
 ------------------------
 
 The functions for checking the request status are:
@@ -949,10 +951,10 @@ The functions for checking the request status are:
 -   srmStatusOfPutRequest
 -   srmStatusOfCopyRequest
 
-Directory Functions
+DIRECTORY FUNCTIONS
 -------------------
 
-SRM Version 2.2, interface provides a complete set of directory management functions. These are
+`SRM` Version 2.2, interface provides a complete set of directory management functions. These are
 
 -   srmLs
     ,
@@ -962,7 +964,7 @@ SRM Version 2.2, interface provides a complete set of directory management funct
     srmRmDir
 -   srmMv
 
-Permission functions
+PERMISSION FUNCTIONS
 --------------------
 
 SRM Version 2.2 supports the following three file permission functions:
