@@ -1,5 +1,19 @@
-GLUE Info Provider
-==================
+CHAPTER 19. GLUE INFO PROVIDER
+==============================
+
+Table of Contents
+---------------------
++ [Internal collection of information](#internal-collection-of-information)
++ [Configuring the info service](#configuring-the-info-service)
+
+	   + [Testing the info provider](#testing-the-info-provider)
+	   + [Decommissioning the old info provider](#decommissioning-the-old-info-provider)
+	   
++ [Publishing dCache information](#publishing-dcache-information)
+
++ [Troubleshooting BDII problems](#Troubleshooting BDII problems)
++ [Updating information](#Updating information)
+
 
 The GLUE information provider supplied with DCACHE provides the information about the DCACHE instance in a standard format called GLUE. This is necessary so that WLCG infrastructure (such as FTS) and clients using WLCG tools can discover the DCACHE instance and use it correctly.
 
