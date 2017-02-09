@@ -11,21 +11,21 @@ Table of Contents
 	   
 + [Publishing dCache information](#publishing-dcache-information)
 
-+ [Troubleshooting BDII problems](#Troubleshooting BDII problems)
-+ [Updating information](#Updating information)
++ [Troubleshooting BDII problems](#troubleshooting-bdii-problems)
++ [Updating information](#updating-information)
 
 
 The GLUE information provider supplied with DCACHE provides the information about the DCACHE instance in a standard format called GLUE. This is necessary so that WLCG infrastructure (such as FTS) and clients using WLCG tools can discover the DCACHE instance and use it correctly.
 
 The process of configuring the info-provider is designed to have the minimum overhead so you can configure it manually; however, you may prefer to use an automatic configuration tool, such as YAIM.
 
-> **Note**
+> **NOTE**
 >
 > Be sure you have at least v2.0.8 of glue-schema RPM installed on the node running the info-provider.
 
 This chapter describes how to enable and test the DCACHE-internal collection of information needed by the info-provider. It also describes how to configure the info-provider and verify that it is working correctly. Finally, it describes how to publish this information within BDII, verify that this is working and troubleshoot any problems.
 
-> **Warning**
+> **WARNING**
 >
 > Please be aware that changing information provider may result in a brief interruption to published information. This may have an adverse affect on client software that make use of this information.
 
