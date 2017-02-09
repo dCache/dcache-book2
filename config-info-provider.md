@@ -125,7 +125,7 @@ If running the `wget` command gives an error message with `Unable to contact the
 
 This means that the `info` service is not running. Follow the instructions for starting the `info` service given above.
 
-CONFIGURING THE INFO PROVIDER
+CONFIGURING THE INFO PROVIDER 
 =============================
 
 In the directory **/etc/dcache** you will find the file **info-provider.xml**. This file is where you configure the info-provider. It provides information that is difficult or impossible to obtain from the running dCache directly.
@@ -133,7 +133,7 @@ In the directory **/etc/dcache** you will find the file **info-provider.xml**. T
 You must edit the **info-provider.xml** to customise its content to match your dCache instance. In some places, the file contains place-holder values. These place-holder values must be changed to the correct values for your dCache instance.
 
 
-> **Important**
+> **IMPORTANT**
 >
 > Take care when editing the `info-provider.xml` file! After changing the contents, the file must remain valid, well-formed XML. In particular, be very careful when writing a less-than symbol (`<`) or an ampersand symbol (`&`).
 >
