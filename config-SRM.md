@@ -266,8 +266,8 @@ To create/change the values of the tags, please execute :
 > If the implicit space reservation is not enabled, pools in link groups will be excluded from consideration and only the remaining pools will be considered for storing the incoming data, and classical pool selection mechanism will be used.
 
 
-CELL-SPACEMNGR configuration
-============================
+SPACEMANAGER CONFIGURATION
+==========================
 
 SRM SPACEMANAGER AND LINK GROUPS
 --------------------------------
@@ -402,25 +402,24 @@ In this more general example for a `SpaceManagerLinkGroupAuthorizationFile` memb
 
 #### Making a Space Reservation  
 
+Example:
 Now you can make a space reservation for the VO `desy`.  
 
    (SrmSpaceManager) admin > reserve space -owner=/desy/Role=production -desc=DESY_TEST -lifetime=10000 -lg=spacemanager_WriteLinkGroup 5MB
 110000 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Fri Dec 09 12:43:48 CET 2011 lifetime:10000000ms expiration:Fri Dec 09 15:30:28 CET 2011 description:DESY_TEST state:RESERVED used:0 allocated:0  
 
 The space token of the reservation is `110000`.
-
 Check the status of the reservation by
 
-    (SrmSpaceManager) admin > ls spaces -e -h
- TOKEN RETENTION LATENCY FILES ALLO   USED   FREE   SIZE             EXPIRES DESCRIPTION
-110000 CUSTODIAL NEARLINE    0   0B +   0B + 5.0M = 5.0M 2011-12-09 12:43:48 DESY_TEST
+    (SrmSpaceManager) admin > ls spaces -e -h  
+ TOKEN RETENTION LATENCY FILES ALLO   USED   FREE   SIZE             EXPIRES DESCRIPTION  
+110000 CUSTODIAL NEARLINE    0   0B +   0B + 5.0M = 5.0M 2011-12-09 12:43:48 DESY_TEST  
 
-(SrmSpaceManager) admin > ls link groups -h
-FLAGS CNT RESVD   AVAIL   FREE             UPDATED NAME
---rc:no 1  5.0M +  7.3G = 7.3G 2011-11-28 12:12:51 spacemanager_WriteLinkGroup
+(SrmSpaceManager) admin > ls link groups -h  
+FLAGS CNT RESVD   AVAIL   FREE             UPDATED NAME  
+--rc:no 1  5.0M +  7.3G = 7.3G 2011-11-28 12:12:51 spacemanager_WriteLinkGroup  
 
 Here the `-h` option indicates that approximate, but human readable, byte sizes are to be used, and `-e` indicates that ephemeral (time limited) reservations should be displayed too (by default time limited reservations are not displayed as they are often implicit reservations). As can be seen, 5 MB are now reserved in the link group, although with approximate byte sizes, 5 MB do not make a visible difference in the 7.3 GB total size.
-
 You can now copy a file into that space token.
 
    [user] $ srmcp file:////bin/sh srm://<dcache.example.org>:8443/data/world-writable/space-token-test-file -space_token=110000
@@ -432,25 +431,25 @@ There are several parameters to be specified for a space reservation.
     (SrmSpaceManager) admin > reserve space [-al=online|nearline] [-desc=<string>] -lg=<name>  
     [-lifetime=<seconds>] [-owner=<user>|<fqan>] [-rp=output|replica|custodial] <size>  
 
-\[-owner=user|fqan\]  
+[-owner=<user>|<fqan>]  
 The owner of the space is identified by either mapped user name or FQAN. The owner must be authorized to reserve space in the link group in which the space is to be created. Besides the DCACHE admin, only the owner can release the space. Anybody can however write into the space (although the link group may only allow certain storage groups and thus restrict which file system paths can be written to space reservation, which in turn limits who can upload files to it).
 
-\[-al=AccessLatency\]  
+[-al=<AccessLatency>]  
 `AccessLatency` needs to match one of the access latencies allowed for the link group.
 
-\[-rp=RetentionPolicy\]  
+[-rp=<RetentionPolicy>]  
 `RetentionPolicy` needs to match one of the retention policies allowed for the link group.
 
-\[-desc=Description\]  
+[-desc=<Description>]   
 You can chose a value to describe your space reservation.
 
--lg=LinkGroupName  
+-lg=<LinkGroupName>  
 Which link group to create the reservation in.
 
-size  
+<size>  
 The size of the space reservation should be specified in bytes, optionally using a byte unit suffix using either SI or IEEE prefixes.
 
-\[-lifetime=lifetime\]  
+[-lifetime=<lifetime]>  
 The life time of the space reservation should be specified in seconds. If no life time is specified, the space reservation will not expire automatically.
 
 #### Releasing a Space Reservation
@@ -502,15 +501,16 @@ Space token =SpaceTokenId
 
 and release it by
 
-    PROMPT-USER srm-release-space srm://example.org:8443 -space_token=SpaceTokenId
+    [user] $ srm-release-space srm://<example.org>:8443 -space_token=SpaceTokenId
 
-> **Note**
+> **NOTE**
 >
 > Please note that it is obligatory to specify the retention policy while it is optional to specify the access latency.
 
-    PROMPT-USER srm-reserve-space -retention_policy=REPLICA -lifetime=300 -desired_size=5500000 -guaranteed_size=5500000  srm://srm.example.org:8443
-    Space token =110044
-
+Example:
+    [user] $ srm-reserve-space -retention_policy=REPLICA -lifetime=300 -desired_size=5500000 -guaranteed_size=5500000  srm://srm.example.org:8443  
+Space token =110044  
+  
 The space reservation can be released by:
 
     [user] $ srm-release-space srm://srm.example.org:8443 -space_token=110044
@@ -523,7 +523,7 @@ If a client uses a regular grid proxy, created with `grid-proxy-init`, and not a
 
     #LinkGroupAuthorizationFile
     #
-    userName
+    <userName>  
 
 #### Space Reservation for non SRM Transfers
 
