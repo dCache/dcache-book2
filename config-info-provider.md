@@ -5,12 +5,9 @@ Table of Contents
 ---------------------
 + [Internal collection of information](#internal-collection-of-information)
 + [Configuring the info service](#configuring-the-info-service)
-
-	   + [Testing the info provider](#testing-the-info-provider)
-	   + [Decommissioning the old info provider](#decommissioning-the-old-info-provider)
-	   
++ [Testing the info provider](#testing-the-info-provider)
++ [Decommissioning the old info provider](#decommissioning-the-old-info-provider)
 + [Publishing dCache information](#publishing-dcache-information)
-
 + [Troubleshooting BDII problems](#troubleshooting-bdii-problems)
 + [Updating information](#updating-information)
 
@@ -23,23 +20,23 @@ The process of configuring the info-provider is designed to have the minimum ove
 >
 > Be sure you have at least v2.0.8 of glue-schema RPM installed on the node running the info-provider.
 
-This chapter describes how to enable and test the DCACHE-internal collection of information needed by the info-provider. It also describes how to configure the info-provider and verify that it is working correctly. Finally, it describes how to publish this information within BDII, verify that this is working and troubleshoot any problems.
+This chapter describes how to enable and test the dCache-internal collection of information needed by the info-provider. It also describes how to configure the info-provider and verify that it is working correctly. Finally, it describes how to publish this information within BDII, verify that this is working and troubleshoot any problems.
 
 > **WARNING**
 >
 > Please be aware that changing information provider may result in a brief interruption to published information. This may have an adverse affect on client software that make use of this information.
 
-Internal collection of information
+INTERNAL COLLECTION OF INFORMATION
 ==================================
 
-The info-provider takes as much information as possible from DCACHE. To achieve this, it needs the internal information-collecting service, CELL-INFO, to be running and a means to collect that information: CELL-HTTPD. Make sure that both the CELL-HTTPD and CELL-INFO services are running within your DCACHE instance. By default, the CELL-INFO service is started on the admin-node; but it is possible to configure DCACHE so it runs on a different node. You should run only one CELL-INFO service per DCACHE instance.
+The info-provider takes as much information as possible from DCACHE. To achieve this, it needs the internal information-collecting service, `info`, to be running and a means to collect that information: `httpd`. Make sure that both the `httpd` and `info` services are running within your DCACHE instance. By default, the `info` service is started on the admin-node; but it is possible to configure DCACHE so it runs on a different node. You should run only one `info` service per DCACHE instance.
 
-The traditional (pre-1.9.7) allocation of services to domains has the CELL-INFO cell running in the DOMAIN-INFO domain. A DCACHE system that has been migrated from this old configuration will have the following fragment in the node's layout file:
+The traditional (pre-1.9.7) allocation of services to domains has the `info` cell running in the `infoDomain` domain. A DCACHE system that has been migrated from this old configuration will have the following fragment in the node's layout file:
 
     [infoDomain]
     [infoDomain/info]
 
-It is also possible to run the CELL-INFO service inside a domain that runs other services. The following example show the DOMAIN-INFORMATION domain that hosts the CELL-ADMIN, CELL-HTTPD, CELL-TOPO and CELL-INFO services.
+It is also possible to run the `info` service inside a domain that runs other services. The following example show the N domain that hosts the `admin, httpd, topo`  and `info` services.
 
     [information]
     [information/admin]
@@ -47,29 +44,30 @@ It is also possible to run the CELL-INFO service inside a domain that runs other
     [information/topo]
     [information/info]
 
-For more information on configuring DCACHE layout files, see [???].
+For more information on configuring DCACHE layout files, see [the section called “Defining domains and services”](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-layout).
 
-Use the `dcache services` command to see if a particular node is configured to run the CELL-INFO service. The following shows the output if the node has an DOMAIN-INFORMATION domain that is configured to run the CELL-INFO cell.
+Use the `dcache services` command to see if a particular node is configured to run the `info` service. The following shows the output if the node has an `information`  domain that is configured to run the `info`  cell.
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache services | grep info
+    [root] # dcache services | grep info
     information info        info               /var/log/dCache/information.log
 
 If a node has no domain configured to host the CELL-INFO service then the above `dcache services` command will give no output:
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache services | grep info
+    [root] # dcache services | grep info
 
-If no running domain within *any* node of your DCACHE instance is running the CELL-INFO service then you must add the service to a domain and restart that domain.
+If no running domain within *any* node of your DCACHE instance is running the `info` service then you must add the service to a domain and restart that domain.
 
-In this example, the CELL-INFO service is added to the DOMAIN-EXAMPLE domain. Note that the specific choice of domain (DOMAIN-EXAMPLE) is just to give a concrete example; the same process may be applied to a different domain.
+Example:
+In this example, the `info` service is added to the `example` domain. Note that the specific choice of domain (example) is just to give a concrete `example`; the same process may be applied to a different domain.
 
-The layouts file for this node includes the following definition for the DOMAIN-EXAMPLE domain:
+The layouts file for this node includes the following definition for the `example` domain:
 
     [example]
     [example/admin]
     [example/httpd]
     [example/topo]
 
-By adding the extra line `[example/info]` to the layouts file, in future, the DOMAIN-EXAMPLE domain will host the CELL-INFO service.
+By adding the extra line [example/info] to the layouts file, in future, the example domain will host the info service.
 
     [example]
     [example/admin]
@@ -79,17 +77,18 @@ By adding the extra line `[example/info]` to the layouts file, in future, the DO
 
 To actually start the CELL-INFO cell, the DOMAIN-EXAMPLE domain must be restarted.
 
-    PROMPT-ROOT PATH-ODB-N-Sdcache restart example
+    [root] # dcache restart example
     Stopping example (pid=30471) 0 done
     Starting example done
 
-With the DOMAIN-EXAMPLE domain restarted, the CELL-INFO service is now running.
 
-You can also verify both the CELL-HTTPD and CELL-INFO services are running using the `wget` command. The specific command assumes that you are logged into the node that has the CELL-HTTPD service (by default, the admin node). You may run the command on any node by replacing localhost with the hostname of the node running the CELL-HTTPD service.
+With the `example`domain restarted, the `info` service is now running.
 
-The following example shows the output from the `wget` when the CELL-INFO service is running correctly:
+You can also verify both the `httpd` and `info` services are running using the `wget` command. The specific command assumes that you are logged into the node that has the `httpd` service (by default, the admin node). You may run the command on any node by replacing localhost with the hostname of the node running the `httpd` service.
 
-    PROMPT-ROOT wget -O/dev/null http://localhost:2288/info
+The following example shows the output from the `wget` when the `info` service is running correctly:
+
+    [root] # wget -O/dev/null http://localhost:2288/info
     --17:57:38--  http://localhost:2288/info
     Resolving localhost... 127.0.0.1
     Connecting to localhost|127.0.0.1|:2288... connected.
@@ -102,20 +101,19 @@ The following example shows the output from the `wget` when the CELL-INFO servic
 
     17:57:38 (346 MB/s) - `/dev/null' saved [372962/372962]
 
-If the CELL-HTTPD service isn't running then the command will generate the following output:
+If the `httpd` service isn't running then the command will generate the following output:
 
-    PROMPT-ROOT wget -O/dev/null http://localhost:2288/info
+    [root] # wget -O/dev/null http://localhost:2288/info
       --10:05:35--  http://localhost:2288/info
                  => `/dev/null'
       Resolving localhost... 127.0.0.1
       Connecting to localhost|127.0.0.1|:2288... failed: Connection refused.
 
-To fix the problem, ensure that the CELL-HTTPD service is running within your DCACHE instance. This is the service that provides the web server monitoring within DCACHE. To enable the service, follow the same procedure for enabling the CELL-INFO cell, but add the CELL-HTTPD service within one of the domains in DCACHE.
+To fix the problem, ensure that the `httpd` service is running within your dCache instance. This is the service that provides the web server monitoring within dCache. To enable the service, follow the same procedure for enabling the `info` cell, but add the `httpd` service within one of the domains in dCache.
 
-If running the `wget` command gives an error message with `Unable to contact the info cell.  Please
-      ensure the info cell is running`:
+If running the `wget` command gives an error message with `Unable to contact the info cell. Please ensure the info cell is running`:
 
-    PROMPT-ROOT wget -O/dev/null http://localhost:2288/info
+    [root] # wget -O/dev/null http://localhost:2288/info
       --10:03:13--  http://localhost:2288/info
                  => `/dev/null'
       Resolving localhost... 127.0.0.1
@@ -125,14 +123,15 @@ If running the `wget` command gives an error message with `Unable to contact the
       10:03:13 ERROR 503: Unable to contact the info cell.  Please ensure the info cel
     l is running..
 
-This means that the CELL-INFO service is not running. Follow the instructions for starting the CELL-INFO service given above.
+This means that the `info` service is not running. Follow the instructions for starting the `info` service given above.
 
-Configuring the info provider
+CONFIGURING THE INFO PROVIDER
 =============================
 
-In the directory `` you will find the file `info-provider.xml`. This file is where you configure the info-provider. It provides information that is difficult or impossible to obtain from the running DCACHE directly.
+In the directory **/etc/dcache** you will find the file **info-provider.xml**. This file is where you configure the info-provider. It provides information that is difficult or impossible to obtain from the running dCache directly.
 
-You must edit the `info-provider.xml` to customise its content to match your DCACHE instance. In some places, the file contains place-holder values. These place-holder values must be changed to the correct values for your DCACHE instance.
+You must edit the **info-provider.xml** to customise its content to match your dCache instance. In some places, the file contains place-holder values. These place-holder values must be changed to the correct values for your dCache instance.
+
 
 > **Important**
 >
