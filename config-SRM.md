@@ -27,16 +27,16 @@ Table of Contents
 		
 + [Configuring the PostgreSQL Database](#configuring-the-postgresql-database)
 
-	   + [SRM or srm monitoring on a separate node](#sRM or srm monitoring on a separate node)
+	   + [SRM or srm monitoring on a separate node](#srm-or-srm-monitoring-on-a-separate-node)
 	     
 + [General SRM Concepts (for developers)](#general SRM Concepts (for developers))
 
-		+ [The SRM service](#the-SRM service)
-		+ [Space Management Functions](#Space Management Functions)
-		+ [Data Transfer Functions](#Data Transfer Functions)
-		+ [Request Status Functions](#Request Status Functions)
-		+ [Directory Functions](#Directory Functions
-		+ [Permission functions](#Permission functions)
+	   + [The SRM service](#the-srm-service)
+	   + [Space Management Functions](#space-management-functions)
+	   + [Data Transfer Functions](#data-transfer-functions)
+	   + [Request Status Functions](#request-status-functions)
+	   + [Directory Functions](#directory-functions)
+	   + [Permission functions](#permission-functions)
 
 Introduction
 ============
