@@ -1,5 +1,5 @@
-DCACHE Clients.
-===============
+CHAPTER 22. DCACHE CLIENTS.
+==========================
 
 There are many client tools for DCACHE. These can most easily be classified by communication protocol.
 
