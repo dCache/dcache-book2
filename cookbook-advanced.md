@@ -45,7 +45,7 @@ A finer grained queue selection mechanism based on, e.g. the IP address of the c
 
 In the above example, two separate queues for fast GRIDFTP transfers and slow DCAP library access would solve the problem. The maximum number of active movers for the GRIDFTP queue should be set to a lower value compared to the DCAP queue since the fast GRIDFTP transfers will put a high load on the system while the DCAP requests will be mostly idle.
 
-Configuration
+Configuration 
 -------------
 
 For a multi mover queue setup, the pools have to be told to start several queues and the doors have to be configured to use one of these. It makes sense to create the same queues on all pools. This is done by the following change to the file `PATH-ODE-ED/dcache.conf`:
