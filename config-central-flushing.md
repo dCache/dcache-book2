@@ -1,7 +1,7 @@
 Central Flushing to tertiary storage systems
 ============================================
 
-This chapter is of interest for DCACHE instances connected to a tertiary storage system or making use of the mass storage interface for any other reason.
+This chapter is of interest for DCACHE instances connected to a tertiary storage system or making use of the mass storage interface for any other reason. 
 
 > **Warning**
 >
