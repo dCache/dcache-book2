@@ -2,8 +2,8 @@ CHAPTER 13. DCACHE STORAGE RESOURCE MANAGER
 ===========================================
 
 
-Table of Contents
------------------
+Table of Contents 
+------------------
 
 + [Introduction](#introduction)
 + [Configuring the srm service](#configuring-the-srm-service)
