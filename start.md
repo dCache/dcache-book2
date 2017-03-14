@@ -11,7 +11,7 @@ This part is intended for people who are new to DCACHE. It gives an introduction
 * [2.Installing dCache] (https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)   
    
    
-      * [Installing a dCache instance] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml)  
+      * [Installing a dCache instance] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml)   
    
    
            * [Prerequisites] (https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-prerequisites)  
