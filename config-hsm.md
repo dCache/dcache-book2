@@ -6,7 +6,7 @@ Table of Contents
 
 * [Introduction](#introduction)
 * [Scope of this chapter](#scope-of-this-chapter)
-* [Requirements for a Tertiary Storage System](#Requirements for a Tertiary Storage System)
+* [Requirements for a Tertiary Storage System](#requirements-for-a-tertiary-storage-system)
 
     [Migrating Tertiary Storage Systems with a file system interface.](#
     [Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface](#
