@@ -361,7 +361,7 @@ The output will have the following format:
 -   LOCK-TIME: The number of milli-seconds this file will still be locked. Please note that this is an internal lock and not the pin-time (SRM).  
 -   OPEN-COUNT: Number of clients currently reading this file.  
 -   SIZE: File size  
--   STORAGE-CLASS: The storage class of this file.  
+-   STORAGE-CLASS: The storage class of this file.   
 
 Example:
     [example.dcache.org] DC-PROMPT-POOL1 rep ls  
