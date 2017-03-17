@@ -8,30 +8,30 @@ Table of Contents
 * [Scope of this chapter](#scope-of-this-chapter)
 * [Requirements for a Tertiary Storage System](#requirements-for-a-tertiary-storage-system)
 
-    [Migrating Tertiary Storage Systems with a file system interface.](#
-    [Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface](#
+    [Migrating Tertiary Storage Systems with a file system interface.](#migrating-tertiary-storage-systems-with-a-file-system-interface.)
+    [Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface](#tertiary-storage-systems-with-a-minimalistic- put,-get-and-remove-interface]
 
-* [IHow dCache interacts with a Tertiary Storage System](#
-* [IDetails on the TSS-support executable](#
+* [How dCache interacts with a Tertiary Storage System](#how-dcache-interacts-with-a-tertiary-storage-system)
+* [Details on the TSS-support executable](#details-on-the-tss-support-executable)
 
-     [Summary of command line options](#
-     [Summary of return codes](#
-     [The executable and the STORE FILE operation](#
-     [The executable and the FETCH FILE operation](#
-     [The executable and the REMOVE FILE operation](#
+     [Summary of command line options](#Summary of command line options)
+     [Summary of return codes](#Summary of return codes)
+     [The executable and the STORE FILE operation](#the-executable-and-the-store-file-operation)
+     [The executable and the FETCH FILE operation](#the-executable-and-the-fetch-file-operation)
+     [The executable and the REMOVE FILE operation](#the-executable-and-the-remove-file-operation)
 
-* [IConfiguring pools to interact with a Tertiary Storage System](#
+* [Configuring pools to interact with a Tertiary Storage System](#configuring-pools-to-interact-with-a-tertiary-storage-system)
 
-     [The dCache layout files](#
-     [What happens next](#
+     [The dCache layout files](#the-dcache-layout-files)
+     [What happens next](#what-happens-next)
 
-* [IHow to Store-/Restore files via the Admin Interface](#
-* [IHow to monitor what’s going on](#
+* [How to Store-/Restore files via the Admin Interface](#How to Store-/Restore files via the Admin Interface
+* [How to monitor what’s going on](#How to monitor what’s going on
 
-     [Log Files](#
-     [Obtain information via the dCache Command Line Admin Interface](#
+     [Log Files](#log-files)
+     [Obtain information via the dCache Command Line Admin Interface](#obtain-information-via-the-dcache-command-line-admin-interface)
 
-* [Example of an executable to simulate a tape backend](#
+* [Example of an executable to simulate a tape backend](#example-of-an-executable-to-simulate-a-tape-backend)
 
 
 Introduction
