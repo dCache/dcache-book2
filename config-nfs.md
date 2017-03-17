@@ -1,5 +1,13 @@
-DCACHE as NFS4 Server
-=====================
+Chapter 12. dCache as NFSv4.1 Server 
+==================================== 
+
+Table of Contents
+
+* [Setting up](#setting-up)
+* [Configuring NFSv4.1 door with GSS-API support](#Configuring NFSv4.1 door with GSS-API support)
+* [Configuring principal-id mapping for NFS access](#Configuring principal-id mapping for NFS access)
+
+
 
 This chapter explains how to configure DCACHE in order to access it via the NFS4 protocol, allowing clients to mount DCACHE and perform POSIX IO using standard NFS4 clients.
 
