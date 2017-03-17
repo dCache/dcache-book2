@@ -70,17 +70,17 @@ Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface
 
 Some tape systems provide a simple PUT, GET, REMOVE interface. Typically, a copy-like application writes a disk file into the TSS and returns an identifier which uniquely identifies the written file within the Tertiary Storage System. The identifier is sufficient to get the file back to disk or to remove the file from the TSS. Examples are:
 
--   OSM
+-   [OSM](http://www.qstar.com/qstar-products/qstar-object-storage-manager)
     (Object Storage Manager)
--   Enstore
+-   [Enstore](http://www-ccf.fnal.gov/enstore/)
     (FERMIlab)
 
 How DCACHE interacts with a Tertiary Storage System
 ===================================================
 
-Whenever DCACHE decides to copy a file from disk to tertiary storage a user-provided [EXECUTABLE] which can be either a script or a binary is automatically started on the pool where the file is located. That EXECUTABLE is expected to write the file into the Backend Storage System and to return a URI, uniquely identifying the file within that storage system. The format of the URI as well as the arguments to the EXECUTABLE, are described later in this document. The unique part of the URI can either be provided by the storage element, in return of the STOREFILE operation, or can be taken from DCACHE. A non-error return code from the EXECUTABLE lets DCACHE assume that the file has been successfully stored and, depending on the properties of the file, DCACHE can decide to remove the disk copy if space is running short on that pool. On a non-zero return from the EXECUTABLE, the file doesn't change its state and the operation is retried or an error flag is set on the file, depending on the error [return code] from the EXECUTABLE.
+Whenever DCACHE decides to copy a file from disk to tertiary storage a user-provided [executable](https://www.dcache.org/manuals/Book-2.16/config/tss-executable-fhs.shtml) which can be either a script or a binary is automatically started on the pool where the file is located. That `executable` is expected to write the file into the Backend Storage System and to return a URI, uniquely identifying the file within that storage system. The format of the URI as well as the arguments to the `executable`, are described later in this document. The unique part of the URI can either be provided by the storage element, in return of the `STORE FILE` operation, or can be taken from DCACHE. A non-error return code from the `executable` lets DCACHE assume that the file has been successfully stored and, depending on the properties of the file, DCACHE can decide to remove the disk copy if space is running short on that pool. On a non-zero return from the `executable`, the file doesn't change its state and the operation is retried or an error flag is set on the file, depending on the error [return code](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-support-fhs.shtml#cf-tss-support-return-codes) from the `executable`.
 
-If DCACHE needs to restore a file to disk the same EXECUTABLE is launched with a different set of arguments, including the URI, provided when the file was written to tape. It is in the responsibility of the EXECUTABLE to fetch the file back from tape based on the provided URI and to return `0` if the FETCHFILE operation was successful or non-zero otherwise. In case of a failure the pool retries the operation or DCACHE decides to fetch the file from tape using a different pool.
+If DCACHE needs to restore a file to disk the same `executable` is launched with a different set of arguments, including the URI, provided when the file was written to tape. It is in the responsibility of the `executable` to fetch the file back from tape based on the provided URI and to return `0` if the `FETCH FILE` operation was successful or non-zero otherwise. In case of a failure the pool retries the operation or DCACHE decides to fetch the file from tape using a different pool.
 
 Details on the TSS-support EXECUTABLE
 =====================================
