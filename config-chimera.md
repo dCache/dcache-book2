@@ -1,21 +1,22 @@
 CHAPTER 4. CHIMERA
 ==================
 
-##Table of Contents 
 
-* [Mounting Chimera through NFS] (#mounting-chimera-through-nfs)  
+Table of Contents 
 
-    [Using dCap with a mounted file system] (#using-dcap-with-a-mounted-file-system)  
+* [Mounting Chimera through NFS](#mounting-chimera-through-nfs)  
+
+    [Using dCap with a mounted file system](#using-dcap-with-a-mounted-file-system)  
              
-* [Communicating with Chimera] (#communicating-with-chimera)  
+* [Communicating with Chimera](#communicating-with-chimera)  
 * [IDs] (#ids)  
-* [Directory Tags] (#directory-tags)   
+* [Directory Tags](#directory-tags)   
 
-     [Create, List and Read Directory Tags if the Namespace is not Mounted] (#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)     
-     [Create, List and Read Directory Tags if the Namespace is Mounted] (#create-list-and-read-directory-tags-if-the-namespace-is-mounted)   
-     [Directory Tags and Command Files] (#directory-tags-and-command)   
-     [Directory Tags for dCache] (#directory-tags-for-dcache)  
-     [Storage Class and Directory Tags] (#storage-class-and-directory-tags)
+     [Create, List and Read Directory Tags if the Namespace is not Mounted](#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)     
+     [Create, List and Read Directory Tags if the Namespace is Mounted](#create-list-and-read-directory-tags-if-the-namespace-is-mounted)   
+     [Directory Tags and Command Files](#directory-tags-and-command)   
+     [Directory Tags for dCache](#directory-tags-for-dcache)  
+     [Storage Class and Directory Tags](#storage-class-and-directory-tags)
 
 
 dCache is a distributed storage system, nevertheless it provides a single-rooted file system view. While dCache supports multiple namespace providers, Chimera is the recommended provider and is used by default.  
