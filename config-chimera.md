@@ -9,7 +9,7 @@ Table of Contents
     [Using dCap with a mounted file system](#using-dcap-with-a-mounted-file-system)  
              
 * [Communicating with Chimera](#communicating-with-chimera)  
-* [IDs] (#ids)  
+* [IDs](#ids)  
 * [Directory Tags](#directory-tags)   
 
      [Create, List and Read Directory Tags if the Namespace is not Mounted](#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)     
