@@ -334,16 +334,16 @@ After restarting the necessary DCACHE domains, pools, already containing files, 
 How to Store-/Restore files via the Admin Interface
 ===================================================
 
-In order to see the state of files within a pool, login into the pool in the admin interface and run the command `rep ls`.
+In order to see the state of files within a pool, login into the pool in the admin interface and run the command `rep ls`.  
 
-    [example.dcache.org] (<poolname>) admin > rep ls
+    [example.dcache.org] (<poolname>) admin > rep ls  
+  
+The output will have the following format:  
 
-The output will have the following format:
+    PNFSID <MODE-BITS(LOCK-TIME)[OPEN-COUNT]> SIZE si={STORAGE-CLASS}  
 
-    PNFSID <MODE-BITS(LOCK-TIME)[OPEN-COUNT]> SIZE si={STORAGE-CLASS}
-
--   PNFSID: The pnfsID of the file  
--   MODE-BITS:  
+-   PNFSID: The pnfsID of the file    
+-   MODE-BITS:    
            CPCScsRDXEL  
            |||||||||||  
            ||||||||||+--  (L) File is locked (currently in use)  
@@ -358,40 +358,40 @@ The output will have the following format:
            |+-----------  (P) File is precious, i.e., it is only on disk  
            +------------  (C) File is on tape and only cached on disk.  
 
--   LOCK-TIME: The number of milli-seconds this file will still be locked. Please note that this is an internal lock and not the pin-time (SRM).  
--   OPEN-COUNT: Number of clients currently reading this file.  
--   SIZE: File size  
--   STORAGE-CLASS: The storage class of this file.   
+-   LOCK-TIME: The number of milli-seconds this file will still be locked. Please note that this is an internal lock and not the pin-time (SRM).    
+-   OPEN-COUNT: Number of clients currently reading this file.    
+-   SIZE: File size    
+-   STORAGE-CLASS: The storage class of this file.     
 
-Example:
-    [example.dcache.org] DC-PROMPT-POOL1 rep ls  
-    00008F276A952099472FAD619548F47EF972 <-P---------L(0)[0]> 291910 si={dteam:STATIC}  
+Example:  
+    [example.dcache.org] (pool_1) admin > rep ls    
+    00008F276A952099472FAD619548F47EF972 <-P---------L(0)[0]> 291910 si={dteam:STATIC}    
     00002A9282C2D7A147C68A327208173B81A6 <-P---------L(0)[0]> 2011264 si={dteam:STATIC}  
     0000EE298D5BF6BB4867968B88AE16BA86B0 <C----------L(0)[0]> 1976 si={dteam:STATIC}  
 
-In order to `flush` a file to the tape run the command `flush pnfsid`.  
+In order to `flush` a file to the tape run the command `flush pnfsid`.    
 
-    [example.dcache.org] (<poolname>) admin > flush pnfsid <pnfsid> 
+    [example.dcache.org] (<poolname>) admin > flush pnfsid <pnfsid>   
 
-Example:
-    [example.dcache.org] DC-PROMPT-POOL1 flush pnfsid 00002A9282C2D7A147C68A327208173B81A6
-    Flush Initiated
+Example:  
+   [example.dcache.org] (pool_1) admin > flush pnfsid 00002A9282C2D7A147C68A327208173B81A6
+Flush Initiated
 
-A file that has been flushed to tape gets the flag 'C'.
+A file that has been flushed to tape gets the flag 'C'.  
 
-Example:
-    [example.dcache.org] DC-PROMPT-POOL1 rep ls
+Example:  
+    [example.dcache.org] (pool_1) admin > rep ls
     00008F276A952099472FAD619548F47EF972 <-P---------L(0)[0]> 291910 si={dteam:STATIC}
     00002A9282C2D7A147C68A327208173B81A6 <C----------L(0)[0]> 2011264 si={dteam:STATIC}
     0000EE298D5BF6BB4867968B88AE16BA86B0 <C----------L(0)[0]> 1976 si={dteam:STATIC}
 
 To remove such a file from the repository run the command `rep rm`.
 
-    [example.dcache.org] DC-PROMPT-POOL rep rm pnfsid
+   [example.dcache.org] (<poolname>) admin > rep rm <pnfsid>
 
 Example:
-    [example.dcache.org] DC-PROMPT-POOL1 rep rm  00002A9282C2D7A147C68A327208173B81A6
-    Removed 00002A9282C2D7A147C68A327208173B81A6
+    [example.dcache.org] (pool_1) admin > rep rm  00002A9282C2D7A147C68A327208173B81A6
+Removed 00002A9282C2D7A147C68A327208173B81A6
 
 In this case the file will be restored when requested.
 
@@ -413,17 +413,17 @@ Log Files
 
 By default dCache is configured to only log information if something unexpected happens. However, to get familiar with Tertiary Storage System interactions you might be interested in more details. This section provides advice on how to obtain this kind of information.
 
-### The EXECUTABLE log file
+### The **executable** log file
 
 Since you provide the `executable`, interfacing DCACHE and the TSS, it is in your responsibility to ensure sufficient logging information to be able to trace possible problems with either DCACHE or the TSS. Each request should be printed with the full set of parameters it receives, together with a timestamp. Furthermore information returned to DCACHE should be reported.
 
-### DCACHE log files in general
+### dCache log files in general
 
-In DCACHE, each domain (e.g. DOMAIN-DCACHE, DOMAIN-POOL etc) prints logging information into its own log file named after the domain. The location of those log files it typically the **/var/log** or **/var/log/dCache** directory depending on the individual configuration. In the default logging setup only errors are reported. This behavior can be changed by either modifying **/etc/dcache/logback.xml** or using the DCACHE CLI to increase the log level of particular components as described [below](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-monitor-fhs.shtml#cf-tss-monitor-log-cli).
+In DCACHE, each domain (e.g. dCacheDomain, <pool>Domain etc) prints logging information into its own log file named after the domain. The location of those log files it typically the **/var/log** or **/var/log/dCache** directory depending on the individual configuration. In the default logging setup only errors are reported. This behavior can be changed by either modifying **/etc/dcache/logback.xml** or using the DCACHE CLI to increase the log level of particular components as described [below](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-monitor-fhs.shtml#cf-tss-monitor-log-cli).
 
 #### Increase the DCACHE log level by changes in **/etc/dcache/logback.xml**
 
-If you intend to increase the log level of all components on a particular host you would need to change the **/etc/dcache/logback.xml** file as described below. DCACHE components need to be restarted to activate the changes.
+If you intend to increase the log level of all components on a particular host you would need to change the **/etc/dcache/logback.xml** file as described below. dCache components need to be restarted to activate the changes.
 
     <threshold>
          <appender>stdout</appender>
@@ -443,11 +443,11 @@ needs to be changed to
 >
 > The change might result in a significant increase in log messages. So don't forget to change back before starting production operation. The next section describes how to change the log level in a running system.
 
-#### Increase the DCACHE log level via the Command Line Admin Interface
+#### Increase the dCache log level via the Command Line Admin Interface
 
-Example:
+Example:  
 
-Login into the DCACHE Command Line Admin Interface and increase the log level of a particular service, for instance for the `poolmanager` service:
+Login into the dCache Command Line Admin Interface and increase the log level of a particular service, for instance for the `poolmanager` service:
 
     [example.dcache.org] (local) admin > cd PoolManager
     [example.dcache.org] (PoolManager) admin > log set stdout ROOT INFO
@@ -467,64 +467,72 @@ The DCACHE Command Line Admin Interface gives access to information describing t
     *Pool Manager Restore Queue*. A list of all requests which have been issued to all pools for a `FETCH FILE` operation from the TSS (rc ls)
 -   The *Pool Collector Queue*. A list of files, per pool and storage group, which will be scheduled for a `STORE FILE` operation as soon as the configured trigger criteria match.
 -   The *Pool STORE FILE*  Queue. A list of files per pool, scheduled for the `STORE FILE` operation. A configurable amount of requests within this queue are active, which is equivalent to the number of concurrent store processes, the rest is inactive, waiting to become active.
--   The Pool *FETCH FILE* Queue. A list of files per pool, scheduled for the FETCHFILE operation. A configurable amount of requests within this queue are active, which is equivalent to the number of concurrent fetch processes, the rest is inactive, waiting to become active.
+-   The Pool *FETCH FILE* Queue. A list of files per pool, scheduled for the `FETCH FILE` operation. A configurable amount of requests within this queue are active, which is equivalent to the number of concurrent fetch processes, the rest is inactive, waiting to become active.
 
-For evaluation purposes, the pinboard of each component can be used to track down DCACHE behavior. The pinboard only keeps the most recent 200 lines of log information but reports not only errors but informational messages as well.
+For evaluation purposes, the *pinboard* of each component can be used to track down DCACHE behavior. The *pinboard* only keeps the most recent 200 lines of log information but reports not only errors but informational messages as well.
 
 Check the pinboard of a service, here the POOLMNGR service.
 
-    [example.dcache.org] DC-PROMPT-LOCAL cd PoolManager
-    [example.dcache.org] DC-PROMPT-PM show pinboard 100
+Example:
+    [example.dcache.org] (local) admin > cd PoolManager
+    [example.dcache.org] (PoolManager) admin > show pinboard 100
     08.30.45  [Thread-7] [pool_1 PoolManagerPoolUp] sendPoolStatusRelay: ...
     08.30.59  [writeHandler] [NFSv41-dcachetogo PoolMgrSelectWritePool ...
     ....
 
-**The CELL-POOLMNGR Restore Queue.**
+Example:
 
-Remove the file `test.root` with the PNFS-ID 00002A9282C2D7A147C68A327208173B81A6.
+The **PoolManager** Restore Queue.  Remove the file `test.root` with the pnfs-ID 00002A9282C2D7A147C68A327208173B81A6.   
 
-    [example.dcache.org] (pool_1) admin > rep rm  00002A9282C2D7A147C68A327208173B81A6
+    [example.dcache.org] (pool_1) admin > rep rm  00002A9282C2D7A147C68A327208173B81A6  
 
 Request the file `test.root`
 
-    PROMPT-USER PATH-ODDB-N-Sdccp dcap://example.dcache.org:/data/test.root test.root
+    [user] $ dccp dcap://example.dcache.org:/data/test.root test.root  
 
-Check the CELL-POOLMNGR Restore Queue:
+Check the PoolManager Restore Queue: 
 
-    [example.dcache.org] DC-PROMPT-LOCAL cd PoolManager
-    [example.dcache.org] DC-PROMPT-PM rc ls
-    0000AB1260F474554142BA976D0ADAF78C6C@0.0.0.0/0.0.0.0-*/* m=1 r=0 [pool_1] [Staging 08.15 17:52:16] {0,}
+    [example.dcache.org] (local) admin > cd PoolManager  
+    [example.dcache.org] (PoolManager) admin > rc ls  
+    0000AB1260F474554142BA976D0ADAF78C6C@0.0.0.0/0.0.0.0-*/* m=1 r=0 [pool_1] [Staging 08.15 17:52:16] {0,}  
+
+Example:
 
 **The Pool Collector Queue.**
 
-    [example.dcache.org] DC-PROMPT-LOCAL cd pool_1
-    [example.dcache.org] DC-PROMPT-POOL1 queue ls -l queue
-                       Name: chimera:alpha
-                  Class@Hsm: chimera:alpha@osm
-     Expiration rest/defined: -39 / 0   seconds
-     Pending   rest/defined: 1 / 0
-     Size      rest/defined: 877480 / 0
-     Active Store Procs.   :  0
-      00001BC6D76570A74534969FD72220C31D5D
+  [example.dcache.org] (local) admin > cd pool_1  
+  [example.dcache.org] (pool_1) admin > queue ls -l queue  
+                       Name: chimera:alpha  
+                  Class@Hsm: chimera:alpha@osm  
+     Expiration rest/defined: -39 / 0   seconds  
+     Pending   rest/defined: 1 / 0  
+     Size      rest/defined: 877480 / 0  
+     Active Store Procs.   :  0  
+      00001BC6D76570A74534969FD72220C31D5D  
 
 
-    [example.dcache.org] DC-PROMPT-POOL1 flush ls
-    Class                 Active   Error  Last/min  Requests    Failed
-    dteam:STATIC@osm           0       0         0         1         0
+    [example.dcache.org] DC-PROMPT-POOL1 flush ls  
+    Class                 Active   Error  Last/min  Requests    Failed  
+    dteam:STATIC@osm           0       0         0         1         0  
 
-**The pool STOREFILE Queue.**
+Example:  
 
-    [example.dcache.org] DC-PROMPT-LOCAL cd pool_1
-    [example.dcache.org] DC-PROMPT-POOL1 st ls
-    0000EC3A4BFCA8E14755AE4E3B5639B155F9  1   Fri Aug 12 15:35:58 CEST 2011
+**The pool STORE FILE Queue.**
 
-**The pool FETCHFILE Queue.**
+    [example.dcache.org] DC-PROMPT-LOCAL cd pool_1  
+    [example.dcache.org] DC-PROMPT-POOL1 st ls  
+    0000EC3A4BFCA8E14755AE4E3B5639B155F9  1   Fri Aug 12 15:35:58 CEST 2011  
 
-    [example.dcache.org] DC-PROMPT-LOCAL cd pool_1
-    [example.dcache.org] DC-PROMPT-POOL1  rh ls
+Example:
+
+**The pool FETCH FILE Queue.**
+
+    [example.dcache.org] (local) admin > cd pool_1
+    [example.dcache.org] (pool_1) admin >  rh ls
     0000B56B7AFE71C14BDA9426BBF1384CA4B0  0   Fri Aug 12 15:38:33 CEST 2011
 
-To check the repository on the pools run the command `rep ls` that is described in the beginning of [section\_title][2].
+To check the repository on the pools run the command `rep ls` that is described in the beginning of [the section called “How to Store-/Restore files via the Admin Interface”.](#how-to-store-/restore-files-via-the-admin-interface)
+
 
 Example of an EXECUTABLE to simulate a tape backend
 ===================================================
