@@ -60,9 +60,9 @@ Migrating Tertiary Storage Systems with a file system interface.
 
 Most migrating storage systems provide a regular POSIX file system interface. Based on rules, data is migrated from primary to tertiary storage (mostly tape systems). Examples for migrating storage systems are:
 
--   HPSS
+-   [HPSS](http://www.hpss-collaboration.org/)
     (High Performance Storage System)
--   DMF
+-   [DMF](http://www.sgi.com/products/storage/tiered/dmf.html?)
     (Data Migration Facility)
 
 Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface
