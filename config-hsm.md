@@ -34,26 +34,26 @@ Table of Contents
 * [Example of an executable to simulate a tape backend](#example-of-an-executable-to-simulate-a-tape-backend)  
 
 
-Introduction
+INTRODUCTION
 ============
 
-One of the features DCACHE provides is the ability to migrate files from its disk repository to one or more connected Tertiary Storage Systems (TSS) and to move them back to disk when necessary. Although the interface between DCACHE and the TSS is kept simple, DCACHE assumes to interact with an intelligent TSS. DCACHE does not drive tape robots or tape drives by itself. More detailed requirements to the storage system are described in one of the subsequent paragraphs.
+One of the features dCache provides is the ability to migrate files from its disk repository to one or more connected Tertiary Storage Systems (TSS) and to move them back to disk when necessary. Although the interface between dCache and the TSS is kept simple, dCache assumes to interact with an intelligent TSS. dCache does not drive tape robots or tape drives by itself. More detailed requirements to the storage system are described in one of the subsequent paragraphs.   
 
-Scope of this chapter
+SCOPE OF THIS CHAPTER
 =====================
 
-This document describes how to enable a standard DCACHE installation to interact with a Tertiary Storage System. In this description we assume that
+This document describes how to enable a standard dCache installation to interact with a Tertiary Storage System. In this description we assume that   
 
--   every DCACHE disk pool is connected to only one TSS instance.
--   all DCACHE disk pools are connected to the same TSS instance.
--   the DCACHE instance has not yet been populated with data, or only with a negligible amount of files.
+-   every DCACHE disk pool is connected to only one TSS instance.  
+-   all DCACHE disk pools are connected to the same TSS instance.  
+-   the DCACHE instance has not yet been populated with data, or only with a negligible amount of files.  
 
 In general, not all pools need to be configured to interact with the same Tertiary Storage System or with a storage system at all. Furthermore pools can be configured to have more than one Tertiary Storage System attached, but all those cases are not in the scope of the document.
 
-Requirements for a Tertiary Storage System
+REQUIREMENTS FOR A TERTIARY STORAGE SYSTEM
 ==========================================
 
-DCACHE can only drive intelligent Tertiary Storage Systems. This essentially means that tape robot and tape drive operations must be done by the TSS itself and that there is some simple way to abstract the file PUT, GET and REMOVE operation.
+DCACHE can only drive intelligent Tertiary Storage Systems. This essentially means that tape robot and tape drive operations must be done by the TSS itself and that there is some simple way to abstract the file `PUT, GET and REMOVE` operation.
 
 Migrating Tertiary Storage Systems with a file system interface.
 ----------------------------------------------------------------
