@@ -29,7 +29,7 @@ Table of Contents
 * [How to monitor what’s going on](#how-to-monitor-what’s-going-on)  
 
      [Log Files](#log-files)  
-     [Obtain information via the dCache Command Line Admin Interface](#obtain-information-via-the-dcache-command-line-admin-interface)  
+     [Obtain information via the dCache Command Line Admin Interface](#obtain-information-via-the-dcache-command-line-admin-interface)    
 
 * [Example of an executable to simulate a tape backend](#example-of-an-executable-to-simulate-a-tape-backend)  
 
