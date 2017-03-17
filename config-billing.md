@@ -9,7 +9,7 @@ Table of Contents
 * [The billing database](#the-billing-database)
 
 
-        [Customizing the database](#customizing-the-database)
+     [Customizing the database](#customizing-the-database)
 
 * [Generating and Displaying Billing Plots](#generating-and-displaying-billing-plots)
 * [Upgrading a Previous Installation](#upgrading-a-previous-installation)
