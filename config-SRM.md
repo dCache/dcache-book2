@@ -29,7 +29,7 @@ Table of Contents
 
 	 [SRM or srm monitoring on a separate node](#srm-or-srm-monitoring-on-a-separate-node)
 	     
-+ [General SRM Concepts (for developers)](#general SRM Concepts (for developers))
++ [General SRM Concepts (for developers)](#general-srm-concepts-(for-developers))
 
 	 [The SRM service](#the-srm-service)
 	 [Space Management Functions](#space-management-functions)
