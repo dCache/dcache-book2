@@ -15,8 +15,8 @@ Table of Contents
         
 * [Advanced Service Configuration: Enabling Automatic Cleanup](#advanced-service-configuration:-enabling-automatic-cleanup)   
 * [Advanced Service Configuration: Enabling Email Alerts](#advanced-service-configuration:-enabling-email-alerts)    
-* [Advanced Service Configuration: Custom Alarm Definitions](#custom-alarm-definitions)    
-* [Miscellaneous Properties of the alarms Service](#miscellaneous-properties-of-the-alarm-service)    
+* [Advanced Service Configuration: Custom Alarm Definitions](#custom-alarm-definitions)     
+* [Miscellaneous Properties of the alarms Service](#miscellaneous-properties-of-the-alarm-service)     
 
 
 dCache has an `alarms` service which records errors (*alarms*) requiring more or less urgent intervention. The webadmin servlet running inside the `httpd` service has a special page for querying, displaying and tracking these alarms. There is also an option for sending alarm notifications via email. The alarms data can be stored either in an XML file or in a database. The alarms service is turned off by default.
