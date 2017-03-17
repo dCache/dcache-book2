@@ -6,12 +6,12 @@ Table of Contents
 
  * [The Basic Setup](#the-basic-setup)  
 
-         [Configure where the alarms service is Running](#configure-where-the-alarms-service-is-running)  
-         [Types of Alarms](#types-of-alarms)    
-         [Alarm Priority](#alarm-priority)  
-         [Working with Alarms: Shell Commands](#working-with-alarms:-shell-commands)   
-         [Working with Alarms: Admin Commands](#working-with-alarms:-admin-commands)    
-         [Working with Alarms: The Webadmin Alarms Page](#working-with-alarms:-the-webadmin-alarms-page)    
+      [Configure where the alarms service is Running](#configure-where-the-alarms-service-is-running)  
+      [Types of Alarms](#types-of-alarms)    
+      [Alarm Priority](#alarm-priority)  
+      [Working with Alarms: Shell Commands](#working-with-alarms:-shell-commands)   
+      [Working with Alarms: Admin Commands](#working-with-alarms:-admin-commands)    
+      [Working with Alarms: The Webadmin Alarms Page](#working-with-alarms:-the-webadmin-alarms-page)    
         
 * [Advanced Service Configuration: Enabling Automatic Cleanup](#advanced-service-configuration:-enabling-automatic-cleanup)   
 * [Advanced Service Configuration: Enabling Email Alerts](#advanced-service-configuration:-enabling-email-alerts)    
