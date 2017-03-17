@@ -5,7 +5,7 @@ Chapter 8: The DCACHE Tertiary Storage System Interface
 Table of Contents
 
 * [Introduction](#introduction)
-* [Scope of this chapter](#Scope of this chapter)
+* [Scope of this chapter](#scope-of-this-chapter)
 * [Requirements for a Tertiary Storage System](#Requirements for a Tertiary Storage System)
 
     [Migrating Tertiary Storage Systems with a file system interface.](#
