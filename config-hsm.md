@@ -91,129 +91,77 @@ Summary of command line options
 This part explains the syntax of calling the EXECUTABLE that supports STOREFILE, `FETCH
 	FILE` and REMOVEFILE operations.
 
-put
-pnfsID
-filename
--si=
-storage-information
-other-options
-get
-pnfsID
-filename
--si=
-storage-information
--uri=
-storage-uri
-other-options
-remove
--uri=
-storage-uri
-other-options
--   put
-    /
-    get
-    /
-    remove
-    : these keywords indicate the operation to be performed.
-    -   put
-        : copy file from disk to TSS.
-    -   get
-        : copy file back from TSS to disk.
-    -   remove
-        : remove the file from TSS.
--   pnfsID
-    : The internal identifier (i-node) of the file within DCACHE. The
-    pnfsID
-    is unique within a single DCACHE instance and globally unique with a very high probability.
--   filename
-    : is the full path of the local file to be copied to the TSS (for
-    put
-    ) and respectively into which the file from the TSS should be copied (for
-    get
-    ).
--   storage-information
-    : the storage information of the file, as explained
-    below
-    .
--   storage-uri
-    : the URI, which was returned by the EXECUTABLE, after the file was written to tertiary storage. In order to get the file back from the TSS the information of the URI is preferred over the information in the
-    storage-information
-    .
--   other-options
-    : -
-    key
-    =
-    value
-    pairs taken from the TSS configuration commands of the pool 'setup' file. One of the options, always provided is the option -command=
-    full path of this EXECUTABLE
-    .
+put<pnfsID><filename>-si=<storage-information> [<other-options>...]
+
+get <pnfsID> <filename> -si=<storage-information> -uri=<storage-uri> [<other-options>...]
+
+remove -uri=<storage-uri> [<other-options>...]
+
+   - put / get / remove: these keywords indicate the operation to be performed.
+        put: copy file from disk to TSS.
+        get: copy file back from TSS to disk.
+        remove: remove the file from TSS. 
+   - <pnfsID>: The internal identifier (i-node) of the file within dCache. The <pnfsID> is unique within a single dCache instance and globally unique with a very high probability.
+   - <filename>: is the full path of the local file to be copied to the TSS (for put) and respectively into which the file from the TSS should be copied (for get).
+   - <storage-information>: the storage information of the file, as explained below.
+   - <storage-uri>: the URI, which was returned by the executable, after the file was written to tertiary storage. In order to get the file back from the TSS the information of the URI is preferred over the information in the <storage-information>.
+   - <other-options>: -<key> = <value> pairs taken from the TSS configuration commands of the pool 'setup' file. One of the options, always provided is the option -command=<full path of this executable>. 
+
+
 
 ### Storage Information
 
-The storage-information is a string in the format
+The <storage-information> is a string in the format   
+    -si=size=bytes;new=true/false;stored=true/false;sClass=StorageClass;\  
+    cClass0CacheClass;hsm=StorageType;key=value;[key=value;[...]]  
 
-    -si=size=bytes;new=true/false;stored=true/false;sClass=StorageClass;\
-    cClass0CacheClass;hsm=StorageType;key=value;[key=value;[...]]
+Example:
+    -si=size=1048576000;new=true;stored=false;sClass=desy:cms-sc3;cClass=-;hsm=osm;Host=desy;  
 
-    -si=size=1048576000;new=true;stored=false;sClass=desy:cms-sc3;cClass=-;hsm=osm;Host=desy;
+Mandatory storage information’s keys  
 
--   size
-    : Size of the file in bytes
--   new
-    : FALSE if file already in the DCACHE; TRUE otherwise
--   stored
-    : TRUE if file already stored in the TSS; FALSE otherwise
--   sClass
-    : HSM depended, is used by the POOLMNGR for pool attraction.
--   cClass
-    : Parent directory tag (cacheClass). Used by the POOLMNGR for pool attraction. May be '-'.
--   hsm
-    : Storage manager name (enstore/osm). Can be overwritten by the parent directory tag (hsmType).
+    - <size>: Size of the file in bytes    
+    - <new>: False if file already in the dCache; True otherwise  
+    - <stored>: True if file already stored in the TSS; False otherwise  
+    - <sClass>: HSM depended, is used by the poolmanager for pool attraction.  
+    - <cClass>: Parent directory tag (cacheClass). Used by the poolmanager for pool attraction. May be '-'.  
+    - <hsm>: Storage manager name (enstore/osm). Can be overwritten by the parent directory tag (hsmType).   
+
+
 
 <!-- -->
+OSM specific storage information’s keys   
 
--   group
-    : The storage group of the file to be stored as specified in the ".(tag)(sGroup)" tag of the parent directory of the file to be stored.
--   store
-    : The store name of the file to be stored as specified in the ".(tag)(OSMTemplate)" tag of the parent directory of the file to be stored.
--   bfid
-    : Bitfile ID (get and remove only) (e.g. 000451243.2542452542.25424524)
+- <group>: The storage group of the file to be stored as specified in the ".(tag)(sGroup)" tag of the parent directory of the file to be stored.   
+- <store>: The store name of the file to be stored as specified in the ".(tag)(OSMTemplate)" tag of the parent directory of the file to be stored.  
+- <bfid>: Bitfile ID (get and remove only) (e.g. 000451243.2542452542.25424524)   
 
-<!-- -->
+Enstore specific storage information’s keys
 
--   group
-    : The storage group (e.g. cdf, cms ...)
--   family
-    : The file family (e.g. sgi2test, h6nxl8, ...)
--   bfid
-    : Bitfile ID (get only) (e.g. B0MS105746894100000)
--   volume
-    : Tape Volume (get only) (e.g. IA6912)
--   location
-    : Location on tape (get only) (e.g. : 0000\_000000000\_0000117)
+ - <group>: The storage group (e.g. cdf, cms ...)  
+ - <family>: The file family (e.g. sgi2test, h6nxl8, ...)  
+ - <bfid>: Bitfile ID (get only) (e.g. B0MS105746894100000)  
+ - <volume>: Tape Volume (get only) (e.g. IA6912)  
+ - <location>: Location on tape (get only) (e.g. : 0000_000000000_0000117)   
 
-There might be more key values pairs which are used by the DCACHE internally and which should not affect the behaviour of the EXECUTABLE.
+There might be more key values pairs which are used by the dCache internally and which should not affect the behaviour of the   executable.   
 
 ### Storage URI
 
-The storage-uri is formatted as follows:
+The storage-uri is formatted as follows:  
 
-    hsmType://hsmInstance/?store=storename&group=groupname&bfid=bfid
+    hsmType://hsmInstance/?store=storename&group=groupname&bfid=bfid  
 
--   hsmType
-    : The type of the Tertiary Storage System
--   hsmInstance
-    : The name of the instance
--   storename
-    and
-    groupname
-    : The store and group name of the file as provided by the arguments to this EXECUTABLE.
--   bfid
-    : The unique identifier needed to restore or remove the file if necessary.
+    <hsmType>: The type of the Tertiary Storage System  
+    <hsmInstance>: The name of the instance  
+    <storename> and <groupname> : The store and group name of the file as provided by the arguments to this executable.  
+    <bfid>: The unique identifier needed to restore or remove the file if necessary.   
 
-A storage-uri:
+Example: 
 
-    osm://osm/?store=sql&group=chimera&bfid=3434.0.994.1188400818542
+A storage-uri:  
+ 
+    osm://osm/?store=sql&group=chimera&bfid=3434.0.994.1188400818542  
 
 Summary of return codes
 -----------------------
@@ -226,22 +174,26 @@ Summary of return codes
 | 43                  | Disk write I/O error    | Pool retries           | Disables pool and reports problem to POOLMNGR |
 | other               | -                       | Pool retries           | Reports problem to POOLMNGR                   |
 
-The EXECUTABLE and the STOREFILE operation
+The EXECUTABLE and the STORE FILE operation
 ------------------------------------------
 
-Whenever a disk file needs to be copied to a Tertiary Storage System DCACHE automatically launches an EXECUTABLE on the pool containing the file to be copied. Exactly one instance of the EXECUTABLE is started for each file. Multiple instances of the EXECUTABLE may run concurrently for different files. The maximum number of concurrent instances of the `EXECUTABLEs` per pool as well as the full path of the EXECUTABLE can be configured in the 'setup' file of the pool as described in [section\_title].
+Whenever a disk file needs to be copied to a Tertiary Storage System DCACHE automatically launches an `executable` on the pool containing the file to be copied. Exactly one instance of the `executable` is started for each file. Multiple instances of the `executable` may run concurrently for different files. The maximum number of concurrent instances of the `executable` per pool as well as the full path of the `executable` can be configured in the 'setup' file of the pool as described in [the section called “The pool ’setup’ file”.](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-pools-fhs.shtml#cf-tss-pools-layout-setup)
 
-The following arguments are given to the EXECUTABLE of a STOREFILE operation on startup. `put` pnfsID filename -si=storage-information more options Details on the meaning of certain arguments are described in [section\_title][1].
+The following arguments are given to the executable of a STORE FILE operation on startup. 
 
-With the arguments provided the EXECUTABLE is supposed to copy the file into the Tertiary Storage System. The EXECUTABLE must not terminate before the transfer of the file was either successful or failed.
+**put** <pnfsID> <filename> -si=<storage-information> <more options> 
 
-Success must be indicated by a `0` return of the EXECUTABLE. All non-zero values are interpreted as a failure which means, DCACHE assumes that the file has not been copied to tape.
+Details on the meaning of certain arguments are described in [the section called “Summary of command line options”.](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-support-fhs.shtml#cf-tss-support-clo)
 
-In case of a `0` return code the EXECUTABLE has to return a valid storage URI to DCACHE in formate:
+With the arguments provided the `executable` is supposed to copy the file into the Tertiary Storage System. The `executable` must not terminate before the transfer of the file was either successful or failed.
 
-    hsmType://hsmInstance/?store=storename&group=groupname&bfid=bfid
+Success must be indicated by a `0` return of the `executable`. All non-zero values are interpreted as a failure which means, DCACHE assumes that the file has not been copied to tape.
 
-Details on the meaning of certain parameters are described [above].
+In case of a `0` return code the `executable` has to return a valid storage URI to DCACHE in formate:
+
+    hsmType://hsmInstance/?store=<storename>&group=<groupname>&bfid=<bfid>
+
+Details on the meaning of certain parameters are described [above](#storage-uri).
 
 The bfid can either be provided by the TSS as result of the STOREFILE operation or the `pnfsID` may be used. The latter assumes that the file has to be stored with exactly that `pnfsID` within the TSS. Whatever URI is chosen, it must allow to uniquely identify the file within the Tertiary Storage System.
 
