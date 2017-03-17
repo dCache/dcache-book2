@@ -1,5 +1,38 @@
-The DCACHE Tertiary Storage System Interface
+Chapter 8: The DCACHE Tertiary Storage System Interface
 ============================================
+
+
+Table of Contents
+
+* [Introduction](#introduction)
+* [Scope of this chapter](#Scope of this chapter)
+* [Requirements for a Tertiary Storage System](#Requirements for a Tertiary Storage System)
+
+    [Migrating Tertiary Storage Systems with a file system interface.](#
+    [Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface](#
+
+* [IHow dCache interacts with a Tertiary Storage System](#
+* [IDetails on the TSS-support executable](#
+
+     [Summary of command line options](#
+     [Summary of return codes](#
+     [The executable and the STORE FILE operation](#
+     [The executable and the FETCH FILE operation](#
+     [The executable and the REMOVE FILE operation](#
+
+* [IConfiguring pools to interact with a Tertiary Storage System](#
+
+     [The dCache layout files](#
+     [What happens next](#
+
+* [IHow to Store-/Restore files via the Admin Interface](#
+* [IHow to monitor what’s going on](#
+
+     [Log Files](#
+     [Obtain information via the dCache Command Line Admin Interface](#
+
+* [Example of an executable to simulate a tape backend](#
+
 
 Introduction
 ============
