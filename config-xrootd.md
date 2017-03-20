@@ -3,23 +3,23 @@ Chapter 11. dCache as xRootd-Server
 
 Table of Contents
 
-* [Setting up](#setting-up)
+* [Setting up](#setting-up)  
 
-     [Parameters](#parameters)
+     [Parameters](#parameters)  
 
-* [Quick tests](#quick-tests)
+* [Quick tests](#quick-tests)  
 
-    [Copying files with xrdcp](#copying-files-with-xrdcp)
-    [Accessing files from within ROOT](#accessing-files-from-within-root)
+    [Copying files with xrdcp](#copying-files-with-xrdcp)  
+    [Accessing files from within ROOT](#accessing-files-from-within-root)  
 
-* [xrootd security](#xrootd-security)
+* [xrootd security](#xrootd-security)  
 
-    [Read-Write access](#Read-Write access)
-    [Permitting read/write access on selected directories](#Permitting read/write access on selected directories
-    [Token-based authorization](#Token-based authorization)
-    [Strong authentication](#strong-authentication)
-    [Precedence of security mechanisms](#Precedence of security mechanisms)
-    [Other configuration options](#other-configuration-options)
+    [Read-Write access](#read-write-access)  
+    [Permitting read/write access on selected directories](#permitting-read/write-access-on-selected-directories)  
+    [Token-based authorization](#token-based-authorization)  
+    [Strong authentication](#strong-authentication)  
+    [Precedence of security mechanisms](#precedence-of-security-mechanisms)  
+    [Other configuration options](#other-configuration-options)  
 
 This chapter explains how to configure dCache in order to access it via the `xrootd` protocol, allowing `xrootd`-Clients like ROOT’s TXNetfile and xrdcp to do file operations against a dCache instance in a transparent manner. dCache implements version 2.1.6 of `xrootd` protocol.
 
