@@ -3,14 +3,14 @@ CHAPTER 22. DCACHE CLIENTS.
 
 Table of Contents
 
-+ [GSI-FTP](#gsi-ftp)
++ [GSI-FTP](#gsi-ftp)  
 
-    [Listing a directory](#listing-a-directory)
-    Checking a file exists
-    Deleting files
-    Copying files
+    [Listing a directory](#listing-a-directory)  
+    [Checking a file exists](#checking-a-file-exists]
+    [Deleting files](#deleting-files)
+    [Copying files](#copying-files)
 
-dCap
++ [dCap](#dcap)
 
     dccp
     Using the dCache client interposition library.
