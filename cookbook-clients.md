@@ -1,6 +1,34 @@
 CHAPTER 22. DCACHE CLIENTS.
 ==========================
 
+Table of Contents
+
++ [GSI-FTP](#gsi-ftp)
+
+    [Listing a directory](#listing-a-directory)
+    Checking a file exists
+    Deleting files
+    Copying files
+
+dCap
+
+    dccp
+    Using the dCache client interposition library.
+
+SRM
+
+    Creating a new directory.
+    Removing files from dCache
+    Removing empty directories from dCache
+    srmcp for SRM v1
+    srmcp for SRM v2.2
+
+ldap
+Using the LCG commands with dCache
+
+    The lcg-gt Application
+    The lcg-sd Application
+
 There are many client tools for DCACHE. These can most easily be classified by communication protocol.
 
 GSIFTP
