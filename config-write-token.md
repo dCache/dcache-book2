@@ -97,26 +97,27 @@ Now we can make a space reservation for that link group.
     total number of bytes reserved  : 6000000 
     (SrmSpaceManager) admin >
 
-The `WriteToken` TAG
+The `WriteToken` Tag
 ====================
 
-The `WriteToken` tag is a [directory tag]. Create the `WriteToken` tag with
+The `WriteToken` tag is a [directory tag](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs.shtml). Create the `WriteToken` tag with
 
-    PROMPT-ROOT CHIMERA-CLI writetag directory WriteToken [IdOfSpaceReservation]
+    [root] # /usr/bin/chimera writetag <directory> WriteToken [<IdOfSpaceReservation>]
 
-In the beginning of the Book we created the directory `/data` and the subdirectory `/data/world-writable`.
+Example:
+In the beginning of the Book we created the directory **/data** and the subdirectory **/data/world-writable**.
 
-    PROMPT-ROOT CHIMERA-CLI ls /data/
+    [root] # /usr/bin/chimera ls /data/
     total 3
     drwxr-xr-x  3 0 0 512 Jul 23 14:59 .
     drwxrwxrwx  3 0 0 512 Jul 24 14:33 ..
     drwxrwxrwx 12 0 0 512 Jul 24 14:41 world-writable
 
-Now, we create the directory `data/write-token` into which we want to write
+Now, we create the directory **data/write-token** into which we want to write
 
-    PROMPT-ROOT CHIMERA-CLI mkdir /data/write-token
-    PROMPT-ROOT CHIMERA-CLI 777 chmod /data/write-token
-    PROMPT-ROOT CHIMERA-CLI ls /data/
+    [root] # /usr/bin/chimera mkdir /data/write-token
+    [root] # /usr/bin/chimera 777 chmod /data/write-token
+    [root] # /usr/bin/chimera ls /data/
     total 4
     drwxr-xr-x  4 0 0 512 Aug 09 12:48 .
     drwxrwxrwx  3 0 0 512 Jul 24 14:33 ..
@@ -125,17 +126,20 @@ Now, we create the directory `data/write-token` into which we want to write
 
 and echo the space reservation into the WriteToken tag.
 
-    PROMPT-ROOT CHIMERA-CLI writetag /data/write-token WriteToken [10000]
-
+    [root] # /usr/bin/chimera writetag /data/write-token WriteToken [10000]
+    
+    
 Copy a File into the `WriteToken`
 =================================
 
 Given that you have a `WriteToken` tag which contains the id of a valid space reseravtion, you can copy a file into a space reservation even if you are using a protocol that does not support space reservation.
 
+Example:
+
 In the above example we echoed the id of a space reservation into the `WriteToken` tag. We can now copy a file into this space reservation.
 
-    PROMPT-ROOT curl -T test.txt http://webdav-door.example.org:2880/data/write-token/curl-test.txt
-    PROMPT-ROOT
+    [root] # curl -T test.txt http://webdav-door.example.org:2880/data/write-token/curl-test.txt
+    [root] #
 
   [link groups]: #cf-pm-linkgroups
   [`LinkGroupAuthorization.conf`]: #cf-srm-linkgroupauthfile
