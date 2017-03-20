@@ -4,8 +4,8 @@ Chapter 12. dCache as NFSv4.1 Server
 Table of Contents
 
 * [Setting up](#setting-up)
-* [Configuring NFSv4.1 door with GSS-API support](#Configuring NFSv4.1 door with GSS-API support)
-* [Configuring principal-id mapping for NFS access](#Configuring principal-id mapping for NFS access)
+* [Configuring NFSv4.1 door with GSS-API support](#configuring-nfsv4.1-door-with-gss-api-support)
+* [Configuring principal-id mapping for NFS access](#configuring-principal-id-mapping-for-nfs-access)
 
 
 
