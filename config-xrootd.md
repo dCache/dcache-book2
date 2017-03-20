@@ -1,5 +1,25 @@
-dCache as xRootd-Server
-=======================
+Chapter 11. dCache as xRootd-Server
+===================================
+
+Table of Contents
+
+* [Setting up](#setting-up)
+
+     [Parameters](#parameters)
+
+Quick tests
+
+    Copying files with xrdcp
+    Accessing files from within ROOT
+
+xrootd security
+
+    Read-Write access
+    Permitting read/write access on selected directories
+    Token-based authorization
+    Strong authentication
+    Precedence of security mechanisms
+    Other configuration options
 
 This chapter explains how to configure DCACHE in order to access it via the XROOTD protocol, allowing XROOTD-Clients like ROOT's TXNetfile and xrdcp to do file operations against a DCACHE instance in a transparent manner. DCACHE implements version XROOTD-VERSION of XROOTD protocol.
 
