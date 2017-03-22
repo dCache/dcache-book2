@@ -7,14 +7,14 @@ Table of Contents
 
     [How to configure checksum calculation](#how-to-configure-checksum-calculation)  
 
-+ [Migration Module](#migration-module)  
++ [Migration Module](#migration-module)    
 
-    [Overview and Terminology
-    [Command Summary
-    [Examples
+    [Overview and Terminology](#overview-and-terminology)  
+    [Command Summary](#command-summary)  
+    [Examples](#examples)  
 
-+ [Renaming a Pool
-+ [Pinning Files to a Pool
++ [Renaming a Pool](#renaming-a-pool)  
++ [Pinning Files to a Pool](#pinning-files-to-a-pool)  
 
 Checksums
 =========
