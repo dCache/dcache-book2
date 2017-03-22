@@ -324,9 +324,9 @@ Usage:
 
 get-space-tokens [command line options] [<srmUrl>]
 
+Example 22.1. surveying the space tokens available in a directory.
 
-srmUrl
-    PROMPT-USER srm-get-space-tokens srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -srm_protocol_version=2
+[user] $ srm-get-space-tokens srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -srm_protocol_version=2
 
 A successful result:
 
@@ -344,7 +344,9 @@ A successful result:
     148231
     148352
 
-    PROMPT-USER srm-get-space-tokens srm://srm-door.example.org:8443
+Example 22.2. Listing the space tokens for a SRM:
+
+    [user] $ srm-get-space-tokens srm://srm-door.example.org:8443
     Space Reservation Tokens:
     145614
     145615
@@ -360,10 +362,9 @@ A successful result:
 
 Usage:
 
-srm-reserve-space
-\[command line options\]
-srmUrl
-    PROMPT-USER srm-reserve-space  \
+srm-reserve-space [[command line options]] [<srmUrl>]
+
+    [user] $ srm-reserve-space  \
     -desired_size 2000 \
     -srm_protocol_version=2 \
     -retention_policy=REPLICA \
@@ -388,7 +389,7 @@ A typical failure
 
 Also you can get info for this space token `144573`:
 
-    PROMPT-USER srm-get-space-metadata srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -space_tokens=144573
+    [user] $ srm-get-space-metadata srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -space_tokens=144573
 
 Possible result:
 
@@ -408,11 +409,11 @@ Usage: srmcp \[command line options\] source(s) destination
 
 Examples:
 
-    PROMPT-USER srmcp -protocols=gsiftp -space_token=144573 \
+    [user] $ srmcp -protocols=gsiftp -space_token=144573 \
     file://///home/user/path/to/myFile \
     srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myFile
 
-    PROMPT-USER srmcp -protocols=gsiftp -space_token=144573 \
+    [user] $ srmcp -protocols=gsiftp -space_token=144573 \
     file://///home/user/path/to/myFile1 \
     file://///home/user/path/to/myFile2 \
     srm://srm-door.example.org:8443/pnfs/example.org/data/dteam
@@ -421,7 +422,7 @@ Examples:
 
 Users can get the metadata available for the space, but the ability to query the metadata of a space reservation may be restricted so that only certain users can obtain this information.
 
-    PROMPT-USER srm-get-space-metadata srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -space_tokens=120049
+    [user] $ srm-get-space-metadata srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -space_tokens=120049
     WARNING: SRM_PATH is defined, which might cause a wrong version of srm client to be executed
     WARNING: SRM_PATH=/opt/d-cache/srm
     Space Reservation with token=120049
@@ -438,7 +439,7 @@ Users can get the metadata available for the space, but the ability to query the
 
 Removes a space token from the SRM.
 
-    PROMPT-USER srm-release-space srm://srm-door.example.org:8443 -space_token=15
+    [user] $ srm-release-space srm://srm-door.example.org:8443 -space_token=15
 
 ### Listing a file in SRM
 
@@ -446,10 +447,10 @@ SRM version 2.2 has a much richer set of file listing commands.
 
 Usage:
 
-srmls
-command line options
-srmUrl
-    PROMPT-USER srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -2
+srmls [command line options] <srmUrl>... 
+
+Example 22.3. Using srmls -l:
+    [user] $ srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -2
       0 /pnfs/example.org/data/dteam/testdir/
           31 /pnfs/example.org/data/dteam/testdir/testFile1
           31 /pnfs/example.org/data/dteam/testdir/testFile2
@@ -461,8 +462,8 @@ srmUrl
 >
 > The `-l` option results in `srmls` providing additional information. Collecting this additional information may result in a dramatic increase in execution time.
 
-    PROMPT-USER srmls -l srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir -2
-      0 /pnfs/example.org/data/dteam/testdir/
+     [user] $ srmls -l srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir -2
+     0 /pnfs/example.org/data/dteam/testdir/
       storage type:PERMANENT
       retention policy:CUSTODIAL
       access latency:NEARLINE
@@ -498,15 +499,19 @@ srmUrl
 
 If you have more than 1000 entries in your directory then DCACHE will return only the first 1000. To view directories with more than 1000 entries, please use the following parameters:
 
--count=integer  
+srmls parameter
+
+-count=<integer>
 The number of entries to report.
 
--offset=integer  
+-offset=<integer>
+
+Example 22.5. Limited directory listing
 
 The first command shows the output without specifying `-count` or `-offset`. Since the directory contains less than 1000 entries, all entries are listed.
 
-    PROMPT-USER srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/dir1 \
-    srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/dir2
+      [user] $ srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/dir1 \
+      srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/dir2
       0 /pnfs/example.org/data/dteam/dir1/
           31 /pnfs/example.org/data/dteam/dir1/myFile1
           28 /pnfs/example.org/data/dteam/dir1/myFile2
@@ -517,15 +522,15 @@ The first command shows the output without specifying `-count` or `-offset`. Sin
 
 The following examples shows the result when using the `-count` option to listing the first three entries.
 
-    PROMPT-USER srmls -count=3 srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -srm_protocol_version=2
-    0 /pnfs/example.org/data/dteam/testdir/
-          31 /pnfs/example.org/data/dteam/testdir/testFile1
-          31 /pnfs/example.org/data/dteam/testdir/testFile2
-          31 /pnfs/example.org/data/dteam/testdir/testFile3
+    [user] $ srmls -count=3 srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -srm_protocol_version=2
+0 /pnfs/example.org/data/dteam/testdir/
+      31 /pnfs/example.org/data/dteam/testdir/testFile1
+      31 /pnfs/example.org/data/dteam/testdir/testFile2
+      31 /pnfs/example.org/data/dteam/testdir/testFile3
 
 In the next command, the `-offset` option is used to view a different set of entries.
 
-    PROMPT-USER srmls -count=3 -offset=1 srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -srm_protocol_version=2
+    [user] $ srmls -count=3 -offset=1 srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -srm_protocol_version=2
     0 /pnfs/example.org/data/dteam/testdir/
           31 /pnfs/example.org/data/dteam/testdir/testFile2
           31 /pnfs/example.org/data/dteam/testdir/testFile3
