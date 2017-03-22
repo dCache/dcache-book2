@@ -12,62 +12,68 @@ Table of Contents
 
 + [dCap](#dcap)  
 
-    [dccp](#dccp)
-    [Using the dCache client interposition library.](#
+    [dccp](#dccp)  
+    [Using the dCache client interposition library.](#using-the-dcache-client-interposition-library.)  
 
-+ [SRM](#
++ [SRM](#srm)  
 
-    [Creating a new directory.](#
-    [Removing files from dCache](#
-    [Removing empty directories from dCache](#
-    [srmcp for SRM v1](#
-    [srmcp for SRM v2.2](#
+    [Creating a new directory.](#creating-a-new-directory)  
+    [Removing files from dCache](#removing-files-from-dcache)  
+    [Removing empty directories from dCache](#removing-empty-directories-from-dcache)  
+    [srmcp for SRM v1](#srmcp-for-srm-v1)  
+    [srmcp for SRM v2.2](#srmcp-for-srm-v2.2)  
 
-+ [ldap](#
-+ [Using the LCG commands with dCache](#
++ [ldap](#ldap)  
++ [Using the LCG commands with dCache](#using-the-lcg-commands-with-dcache)  
 
-    [The lcg-gt Application](#
-    [The lcg-sd Application](#
+    [The lcg-gt Application](#the-lcg-gt-application)  
+    [The lcg-sd Application](#the-lcg-sd-application)  
 
-There are many client tools for DCACHE. These can most easily be classified by communication protocol.
+There are many client tools for dCache. These can most easily be classified by communication protocol. 
 
-GSIFTP
-======
 
-DCACHE provides a GSIFTP door, which is in effect a GSI authenticated FTP access point to DCACHE
+As can be seen from above even a single node standard install of dCache returns a considerable number of lines and for this reason we have not included the output, in this case 205 lines where written. 
+
+
+GSI-FTP
+=======
+
+DCACHE provides a GSI-FTP door, which is in effect a GSI authenticated FTP access point to DCACHE
 
 Listing a directory
 -------------------
 
-To list the content of a DCACHE directory, the GSIFTP protocol can be used;
+To list the content of a DCACHE directory, the GSI-FTP protocol can be used;
 
-    PROMPT-USER edg-gridftp-ls gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/
+    [user] $ edg-gridftp-ls gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/
+
+
 
 Checking a file exists
 ----------------------
 
-To check the existence of a file with GSIFTP.
+To check the existence of a file with GSI-FTP.
 
-    PROMPT-USER edg-gridftp-exists gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test20050819130209790873000
-    PROMPT-USER echo $?
+    [user] $ edg-gridftp-exists gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test20050819130209790873000
+    [user] $ echo $?
     0
-    PROMPT-USER edg-gridftp-exists gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test200508191302097908730002
+    [user] $ edg-gridftp-exists gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test200508191302097908730002
     error the server sent an error response: 451 451 /pnfs/example.org/data/dteam/filler_test200508191302097908730002  not found
-    PROMPT-USER echo $?
+    [user] $ echo $?
     1
 
-> **Note**
+> **Use the return code**
 >
 > Please note the `echo $?` show the return code of the last run application. The error message returned from the client this should not be scripted against as it is one of many possible errors.
 
 Deleting files
 --------------
 
-To delete files with GSIFTP use the `edg-gridftp-rm` command.
+To delete files with GSI-FTP use the `edg-gridftp-rm` command.
 
-    PROMPT-USER edg-gridftp-rm gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test20050811160948926780000
+    [user] $ edg-gridftp-rm gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test20050811160948926780000
 
-This deletes the file `filler_test20050811160948926780000` from the `/pnfs/example.org/data/dteam` using the door running on the host gridftp-door.example.org within the DCACHE cluster example.org
+This deletes the file **filler_test20050811160948926780000** from the **/pnfs/example.org/data/dteam** using the door running on the host gridftp-door.example.org within the DCACHE cluster example.org
 
 Copying files
 -------------
