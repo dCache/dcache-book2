@@ -539,10 +539,11 @@ In the next command, the `-offset` option is used to view a different set of ent
 ldap
 ====
 
-DCACHE is commonly deployed with the BDII. The information provider within DCACHE publishes information to BDII. To querying the DCACHE BDII is a matter of using the standard command ldapsearch. For grid the standard ldap port is set to 2170 from the previous value of 2135.
+dCache is commonly deployed with the BDII. The information provider within dCache publishes information to BDII. To querying the dCache BDII is a matter of using the standard command ldapsearch. For grid the standard ldap port is set to 2170 from the previous value of 2135.
 
-    PROMPT-USER ldapsearch -x -H ldap://localhost:2170 -b mds-vo-name=resource,o=grid > /tmp/ldap.output.ldif
-    PROMPT-USER wc -l  /tmp/ldap.output.ldif
+
+    [user] $ ldapsearch -x -H ldap://localhost:2170 -b mds-vo-name=resource,o=grid > /tmp/ldap.output.ldif
+    [user] $ wc -l  /tmp/ldap.output.ldif
     205 /tmp/ldap.output.ldif
 
 As can be seen from above even a single node standard install of DCACHE returns a considerable number of lines and for this reason we have not included the output, in this case 205 lines where written.
@@ -556,19 +557,20 @@ Each command line application operates on a different method of the SRM interfac
 
 `lcg-gt` queries the BDII information server. This adds an additional requirement that the BDII information server can be found by `lcg-gt`, please only attempt to contact servers found on your user interface using.
 
-    PROMPT-USER lcg-infosites --vo dteam se
-
+    [user] $ lcg-infosites --vo dteam se
+    
+    
 The `lcg-gt` Application
 ------------------------
 
-SRM provides a protocol negotiating interface, and returns a TURL (transfer URL). The protocol specified by the client will be returned by the server if the server supports the requested protocol.
+`SRM` provides a protocol negotiating interface, and returns a TURL (transfer URL). The protocol specified by the client will be returned by the server if the server supports the requested protocol.
 
-To read a file from DCACHE using `lcg-gt` you must specify two parameters the SURL (storage URL), and the protcol (GSIDCAP or GSIFTP) you wish to use to access the file.
+To read a file from dCache using `lcg-gt` you must specify two parameters the SURL (storage URL), and the protcol (`GSIdCap` or `GSI-FTP`) you wish to use to access the file. 
 
-    PROMPT-USER lcg-gt srm://srm-door.example.org/pnfs/example.org/data/dteam/group gsidcap
-    gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/group
-    -2147365977
-    -2147365976
+    [user] $ lcg-gt srm://srm-door.example.org/pnfs/example.org/data/dteam/group gsidcap
+     gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/group
+     -2147365977
+     -2147365976
 
 Each of the above three lines contains different information. These are explained below.
 
@@ -580,11 +582,9 @@ Each of the above three lines contains different information. These are explaine
 `-2147365976` is the Unique identifier for the file with respect to the `Request
 	  Id`. Please note that with this example this is a negative number.
 
-> **Important**
+> **Remember to return your Request Id**
 >
-> DCACHE limits the number of `Request
->             Id`s a user may have. All `Request
->             Id`s should be returned to DCACHE using the command `lcg-sd`.
+> dCache limits the number of Request Ids a user may have. All Request Ids should be returned to dCache using the command `lcg-sd`. 
 
 If you use `lcg-gt` to request a file with a protocol that is not supported by DCACHE the command will block for some time as DCACHE's SRM interface times out after approximately 10 minutes.
 
@@ -599,11 +599,11 @@ This command should be used to return any TURLs given by DCACHE's SRM interface.
 
 The following example is to complete the get operation, the values are taken form the above example of `lcg-gt`.
 
-    PROMPT-USER lcg-sd srm://srm-door.example.org:22128/pnfs/example.org/data/dteam/group " -2147365977" " -2147365976" 0
+    [user] $ lcg-sd srm://srm-door.example.org:22128/pnfs/example.org/data/dteam/group " -2147365977" " -21
 
-> **Note**
+> **Negative numbers**
 >
-> DCACHE returns negative numbers for `Request
+> dCache returns negative numbers for `Request
 > 	    Id` and `File Id`. Please note that `lcg-sd` requires that these values are places in double-quotes with a single space before the `-` sign.
 
 The `Request Id` is one of the values returned by the `lcg-gt` command. In this example, the value (`-2147365977`) comes from the above example `lcg-gt`.
