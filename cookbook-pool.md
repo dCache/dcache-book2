@@ -1,5 +1,20 @@
-Pool Operations
-===============
+Chapter 23. Pool OperationsPool Operations
+==========================================
+
+Table of Contents
+
++ [Checksums](#checksums)  
+
+    [How to configure checksum calculation](#how-to-configure-checksum-calculation)  
+
++ [Migration Module](#migration-module)  
+
+    [Overview and Terminology
+    [Command Summary
+    [Examples
+
++ [Renaming a Pool
++ [Pinning Files to a Pool
 
 Checksums
 =========
