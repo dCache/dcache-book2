@@ -131,7 +131,7 @@ E.g. if the pools should connect to the secondary interface of the `GridFTP` doo
 
     ftp.net.internal=10.0.1.1
 
-in the `PATH-ODE-ED/dcache.conf` file.
+in the **/etc/dcache/dcache.conf** file.
 
   [???]: #in
   [1]: #intouch
