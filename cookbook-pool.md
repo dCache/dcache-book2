@@ -42,7 +42,7 @@ After all the file data has been received by the DCACHE server and the file has 
 
 The default configuration is that a checksum is calculated on write, i.e. a Server File Checksum.
 
-How to configure checksum calculation
+How to configure checksum calculation 
 -------------------------------------
 
 Configure the calculation of checksums in the [admin interface]. The configuration has to be done for each pool separately.
