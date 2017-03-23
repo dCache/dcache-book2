@@ -1,5 +1,32 @@
-Authorization in DCACHE
-=======================
+Chapter 10. Authorization in dCache 
+===================================
+
+Table of Contents
+
++ [Basics](#basics)  
++ [Configuration](#configuration)  
+
+    [Plug-ins](#plug-ins)  
+
++ [Using X.509 Certificates](#using-x.509-certificates)  
+
+    CA Certificates  
+    User Certificate
+    Host Certificate
+    VOMS Proxy Certificate
+
+Configuration files
+
+    storage-authzdb
+    The gplazmalite-vorole-mapping plug-in
+    Authorizing a VO
+    The kpwd plug-in
+    The gridmap plug-in
+
+gPlazma specific dCache configuration
+
+    Enabling Username/Password Access for WebDAV
+    gPlazma config example to work with authenticated webadmin
 
 To limit access to data, DCACHE comes with an authentication and authorization interface called CELL-GPLAZMA2. CELL-GPLAZMA is an acronym for Grid-aware PLuggable AuthorZation Management. Earlier versions of DCACHE worked with CELL-GPLAZMA1 which has now been completely removed from DCACHE. So if you are upgrading, you have to reconfigure CELL-GPLAZMA if you used CELL-GPLAZMA1 until now.
 
