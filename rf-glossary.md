@@ -3,10 +3,11 @@ Glossary
 
 The following terms are used in DCACHE.
 
-The `dcache.conf` File  
+<font color="red">The `dcache.conf` File  </font> 
+
 This is the primary configuration file of a DCACHE. It is located at `PATH-ODE-ED/dcache.conf`.
 
-The `dcache.conf` file is initially empty. If one of the default configuration values needs to be changed, copy the default setting of this value from one of the properties files in `PATH-ODS-USD/defaults` to this file and update the value.
+The **dcache.conf** file is initially empty. If one of the default configuration values needs to be changed, copy the default setting of this value from one of the properties files in `PATH-ODS-USD/defaults` to this file and update the value.
 
 The `layout` File  
 The layout file is located in the directory `PATH-ODE-ED/layouts`. It contains lists of the domains and the services that are to be run within these domains.
