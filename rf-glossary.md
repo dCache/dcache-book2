@@ -3,7 +3,7 @@ Glossary
 
 The following terms are used in DCACHE.
 
-<font color="red">The `dcache.conf` File  </font> 
+<font color="#ff0000 "> The `dcache.conf` File  </font> 
 
 This is the primary configuration file of a DCACHE. It is located at `PATH-ODE-ED/dcache.conf`.
 
