@@ -3,15 +3,15 @@ Chapter 24. PostgreSQL and dCache
 
 Table of Contents
 
-Installing a PostgreSQL Server
-Configuring Access to PostgreSQL
-Performance of the PostgreSQL Server
++ [Installing a PostgreSQL Server](#installing-a-postgresql-Server)
++ [Configuring Access to PostgreSQL](#configuring-access-tp-postgresql)
++ [Performance of the PostgreSQL Server](#performance-of-the-postgresql-server)
 
 
 
-PSQL is used for various things in a DCACHE system: The SRM, the pin manager, the space manager, the replica manager, the CELL-BILLING, and the PNFS server might make use of one or more databases in a single or several separate PSQL servers.
+PostgreSQL is used for various things in a dCache system: The [SRM](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-srm), the [pin manager](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-pinmanager), the [space manager](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-spacemanager), the [replica manager](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-replicamanager), the [billing](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-billing), and the pnfs server might make use of one or more databases in a single or several separate PostgreSQL servers.
 
-The SRM, the pin manager, the space manager and the replica manager will use the PSQL database as configured at cell start-up in the corresponding batch files. The CELL-BILLING will only write the accounting information into a database if it is configured with the option `-useSQL`. The PNFS server will use a PSQL server if the `pnfs-posgresql` version is used. It will use several databases in the PSQL server.
+The `SRM`, the pin manager, the space manager and the replica manager will use the PostgreSQL database as configured at cell start-up in the corresponding batch files. The `billing` will only write the accounting information into a database if it is configured with the option `-useSQL`. The `pnfs` server will use a PostgreSQL server if the `pnfs-posgresql` version is used. It will use several databases in the PostgreSQL server. 
 
 Installing a PSQL Server
 ========================
@@ -20,18 +20,18 @@ The preferred way to set up a PSQL server should be the installation of the vers
 
 Install the PSQL server, client and JDBC support with the tools of the operating system.
 
-Initialize the database directory (for PSQL version 9.2 this is `/var/lib/pgsql/9.2/data/`) , start the database server, and make sure that it is started at system start-up.
+Initialize the database directory (for PSQL version 9.2 this is **/var/lib/pgsql/9.2/data/**) , start the database server, and make sure that it is started at system start-up.
 
-    PROMPT-ROOT service postgresql-9.2 initdb
+    [root] # service postgresql-9.2 initdb
     Initializing database:                                     [  OK  ]
-    PROMPT-ROOT service postgresql-9.2 start
+    [root] # service postgresql-9.2 start
     Starting postgresql-9.2 service:                           [  OK  ]
-    PROMPT-ROOT chkconfig postgresql-9.2 on
+    [root] # chkconfig postgresql-9.2 on
 
 Configuring Access to PSQL
 ==========================
 
-In the installation guide instructions are given for configuring one PSQL server on the admin node for all the above described purposes with generous access rights. This is done to make the installation as easy as possible. The access rights are configured in the file `database_directory_name/data/pg_hba.conf`. According to the installation guide the end of the file should look like
+In the installation guide instructions are given for configuring one PSQL server on the admin node for all the above described purposes with generous access rights. This is done to make the installation as easy as possible. The access rights are configured in the file  **<database_directory_name>/data/pg_hba.conf**. According to the installation guide the end of the file should look like
 
     ...
     # TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK           METHOD
@@ -55,40 +55,42 @@ The databases can be secured by restricting access with this file. E.g.
 
 To make the server aware of this you need to reload the configuration file as the user `postgres` by:
 
-    PROMPT-ROOT su - postgres
-    PROMPT-POSTGRES pg_ctl reload
+    [root] # su - postgres
+    [postgres] # pg_ctl reload
 
 And the password for e.g. the user `pnfsserver` can be set with
 
-    PROMPT-POSTGRES psql template1 -c "ALTER USER pnfsserver WITH PASSWORD 'yourPassword'"
+    [postgres] # psql template1 -c "ALTER USER pnfsserver WITH PASSWORD '<yourPassword>'"
 
-The PNFS server is made aware of this password by changing the variable `dbConnectString` in the file `/usr/etc/pnfsSetup`:
+The PNFS server is made aware of this password by changing the variable `dbConnectString` in the file **/usr/etc/pnfsSetup**:
 
     ...
-    export dbConnectString="user=pnfsserver password=yourPassword"
+    export dbConnectString="user=pnfsserver password=<yourPassword>"
 
 User access should be prohibited to this file with
 
-    PROMPT-ROOT chmod go-rwx /usr/etc/pnfsSetup
+    [root] # chmod go-rwx /usr/etc/pnfsSetup
 
-Performance of the PSQL Server
-==============================
+Performance of the PostgreSQL Server
+====================================
 
-On small systems it should never be a problem to use one single PSQL server for all the functions listed above. In the standard installation, the CELL-REPLICAMNGR is not activated by default. The CELL-BILLING will only write to a file by default.
+On small systems it should never be a problem to use one single PSQL server for all the functions listed above. In the standard installation, the `ReplicaManager` is not activated by default. The `billing` will only write to a file by default.
 
-Whenever the PSQL server is going to be used for another functionality, the impact on performance should be checked carefully. To improve the performance, the functionality should be installed on a separate host. Generally, a PSQL server for a specific funcionality should be on the same host as the DCACHE cell accessing that PSQL server, and the PSQL server containing the databases for CHIMERA should run on the same host as CHIMERA and the CELL-PNFSMNGR cell of the DCACHE system accessing it.
+Whenever the PostgreSQL server is going to be used for another functionality, the impact on performance should be checked carefully. To improve the performance, the functionality should be installed on a separate host. Generally, a PSQL server for a specific funcionality should be on the same host as the DCACHE cell accessing that PSQL server, and the PSQL server containing the databases for CHIMERA should run on the same host as CHIMERA and the PnfsManager cell of the DCACHE system accessing it.
 
-It is especially useful to use a separate PSQL server for the CELL-BILLING cell.
+It is especially useful to use a separate PostgreSQL server for the `billing` cell. 
 
 > **Note**
 >
 > The following is *work-in-progress*.
 
-Create PSQL user with the name you will be using to run PNFS server. Make sure it has `CREATEDB` privilege.
+Create PostgreSQL user with the name you will be using to run PNFS server. Make sure it has `CREATEDB` privilege.
 
-    PROMPT-USER psql -U postgres template1 -c "CREATE USER johndoe with CREATEDB"
-    PROMPT-USER dropuser pnfsserver
-    PROMPT-USER createuser --no-adduser --createdb --pwprompt pnfsserver
+    [user] $ psql -U postgres template1 -c "CREATE USER johndoe with CREATEDB"
+    [user] $ dropuser pnfsserver
+    [user] $ createuser --no-adduser --createdb --pwprompt pnfsserver
+
+Table 24.1. Protocol Overview
 
 | Component        | Database Host                                                                | Database Name           | Database User | Database Password |
 |------------------|------------------------------------------------------------------------------|-------------------------|---------------|-------------------|
