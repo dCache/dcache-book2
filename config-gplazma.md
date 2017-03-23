@@ -28,19 +28,19 @@ gPlazma specific dCache configuration
     Enabling Username/Password Access for WebDAV
     gPlazma config example to work with authenticated webadmin
 
-To limit access to data, DCACHE comes with an authentication and authorization interface called CELL-GPLAZMA2. CELL-GPLAZMA is an acronym for Grid-aware PLuggable AuthorZation Management. Earlier versions of DCACHE worked with CELL-GPLAZMA1 which has now been completely removed from DCACHE. So if you are upgrading, you have to reconfigure CELL-GPLAZMA if you used CELL-GPLAZMA1 until now.
+To limit access to data, dCache comes with an authentication and authorization interface called `gPlazma2`. gPlazma is an acronym for Grid-aware PLuggable AuthorZation Management. Earlier versions of dCache worked with `gPlazma1` which has now been completely removed from dCache. So if you are upgrading, you have to reconfigure `gPlazma` if you used `gPlazma1` until now. 
 
 Basics
 ======
 
-Though it is possible to allow anonymous access to DCACHE it is usually desirable to authenticate users. The user then has to connect to one of the different doors (e.g., DOOR-GRIDFTP, DOOR-DCAP) and login with credentials that prove his identity. In Grid-World these credentials are very often X509 certificates, but dCache also supports other methods like username/password and kerberos authentication.
+Though it is possible to allow anonymous access to dCache it is usually desirable to authenticate users. The user then has to connect to one of the different doors (e.g., `GridFTP door, dCap door`) and login with credentials that prove his identity. In Grid-World these credentials are very often `X.509` certificates, but dCache also supports other methods like username/password and kerberos authentication.
 
-The door collects the credential information from the user and sends a login request to the configured authorization service (i.e., CELL-GPLAZMA) Within CELL-GPLAZMA the configured plug-ins try to verify the users identity and determine his access rights. From this a response is created that is then sent back to the door and added to the entity representing the user in DCACHE. This entity is called `subject`. While for authentication usually more global services (e.g., ARGUS) may be used, the mapping to site specific UIDs has to be configured on a per site basis.
+The door collects the credential information from the user and sends a login request to the configured authorization service (i.e., `gPlazma`) Within `gPlazma` the configured plug-ins try to verify the users identity and determine his access rights. From this a response is created that is then sent back to the door and added to the entity representing the user in dCache. This entity is called `subject`. While for authentication usually more global services (e.g., ARGUS) may be used, the mapping to site specific UIDs has to be configured on a per site basis. 
 
 Configuration
 =============
 
-CELL-GPLAZMA2 is configured by the PAM-style configuration file `PATH-ODE-ED/gplazma.conf`. Each line of the file is either a comment (i.e., starts with `#`, is empty, or defines a plugin. Plugin defining lines start with the plugin stack type (one of AUTH, MAP, ACCOUNT, SESSION IDENTITY), followed by a PAM-style modifier (one of PAM-OPTIONAL, PAM-SUFFICIENT, PAM-REQUIRED, PAM-REQUISITE), the plugin name and an optional list of key-value pairs of parameters. During the login process they will be executed in the order AUTH, MAP, ACCOUNT and SESSION. The IDENTITY plugins are not used during login, but later on to map from UID+GID back to user names (e.g., for NFS). Within these groups they are used in the order they are specified.
+gPlazma2 is configured by the PAM-style configuration file /etc/dcache/gplazma.conf. Each line of the file is either a comment (i.e., starts with #, is empty, or defines a plugin. Plugin defining lines start with the plugin stack type (one of auth, map, account, session identity), followed by a PAM-style modifier (one of optional, sufficient, required, requisite), the plugin name and an optional list of key-value pairs of parameters. During the login process they will be executed in the order auth, map, account and session. The identity plugins are not used during login, but later on to map from UID+GID back to user names (e.g., for NFS). Within these groups they are used in the order they are specified. 
 
     auth|map|account|session|identity optional|required|requisite|sufficient plug-in ["key=value" ...]
 
