@@ -6,9 +6,9 @@ Getting in Touch with DCACHE
 
 * [Checking the Functionality](#checking-the-functionality)  
 
-       * [dCache without mounted namespace](#dcache-without-mounted-namespace)  
-       * [WebDAV](#webdav)  
-       * [dCap](#dcap)  
+     [dCache without mounted namespace](#dcache-without-mounted-namespace)  
+     [WebDAV](#webdav)  
+     [dCap](#dcap)  
      
      
 * [The Web Interface for Monitoring dCache](#the-web-interface-for-monitoring-dcache)  
