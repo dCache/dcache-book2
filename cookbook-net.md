@@ -13,7 +13,7 @@ Table of Contents
 + [GridFTP with Pools in a Private Subnet](#gridftp-with-pools-in-a-private-subnet)  
 
 
-This chapter contains solutions for several non-trivial network configurations. The first section discusses the interoperation of DCACHE with firewalls and does not require any background knowledge about DCACHE other than what is given in the installation guide ([???]) and the first steps tutorial ([???][1]). The following sections will deal with more complex network topologies, e.g. private subnets. Even though not every case is covered, these cases might help solve other problems, as well. Intermediate knowledge about DCACHE is required.
+This chapter contains solutions for several non-trivial network configurations. The first section discusses the interoperation of dCache with firewalls and does not require any background knowledge about dCache other than what is given in the installation guide ([Chapter 2, Installing dCache](https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)) and the first steps tutorial ([Chapter 3, Getting in Touch with dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-fhs.shtml)). The following sections will deal with more complex network topologies, e.g. private subnets. Even though not every case is covered, these cases might help solve other problems, as well. Intermediate knowledge about dCache is required. 
 
 > **Warning**
 >
@@ -32,13 +32,13 @@ Basic Installation
 
 This section assumes that all nodes are behind a firewall and have full access to each other.
 
-**DCACHE internal.**
+**dCache internal.**
 
 -   As we assume that all nodes are behind a firewall and have full access to each other there is nothing to be mentioned here.
 
 -   On the pool nodes the LAN range ports need to be opened to allow pool to pool communication. By default these are ports `33115-33145` (set by the properties `dcache.net.lan.port.min` and `dcache.net.lan.port.max`).
 
-**DCACHE communication with client.**
+**dCache communication with client.**
 
 -   The door ports need to be opened to allow the clients to connect to the doors.
 
@@ -49,13 +49,13 @@ Multi-Node with Firewalls
 
 Multinode setup with firewalls on the nodes.
 
-**DCACHE internal.**
+**dCache internal.**
 
--   The CELL-LOCATIONMNGR server runs in the DOMAIN-DCACHE. By default it is listening on UDP port `11111`. Hence, on the head node port `11111` needs to be opened in the firewall to allow connections to the CELL-LOCATIONMNGR. Remember to limit this so that only other dCache nodes are allowed access.
+-   The `LocationManager` server runs in the `dCacheDomain`. By default it is listening on UDP port `11111`. Hence, on the head node port `11111` needs to be opened in the firewall to allow connections to the `LocationManager`. Remember to limit this so that only other dCache nodes are allowed access. 
 
--   On the pool nodes the LAN range ports need to be opened to allow pool to pool communication. By default these are ports `33115-33145` (set by the properties `dcache.net.lan.port.min` and `dcache.net.lan.port.max`).
+-   On the pool nodes the LAN range ports need to be opened to allow pool to pool communication. By default these are ports `33115-33145` (set by the properties `dcache.net.lan.port.min` and `dcache.net.lan.port.max`). 
 
-**DCACHE communication with client.**
+**dCache communication with client.**
 
 -   The door ports need to be opened to allow the clients to connect to the doors.
 
@@ -69,20 +69,20 @@ GRIDFTP Connections via two or more Network Interfaces
 Description
 -----------
 
-The host on which the GRIDFTP door is running has several network interfaces and is supposed to accept client connections via all those interfaces. The interfaces might even belong to separate networks with no routing from one network to the other.
+The host on which the `GridFTP` door is running has several network interfaces and is supposed to accept client connections via all those interfaces. The interfaces might even belong to separate networks with no routing from one network to the other.
 
-As long as the data connection is opened by the GRIDFTP server (passive FTP mode), there is no problem with having more than one interface. However, when the client opens the data connection (active FTP mode), the door (FTP server) has to supply it with the correct interface it should connect to. If this is the wrong interface, the client might not be able to connect to it, because there is no route or the connection might be inefficient.
+As long as the data connection is opened by the `GridFTP` server (passive FTP mode), there is no problem with having more than one interface. However, when the client opens the data connection (active FTP mode), the door (FTP server) has to supply it with the correct interface it should connect to. If this is the wrong interface, the client might not be able to connect to it, because there is no route or the connection might be inefficient.
 
-Also, since a GRIDFTP server has to authenticate with an X509 grid certificate and key, there needs to be a separate certificate and key pair for each name of the host or a certificate with alternative names. Since each network interface might have a different name, several certificates and keys are needed and the correct one has to be used, when authenticating via each of the interfaces.
+Also, since a `GridFTP` server has to authenticate with an `X.509` grid certificate and key, there needs to be a separate certificate and key pair for each name of the host or a certificate with alternative names. Since each network interface might have a different name, several certificates and keys are needed and the correct one has to be used, when authenticating via each of the interfaces.
 
 Solution
 --------
 
 Define two domains, one for the internal and one for the external use. Start a separate SRM and GRIDFTP service in these domains.
 
-The SRM and the GRIDFTP service have to be configured with the property `listen`, only to listen on the interface they should serve. The locations of the grid host certificate and key files for the interface have to be specified explicitly with the properties `dcache.authn.hostcert.cert` and `dcache.authn.hostcert.key`.
+The `srm` and the `gridftp` service have to be configured with the property `listen`, only to listen on the interface they should serve. The locations of the grid host certificate and key files for the interface have to be specified explicitly with the properties `dcache.authn.hostcert.cert` and `dcache.authn.hostcert.key`.
 
-In this example we show a setup for two GRIDFTP doors serving two network interfaces with the hostnames `door-internal` (111.111.111.5) and `door-external` (222.222.222.5) which are served by two GRIDFTP doors in two domains.
+In this example we show a setup for two `GridFTP` doors serving two network interfaces with the hostnames `door-internal` (111.111.111.5) and `door-external` (222.222.222.5) which are served by two GRIDFTP doors in two domains.
 
     [internalDomain]
     listen=111.111.111.5
@@ -116,16 +116,18 @@ GRIDFTP with Pools in a Private Subnet
 Description
 -----------
 
-If pool nodes of a dCache instance are connected to a secondary interface of the GRIDFTP door, e.g. because they are in a private subnet, the GRIDFTP door will still tell the pool to connect to its primary interface, which might be unreachable.
+If pool nodes of a dCache instance are connected to a secondary interface of the `GridFTP` door, e.g. because they are in a private subnet, the `GridFTP` door will still tell the pool to connect to its primary interface, which might be unreachable.
 
-The reason for this is that the control communication between the door and the pool is done via the network of TCP connections which have been established at start-up. In the standard setup this communication is routed via the DCACHE domain. However, for the data transfer, the pool connects to the GRIDFTP door. The IP address it connects to is sent by the GRIDFTP door to the pool via the control connection. Since the GRIDFTP door cannot find out which of its interfaces the pool should use, it normally sends the IP address of the primary interface.
+The reason for this is that the control communication between the door and the pool is done via the network of `TCP` connections which have been established at start-up. In the standard setup this communication is routed via the DCACHE domain. However, for the data transfer, the pool connects to the `GridFTP` door. The IP address it connects to is sent by the `GridFTP` door to the pool via the control connection. Since the `GridFTP` door cannot find out which of its interfaces the pool should use, it normally sends the IP address of the primary interface.
 
 Solution
 --------
 
-Tell the GRIDFTP door explicitly which IP it should send to the pool for the data connection with the `ftp.net.internal` property.
+Tell the `GridFTP` door explicitly which IP it should send to the pool for the data connection with the `ftp.net.internal` property.
 
-E.g. if the pools should connect to the secondary interface of the GRIDFTP door host which has the IP address `10.0.1.1`, set
+Example:
+
+E.g. if the pools should connect to the secondary interface of the `GridFTP` door host which has the IP address `10.0.1.1`, set
 
     ftp.net.internal=10.0.1.1
 
