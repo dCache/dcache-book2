@@ -10,10 +10,10 @@ Table of Contents
 
 + [Using X.509 Certificates](#using-x.509-certificates)  
 
-    CA Certificates  
-    User Certificate
-    Host Certificate
-    VOMS Proxy Certificate
+    [CA Certificates]()  
+    [User Certificate]()
+    [Host Certificate]()
+    [VOMS Proxy Certificate]()
 
 Configuration files
 
