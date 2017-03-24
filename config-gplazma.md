@@ -6,7 +6,7 @@ Table of Contents
 + [Basics](#basics)  
 + [Configuration](#configuration)  
 
-    [Plug-ins](#plug-ins)  
+    [Plug-ins](#plug-ins)   
 
 + [Using X.509 Certificates](#using-x.509-certificates)  
 
