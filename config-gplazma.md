@@ -37,10 +37,10 @@ Though it is possible to allow anonymous access to dCache it is usually desirabl
 
 The door collects the credential information from the user and sends a login request to the configured authorization service (i.e., `gPlazma`) Within `gPlazma` the configured plug-ins try to verify the users identity and determine his access rights. From this a response is created that is then sent back to the door and added to the entity representing the user in dCache. This entity is called `subject`. While for authentication usually more global services (e.g., ARGUS) may be used, the mapping to site specific UIDs has to be configured on a per site basis. 
 
-Configuration
+Configuration  
 =============
 
-gPlazma2 is configured by the PAM-style configuration file /etc/dcache/gplazma.conf. Each line of the file is either a comment (i.e., starts with #, is empty, or defines a plugin. Plugin defining lines start with the plugin stack type (one of auth, map, account, session identity), followed by a PAM-style modifier (one of optional, sufficient, required, requisite), the plugin name and an optional list of key-value pairs of parameters. During the login process they will be executed in the order auth, map, account and session. The identity plugins are not used during login, but later on to map from UID+GID back to user names (e.g., for NFS). Within these groups they are used in the order they are specified. 
+`gPlazma2` is configured by the PAM-style configuration file **/etc/dcache/gplazma.conf**. Each line of the file is either a comment (i.e., starts with #, is empty, or defines a plugin. Plugin defining lines start with the plugin stack type (one of `auth, map, account, session identity`), followed by a PAM-style modifier (one of `optional, sufficient, required, requisite`), the plugin name and an optional list of key-value pairs of parameters. During the login process they will be executed in the order `auth, map, account` and `session`. The `identity` plugins are not used during login, but later on to map from UID+GID back to user names (e.g., for NFS). Within these groups they are used in the order they are specified. 
 
     auth|map|account|session|identity optional|required|requisite|sufficient plug-in ["key=value" ...]
 
