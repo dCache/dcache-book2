@@ -46,6 +46,8 @@ Configuration
 
 A complete configuration file will look something like this:
 
+Example:
+
     # Some comment
     auth    optional  x509
     auth    optional  voms
@@ -53,33 +55,35 @@ A complete configuration file will look something like this:
     map     requisite authzdb authzdb=/etc/grid-security/authzdb
     session requisite authzdb
 
-AUTH  
+**auth**  
 AUTH-plug-ins are used to read the users public and private credentials and ask some authority, if those are valid for accessing the system.
 
-MAP  
+**map**  
 MAP-plug-ins map the user information obtained in the AUTH step to UID and GIDs. This may also be done in several steps (e.g., the GP2-VOROLEMAP maps the users DN+FQAN to a username which is then mapped to UID/GIDs by the GP2-AUTHZDB.
 
-ACCOUNT  
+**account**  
 ACCOUNT-plug-ins verify the validity of a possibly mapped identity of the user and may reject the login depending on information gathered within the map step.
 
-SESSION  
+**session**  
 SESSION plug-ins usually enrich the session with additional attributes like the user's home directory.
 
-IDENTITY  
+**identit**  
 IDENTITY plug-ins are responsible for mapping UID and GID to user names and vice versa during the work with DCACHE.
 
 The meaning of the modifiers follow the PAM specification:
 
-PAM-OPTIONAL  
+Modifiers
+
+**optional**
 The success or failure of this plug-in is only important if it is the only plug-in in the stack associated with this type.
 
-PAM-SUFFICIENT  
+**sufficient**  
 Success of such a plug-in is enough to satisfy the authentication requirements of the stack of plug-ins (if a prior required plug-in has failed the success of this one is ignored). A failure of this plug-in is not deemed as fatal for the login attempt. If the plug-in succeeds CELL-GPLAZMA2 immediately proceeds with the next plug-in type or returns control to the door if this was the last stack.
 
-PAM-REQUIRED  
+**required**  
 Failure of such a plug-in will ultimately lead to CELL-GPLAZMA2 returning failure but only after the remaining plug-ins for this type have been invoked.
 
-PAM-REQUISITE  
+**requisite**  
 Like PAM-REQUIRED, however, in the case that such a plug-in returns a failure, control is directly returned to the door.
 
 Plug-ins
