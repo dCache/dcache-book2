@@ -105,9 +105,12 @@ Properties
 Path to   **dcache.kpwd**  
 Default:  **/etc/dcache/dcache.kpwd**
 
+
 #### voms
 
 The `voms` plug-in is an `auth` plug-in. It can be used to verify `X.509` credentials. It takes the certificates and checks their validity by testing them against the trusted CAs. The verified certificates are then stored and passed on to the other plug-ins in the stack. 
+
+
 
 Properties
 
@@ -115,6 +118,7 @@ Properties
 
    Path to ca certificates
    Default: **/etc/grid-security/certificates**
+
 
 
 **gplazma.vomsdir.dir**
@@ -139,18 +143,26 @@ Properties
      Path to **dcache.kpwd**  
      Default: **/etc/dcache/dcache.kpwd**  
 
+
+
 #### authzdb  
 
 The GP2-AUTHZDB takes a username and maps it to UID+GID using the `storage-authzdb` file.
+
+
 
 **gplazma.authzdb.file**   
 
    Path to **storage-authzdb**     
    Default: **/etc/grid-security/storage-authzdb**  
 
+
+
 #### GridMap
 
 The `authzdb` plug-in takes a username and maps it to UID+GID using the **storage-authzdb** file. 
+
+
 
 Properties
 
@@ -159,9 +171,13 @@ Properties
    Path to `grid-mapfile`  
    Default: **/etc/grid-security/grid-mapfile**
 
+
+
 #### vorolemap
 
 The `voms` plug-in maps pairs of DN and FQAN to usernames via a [vorolemap](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-plug-inconfig-vorolemap-gridvorolemap) file. 
+
+
 
 Properties
 
@@ -169,6 +185,8 @@ Properties
 
    Path to **grid-vorolemap**  
    **/etc/grid-security/grid-vorolemap**
+
+
 
 #### krb5
 
@@ -242,25 +260,35 @@ Properties
    Path to host certificate  
    Default: **/etc/grid-security/hostcert.pem**
 
+
+
 **gplazma.argus.hostkey**
 
    Path to host key  
    Default:  **/etc/grid-security/hostkey.pem**
+
+
 
 **gplazma.argus.hostkey.password**
 
    Password for host key  
    Default:
 
+
+
 **gplazma.argus.ca**
 
    Path to CA certificates  
    Default:  **/etc/grid-security/certificates**
 
+
+
 **gplazma.argus.endpoint**
 
    URL of PEP service  
    Default: **https://localhost:8154/authz**
+
+
 
 #### banfile
 
@@ -284,12 +312,16 @@ Please note that the plug-in only supports principals whose assiciated name is a
 
 For the plugin to work, the configuration file has to exist even if it is empty.
 
+
+
 Properties
 
 **gplazma.banfile.path**
 
    Path to configuration file  
    Default: **/etc/dcache/ban.conf**
+
+
 
 To activate the `banfile` it has to be added to **gplazma.conf**:
 
@@ -306,9 +338,13 @@ Example:
 
 ### session Plug-ins
 
+
+
 #### kpwd
 
 The `kpwd`plug-in adds root and home path information to the session, based on the username.
+
+
 
 Properties
 
@@ -317,9 +353,13 @@ Properties
    Path to **dcache.kpwd**  
    Default: **/etc/dcache/dcache.kpwd**  
 
+
+
 #### authzdb
 
 The `authzdb` plug-in adds root and home path information to the session, based and username using the **storage-authzdb** file. 
+
+
 
 Properties
 
@@ -328,11 +368,15 @@ Properties
    Path to **storage-authzdb**  
    Default: **/etc/grid-security/storage-authzdb**
 
+
+
 #### nsswitch
 
 The `nsswitch` plug-in adds root and home path information to the session, based on the username using your system’s `nsswitch` service.
 
 Typically `nsswitch` plug-in will be combined with `vorolemap` plug-in, `gridmap` plug-in or `krb5` plug-in: 
+
+
 
 Example:
 
@@ -345,9 +389,13 @@ Example:
 
 In this example following is happening: extract user's DN (1), extract and verify VOMS attributes (2), map DN+Role to a local account (3), extract uid and gids for a local account (4) and, finally, extract users home directory (5).
 
+
+
 #### nis
 
 The `nis` plug-in adds root and home path information to the session, based on the username using your site’s `NIS` service. 
+
+
 
 Properties
 
@@ -355,6 +403,8 @@ Properties
 
     `NIS` server host  
     Default: `nisserv.domain.com`
+    
+    
     
 **gplazma.nis.domain**
 
@@ -375,9 +425,13 @@ Example:
 
 In this example two access methods are considered: grid based and kerberos based. If user comes with grid certificate and VOMS role: extract user's DN (1), extract and verify VOMS attributes (2), map DN+Role to a local account (3). If user comes with `Kerberos` ticket: extract local account (4). After this point in both cases we talk to NIS to get uid and gids for a local account (5) and, finally, adding users home directory (6).
 
+
+
 #### ldap
 
 The `ldap` is a map, session and identity plugin. As a map plugin it maps user names to UID and GID. As a session plugin it adds root and home path information to the session. As an identity plugin it supports reverse mapping of UID and GID to user and group names repectively.
+
+
 
 Properties  
 
@@ -387,10 +441,12 @@ Properties
     Example: `ldaps://example.org:389`
 
 
+
 **gplazma.ldap.organization**  
 
     Top level (`base DN`) of the `LDAP` directory tree    
     Example: `o="Example, Inc.", c=DE`
+
 
 
 **gplazma.ldap.tree.people**  
