@@ -525,7 +525,7 @@ To be able to locally verify the validity of the certificates, you need to store
 
 To install the CERN CA certificates follow the following steps:
 
-    [root] # cd /etc/yum.repos.d/
+    [root] # **cd /etc/yum.repos.d/**
     [root] # wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/lcg-CA.repo
     [root] # yum install lcg-CA
 
