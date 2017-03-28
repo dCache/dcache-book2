@@ -89,27 +89,32 @@ Like `required`, however, in the case that such a plug-in returns a failure, con
 Plug-ins
 --------
 
-`gPlazma2` functionality is configured by combining different types of plug-ins to work together in a way that matches your requirements. For this purpose there are five different types of plug-ins. These types correspond to the keywords AUTH, MAP, ACCOUNT, SESSION and IDENTITY as described in the previous section. The plug-ins can be configured via properties that may be set in **dcache.conf**, the layout-file or in **gplazma.conf**.
+`gPlazma2` functionality is configured by combining different types of plug-ins to work together in a way that matches your requirements. For this purpose there are five different types of plug-ins. These types correspond to the keywords `auth, map, account, session` and `identity` as described in the previous section. The plug-ins can be configured via properties that may be set in **dcache.conf**, the layout-file or in **gplazma.conf**. 
 
 ### auth Plug-ins
 
 #### kpwd
 
-The GP2-KPWD authorizes users by username and password, by pairs of DN and FQAN and by KERBEROS principals.
+The `kpwd` plug-in authorizes users by username and password, by pairs of DN and FQAN and by `Kerberos` principals.
 
-`gplazma.kpwd.file`  
-Path to `dcache.kpwd`
+Properties 
 
-Default: `PATH-ODE-ED/dcache.kpwd`
+**gplazma.kpwd.file** 
+
+Path to   **dcache.kpwd**
+Default:  **/etc/dcache/dcache.kpwd**
 
 #### voms
 
-The GP2-VOMS is an AUTH plug-in. It can be used to verify X509 credentials. It takes the certificates and checks their validity by testing them against the trusted CAs. The verified certificates are then stored and passed on to the other plug-ins in the stack.
+The `voms` plug-in is an `auth` plug-in. It can be used to verify `X.509` credentials. It takes the certificates and checks their validity by testing them against the trusted CAs. The verified certificates are then stored and passed on to the other plug-ins in the stack. 
 
-`gplazma.vomsdir.ca`  
+Properties
+
+**gplazma.vomsdir.ca**
+
 Path to ca certificates
 
-Default: `/etc/grid-security/certificates`
+Default: **/etc/grid-security/certificates**
 
 `gplazma.vomsdir.dir`  
 Path to `vomsdir`
