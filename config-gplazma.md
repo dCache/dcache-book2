@@ -56,19 +56,19 @@ Example:
     session requisite authzdb
 
 **auth**  
-AUTH-plug-ins are used to read the users public and private credentials and ask some authority, if those are valid for accessing the system.
+`auth`-plug-ins are used to read the users public and private credentials and ask some authority, if those are valid for accessing the system. 
 
 **map**  
-MAP-plug-ins map the user information obtained in the AUTH step to UID and GIDs. This may also be done in several steps (e.g., the GP2-VOROLEMAP maps the users DN+FQAN to a username which is then mapped to UID/GIDs by the GP2-AUTHZDB.
+`map`-plug-ins map the user information obtained in the `auth` step to UID and GIDs. This may also be done in several steps (e.g., the `vorolemap` plug-in maps the users DN+FQAN to a username which is then mapped to UID/GIDs by the `authzdb` plug-in. 
 
 **account**  
-ACCOUNT-plug-ins verify the validity of a possibly mapped identity of the user and may reject the login depending on information gathered within the map step.
+`account`-plug-ins verify the validity of a possibly mapped identity of the user and may reject the login depending on information gathered within the map step. 
 
 **session**  
-SESSION plug-ins usually enrich the session with additional attributes like the user's home directory.
+`session` plug-ins usually enrich the session with additional attributes like the user’s home directory. 
 
-**identit**  
-IDENTITY plug-ins are responsible for mapping UID and GID to user names and vice versa during the work with DCACHE.
+**identity**  
+`identity` plug-ins are responsible for mapping UID and GID to user names and vice versa during the work with dCache. 
 
 The meaning of the modifiers follow the PAM specification:
 
@@ -78,20 +78,20 @@ Modifiers
 The success or failure of this plug-in is only important if it is the only plug-in in the stack associated with this type.
 
 **sufficient**  
-Success of such a plug-in is enough to satisfy the authentication requirements of the stack of plug-ins (if a prior required plug-in has failed the success of this one is ignored). A failure of this plug-in is not deemed as fatal for the login attempt. If the plug-in succeeds CELL-GPLAZMA2 immediately proceeds with the next plug-in type or returns control to the door if this was the last stack.
+Success of such a plug-in is enough to satisfy the authentication requirements of the stack of plug-ins (if a prior required plug-in has failed the success of this one is ignored). A failure of this plug-in is not deemed as fatal for the login attempt. If the plug-in succeeds `gPlazma2` immediately proceeds with the next plug-in type or returns control to the door if this was the last stack. 
 
 **required**  
-Failure of such a plug-in will ultimately lead to CELL-GPLAZMA2 returning failure but only after the remaining plug-ins for this type have been invoked.
+Failure of such a plug-in will ultimately lead to `gPlazma2` returning failure but only after the remaining plug-ins for this type have been invoked. 
 
 **requisite**  
-Like PAM-REQUIRED, however, in the case that such a plug-in returns a failure, control is directly returned to the door.
+Like `required`, however, in the case that such a plug-in returns a failure, control is directly returned to the door. 
 
 Plug-ins
 --------
 
-CELL-GPLAZMA2 functionality is configured by combining different types of plug-ins to work together in a way that matches your requirements. For this purpose there are five different types of plug-ins. These types correspond to the keywords AUTH, MAP, ACCOUNT, SESSION and IDENTITY as described in the previous section. The plug-ins can be configured via properties that may be set in `dcache.conf`, the layout-file or in `gplazma.conf`.
+`gPlazma2` functionality is configured by combining different types of plug-ins to work together in a way that matches your requirements. For this purpose there are five different types of plug-ins. These types correspond to the keywords AUTH, MAP, ACCOUNT, SESSION and IDENTITY as described in the previous section. The plug-ins can be configured via properties that may be set in **dcache.conf**, the layout-file or in **gplazma.conf**.
 
-### AUTH Plug-ins
+### auth Plug-ins
 
 #### kpwd
 
