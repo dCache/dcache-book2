@@ -525,7 +525,7 @@ To be able to locally verify the validity of the certificates, you need to store
 
 To install the CERN CA certificates follow the following steps:
 
-    [root] # **cd /etc/yum.repos.d/**
+    [root] # cd /etc/yum.repos.d/
     [root] # wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/lcg-CA.repo
     [root] # yum install lcg-CA
 
@@ -543,27 +543,27 @@ User Certificate
 
 If you do not have a valid grid user certificate yet, you have to request one from your CA. Follow the instructions from your CA on how to get a certificate. After your request was accepted you will get a URL pointing to your new certificate. Install it into your browser to be able to access grid resources with it. Once you have the certificate in your browser, make a backup and name it **userCertificate.p12**. Copy the user certificate to the directory **~/.globus/** on your worker node and convert it to **usercert.pem** and **userkey.pem** as described below.
 
-   [user] $ openssl pkcs12 -clcerts -nokeys -in <userCertificate>.p12 -out usercert.pem
-   Enter Import Password:
-   MAC verified OK
+   [user] $ openssl pkcs12 -clcerts -nokeys -in <userCertificate>.p12 -out usercert.pem  
+   Enter Import Password:  
+   MAC verified OK  
 
-During the backup your browser asked you for a password to encrypt the certificate. Enter this password here when asked for a password. This will create your user certificate.
+During the backup your browser asked you for a password to encrypt the certificate. Enter this password here when asked for a password. This will create your user certificate.  
 
-    [user] $ openssl pkcs12 -nocerts -in <userCertificate>.p12 -out userkey.pem
-    Enter Import Password:
-    MAC verified OK
-    Enter PEM pass phrase:
+    [user] $ openssl pkcs12 -nocerts -in <userCertificate>.p12 -out userkey.pem  
+    Enter Import Password:  
+    MAC verified OK  
+    Enter PEM pass phrase:  
 
 In this step you need to again enter the backup password. When asked for the PEM pass phrase choose a secure password. If you want to use your key without having to type in the pass phrase every time, you can remove it by executing the following command.
 
-    [root] # openssl rsa -in userkey.pem -out userkey.pem
-    Enter pass phrase for userkey.pem:
-    writing RSA key
+    [root] # openssl rsa -in userkey.pem -out userkey.pem  
+    Enter pass phrase for userkey.pem:  
+    writing RSA key   
 
 Now change the file permissions to make the key only readable by you and the certificate world readable and only writable by you.
 
-    [root] # chmod 400 userkey.pem
-    [root] # chmod 644 usercert.pem
+    [root] # chmod 400 userkey.pem  
+    [root] # chmod 644 usercert.pem  
 
 Host Certificate
 ----------------
