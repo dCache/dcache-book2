@@ -97,11 +97,12 @@ Plug-ins
 
 The `kpwd` plug-in authorizes users by username and password, by pairs of DN and FQAN and by `Kerberos` principals.
 
+
 Properties 
 
 **gplazma.kpwd.file** 
 
-Path to   **dcache.kpwd**
+Path to   **dcache.kpwd**  
 Default:  **/etc/dcache/dcache.kpwd**
 
 #### voms
@@ -113,14 +114,12 @@ Properties
 **gplazma.vomsdir.ca**
 
    Path to ca certificates
-
    Default: **/etc/grid-security/certificates**
 
 
 **gplazma.vomsdir.dir**
 
   Path to **vomsdir**
-
   Default: **/etc/grid-security/vomsdir**
 
 #### X.509 plug-in
@@ -137,19 +136,17 @@ Properties
 
   **gplazma.kpwd.file**  
 
-      Path to **dcache.kpwd**
-
-      Default: **/etc/dcache/dcache.kpwd**
+     Path to **dcache.kpwd**  
+     Default: **/etc/dcache/dcache.kpwd**  
 
 #### authzdb  
 
 The GP2-AUTHZDB takes a username and maps it to UID+GID using the `storage-authzdb` file.
 
-**gplazma.authzdb.file**  
+**gplazma.authzdb.file**   
 
-      Path to **storage-authzdb**
-
-      Default: **/etc/grid-security/storage-authzdb**
+   Path to **storage-authzdb**     
+   Default: **/etc/grid-security/storage-authzdb**  
 
 #### GridMap
 
@@ -159,9 +156,8 @@ Properties
 
 **gplazma.gridmap.file**  
 
-    Path to `grid-mapfile`
-
-    Default: **/etc/grid-security/grid-mapfile**
+   Path to `grid-mapfile`  
+   Default: **/etc/grid-security/grid-mapfile**
 
 #### vorolemap
 
@@ -171,9 +167,8 @@ Properties
 
 **gplazma.vorolemap.file**
 
-     Path to **grid-vorolemap**
-
-    **/etc/grid-security/grid-vorolemap**
+   Path to **grid-vorolemap**  
+   **/etc/grid-security/grid-vorolemap**
 
 #### krb5
 
@@ -209,14 +204,13 @@ Properties
 
 **gplazma.nis.server**  
 
-`NIS` server host
-
+ `NIS` server host  
  Default: `nisserv.domain.com`
+ 
  
 **gplazma.nis.domain**
 
-`NIS` domain
-
+`NIS` domain  
 Default: `domain.com`
 
 The result of `nis` can be used by other plug-ins:
@@ -245,33 +239,28 @@ Properties
 
 **gplazma.argus.hostcert**  
 
-    Path to host certificate
-
-    Default: **/etc/grid-security/hostcert.pem**
+   Path to host certificate  
+   Default: **/etc/grid-security/hostcert.pem**
 
 **gplazma.argus.hostkey**
 
-    Path to host key
-
-    Default:  **/etc/grid-security/hostkey.pem**
+   Path to host key  
+   Default:  **/etc/grid-security/hostkey.pem**
 
 **gplazma.argus.hostkey.password**
 
-    Password for host key
-
-    Default:
+   Password for host key  
+   Default:
 
 **gplazma.argus.ca**
 
-    Path to CA certificates
-
-    Default:  **/etc/grid-security/certificates**
+   Path to CA certificates  
+   Default:  **/etc/grid-security/certificates**
 
 **gplazma.argus.endpoint**
 
-    URL of PEP service
-
-    Default: **https://localhost:8154/authz**
+   URL of PEP service  
+   Default: **https://localhost:8154/authz**
 
 #### banfile
 
@@ -299,9 +288,8 @@ Properties
 
 **gplazma.banfile.path**
 
-    Path to configuration file
-
-    Default: **/etc/dcache/ban.conf**
+   Path to configuration file  
+   Default: **/etc/dcache/ban.conf**
 
 To activate the `banfile` it has to be added to **gplazma.conf**:
 
@@ -326,9 +314,8 @@ Properties
 
 **gplazma.kpwd.file**
 
-    Path to **dcache.kpwd***
-
-    Default: `/etc/dcache/dcache.kpwd`
+   Path to **dcache.kpwd**  
+   Default: **/etc/dcache/dcache.kpwd**  
 
 #### authzdb
 
@@ -338,9 +325,8 @@ Properties
 
 **gplazma.authzdb.file** 
 
-    Path to **storage-authzdb**
-
-    Default: **/etc/grid-security/storage-authzdb**
+   Path to **storage-authzdb**  
+   Default: **/etc/grid-security/storage-authzdb**
 
 #### nsswitch
 
@@ -367,14 +353,12 @@ Properties
 
 **gplazma.nis.server**
 
-    `NIS` server host
-
+    `NIS` server host  
     Default: `nisserv.domain.com`
     
 **gplazma.nis.domain**
 
-    `NIS` domain
-
+    `NIS` domain  
     Default: `domain.com`
     
 The result of `nis` can be used by other plug-ins:
@@ -399,15 +383,13 @@ Properties
 
 **gplazma.ldap.url**  
 
-    `LDAP` server url. Use `ldap://` prefix to connect to plain `LDAP` and `ldaps://` for secured `LDAP`.
-
+    `LDAP` server url. Use `ldap://` prefix to connect to plain `LDAP` and `ldaps://` for secured `LDAP`.  
     Example: `ldaps://example.org:389`
 
 
 **gplazma.ldap.organization**  
 
-    Top level (`base DN`) of the `LDAP` directory tree  
-
+    Top level (`base DN`) of the `LDAP` directory tree    
     Example: `o="Example, Inc.", c=DE`
 
 
@@ -466,15 +448,13 @@ Properties
 
 **gplazma.nis.server**
 
-    `NIS` server host
-
-    Default: `nisserv.domain.com`
+   `NIS` server host   
+   Default: `nisserv.domain.com`
     
 **gplazma.nis.domain**
 
-    `NIS` domain
-
-     Default: domain.com
+   `NIS` domain  
+    Default: domain.com
 
 Using X509 Certificates
 =======================
