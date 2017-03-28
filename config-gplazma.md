@@ -112,15 +112,16 @@ Properties
 
 **gplazma.vomsdir.ca**
 
-     Path to ca certificates
+   Path to ca certificates
 
-     Default: **/etc/grid-security/certificates**
+   Default: **/etc/grid-security/certificates**
+
 
 **gplazma.vomsdir.dir**
 
-    Path to **vomsdir**
+  Path to **vomsdir**
 
-    Default: **/etc/grid-security/vomsdir**
+  Default: **/etc/grid-security/vomsdir**
 
 #### X.509 plug-in
 
