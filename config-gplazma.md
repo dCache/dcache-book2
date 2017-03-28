@@ -112,69 +112,84 @@ Properties
 
 **gplazma.vomsdir.ca**
 
-Path to ca certificates
+     Path to ca certificates
 
-Default: **/etc/grid-security/certificates**
+     Default: **/etc/grid-security/certificates**
 
-`gplazma.vomsdir.dir`  
-Path to `vomsdir`
+**gplazma.vomsdir.dir**
 
-Default: `/etc/grid-security/vomsdir`
+    Path to **vomsdir**
 
-#### GP2-X509
+    Default: **/etc/grid-security/vomsdir**
 
-The GP2-X509 is a AUTH plug-in that extracts X509 certificate chains from the credentials of a user to be used by other plug-ins.
+#### X.509 plug-in
 
-### MAP Plug-ins
+The X.509 is a auth plug-in that extracts X.509 certificate chains from the credentials of a user to be used by other plug-ins. 
+
+### map Plug-ins
 
 #### kpwd
 
-As a MAP plug-in it maps usernames to UID and GID. And as a SESSION plug-in it adds root and home path information to the session based on the user's username.
+As a `map` plug-in it maps usernames to UID and GID. And as a `session` plug-in it adds root and home path information to the session based on the user’s username. 
 
-`gplazma.kpwd.file`  
-Path to `dcache.kpwd`
+Properties
 
-Default: `PATH-ODE-ED/dcache.kpwd`
+  **gplazma.kpwd.file**  
+
+      Path to **dcache.kpwd**
+
+      Default: **/etc/dcache/dcache.kpwd**
 
 #### authzdb  
 
 The GP2-AUTHZDB takes a username and maps it to UID+GID using the `storage-authzdb` file.
 
-`gplazma.authzdb.file`  
-Path to `storage-authzdb`
+**gplazma.authzdb.file**  
 
-Default: `/etc/grid-security/storage-authzdb`
+      Path to **storage-authzdb**
+
+      Default: **/etc/grid-security/storage-authzdb**
 
 #### GridMap
 
-The GP2-GRIDMAP maps GLOBUS identities and KERBEROS identities to usernames.
+The `authzdb` plug-in takes a username and maps it to UID+GID using the **storage-authzdb** file. 
 
-`gplazma.gridmap.file`  
-Path to `grid-mapfile`
+Properties
 
-Default: `/etc/grid-security/grid-mapfile`
+**gplazma.gridmap.file**  
+
+    Path to `grid-mapfile`
+
+    Default: **/etc/grid-security/grid-mapfile**
 
 #### vorolemap
 
-The GP2-VOMS maps pairs of DN and FQAN to usernames via a [vorolemap] file.
+The `voms` plug-in maps pairs of DN and FQAN to usernames via a [vorolemap](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-plug-inconfig-vorolemap-gridvorolemap) file. 
 
-`gplazma.vorolemap.file`  
-Path to `grid-vorolemap`
+Properties
 
-`/etc/grid-security/grid-vorolemap`
+**gplazma.vorolemap.file**
+
+     Path to **grid-vorolemap**
+
+    **/etc/grid-security/grid-vorolemap**
 
 #### krb5
 
-The GP2-KRB5 maps a kerberos principal to a username by removing the domain part from the principal.
+ The `krb5` plug-in maps a kerberos principal to a username by removing the domain part from the principal.
+
+Example:
 
                     user@KRB-DOMAIN.EXAMPLE.ORG to user
                   
 
 #### nsswitch
 
-The GP2-NSSWITCH uses the system's `nsswitch` configuration to provide mapping.
+The `nsswitch` plug-in uses the system’s `nsswitch` configuration to provide mapping.
 
-Typically GP2-NSSWITCH will be combined with GP2-VOROLEMAP, GP2-GRIDMAP or GP2-KRB5:
+Typically `nsswitch` plug-in will be combined with `vorolemap` plug-in, `gridmap` plug-in or `krb5` plug-in: 
+
+Example:
 
     # Map grid users to local accounts
     auth    optional  x509 #1
@@ -187,19 +202,25 @@ In this example following is happening: extract user's DN (1), extract and verif
 
 #### nis
 
-The GP2-NIS uses an existing NIS service to map username+password to a username.
+The `nis` uses an existing `NIS` service to map username+password to a username.
 
-`gplazma.nis.server`  
-NIS server host
+Properties
 
-Default: nisserv.domain.com
+**gplazma.nis.server**  
 
-`gplazma.nis.domain`  
-NIS domain
+`NIS` server host
 
-Default: domain.com
+ Default: `nisserv.domain.com`
+ 
+**gplazma.nis.domain**
 
-The result of GP2-NIS can be used by other plug-ins:
+`NIS` domain
+
+Default: `domain.com`
+
+The result of `nis` can be used by other plug-ins:
+
+Example:
 
     # Map grid or kerberos users to local accounts
     auth    optional  x509 #1
@@ -209,42 +230,53 @@ The result of GP2-NIS can be used by other plug-ins:
     map     optional  nis #5
     session requisite nis #6
 
-In this example two access methods are considered: grid based and kerberos based. If user comes with grid certificate and VOMS role: extract user's DN (1), extract and verify VOMS attributes (2), map DN+Role to a local account (3). If user comes with KERBEROS ticket: extract local account (4). After this point in both cases we talk to NIS to get uid and gids for a local account (5) and, finally, adding users home directory (6).
+In this example two access methods are considered: grid based and kerberos based. If user comes with grid certificate and VOMS role: extract user’s DN (1), extract and verify VOMS attributes (2), map DN+Role to a local account (3). If user comes with `Kerberos` ticket: extract local account (4). After this point in both cases we talk to `NIS` to get uid and gids for a local account (5) and, finally, adding users home directory (6).
 
-### ACCOUNT Plug-ins
+
+
+### account Plug-ins
 
 #### argus
 
-The GP2-ARGUS bans users by their DN. It talks to your site's ARGUS system (see <https://twiki.cern.ch/twiki/bin/view/EGEE/AuthorizationFramework>) to check for banned users.
+ The argus plug-in bans users by their DN. It talks to your site’s ARGUS system (see [https://twiki.cern.ch/twiki/bin/view/EGEE/AuthorizationFramework](https://twiki.cern.ch/twiki/bin/view/EGEE/AuthorizationFramework)) to check for banned users.
 
-`gplazma.argus.hostcert`  
-Path to host certificate
+Properties
 
-Default: `/etc/grid-security/hostcert.pem`
+**gplazma.argus.hostcert**  
 
-`gplazma.argus.hostkey`  
-Path to host key
+    Path to host certificate
 
-Default: `/etc/grid-security/hostkey.pem`
+    Default: **/etc/grid-security/hostcert.pem**
 
-`gplazma.argus.hostkey.password`  
-Password for host key
+**gplazma.argus.hostkey**
 
-Default:
+    Path to host key
 
-`gplazma.argus.ca`  
-Path to CA certificates
+    Default:  **/etc/grid-security/hostkey.pem**
 
-Default: `/etc/grid-security/certificates`
+**gplazma.argus.hostkey.password**
 
-`gplazma.argus.endpoint`  
-URL of PEP service
+    Password for host key
 
-Default: <https://localhost:8154/authz>
+    Default:
+
+**gplazma.argus.ca**
+
+    Path to CA certificates
+
+    Default:  **/etc/grid-security/certificates**
+
+**gplazma.argus.endpoint**
+
+    URL of PEP service
+
+    Default: **https://localhost:8154/authz**
 
 #### banfile
 
-The GP2-BANFILE bans users by their principal class and the associated name. It is configured via a simple plain text file.
+The `banfile` plug-in bans users by their principal class and the associated name. It is configured via a simple plain text file. 
+
+Example:
 
     # Ban users by principal
     alias dn=org.globus.gsi.jaas.GlobusPrincipal
@@ -262,12 +294,17 @@ Please note that the plug-in only supports principals whose assiciated name is a
 
 For the plugin to work, the configuration file has to exist even if it is empty.
 
-`gplazma.banfile.path`  
-Path to configuration file
+Properties
 
-Default: `PATH-ODE-ED/ban.conf`
+**gplazma.banfile.path**
 
-To activate the GP2-BANFILE it has to be added to `gplazma.conf`:
+    Path to configuration file
+
+    Default: **/etc/dcache/ban.conf**
+
+To activate the `banfile` it has to be added to **gplazma.conf**:
+
+Example:
 
     # Map grid or kerberos users to local accounts
     auth    optional  x509
@@ -278,31 +315,39 @@ To activate the GP2-BANFILE it has to be added to `gplazma.conf`:
     session requisite nis
     account requisite banfile
 
-### SESSION Plug-ins
+### session Plug-ins
 
 #### kpwd
 
-The GP2-KPWD adds root and home path information to the session, based on the username.
+The `kpwd`plug-in adds root and home path information to the session, based on the username.
 
-`gplazma.kpwd.file`  
-Path to `dcache.kpwd`
+Properties
 
-Default: `PATH-ODE-ED/dcache.kpwd`
+**gplazma.kpwd.file**
+
+    Path to **dcache.kpwd***
+
+    Default: `/etc/dcache/dcache.kpwd`
 
 #### authzdb
 
-The GP2-AUTHZDB adds root and home path information to the session, based and username using the `storage-authzdb` file.
+The `authzdb` plug-in adds root and home path information to the session, based and username using the **storage-authzdb** file. 
 
-`gplazma.authzdb.file`  
-Path to `storage-authzdb`
+Properties
 
-Default: `/etc/grid-security/storage-authzdb`
+**gplazma.authzdb.file** 
+
+    Path to **storage-authzdb**
+
+    Default: **/etc/grid-security/storage-authzdb**
 
 #### nsswitch
 
-The GP2-NSSWITCH adds root and home path information to the session, based on the username using your system's `nsswitch` service.
+The `nsswitch` plug-in adds root and home path information to the session, based on the username using your system’s `nsswitch` service.
 
-Typically GP2-NSSWITCH will be combined with GP2-VOROLEMAP, GP2-GRIDMAP or GP2-KRB5:
+Typically `nsswitch` plug-in will be combined with `vorolemap` plug-in, `gridmap` plug-in or `krb5` plug-in: 
+
+Example:
 
     # Map grid users to local accounts
     auth    optional  x509 #1
@@ -315,19 +360,25 @@ In this example following is happening: extract user's DN (1), extract and verif
 
 #### nis
 
-The GP2-NIS adds root and home path information to the session, based on the username using your site's NIS service.
+The `nis` plug-in adds root and home path information to the session, based on the username using your site’s `NIS` service. 
 
-`gplazma.nis.server`  
-NIS server host
+Properties
 
-Default: nisserv.domain.com
+**gplazma.nis.server**
 
-`gplazma.nis.domain`  
-NIS domain
+    NIS server host
 
-Default: domain.com
+    Default: nisserv.domain.com
 
-The result of GP2-NIS can be used by other plug-ins:
+**gplazma.nis.domain**
+
+    `NIS` domain
+
+    Default: `domain.com`
+    
+The result of `nis` can be used by other plug-ins:
+
+Example:
 
     # Map grid or kerberos users to local accounts
     auth    optional  x509 #1
@@ -337,23 +388,30 @@ The result of GP2-NIS can be used by other plug-ins:
     map     optional  nis #5
     session requisite nis #6
 
-In this example two access methods are considered: grid based and kerberos based. If user comes with grid certificate and VOMS role: extract user's DN (1), extract and verify VOMS attributes (2), map DN+Role to a local account (3). If user comes with KERBEROS ticket: extract local account (4). After this point in both cases we talk to NIS to get uid and gids for a local account (5) and, finally, adding users home directory (6).
+In this example two access methods are considered: grid based and kerberos based. If user comes with grid certificate and VOMS role: extract user's DN (1), extract and verify VOMS attributes (2), map DN+Role to a local account (3). If user comes with `Kerberos` ticket: extract local account (4). After this point in both cases we talk to NIS to get uid and gids for a local account (5) and, finally, adding users home directory (6).
 
 #### ldap
 
-The GP2-LDAP is a map, session and identity plugin. As a map plugin it maps user names to UID and GID. As a session plugin it adds root and home path information to the session. As an identity plugin it supports reverse mapping of UID and GID to user and group names repectively.
+The `ldap` is a map, session and identity plugin. As a map plugin it maps user names to UID and GID. As a session plugin it adds root and home path information to the session. As an identity plugin it supports reverse mapping of UID and GID to user and group names repectively.
 
-`gplazma.ldap.url`  
-LDAP server url. Use `ldap://` prefix to connect to plain LDAP and `ldaps://` for secured LDAP.
+Properties
 
-Example: `ldaps://example.org:389`
+**gplazma.ldap.url**
 
-`gplazma.ldap.organization`  
-Top level (`base DN`) of the LDAP directory tree
+    LDAP server url. Use `ldap://` prefix to connect to plain LDAP and `ldaps://` for secured LDAP.
 
-Example: `o="Example, Inc.", c=DE`
+    Example: `ldaps://example.org:389`
 
-`gplazma.ldap.tree.people`  
+
+**gplazma.ldap.organization**
+
+    Top level (`base DN`) of the LDAP directory tree
+
+    Example: `o="Example, Inc.", c=DE`
+
+
+**gplazma.ldap.tree.people**
+
 LDAP subtree containing user information. The path to the user records will be formed using the `base
                     DN` and the value of this property as a organizational unit (`ou`) subdirectory.
 
@@ -362,7 +420,9 @@ Default: `People`
 Example: Setting `gplazma.ldap.organization=o="Example, Inc.",
                     c=DE` and `gplazma.ldap.tree.people=People` will have the plugin looking in the LDAP directory `ou=People, o="Example, Inc.", c=DE` for user information.
 
-`gplazma.ldap.tree.groups`  
+
+**gplazma.ldap.tree.groups**
+
 LDAP subtree containing group information. The path to the group records will be formed using the `base
                     DN` and the value of this property as a organizational unit (`ou`) subdirectory.
 
@@ -371,24 +431,28 @@ Default: `Groups`
 Example: Setting `gplazma.ldap.organization=o="Example, Inc.",
                     c=DE` and `gplazma.ldap.tree.groups=Groups` will have the plugin looking in the LDAP directory `ou=Groups, o="Example, Inc.", c=DE` for group information.
 
-`gplazma.ldap.userfilter`  
+
+**gplazma.ldap.userfilter**
+
 LDAP filter expression to find user entries. The filter has to contain the `%s` exactly once. That occurence will be substituted with the user name before the filter is applied.
 
 Default: `(uid=%s)`
 
-`gplazma.ldap.home-dir`  
+**gplazma.ldap.home-dir**  
+
 the user's home directory. LDAP attribute identifiers surrounded by `%` will be expanded to their corresponding value. You may also use a literal value or mix literal values and attributes.
 
 Default: `%homeDirectory%`
 
-`gplazma.ldap.root-dir`  
+**gplazma.ldap.root-dir**
+
 the user's root directory. LDAP attribute identifiers surrounded by `%` will be expanded to their corresponding value. You may also use a literal value or mix literal values and attributes.
 
 Default: `/`
 
 As a session plugin the GP2-LDAP assigns two directories to the user's session: the root directory and the home directory. The root directory is the root of the directory hierarchy visible to the user, while the home directory is the directory the user starts his session in. In default mode, the root directory is set to `/` and the home directory is set to `%homeDirectory%`, thus the user starts his session in the home directory, as it is stored on the LDAP server, and is able to go up in the directory hierarchy to `/`. For a different use-case, for example if dCache is used as a cloud storage, it may be desireable for the users to see only their own storage space. For this use case `home-dir` can be set to `/` and `root-dir` be set to `%homeDirectory%`. In both path properties any `%val%` expression will be expanded to the the value of the attribute with the name `val` as it is stored in the user record on the LDAP server.
 
-### IDENTITY Plug-ins
+### identity Plug-ins
 
 #### nsswitch
 
