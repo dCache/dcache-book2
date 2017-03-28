@@ -25,7 +25,7 @@ Table of Contents
 
 + [gPlazma specific dCache configuration](#gplazma-specific-dcache-configuration)  
 
-    [Enabling Username/Password Access for WebDAV](#enabling-username/password-access-for-webdav)  
+    [Enabling Username/Password Access for WebDAV](#enabling-username/password-access-for-webdav)    
     [gPlazma config example to work with authenticated webadmin](#gplazma-config-example-to-work-with-authenticated-webadmin)  
 
 To limit access to data, dCache comes with an authentication and authorization interface called `gPlazma2`. gPlazma is an acronym for Grid-aware PLuggable AuthorZation Management. Earlier versions of dCache worked with `gPlazma1` which has now been completely removed from dCache. So if you are upgrading, you have to reconfigure `gPlazma` if you used `gPlazma1` until now. 
@@ -131,7 +131,7 @@ Path to `dcache.kpwd`
 
 Default: `PATH-ODE-ED/dcache.kpwd`
 
-#### authzdb
+#### authzdb  
 
 The GP2-AUTHZDB takes a username and maps it to UID+GID using the `storage-authzdb` file.
 
