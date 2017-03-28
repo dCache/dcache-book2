@@ -74,16 +74,16 @@ The meaning of the modifiers follow the PAM specification:
 
 Modifiers
 
-**optional**
+**optional**  
 The success or failure of this plug-in is only important if it is the only plug-in in the stack associated with this type.
 
-**sufficient**  
+**sufficient**   
 Success of such a plug-in is enough to satisfy the authentication requirements of the stack of plug-ins (if a prior required plug-in has failed the success of this one is ignored). A failure of this plug-in is not deemed as fatal for the login attempt. If the plug-in succeeds `gPlazma2` immediately proceeds with the next plug-in type or returns control to the door if this was the last stack. 
 
-**required**  
+**required**   
 Failure of such a plug-in will ultimately lead to `gPlazma2` returning failure but only after the remaining plug-ins for this type have been invoked. 
 
-**requisite**  
+**requisite**   
 Like `required`, however, in the case that such a plug-in returns a failure, control is directly returned to the door. 
 
 Plug-ins
@@ -366,10 +366,10 @@ Properties
 
 **gplazma.nis.server**
 
-    NIS server host
+    `NIS` server host
 
-    Default: nisserv.domain.com
-
+    Default: `nisserv.domain.com`
+    
 **gplazma.nis.domain**
 
     `NIS` domain
@@ -394,36 +394,35 @@ In this example two access methods are considered: grid based and kerberos based
 
 The `ldap` is a map, session and identity plugin. As a map plugin it maps user names to UID and GID. As a session plugin it adds root and home path information to the session. As an identity plugin it supports reverse mapping of UID and GID to user and group names repectively.
 
-Properties
+Properties  
 
-**gplazma.ldap.url**
+**gplazma.ldap.url**  
 
-    LDAP server url. Use `ldap://` prefix to connect to plain LDAP and `ldaps://` for secured LDAP.
+    `LDAP` server url. Use `ldap://` prefix to connect to plain `LDAP` and `ldaps://` for secured `LDAP`.
 
     Example: `ldaps://example.org:389`
 
 
-**gplazma.ldap.organization**
+**gplazma.ldap.organization**  
 
-    Top level (`base DN`) of the LDAP directory tree
+    Top level (`base DN`) of the `LDAP` directory tree  
 
     Example: `o="Example, Inc.", c=DE`
 
 
-**gplazma.ldap.tree.people**
+**gplazma.ldap.tree.people**  
 
-LDAP subtree containing user information. The path to the user records will be formed using the `base
+`LDAP` subtree containing user information. The path to the user records will be formed using the `base
                     DN` and the value of this property as a organizational unit (`ou`) subdirectory.
 
 Default: `People`
 
-Example: Setting `gplazma.ldap.organization=o="Example, Inc.",
-                    c=DE` and `gplazma.ldap.tree.people=People` will have the plugin looking in the LDAP directory `ou=People, o="Example, Inc.", c=DE` for user information.
+Example: Setting `gplazma.ldap.organization=o="Example, Inc.", c=DE` and `gplazma.ldap.tree.people=People` will have the plugin looking in the LDAP directory `ou=People, o="Example, Inc.", c=DE` for user information.
 
 
 **gplazma.ldap.tree.groups**
 
-LDAP subtree containing group information. The path to the group records will be formed using the `base
+`LDAP` subtree containing group information. The path to the group records will be formed using the `base
                     DN` and the value of this property as a organizational unit (`ou`) subdirectory.
 
 Default: `Groups`
@@ -434,13 +433,13 @@ Example: Setting `gplazma.ldap.organization=o="Example, Inc.",
 
 **gplazma.ldap.userfilter**
 
-LDAP filter expression to find user entries. The filter has to contain the `%s` exactly once. That occurence will be substituted with the user name before the filter is applied.
+`LDAP` filter expression to find user entries. The filter has to contain the `%s` exactly once. That occurence will be substituted with the user name before the filter is applied.
 
 Default: `(uid=%s)`
 
 **gplazma.ldap.home-dir**  
 
-the user's home directory. LDAP attribute identifiers surrounded by `%` will be expanded to their corresponding value. You may also use a literal value or mix literal values and attributes.
+the user's home directory. `LDAP` attribute identifiers surrounded by `%` will be expanded to their corresponding value. You may also use a literal value or mix literal values and attributes.
 
 Default: `%homeDirectory%`
 
@@ -456,26 +455,31 @@ As a session plugin the GP2-LDAP assigns two directories to the user's session: 
 
 #### nsswitch
 
-The GP2-NSSWITCH provides forward and reverse mapping for NFS4 using your system's `nsswitch` service.
+The `nsswitsch` provides forward and reverse mapping for `NFSv4.1` using your system's `nsswitch` service.
 
 #### nis
 
-The GP2-NIS forward and reverse mapping for NFS4 using your site's NIS service.
+The `nis` plug-in forward and reverse mapping for `NFSv4.1` using your site's NIS service.
 
-`gplazma.nis.server`  
-NIS server host
+Properties
 
-Default: nisserv.domain.com
+**gplazma.nis.server**
 
-`gplazma.nis.domain`  
-NIS domain
+    `NIS` server host
 
-Default: domain.com
+    Default: `nisserv.domain.com`
+    
+**gplazma.nis.domain**
+
+    `NIS` domain
+
+     Default: domain.com
 
 Using X509 Certificates
 =======================
 
-Most plug-ins of CELL-GPLAZMA support X509 certificates for authentication and authorisation. X509 certificates are used to identify entities (e.g., persons, hosts) in the Internet. The certificates contain a DN (Distinguished Name) that uniquely describes the entity. To give the certificate credibility it is issued by a CA (Certificate Authority) which checks the identity upon request of the certificate (e.g., by checking the persons id). For the use of X509 certificates with DCACHE your users will have to request a certificate from a CA you trust and you need host certificates for every host of your DCACHE instance.
+Most plug-ins of gPlazma support X.509 certificates for authentication and authorisation. X.509 certificates are used to identify entities (e.g., persons, hosts) in the Internet. The certificates contain a DN (Distinguished Name) that uniquely describes the entity. To give the certificate credibility it is issued by a CA (Certificate Authority) which checks the identity upon request of the certificate (e.g., by checking the persons id). For the use of X.509 certificates with dCache your users will have to request a certificate from a CA you trust and you need host certificates for every host of your dCache instance. 
+
 
 CA Certificates
 ---------------
