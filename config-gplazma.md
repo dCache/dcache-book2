@@ -515,7 +515,7 @@ Properties
 Using X509 Certificates
 =======================
 
-Most plug-ins of gPlazma support X.509 certificates for authentication and authorisation. X.509 certificates are used to identify entities (e.g., persons, hosts) in the Internet. The certificates contain a DN (Distinguished Name) that uniquely describes the entity. To give the certificate credibility it is issued by a CA (Certificate Authority) which checks the identity upon request of the certificate (e.g., by checking the persons id). For the use of X.509 certificates with dCache your users will have to request a certificate from a CA you trust and you need host certificates for every host of your dCache instance. 
+Most plug-ins of `gPlazma` support `X.509` certificates for authentication and authorisation. `X.509` certificates are used to identify entities (e.g., persons, hosts) in the Internet. The certificates contain a DN (Distinguished Name) that uniquely describes the entity. To give the certificate credibility it is issued by a CA (Certificate Authority) which checks the identity upon request of the certificate (e.g., by checking the persons id). For the use of X.509 certificates with dCache your users will have to request a certificate from a CA you trust and you need host certificates for every host of your dCache instance. 
 
 
 CA Certificates
@@ -525,45 +525,45 @@ To be able to locally verify the validity of the certificates, you need to store
 
 To install the CERN CA certificates follow the following steps:
 
-    PROMPT-ROOT cd /etc/yum.repos.d/
-    PROMPT-ROOT wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/lcg-CA.repo
-    PROMPT-ROOT yum install lcg-CA
+    [root] # cd /etc/yum.repos.d/
+    [root] # wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/lcg-CA.repo
+    [root] # yum install lcg-CA
 
-This will create the directory `/etc/grid-security/certificates` which contains the Grid CA certificates.
+This will create the directory **/etc/grid-security/certificates** which contains the Grid CA certificates.
 
-Certificates which have been revoked are collected in certificate revocation lists (CRLs). To get the CRLs install the `fetch-crl` command as described below.
+Certificates which have been revoked are collected in certificate revocation lists (CRLs). To get the CRLs install the **fetch-crl** command as described below.
 
-    PROMPT-ROOT yum install fetch-crl
-    PROMPT-ROOT /usr/sbin/fetch-crl
+    [root] # yum install fetch-crl
+    [root] # /usr/sbin/fetch-crl
 
-`fetch-crl` adds X509 CRLs to `/etc/grid-security/certificates`. It is recommended to set up a cron job to periodically update the CRLs.
+**fetch-crl** adds `X.509` CRLs  to **/etc/grid-security/certificates**. It is recommended to set up a cron job to periodically update the CRLs.
 
 User Certificate
 ----------------
 
-If you do not have a valid grid user certificate yet, you have to request one from your CA. Follow the instructions from your CA on how to get a certificate. After your request was accepted you will get a URL pointing to your new certificate. Install it into your browser to be able to access grid resources with it. Once you have the certificate in your browser, make a backup and name it `userCertificate.p12`. Copy the user certificate to the directory `~/.globus/` on your worker node and convert it to `usercert.pem` and `userkey.pem` as described below.
+If you do not have a valid grid user certificate yet, you have to request one from your CA. Follow the instructions from your CA on how to get a certificate. After your request was accepted you will get a URL pointing to your new certificate. Install it into your browser to be able to access grid resources with it. Once you have the certificate in your browser, make a backup and name it **userCertificate.p12**. Copy the user certificate to the directory **~/.globus/** on your worker node and convert it to **usercert.pem** and **userkey.pem** as described below.
 
-    PROMPT-USER openssl pkcs12 -clcerts -nokeys -in userCertificate.p12 -out usercert.pem
-    Enter Import Password:
-    MAC verified OK
+   [user] $ openssl pkcs12 -clcerts -nokeys -in <userCertificate>.p12 -out usercert.pem
+   Enter Import Password:
+   MAC verified OK
 
 During the backup your browser asked you for a password to encrypt the certificate. Enter this password here when asked for a password. This will create your user certificate.
 
-    PROMPT-USER openssl pkcs12 -nocerts -in userCertificate.p12 -out userkey.pem
+    [user] $ openssl pkcs12 -nocerts -in <userCertificate>.p12 -out userkey.pem
     Enter Import Password:
     MAC verified OK
     Enter PEM pass phrase:
 
 In this step you need to again enter the backup password. When asked for the PEM pass phrase choose a secure password. If you want to use your key without having to type in the pass phrase every time, you can remove it by executing the following command.
 
-    PROMPT-ROOT openssl rsa -in userkey.pem -out userkey.pem
+    [root] # openssl rsa -in userkey.pem -out userkey.pem
     Enter pass phrase for userkey.pem:
     writing RSA key
 
 Now change the file permissions to make the key only readable by you and the certificate world readable and only writable by you.
 
-    PROMPT-ROOT chmod 400 userkey.pem
-    PROMPT-ROOT chmod 644 usercert.pem
+    [root] # chmod 400 userkey.pem
+    [root] # chmod 644 usercert.pem
 
 Host Certificate
 ----------------
