@@ -21,7 +21,7 @@ Table of Contents
     [The gplazmalite-vorole-mapping plug-in](#the-gplazmalite-vorole-mapping-plug-in)  
     [Authorizing a VO](#authorizing-a-vo)  
     [The kpwd plug-in](#the-kpwd-plug-in)  
-    [The gridmap plug-in](#the-gridmap-plug-in)  
+    [The gridmap plug-in](#the-gridmap-plug-in)    
 
 + [gPlazma specific dCache configuration](#gplazma-specific-dcache-configuration)  
 
@@ -512,14 +512,14 @@ Properties
    `NIS` domain  
     Default: domain.com
 
-Using X509 Certificates
-=======================
+Using X509 Certificates  
+=======================  
 
 Most plug-ins of `gPlazma` support `X.509` certificates for authentication and authorisation. `X.509` certificates are used to identify entities (e.g., persons, hosts) in the Internet. The certificates contain a DN (Distinguished Name) that uniquely describes the entity. To give the certificate credibility it is issued by a CA (Certificate Authority) which checks the identity upon request of the certificate (e.g., by checking the persons id). For the use of X.509 certificates with dCache your users will have to request a certificate from a CA you trust and you need host certificates for every host of your dCache instance. 
 
 
-CA Certificates
----------------
+CA Certificates  
+---------------  
 
 To be able to locally verify the validity of the certificates, you need to store the CA certificates on your system. Most operating systems come with a number of commercial CA certificates, but for the *Grid* you will need the certificates of the Grid CAs. For this, CERN packages a number of CA certificates. These are deployed by most grid sites. By deploying these certificates, you state that you trust the CA's procedure for the identification of individuals and you agree to act promptly if there are any security issues.
 
