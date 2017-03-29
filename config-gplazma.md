@@ -565,7 +565,7 @@ Now change the file permissions to make the key only readable by you and the cer
     [root] # chmod 400 userkey.pem  
     [root] # chmod 644 usercert.pem  
 
-Host Certificate
+Host Certificate   
 ----------------
 
 To request a host certificate for your server host, follow again the instructions of your CA.
