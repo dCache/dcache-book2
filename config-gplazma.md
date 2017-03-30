@@ -570,36 +570,40 @@ Host Certificate
 
 To request a host certificate for your server host, follow again the instructions of your CA.
 
-The conversion to `hostcert.pem` and `hostkey.pem` works analogous to the user certificate. For the hostkey you have to remove the pass phrase. How to do this is also explained in the previous section. Finally copy the `host*.pem` files to `/etc/grid-security/` as `root` and change the file permissions in favour of the user running the grid application.
+The conversion to **hostcert.pem** and **hostkey.pem** works analogous to the user certificate. For the hostkey you have to remove the pass phrase. How to do this is also explained in the previous section. Finally copy the **host*.pem** files to **/etc/grid-security/** as `root` and change the file permissions in favour of the user running the grid application.
 
 VOMS Proxy Certificate
 ----------------------
 
-For very large groups of people, it is often more convenient to authorise people based on their membership of some group. To identify that they are a member of some group, the certificate owner can create a new short-lived X509 certificate that includes their membership of various groups. This short-lived certificate is called a proxy-certificate and, if the membership information comes from a VOMS server, it is often referred to as a VOMS-proxy.
+For very large groups of people, it is often more convenient to authorise people based on their membership of some group. To identify that they are a member of some group, the certificate owner can create a new short-lived `X.509` certificate that includes their membership of various groups. This short-lived certificate is called a proxy-certificate and, if the membership information comes from a VOMS server, it is often referred to as a VOMS-proxy.
 
-    PROMPT-ROOT cd /etc/yum.repos.d/
-    PROMPT-ROOT wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/glite-UI.repo
-    PROMPT-ROOT yum install glite-security-voms-clients
+   [root] # cd /etc/yum.repos.d/
+   [root] # wget http://grid-deployment.web.cern.ch/grid-deployment/glite/repos/3.2/glite-UI.repo
+   [root] # yum install glite-security-voms-clients
 
 ### `Creating a VOMS proxy`
 
-To create a VOMS proxy for your user certificate you need to execute the `voms-proxy-init` as a user.
+To create a VOMS proxy for your user certificate you need to execute the **voms-proxy-init** as a user.
 
-    PROMPT-USER export PATH=/opt/glite/bin/:$PATH
-    PROMPT-USER voms-proxy-init
+Example:
+
+    [user] $ export PATH=/opt/glite/bin/:$PATH
+    [user] $ voms-proxy-init
     Enter GRID pass phrase:
     Your identity: /C=DE/O=GermanGrid/OU=DESY/CN=John Doe
 
     Creating proxy ........................................................................Done
     Your proxy is valid until Mon Mar  7 22:06:15 2011
+    
 
 #### Certifying your membership of a VO
 
-You can certify your membership of a VO by using the command `voms-proxy-init -voms
-              yourVO`. This is useful as in DCACHE authorization can be done by VO (see [section\_title]). To be able to use the extension `-voms
-              yourVO` you need to be able to access VOMS servers. To this end you need the the VOMS server's and the CA's DN. Create a file `/etc/grid-security/vomsdir/VO/hostname.lsc` per VOMS server containing on the 1st line the VOMS server's DN and on the 2nd line, the corresponding CA's DN. The name of this file should be the fully qualified hostname followed by an `.lsc` extension and the file must appear in a subdirectory `/etc/grid-security/vomsdir/VO` for each VO that is supported by that VOMS server and by the site.
+ You can certify your membership of a VO by using the command **voms-proxy-init -voms <yourVO>**. This is useful as in dCache authorization can be done by VO (see [the section called “Authorizing a VO”](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-plug-inconfig-voauth)). To be able to use the extension **-voms <yourVO>** you need to be able to access VOMS servers. To this end you need the the VOMS server’s and the CA’s DN. Create a file **/etc/grid-security/vomsdir/<VO>/<hostname>.lsc** per VOMS server containing on the 1st line the VOMS server’s DN and on the 2nd line, the corresponding CA’s DN. The name of this file should be the fully qualified hostname followed by an **.lsc** extension and the file must appear in a subdirectory **/etc/grid-security/vomsdir/<VO>** for each VO that is supported by that VOMS server and by the site.
 
-At [] you can search for a VO and find this information.
+At [http://operations-portal.egi.eu/vo](https://operations-portal.egi.eu/vo) you can search for a VO and find this information. 
+
+
+Example:
 
 For example, the file /etc/grid-security/vomsdir/desy/grid-voms.desy.de.lsc contains:
 
@@ -610,13 +614,15 @@ where the first entry is the DN of the DESY VOMS server and the second entry is 
 
 In addition, you need to have a file `/opt/glite/etc/vomses` containing your VO's VOMS server.
 
-For DESY the file `/opt/glite/etc/vomses` should contain the entry
+Example:
+
+For DESY the file **/opt/glite/etc/vomses **` should contain the entry
 
     "desy" "grid-voms.desy.de" "15104" "/C=DE/O=GermanGrid/OU=DESY/CN=host/grid-voms.desy.de" "desy" "24"
 
 The first entry “desy” is the real name or a nickname of your VO. “grid-voms.desy.de” is the hostname of the VOMS server. The number “15104” is the port number the server is listening on. The forth entry is the DN of the server's VOMS certificate. The fifth entry, “desy”, is the VO name and the last entry is the globus version number which is not used anymore and can be omitted.
 
-Use the command `voms-proxy-init -voms` to create a VOMS proxy with VO “desy”.
+Use the command `voms-proxy-init -voms` to create a VOMS proxy with VO “desy”.  
 
      voms-proxy-init -voms desy
     Enter GRID pass phrase:
