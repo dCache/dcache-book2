@@ -3,7 +3,7 @@ Chapter 10. Authorization in dCache
 
 Table of Contents
 
-+ [Basics](#basics)  
++ [Basics](#basics)    
 + [Configuration](#configuration)  
 
     [Plug-ins](#plug-ins)   
@@ -616,7 +616,7 @@ In addition, you need to have a file `/opt/glite/etc/vomses` containing your VO'
 
 Example:
 
-For DESY the file **/opt/glite/etc/vomses **` should contain the entry
+For DESY the file **/opt/glite/etc/vomses�**` should contain the entry
 
     "desy" "grid-voms.desy.de" "15104" "/C=DE/O=GermanGrid/OU=DESY/CN=host/grid-voms.desy.de" "desy" "24"
 
