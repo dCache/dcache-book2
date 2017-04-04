@@ -267,7 +267,7 @@ To create/change the values of the tags, please execute :
 > Some clients also have default values, which are used when not explicitly specified by the user. In this case server side defaults will have no effect.
 
 > **NOTE**
->
+> 
 > If the implicit space reservation is not enabled, pools in link groups will be excluded from consideration and only the remaining pools will be considered for storing the incoming data, and classical pool selection mechanism will be used.
 
 
