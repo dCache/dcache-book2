@@ -320,49 +320,51 @@ If pools are financed by one experimental group, they probably do not like it if
 
 Example:  
 
-Assume, data of experiment A obtained in 2010 is written into subdirectories in the namespace tree which are tagged with the storage class `exp-a:run2010@osm`, and similarly for the other years. (How this is done is described in [the section called “Storage Classes”](#storage-classes).) Experiment B uses the storage class `exp-b:alldata@osm` for all its data. Especially important data is tagged with the cache class `important`. (This is described in [the section called “Cache Class”](#cache-class).) A suitable setup would be
+Assume, data of experiment A obtained in 2010 is written into subdirectories in the namespace tree which are tagged with the storage class `exp-a:run2010@osm`, and similarly for the other years. (How this is done is described in [the section called “Storage Classes”](#storage-classes).) Experiment B uses the storage class `exp-b:alldata@osm` for all its data. Especially important data is tagged with the cache class `important`. (This is described in [the section called “Cache Class”](#cache-class).) A suitable setup would be:   
 
-   psu create pgroup exp-a-pools
-   psu create pool pool1
-   psu addto pgroup exp-a-pools pool1
 
-   psu create pgroup exp-b-pools
-   psu create pool pool2
-   psu addto pgroup exp-b-pools pool2
 
-   psu create pgroup exp-b-imp-pools
-   psu create pool pool3
-   psu addto pgroup exp-b-imp-pools pool3
+      psu create pgroup exp-a-pools
+      psu create pool pool1
+      psu addto pgroup exp-a-pools pool1
 
-   psu create unit -net 111.111.111.0/255.255.255.0
-   psu create ugroup allnet-cond
-   psu addto ugroup allnet-cond 111.111.111.0/255.255.255.0
+      psu create pgroup exp-b-pools
+      psu create pool pool2
+      psu addto pgroup exp-b-pools pool2
 
-   psu create ugroup exp-a-cond
-   psu create unit -store exp-a:run2011@osm
-   psu addto ugroup exp-a-cond exp-a:run2011@osm
-   psu create unit -store exp-a:run2010@osm
-   psu addto ugroup exp-a-cond exp-a:run2010@osm
+      psu create pgroup exp-b-imp-pools
+      psu create pool pool3
+      psu addto pgroup exp-b-imp-pools pool3
 
-   psu create link exp-a-link allnet-cond exp-a-cond
-   psu set link exp-a-link -readpref=10 -writepref=10 -cachepref=10
-   psu add link exp-a-link exp-a-pools
+      psu create unit -net 111.111.111.0/255.255.255.0
+      psu create ugroup allnet-cond
+      psu addto ugroup allnet-cond 111.111.111.0/255.255.255.0
 
-   psu create ugroup exp-b-cond
-   psu create unit -store exp-b:alldata@osm
-   psu addto ugroup exp-b-cond exp-b:alldata@osm
+      psu create ugroup exp-a-cond
+      psu create unit -store exp-a:run2011@osm
+      psu addto ugroup exp-a-cond exp-a:run2011@osm
+      psu create unit -store exp-a:run2010@osm
+      psu addto ugroup exp-a-cond exp-a:run2010@osm
 
-   psu create ugroup imp-cond
-   psu create unit -dcache important
-   psu addto ugroup imp-cond important
+      psu create link exp-a-link allnet-cond exp-a-cond
+      psu set link exp-a-link -readpref=10 -writepref=10 -cachepref=10
+      psu add link exp-a-link exp-a-pools
 
-   psu create link exp-b-link allnet-cond exp-b-cond  
-   psu set link exp-b-link -readpref=10 -writepref=10 -cachepref=10  
-   psu add link exp-b-link exp-b-pools  
+      psu create ugroup exp-b-cond
+      psu create unit -store exp-b:alldata@osm
+      psu addto ugroup exp-b-cond exp-b:alldata@osm
 
-   psu create link exp-b-imp-link allnet-cond exp-b-cond imp-cond
-   psu set link exp-b-imp-link -readpref=20 -writepref=20 -cachepref=20
-   psu add link exp-b-link exp-b-imp-pools
+      psu create ugroup imp-cond
+      psu create unit -dcache important
+      psu addto ugroup imp-cond important
+
+      psu create link exp-b-link allnet-cond exp-b-cond  
+      psu set link exp-b-link -readpref=10 -writepref=10 -cachepref=10  
+      psu add link exp-b-link exp-b-pools  
+
+      psu create link exp-b-imp-link allnet-cond exp-b-cond imp-cond
+      psu set link exp-b-imp-link -readpref=20 -writepref=20 -cachepref=20
+      psu add link exp-b-link exp-b-imp-pools
 
 
 
@@ -370,6 +372,8 @@ Data tagged with cache class “`important`” will always be written and read f
 Note again that these will never be used otherwise. Not even, if all pools in `exp-b-imp-pools` are very busy and some pools in `exp-a-pools` have nothing to do and lots of free space.
 
 The central IT department might also want to set up a few pools, which are used as fall-back, if none of the pools of the experiments are functioning. These will also be used for internal testing. The following would have to be added to the previous setup:
+
+Example:  
 
     psu create pgroup it-pools  
     psu create pool pool_it  
@@ -470,7 +474,7 @@ For your dCache on dcache.example.org the address is
 http://dcache.example.org:2288/poolInfo/parameterHandler/set/matrix/*
 
 
-### Examples
+### Examples   
 
 For the subsequent examples we assume a basic poolmanager setup :
 
@@ -565,7 +569,8 @@ CLASSIC PARTITIONS
 
 The `classic` partition type implements the load balancing policy known from dCache releases before version 2.0. This partition type is still the default. This section describes this load balancing policy and the available configuration parameters.
 
-Example:
+Example:   
+
 To create a classic partition use the command: `pm create` -type=classic  <partitionName>
 
 ### Load Balancing Policy
@@ -699,7 +704,8 @@ will give the [space cost](https://www.dcache.org/manuals/Book-2.16/reference/rf
 
 Classic partitions have a large number of tunable parameters. These parameters are set using the `pm set` command.
 
-Example:
+Example:  
+
 To set the space cost factor on the `default` partition to `0.3`, use the following command:
 
                       pm set default -spacecostfactor=0.3
