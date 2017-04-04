@@ -53,9 +53,10 @@ CONFIGURING THE SRM SERVICE
 THE BASIC SETUP
 ---------------
 
-Like other services, the srm service can be enabled in the layout file **/etc/dcache/layouts/<mylayout>** of your dCache installation. For an overview of the layout file format, please see [the section called “Defining domains and services”](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-layout).
+Like other services, the srm service can be enabled in the layout file **/etc/dcache/layouts/mylayout** of your dCache installation. For an overview of the layout file format, please see [the section called “Defining domains and services”](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-layout).
 
-Example:
+Example:  
+
 To enable SRM in a separate <srm-${host.name}Domain> in dCache, add the following lines to your layout file:
 
     [<srm-${host.name}Domain>]
@@ -86,7 +87,8 @@ The defaults for the following configuration parameters can be found in the **.p
 
 If you want to modify parameters, copy them to **/etc/dcache/dcache.conf** or to your layout file **/etc/dcache/layouts/<mylayout>** and update their value.
 
-Example:
+Example:  
+
 Change the value for `srm.db.host` in the layout file.
 
     [srm-${host.name}Domain]
@@ -100,13 +102,15 @@ The property `srm.request.copy.threads` controls number of copy requests in the 
 
 The common value should be the roughly equal to the maximum number of the SRM - to -SRM copies your system can sustain.
 
-Example:
+Example:  
+
 So if you think about 3 gridftp transfers per pool and you have 30 pools then the number should be 3x30=90.
 
     srm.request.copy.threads=90
     transfermanagers.limits.external-transfers=90
 
-Example:
+Example:  
+
 US-CMS T1 has:
 
     srm.request.copy.threads=2000
@@ -151,7 +155,7 @@ If the space reservation request does not specify a retention policy, we will as
 
 Edit the file **/etc/dcache/dcache.conf** to change the default value.
 
-Example:
+Example:  
 Change the default value to `REPLICA`.
 
     spacemanager.default-retention-policy=REPLICA
@@ -243,7 +247,8 @@ You can check if the `AccessLatency` and `RetentionPolicy` tags are present by u
 
 If the output contains the lines AccessLatency and RetentionPolicy then the tags are already present and you can get the actual values of these tags by executing the following commands, which are shown together with example outputs:
 
-     Example:
+     Example:  
+     
      [root] # /usr/bin/chimera readtag /data/experiment-a AccessLatency
      ONLINE
      [root] # /usr/bin/chimera readtag /data/experiment-a RetentionPolicy
