@@ -88,35 +88,35 @@ Details on the TSS-support EXECUTABLE
 Summary of command line options
 -------------------------------
 
-This part explains the syntax of calling the EXECUTABLE that supports STOREFILE, `FETCH
+	This part explains the syntax of calling the EXECUTABLE that supports STOREFILE, `FETCH
 	FILE` and REMOVEFILE operations.
 
-put<pnfsID><filename>-si=<storage-information> [<other-options>...]
+	put<pnfsID><filename>-si=<storage-information> [<other-options>...]
 
-get <pnfsID> <filename> -si=<storage-information> -uri=<storage-uri> [<other-options>...]
+	get <pnfsID> <filename> -si=<storage-information> -uri=<storage-uri> [<other-options>...]
 
-remove -uri=<storage-uri> [<other-options>...]
+	remove -uri=<storage-uri> [<other-options>...]
 
-   - put / get / remove: these keywords indicate the operation to be performed.
+   	- put / get / remove: these keywords indicate the operation to be performed.
         put: copy file from disk to TSS.
         get: copy file back from TSS to disk.
         remove: remove the file from TSS. 
-   - <pnfsID>: The internal identifier (i-node) of the file within dCache. The <pnfsID> is unique within a single dCache instance and globally unique with a very high probability.
-   - <filename>: is the full path of the local file to be copied to the TSS (for put) and respectively into which the file from the TSS should be copied (for get).
-   - <storage-information>: the storage information of the file, as explained below.
-   - <storage-uri>: the URI, which was returned by the executable, after the file was written to tertiary storage. In order to get the file back from the TSS the information of the URI is preferred over the information in the <storage-information>.
-   - <other-options>: -<key> = <value> pairs taken from the TSS configuration commands of the pool 'setup' file. One of the options, always provided is the option -command=<full path of this executable>. 
+  	 - <pnfsID>: The internal identifier (i-node) of the file within dCache. The <pnfsID> is unique within a single dCache 	instance and globally unique with a very high probability.
+   	- <filename>: is the full path of the local file to be copied to the TSS (for put) and respectively into which the file from the TSS should be copied (for get).
+   	- <storage-information>: the storage information of the file, as explained below.
+  	 - <storage-uri>: the URI, which was returned by the executable, after the file was written to tertiary storage. In order to get the file back from the TSS the information of the URI is preferred over the information in the <storage-information>.
+  	 - <other-options>: -<key> = <value> pairs taken from the TSS configuration commands of the pool 'setup' file. One of the options, always provided is the option -command=<full path of this executable>. 
 
 
 
 ### Storage Information
 
-The <storage-information> is a string in the format   
-    -si=size=bytes;new=true/false;stored=true/false;sClass=StorageClass;\  
-    cClass0CacheClass;hsm=StorageType;key=value;[key=value;[...]]  
+	The <storage-information> is a string in the format   
+   	 -si=size=bytes;new=true/false;stored=true/false;sClass=StorageClass;\  
+   	 cClass0CacheClass;hsm=StorageType;key=value;[key=value;[...]]  
 
-Example:
-    -si=size=1048576000;new=true;stored=false;sClass=desy:cms-sc3;cClass=-;hsm=osm;Host=desy;  
+	Example:
+   	 -si=size=1048576000;new=true;stored=false;sClass=desy:cms-sc3;cClass=-;hsm=osm;Host=desy;  
 
 Mandatory storage information’s keys  
 
@@ -132,17 +132,17 @@ Mandatory storage information’s keys
 <!-- -->
 OSM specific storage information’s keys   
 
-- <group>: The storage group of the file to be stored as specified in the ".(tag)(sGroup)" tag of the parent directory of the file to be stored.   
-- <store>: The store name of the file to be stored as specified in the ".(tag)(OSMTemplate)" tag of the parent directory of the file to be stored.  
-- <bfid>: Bitfile ID (get and remove only) (e.g. 000451243.2542452542.25424524)   
+	- <group>: The storage group of the file to be stored as specified in the ".(tag)(sGroup)" tag of the parent directory of the file to be stored.   
+	- <store>: The store name of the file to be stored as specified in the ".(tag)(OSMTemplate)" tag of the parent directory of the file to be stored.  
+	- <bfid>: Bitfile ID (get and remove only) (e.g. 000451243.2542452542.25424524)   
 
 Enstore specific storage information’s keys
 
- - <group>: The storage group (e.g. cdf, cms ...)  
- - <family>: The file family (e.g. sgi2test, h6nxl8, ...)  
- - <bfid>: Bitfile ID (get only) (e.g. B0MS105746894100000)  
- - <volume>: Tape Volume (get only) (e.g. IA6912)  
- - <location>: Location on tape (get only) (e.g. : 0000_000000000_0000117)   
+ 	- <group>: The storage group (e.g. cdf, cms ...)  
+ 	- <family>: The file family (e.g. sgi2test, h6nxl8, ...)  
+	 - <bfid>: Bitfile ID (get only) (e.g. B0MS105746894100000)  
+	 - <volume>: Tape Volume (get only) (e.g. IA6912)  
+	 - <location>: Location on tape (get only) (e.g. : 0000_000000000_0000117)   
 
 There might be more key values pairs which are used by the dCache internally and which should not affect the behaviour of the   executable.   
 
