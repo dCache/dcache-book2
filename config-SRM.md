@@ -547,7 +547,7 @@ SRM CONFIGURATION FOR EXPERTS
 
 There are a few parameters in **/usr/share/dcache/defaults/*.properties** that you might find useful for nontrivial `SRM` deployment.
 
-### dcache.enable.space-reservation
+### dcache.enable.space-reservation  
 
 `dcache.enable.space-reservation` tells if the space management is activated in `SRM`.
 
