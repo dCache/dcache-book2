@@ -53,7 +53,7 @@ A log entry for a write operation has the default format:
     <transferred-bytes>  <connectionTime> <true/false> {<protocol>}  
     <initiator>  {<return-status>:"<error-message>"}  
 
-Example:
+Example:  
 A typical logging entry would look like this for writing. In the log file each entry is in one line. For readability we split it into separate lines in this documentation.:  
 
     12.10 14:19:42 [pool:pool2@poolDomain-1:transfer]  
@@ -96,7 +96,7 @@ CUSTOMIZING THE DATABASE
     >
     > Please take care to define the `billing` service before the `httpd`service in your layout file. If the `billing` service is defined in a separate domain, this domain should be defined before the domain in which the `httpd` service is running.
 
-Example:
+Example:  
     Extract from the layout file:
 
         [httpdDomain]
@@ -195,7 +195,7 @@ GENERATING AND DISPLAYING BILLING PLOTS
 
 If you have selected to store billing messages to the database, it is also possible to generate and display a set of histograms from the data in these tables. To turn on plot generation, set the property `httpd.enable.plots.billing` to `true` and restart the domain in which the HTTPD is running.
 
-Example:
+Example:  
 Extract from the layout file:
 
     [httpdDomain]
@@ -246,25 +246,27 @@ Because it is possible that the newer version may be deployed over an existing i
 If you start the domain containing the `billing` service over a pre-existing installation of the billing database, depending on what was already there, you may observe some messages like the following in the domain log having to do with the logic governing table initialization.
 
 Example:  
-    INFO 8/23/12 10:35 AM:liquibase: Successfully acquired change log lock  
-    INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog  
-    INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog  
-    INFO 8/23/12 10:35 AM:liquibase: Successfully released change log lock  
-    INFO 8/23/12 10:35 AM:liquibase: Successfully released change log lock  
-    INFO 8/23/12 10:35 AM:liquibase: Successfully acquired change log lock  
-    INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog  
-    INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog  
-    INFO 8/23/12 10:35 AM:liquibase: ChangeSet org/dcache/services/billing/  
+
+
+       INFO 8/23/12 10:35 AM:liquibase: Successfully acquired change log lock  
+       INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog  
+       INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog  
+       INFO 8/23/12 10:35 AM:liquibase: Successfully released change log lock  
+       INFO 8/23/12 10:35 AM:liquibase: Successfully released change log lock  
+       INFO 8/23/12 10:35 AM:liquibase: Successfully acquired change log lock  
+       INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog  
+       INFO 8/23/12 10:35 AM:liquibase: Reading from databasechangelog  
+       INFO 8/23/12 10:35 AM:liquibase: ChangeSet org/dcache/services/billing/  
        db/sql/billing.changelog-1.9.13.xml::4.1.7::arossi ran successfully in 264ms  
-    INFO 8/23/12 10:35 AM:liquibase: Marking ChangeSet: org/dcache/services/  
+       INFO 8/23/12 10:35 AM:liquibase: Marking ChangeSet: org/dcache/services/  
        billing/db/sql/billing.changelog-1.9.13.xml::4.1.8::arossi::(Checksum:  
        3:faff07731c4ac867864824ca31e8ae81) ran despite precondition failure due  
        to onFail='MARK_RAN': classpath:org/dcache/services/billing/db/sql/  
        billing.changelog-master.xml : SQL Precondition failed. Expected '0' got '1'  
-    INFO 8/23/12 10:35 AM:liquibase: ChangeSet org/dcache/services/billing/db/sql/  
+       INFO 8/23/12 10:35 AM:liquibase: ChangeSet org/dcache/services/billing/db/sql/  
        billing.changelog-1.9.13.xml::4.1.9::arossi ran successfully in 14ms  
-    INFO 8/23/12 10:35 AM:liquibase: Successfully released change log lock  
-    INFO 8/23/12 10:35 AM:liquibase: Successfully released change log lock  
+       INFO 8/23/12 10:35 AM:liquibase: Successfully released change log lock  
+       INFO 8/23/12 10:35 AM:liquibase: Successfully released change log lock  
 
 Anything logged at a level lower than `ERROR` is usually entirely normal. Liquibase regularly reports when the preconditions determining whether it needs to do something are not met. All this means is that the update step was not necessary and it will be skipped in the future.  
 
@@ -306,8 +308,8 @@ and then restarting the domain.
 >
 > that is, if it has been previously modified by hand or out-of-band to include custom tables not used directly by DCACHE, the existence of such extraneous tables should not impede DCACHE from working correctly, provided those other tables are `READ`-accessible by the database user for billing, which by default is `dcache`. This is a requirement imposed by the use of Liquibase. You thus may need explicitly to grant `READ` privileges to the billing database user on any such tables if they are owned by another database user.  
 
-  [Installing DCACHE]: #in
+<!-- [Installing DCACHE]: #in
   [StringTemplate v3 documentation]: 
          http://www.antlr.org/wiki/display/ST/StringTemplate+3+Documentation
   [cheat sheet]: http://www.antlr.org/wiki/display/ST/StringTemplate+cheat+sheet
-  [DataNucleus]: http://www.datanucleus.org
+  [DataNucleus]: http://www.datanucleus.org --!>
