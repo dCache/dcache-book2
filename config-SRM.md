@@ -198,8 +198,8 @@ ACTIVATING SRM SPACEMANAGER
 
 In order to enable the `SRM SpaceManager` you need to add the `spacemanager` service to your layout file
 
-   [<dCacheDomain>]
-   [<dCacheDomain>/spacemanager]
+   [dCacheDomain]
+   [dCacheDomain/spacemanager]
 
 and add the following definition in the file **/etc/dcache/dcache.conf**
 
