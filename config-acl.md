@@ -313,7 +313,7 @@ VIEWING CONFIGURED ACLS
 -----------------------
 The `getfacl` is used to obtain the current ACL for some item in DCACHE namespace. It takes the following arguments.  
 
-getfacl [<pnfsId>] | [<globalPath>]    
+getfacl [pnfsId] | [globalPath]    
 
 The `getfacl` command fetches the ACL information of a namespace item (a file or directory). The item may be specified by its PNFS-ID or its absolute path.
 
