@@ -240,7 +240,8 @@ Find some examples for the configuration of the PSU below.
 
 The dCache we are going to configure receives data from a running experiment, stores the data onto a tertiary storage system, and serves as a read cache for users who want to analyze the data. While the new data from the experiment should be stored on highly reliable and therefore expensive systems, the cache functionality may be provided by inexpensive hardware. It is therefore desirable to have a set of pools dedicated for writing the new data and a separate set for reading.
 
-Example:
+Example:  
+
 The simplest configuration for such a setup would consist of two links “write-link” and “read-link”. The configuration is as follows:
 
     psu create pgroup read-pools
@@ -254,9 +255,9 @@ The simplest configuration for such a setup would consist of two links “write-
     psu create ugroup allnet-cond
     psu addto ugroup allnet-cond 0.0.0.0/0.0.0.0
 
-    psu create link read-link allnet-cond
+    psu create link read-link allnet-cond 
     psu set link read-link -readpref=10 -writepref=0 -cachepref=10
-    psu add link read-link read-pools
+    psu add link read-link read-pools 
 
     psu create link write-link allnet-cond
     psu set link write-link -readpref=0 -writepref=10 -cachepref=0
