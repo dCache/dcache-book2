@@ -137,7 +137,8 @@ Pools can be grouped together to pool groups.
     psu create pool <name-of-pool>
     psu addto pgroup <name-of-poolgroup> <name-of-pool>
 
-Example:
+Example:  
+
 Consider a host `pool1` with two pools, `pool1_1` and `pool1_2`, and a host `pool2` with one pool `pool2_1`. If you want to treat them in the same way, you would create a pool group and put all of them in it:
 
     psu create pgroup normal-pools  
@@ -164,7 +165,8 @@ The storage class is a string of the form `StoreName:StorageGroup@type-of-storag
 
 Consider for example the following setup:
 
-    Example:  
+    Example:    
+    
     [root] # /usr/bin/chimera lstag /data/experiment-a  
     Total: 2  
     OSMTemplate  
@@ -192,6 +194,7 @@ Consider for example a situation, where data produced by an experiment always ha
 The cache class of a directory is set by the tag `cacheClass` as follows:
 
     Example:  
+    
     [root] # /usr/bin/chimera writetag /data/experiment-a cacheClass "metaData"  
 
     In this example the meta-data is stored in directories which are tagged in this way.  
@@ -314,7 +317,8 @@ Assume, the experiment data is copied into the cache from the hosts with IP `111
 
 If pools are financed by one experimental group, they probably do not like it if they are also used by another group. The best way to restrict data belonging to one experiment to a set of pools is with the help of storage class conditions. If more flexibility is needed, cache class conditions can be used for the same purpose.
 
-Example:
+Example:  
+
 Assume, data of experiment A obtained in 2010 is written into subdirectories in the namespace tree which are tagged with the storage class `exp-a:run2010@osm`, and similarly for the other years. (How this is done is described in [the section called “Storage Classes”](#storage-classes).) Experiment B uses the storage class `exp-b:alldata@osm` for all its data. Especially important data is tagged with the cache class `important`. (This is described in [the section called “Cache Class”](#cache-class).) A suitable setup would be
 
    psu create pgroup exp-a-pools
@@ -459,7 +463,8 @@ Whenever this link is chosen for pool selection, the associated parameters of th
 
 In the [Web Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs-comments.shtml) you can find a web page listing partitions and more information. You will find a page summarizing the partition status of the system. This is essentially the output of the command `pm ls -l`.
 
-Example:
+Example:  
+
 For your dCache on dcache.example.org the address is
 http://dcache.example.org:2288/poolInfo/parameterHandler/set/matrix/*
 
