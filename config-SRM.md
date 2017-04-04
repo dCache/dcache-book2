@@ -302,7 +302,8 @@ The lack of output tells you that there are no link groups. As there are no link
 
 For a general introduction about link groups see [the section called “Link Groups”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs.shtml).
 
-Example:
+Example:  
+
 In this example we will create a link group for the VO desy. In order to do so we need to have a pool, a pool group and a link. Moreover, we define unit groups named any-store, world-net and any-protocol. (See [the section called “Types of Units”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs.shtml#cf-pm-links-units).)
 
 Define a pool in your layout file, add it to your pool directory and restart the `poolDomain`.
@@ -377,7 +378,8 @@ Rather than an FQAN, a mapped user name can be used. This allows clients or prot
 >     (SrmSpaceManager) admin > update link groups
 >     Update started.
 
-Example:
+Example:  
+
 In the example above you created the link group `spacemanager_WriteLinkGroup`. Now you want to allow members of the VO `desy` with the role `production` to make a space reservation in this link group.
 
     #SpaceManagerLinkGroupAuthorizationFile
@@ -387,7 +389,8 @@ In the example above you created the link group `spacemanager_WriteLinkGroup`. N
     #
     /desy/Role=production
 
-Example:
+Example:  
+
 In this more general example for a `SpaceManagerLinkGroupAuthorizationFile` members of the VO `desy` with role `test` are authorized to make a space reservation in a link group called `desy-test-LinkGroup`. Moreover, all members of the VO `desy` are authorized to make a reservation in the link group called `desy-anyone-LinkGroup` and anyone is authorized to make a space reservation in the link group called `default-LinkGroup`.
 
     #SpaceManagerLinkGroupAuthorizationFile  
@@ -407,7 +410,8 @@ In this more general example for a `SpaceManagerLinkGroupAuthorizationFile` memb
 
 #### Making a Space Reservation  
 
-Example:
+Example:  
+
 Now you can make a space reservation for the VO `desy`.  
 
    (SrmSpaceManager) admin > reserve space -owner=/desy/Role=production -desc=DESY_TEST -lifetime=10000 -lg=spacemanager_WriteLinkGroup 5MB
@@ -563,7 +567,8 @@ Usage example:
 
 Possible values are `true` and `false`. This is enabled by default. It has no effect if `dcache.enable.space-reservation` is set to `true`.
 
-Usage example:
+Usage example:  
+
 
     srm.enable.space-reservation.implicit=true
 
@@ -583,7 +588,8 @@ Usage example:
 
 Possible values are `true` and `false`. Default is `false`.
 
-Usage example:
+Usage example:  
+
 
     srm.enable.overwrite-by-default=false 
 
@@ -593,7 +599,8 @@ Usage example:
 
 Default value is `localhost`.
 
-Usage example:
+Usage example:  
+
 
     srm.db.host=database-host.example.org
 
@@ -603,7 +610,7 @@ Usage example:
 
 Default value is `localhost`.
 
-Usage example:
+Usage example:  
 
     spaceManagerDatabaseHost=database-host.example.org
 
@@ -613,7 +620,8 @@ Usage example:
 
 Default value is `localhost`.
 
-Usage example:
+Usage example:  
+
 
     pinmanager.db.host=database-host.example.org
 
@@ -623,7 +631,8 @@ Usage example:
 
 Default value is `srm`.
 
-Usage example:
+Usage example:  
+
 
     srm.db.name=srm
 
@@ -633,7 +642,8 @@ Usage example:
 
 Default value is `dcache`.
 
-Usage example:
+Usage example:  
+
 
     srm.db.user=dcache
 
@@ -641,7 +651,8 @@ Usage example:
 
 `srm.db.password` tells SRM which database password to use when connecting to database. The default value is an `empty` value (no password).
 
-Usage example:
+Usage example:  
+
 
     srm.db.password=NotVerySecret
 
@@ -651,7 +662,8 @@ Usage example:
 
 This option is not set by default.
 
-Usage example:
+Usage example:  
+
 
     srm.db.password.file=/root/.pgpass
 
@@ -661,7 +673,7 @@ Usage example:
 
 Possible values are `true` and `false`. Default is `false`.
 
-Usage example:
+Usage example:  
 
     srm.request.enable.history-database=true
 
@@ -671,7 +683,7 @@ Usage example:
 
 Possible values are `true` and `false`. Default is `false`.
 
-Usage example:
+Usage example:  
 
     transfermanagers.enable.log-to-database=false
 
@@ -687,7 +699,7 @@ Default is `version1`.
 
 Default value is `/`.
 
-Usage example:
+Usage example:  
 
     srm.root="/pnfs/fnal.gov/data/experiment"
 
@@ -697,7 +709,7 @@ Usage example:
 
 Default value is `10`.
 
-Usage example:
+Usage example:  
 
     srm.limits.parallel-streams=20
 
@@ -707,7 +719,7 @@ Usage example:
 
 Default value is `1048576`.
 
-Usage example:
+Usage example:  
 
     srm.limits.transfer-buffer.size=1048576
 
@@ -717,7 +729,7 @@ Usage example:
 
 Default value is `1048576`.
 
-Usage example:
+Usage example:  
 
     srm.limits.transfer-tcp-buffer.size=1048576
 
@@ -727,7 +739,7 @@ Usage example:
 
 Default value is `120`.
 
-Usage example:
+Usage example:  
 
     srm.service.gplazma.cache.timeout=60
 
@@ -737,7 +749,7 @@ Usage example:
 
 Default value is `14400000` (4 hours)
 
-Usage example:
+Usage example:  
 
     srm.limits.request.bring-online.lifetime=14400000
     srm.limits.request.put.lifetime=14400000
@@ -747,7 +759,7 @@ Usage example:
 
 `srm.limits.request.scheduler.ready.max` and `srm.limits.request.put.scheduler.ready.max` specify the maximum number of the files for which the transfer URLs will be computed and given to the users in response to SRM get (srmPrepareToGet) and put (srmPrepareToPut) requests. The rest of the files that are ready to be transfered are put on the `Ready` queues, the maximum length of these queues are controlled by `srm.limits.request.scheduler.ready-queue.size` and `srm.limits.request.put.scheduler.ready-queue.size` parameters. These parameters should be set according to the capacity of the system, and are usually greater than the maximum number of the GRIDFTP transfers that this DCACHE instance GRIDFTP doors can sustain.
 
-Usage example:
+Usage example:  
 
     srm.limits.request.scheduler.ready-queue.size=10000
     srm.limits.request.scheduler.ready.max=2000
@@ -758,7 +770,7 @@ Usage example:
 
 `srm.limits.request.copy.scheduler.thread.pool.size` and `transfermanagers.limits.external-transfers`. `srm.limits.request.copy.scheduler.thread.pool.size` is used to specify how many parallel srmCopy file copies to execute simultaneously. Once the `SRM` contacted the remote `SRM` system, and obtained a Transfer URL (usually GSI-FTP URL), it contacts a Copy Manager module (usually RemoteGSIFTPTransferManager), and asks it to perform a GRIDFTP transfer between the remote GRIDFTP server and a DCACHE pool. The maximum number of simultaneous transfers that RemoteGSIFTPTransferManager will support is `transfermanagers.limits.external-transfers`, therefore it is important that `transfermanagers.limits.external-transfers` is greater than or equal to `srm.limits.request.copy.scheduler.thread.pool.size`.
 
-Usage example:
+Usage example:  
 
     srm.limits.request.copy.scheduler.thread.pool.size=250
     transfermanagers.limits.external-transfers=260
@@ -767,7 +779,7 @@ Usage example:
 
 `srm.enable.custom-get-host-by-address` `srm.enable.custom-get-host-by-address` enables using the BNL developed procedure for host by IP resolution if standard InetAddress method failed.
 
-Usage example:
+Usage example:  
 
     srm.enable.custom-get-host-by-address=true
 
@@ -777,7 +789,7 @@ Usage example:
 
 Automatic directory creation is allowed by default.
 
-Usage example:
+Usage example:  
 
     srm.enable.recursive-directory-creation=true
 
@@ -789,7 +801,7 @@ By changing this parameter you can control how long the host certificate is cach
 
 Please note that the value of this parameter has to be specified in seconds.
 
-Usage example:
+Usage example:  
 
     hostCertificateRefreshPeriod=86400
 
@@ -805,7 +817,7 @@ Please note that the value of this parameter has to be specified in seconds.
 >
 > Trust-anchors usually change more often than the host certificate. Thus, it might be sensible to set the refresh period of the trust anchors lower than the refresh period of the host certificate.
 
-Usage example:
+Usage example:  
 
     trustAnchorRefreshPeriod=3600
 
@@ -910,7 +922,7 @@ Examples of the SURLs a.k.a. SRM URLs are:
 
 A transfer URL (TURL) encodes the file transport protocol in the URL.
 
-Example:
+Example:  
     gsiftp://gridftpdoor.fnal.gov:2811/data/test/file1
 
 `SRM` version 2.2 provides three functions for performing data transfers:
