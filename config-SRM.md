@@ -998,7 +998,7 @@ SRM Version 2.2 supports the following three file permission functions:
 
 DCACHE contains an implementation of these functions that allows setting and checking of Unix file permissions.
 
-  [SRM specification]: https://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html
+ <!-- [SRM specification]: https://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html
   [SRM Working Group Page]: http://sdm.lbl.gov/srm-wg/
   [???]: #in-install-layout
   [1]: #cf-gplazma
@@ -1017,3 +1017,4 @@ DCACHE contains an implementation of these functions that allows setting and che
   [5]: http://www.postgresql.org/docs/8.1/static/encryption-options.html
   [Properties of the SRM space reservations]: #cf-srm-intro-spaceReservation
   [SRM Version 2.2 Specification]: http://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html#_Toc241633085
+--!>
