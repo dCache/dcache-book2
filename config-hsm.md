@@ -473,11 +473,12 @@ For evaluation purposes, the *pinboard* of each component can be used to track d
 
 Check the pinboard of a service, here the POOLMNGR service.
 
-Example:
-    [example.dcache.org] (local) admin > cd PoolManager
-    [example.dcache.org] (PoolManager) admin > show pinboard 100
-    08.30.45  [Thread-7] [pool_1 PoolManagerPoolUp] sendPoolStatusRelay: ...
-    08.30.59  [writeHandler] [NFSv41-dcachetogo PoolMgrSelectWritePool ...
+Example:  
+
+    [example.dcache.org] (local) admin > cd PoolManager  
+    [example.dcache.org] (PoolManager) admin > show pinboard 100   
+    08.30.45  [Thread-7] [pool_1 PoolManagerPoolUp] sendPoolStatusRelay: ...  
+    08.30.59  [writeHandler] [NFSv41-dcachetogo PoolMgrSelectWritePool ...   
     ....
 
 Example:
@@ -511,7 +512,7 @@ Example:
       00001BC6D76570A74534969FD72220C31D5D  
 
 
-    [example.dcache.org] DC-PROMPT-POOL1 flush ls  
+    [example.dcache.org] (local) admin > cd pool_1
     Class                 Active   Error  Last/min  Requests    Failed  
     dteam:STATIC@osm           0       0         0         1         0  
 
@@ -519,8 +520,8 @@ Example:
 
 **The pool STORE FILE Queue.**
 
-    [example.dcache.org] DC-PROMPT-LOCAL cd pool_1  
-    [example.dcache.org] DC-PROMPT-POOL1 st ls  
+    [example.dcache.org] (local) admin > cd pool_1
+    [example.dcache.org] (pool_1) admin > st ls
     0000EC3A4BFCA8E14755AE4E3B5639B155F9  1   Fri Aug 12 15:35:58 CEST 2011  
 
 Example:
