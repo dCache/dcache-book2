@@ -822,7 +822,7 @@ Log files of domains are by default stored in **/var/log/dcache/<domainName>.log
 
 More details about domains and cells can be found in [Chapter 5, The Cell Package.](https://www.dcache.org/manuals/Book-2.16/config/cf-cellpackage-fhs.shtml)
 
-The most central component of a dCache instance is the PoolManager cell. It reads additional configuration information from the file **/var/lib/dcache/config/poolmanager.conf** at start-up. However, it is not necessary to restart the domain when changing the file. We will see an example of this below.
+The most central component of a dCache instance is the PoolManager cell. It reads additional configuration information from the file **/var/lib/dcache/config/poolmanager.conf** at start-up. However, it is not necessary to restart the domain when changing the file. We will see an example of this below.  
 
 <!--
   [???]: #in-install
