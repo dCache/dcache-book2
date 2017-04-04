@@ -339,5 +339,5 @@ If set to `true` you allow files to be copied to a pool, which has the same `tag
 > replica.enable.same-host-replica
 > is set to false.
 
-  [section\_title]: #cf-repman-op-cmds
+  [section\_title]: #cf-repman-op-cmds 
   [Pool State Diagram]: images/resilient_poolstate_v1-0.svg
