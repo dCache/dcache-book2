@@ -85,7 +85,7 @@ IMPORTANT SRM CONFIGURATION OPTIONS
 
 The defaults for the following configuration parameters can be found in the **.properties** files in the directory **/usr/share/dcache/defaults**.
 
-If you want to modify parameters, copy them to **/etc/dcache/dcache.conf** or to your layout file **/etc/dcache/layouts/<mylayout>** and update their value.
+If you want to modify parameters, copy them to **/etc/dcache/dcache.conf** or to your layout file **/etc/dcache/layouts/mylayout** and update their value.
 
 Example:  
 
@@ -211,7 +211,7 @@ Unless you have reason not to, we recommend placing the `spacemanager` service i
 EXPLICIT AND IMPLICIT SPACE RESERVATIONS FOR DATA STORAGE IN DCACHE
 -------------------------------------------------------------------
 
-### Explicit Space Reservations
+### Explicit Space Reservations  
 
 Each SRM space reservation is made against the total available disk space of a particular link group. If dCache is configured correctly each byte of disk space, that can be reserved, belongs to one and only one link group. See [the section called “SpaceManager configuration”](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml) for a detailed description.
 
@@ -235,7 +235,7 @@ The reason dCache cannot just allow the file to be uploaded to the link group wi
 
 In case of `SRM` version 1.1 data transfers, where the access latency and retention policy cannot be specified, and in case of `SRM` V2.2 clients, when the access latency and retention policy are not specified, default values will be used. First `SRM` will attempt to use the values of access latency and retention policy tags from the directory to which a file is being written. If the tags are not present, then the access latency and retention policy will be set on basis of `pnfsmanager` defaults controlled by `pnfsmanager.default-retention-policy` and `pnfsmanager.default-access-latency` variables in **/etc/dcache/dcache.conf**.
 
-You can check if the `AccessLatency` and `RetentionPolicy` tags are present by using the following command:
+You can check if the `AccessLatency` and `RetentionPolicy` tags are present by using the following command:  
 
         [root] # /usr/bin/chimera lstag /path/to/directory
 	Total: numberOfTags
@@ -278,6 +278,7 @@ SRM SPACEMANAGER AND LINK GROUPS
 --------------------------------
 
 `SpaceManager` is making reservations against free space available in [link groups](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs.shtml). The total free space in the given link group is the sum of available spaces in all links. The available space in each link is the sum of all sizes of available space in all pools assinged to a given link. Therefore for the space reservation to work correctly it is essential that each pool belongs to one and only one link, and each link belongs to only one link group. Link groups are assigned several parameters that determine what kind of space the link group corresponds to and who can make reservations against this space.
+
 
 MAKING A SPACE RESERVATION
 --------------------------
@@ -342,19 +343,18 @@ Check whether the link group is available. Note that this can take several minut
     --rc:no 0     0 + 7278624768 = 7278624768 2011-11-28 12:12:51 spacemanager_WriteLinkGroup
     
         
-
 The link group `spacemanager_WriteLinkGroup` was created. Here the flags indicate first the status (- indicates that neither the expired \[e\] nor the released flags \[r\] are set), followed by the type of reservations allowed in the link group (here replica \[r\], custodial \[c\], nearline \[n\] and online \[o\] files; output \[o\] files are not allowed - see `help ls
       link groups` for details on the format). No space reservations have been created, as indicated by the count field. Since no space reservation has been created, no space in the link group is reserved.
 
 #### The `SpaceManagerLinkGroupAuthorizationFile`
 
-Now you need to edit the `LinkGroupAuthorization.conf` file. This file contains a list of the link groups and all the VOs and the VO Roles that are permitted to make reservations in a given link group.
+Now you need to edit the **LinkGroupAuthorization.conf** file. This file contains a list of the link groups and all the VOs and the VO Roles that are permitted to make reservations in a given link group.
 
-Specify the location of the `LinkGroupAuthorization.conf` file in the `PATH-ODE-ED/dcache.conf` file.
+Specify the location of the **LinkGroupAuthorization.conf** file in the **/etc/dcache/dcache.conf** file.
 
     spacemanager.authz.link-group-file-name=/path/to/LinkGroupAuthorization.conf
 
-The file `LinkGroupAuthorization.conf` has following syntax:
+The file **LinkGroupAuthorization.conf** has following syntax:
 
 LinkGroup <NameOfLinkGroup> followed by the list of the Fully Qualified Attribute Names (FQANs). Each FQAN is on a separate line, followed by an empty line, which is used as a record separator, or by the end of the file.
 
