@@ -953,7 +953,7 @@ applies unix-like values to john, most important is the `1000`, because it is th
 
 enables username/password login, such as a valid login would be user `john` with some password. The password is encrypted with the kpwd-algorithm (also see [the section called “The kpwd plug-in”](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-kpwd)) and then stored in the file. Again the 1000 here is the assigned GID. 
 
-  [vorolemap]: #cf-gplazma-plug-inconfig-vorolemap-gridvorolemap
+<!--  [vorolemap]: #cf-gplazma-plug-inconfig-vorolemap-gridvorolemap
   [section\_title]: #cf-gplazma-plug-inconfig-voauth
   []: http://operations-portal.egi.eu/vo
   [`storage-authdb`]: #cf-gplazma-plug-inconfig-authzdb
