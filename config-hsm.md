@@ -9,7 +9,7 @@ Table of Contents
 * [Requirements for a Tertiary Storage System](#requirements-for-a-tertiary-storage-system)  
 
     [Migrating Tertiary Storage Systems with a file system interface.](#migrating-tertiary-storage-systems-with-a-file-system-interface.)  
-    [Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface](#tertiary-storage-systems-with-a-minimalistic- put,-get-and-remove-interface]  
+    [Tertiary Storage Systems with a minimalistic PUT GET and REMOVE interface](#tertiary-storage-systems-with-a-minimalistic-put-get-and-remove-interface]  
 
 * [How dCache interacts with a Tertiary Storage System](#how-dcache-interacts-with-a-tertiary-storage-system)  
 * [Details on the TSS-support executable](#details-on-the-tss-support-executable)  
