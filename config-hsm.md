@@ -50,7 +50,7 @@ This document describes how to enable a standard dCache installation to interact
 
 In general, not all pools need to be configured to interact with the same Tertiary Storage System or with a storage system at all. Furthermore pools can be configured to have more than one Tertiary Storage System attached, but all those cases are not in the scope of the document.
 
-REQUIREMENTS FOR A TERTIARY STORAGE SYSTEM
+REQUIREMENTS FOR A TERTIARY STORAGE SYSTEM 
 ==========================================
 
 DCACHE can only drive intelligent Tertiary Storage Systems. This essentially means that tape robot and tape drive operations must be done by the TSS itself and that there is some simple way to abstract the file `PUT, GET and REMOVE` operation.
