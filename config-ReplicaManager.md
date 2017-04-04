@@ -61,7 +61,7 @@ Example:
 
 This is a simple example to get started with. All your pools are assumed to be in the pool group default.
 
-1.  In your layout file in the directory /etc/dcache/layouts define the replica service.
+1.  In your layout file in the directory **/etc/dcache/layouts** define the replica service.
 
 
         [dCacheDomain]
@@ -91,13 +91,13 @@ Define the resilient pool group in the **/var/lib/dcache/config/poolmanager.conf
 Example:  
 Login to the admin interface and cd to the `PoolManager`. Define a poolgroup for resilient pools and add pools to that poolgroup.
 
-    DC-PROMPT-LOCAL cd PoolManager
-    DC-PROMPT-PM psu create pgroup ResilientPools
-    DC-PROMPT-PM psu create pool  pool3
-    DC-PROMPT-PM psu create pool  pool4
-    DC-PROMPT-PM psu addto pgroup ResilientPools pool3
-    DC-PROMPT-PM psu addto pgroup ResilientPools pool4
-    DC-PROMPT-PM save
+   (local) admin > cd PoolManager
+   (PoolManager) admin > psu create pgroup ResilientPools
+   (PoolManager) admin > psu create pool  pool3
+   (PoolManager) admin > psu create pool  pool4
+   (PoolManager) admin > psu addto pgroup ResilientPools pool3
+   (PoolManager) admin > psu addto pgroup ResilientPools pool4
+   (PoolManager) admin > save
 
 By default the pool group named `ResilientPools` is used for replication.
 
@@ -186,7 +186,8 @@ It can be annoying to wait for some large period of time until all known “good
 
 On Hot Restart the `replica` service retrieves information about the pools' states before the crash from the database and saves the pools' states to some internal structure. When a pool gets connected the `replica` service checks the old pool state and registers the old pool's state in the database again if the state was `offline`, `offline-prepare` or `drainoff` state. The `replica` service also checks if the pool was `online` before the crash. When all pools which were `online` get connected once, the `replica` service supposes it recovered its old configuration and the `replica` service starts adjustments. If some pools went down during the connection process they were already accounted and adjustment would take care of it.
 
-Example:
+Example:  
+
 Suppose we have ten pools in the system, where eight pools were `online` and two were `offline` before a crash. The `replica` service does not care about the two `offline` pools to get connected to start adjustments. For the other eight pools which were `online`, suppose one pool gets connected and then it goes down while the other pools try to connect. The `replica` service considers this pool in known state, and when the other seven pools get connected it can start adjustments and does not wait any more. If the system was in equilibrium state before the crash, the `replica` service may find some deficient replicas because of the crashed pool and start replication right away.
 
 AVOID REPLICAS ON THE SAME HOST
