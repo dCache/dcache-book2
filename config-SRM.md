@@ -944,7 +944,7 @@ The Data Transfer Functions are asynchronous, an initial `SRM` call starts a req
 Clients are free to cancel the requests at any time by execution of `srmAbortFiles` or `srmAbortRequest`.
 
 REQUEST STATUS FUNCTIONS
-------------------------
+------------------------ 
 
 The functions for checking the request status are:
 
