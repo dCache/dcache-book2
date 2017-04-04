@@ -151,14 +151,14 @@ When the configuration is complete you can unmount Chimera:
 COMMUNICATING WITH CHIMERA
 ==========================
 
-Many configuration parameters of Chimera and the application specific meta data is accessed by reading, writing, or creating files of the form .(<command>)(<para>). For example, the following prints the ChimeraID of the file **/data/some/dir/file.dat**:
+Many configuration parameters of Chimera and the application specific meta data is accessed by reading, writing, or creating files of the form .(command)(para). For example, the following prints the ChimeraID of the file **/data/some/dir/file.dat**:
 
      [user] $ cat /data/any/sub/directory/'.(id)(file.dat)'
      0004000000000000002320B8 [user] $ 
 
 From the point of view of the `NFS` protocol, the file **.(id)(file.dat)** in the directory **/data/some/dir/** is read. However, Chimera interprets it as the command id with the parameter file.dat executed in the directory **/data/some/dir/**. The quotes are important, because the shell would otherwise try to interpret the parentheses.
 
-Some of these command files have a second parameter in a third pair of parentheses. Note, that files of the form .(<command>)(<para>) are not really files. They are not shown when listing directories with `ls`. However, the command files are listed when they appear in the argument list of `ls` as in
+Some of these command files have a second parameter in a third pair of parentheses. Note, that files of the form .(command)(para) are not really files. They are not shown when listing directories with `ls`. However, the command files are listed when they appear in the argument list of `ls` as in
 
      [user] $ ls -l '.(tag)(sGroup)'
      -rw-r--r-- 11 root root 7 Aug 6 2010 .(tag)(sGroup)
@@ -172,7 +172,7 @@ IDs
 
 Each file in Chimera has a unique 18 byte long ID. It is referred to as ChimeraID or as pnfsID. This is comparable to the inode number in other filesystems. The ID used for a file will never be reused, even if the file is deleted. dCache uses the ID for all internal references to a file.
 
-Example:
+Example:  
 
 The ID of the file ** example.org/data/examplefile** can be obtained by reading the command-file ** .(id)(examplefile)** in the directory of the file.
 
@@ -268,6 +268,8 @@ and the content of a tag can be read with
     [user] $ cat '.(tag)(<tagName2>)'
     <content2>
 
+Example:  
+
 
 Create tags for the directory **data** with
 
@@ -303,7 +305,7 @@ When creating or changing directory tags by writing to the command file as in
 
 one has to take care not to treat the command files in the same way as regular files, because tags are different from files in the following aspects:
 
-1.  The <tagName> is limited to 62 characters and the <content> to 512 bytes. Writing more to the command file, will be silently ignored.
+1.  The `tagName` is limited to 62 characters and the `content` to 512 bytes. Writing more to the command file, will be silently ignored.
 
 2.  If a tag which does not exist in a directory is created by writing to it, it is called a *primary* tag.
 
@@ -339,7 +341,7 @@ Assign a `WriteToken` tag to a directory in order to be able to write to a space
 STORAGE CLASS AND DIRECTORY TAGS
 --------------------------------
 
-The [storage class](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#secStorageClass) is a string of the form <StoreName>:<StorageGroup>@<hsm-type>, where <StoreName> is given by the OSMTemplate tag, <StorageGroup> by the sGroup tag and <hsm-type> by the HSMType tag. As mentioned above the HSMType tag is assumed to be osm if the tag OSMTemplate exists.
+The [storage class](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#secStorageClass) is a string of the form `StoreName`:`StorageGroup`@`hsm-type`, where `StoreName`is given by the OSMTemplate tag, `StorageGroup` by the sGroup tag and `hsm-type` by the HSMType tag. As mentioned above the HSMType tag is assumed to be osm if the tag OSMTemplate exists.
 
 In the examples above two tags have been created.
 
@@ -358,18 +360,18 @@ If directory tags are used to control the behaviour of dCache and/or a tertiary 
 
 Example:
 
-Assume that data of two experiments, experiment-a and experiment-b is written into a namespace tree with subdirectories **/data/experiment-a** and **/data/experiment-b**. As some pools of the dCache are financed by experiment-a and others by experiment-b they probably do not like it if they are also used by the other group. To avoid this the directories of experiment-a and experiment-b can be tagged.
+Assume that data of two experiments, experiment-a and experiment-b is written into a namespace tree with subdirectories **/data/experiment-a** and **/data/experiment-b**. As some pools of the dCache are financed by experiment-a and others by experiment-b they probably do not like it if they are also used by the other group. To avoid this the directories of experiment-a and experiment-b can be tagged.  
      
      [user] $ /usr/bin/chimera writetag /data/experiment-a OSMTemplate "StoreName exp-a"
      [user] $ /usr/bin/chimera writetag /data/experiment-b OSMTemplate "StoreName exp-b"
      
-Data from experiment-a taken in 2010 shall be written into the directory **/data/experiment-a/2010** and data from experiment-a taken in 2011 shall be written into **/data/experiment-a/2011**. Data from experiment-b shall be written into **/data/experiment-b**. Tag the directories correspondingly.
+Data from experiment-a taken in 2010 shall be written into the directory **/data/experiment-a/2010** and data from experiment-a taken in 2011 shall be written into **/data/experiment-a/2011**. Data from experiment-b shall be written into **/data/experiment-b**. Tag the directories correspondingly.  
 
      [user] $ /usr/bin/chimera writetag /data/experiment-a/2010 sGroup "run2010"
      [user] $ /usr/bin/chimera writetag /data/experiment-a/2011 sGroup "run2011"
      [user] $ /usr/bin/chimera writetag /data/experiment-b sGroup "alldata"
 
-List the content of the tags by
+List the content of the tags by  
 
      [user] $ /usr/bin/chimera readtag /data/experiment-a/2010 OSMTemplate  
      StoreName exp-a  
@@ -388,9 +390,9 @@ List the content of the tags by
 As the tag OSMTemplate was created the HSMType is assumed to be osm.
 The storage classes of the files which are copied into these directories after the tags have been set will be
 
-exp-a:run2010@osm for the files in **/data/experiment-a/2010**  
-exp-a:run2011@osm for the files in **/data/experiment-a/2011**  
-exp-b:alldata@osm for the files in */data/experiment-b**  
+- exp-a:run2010@osm for the files in **/data/experiment-a/2010**  
+- exp-a:run2011@osm for the files in **/data/experiment-a/2011**  
+- exp-b:alldata@osm for the files in */data/experiment-b**  
 
 To see how storage classes are used for pool selection have a look at the example ’Reserving Pools for Storage and Cache Classes’ in the PoolManager chapter.
 
