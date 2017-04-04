@@ -27,14 +27,11 @@ This part is intended for people who are new to DCACHE. It gives an introduction
    
    
 * [3. Getting in Touch with dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-fhs.shtml)  
-  
-  
-      * [Checking the Functionality](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml)  
-   
-   
-           * [dCache without mounted namespace](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#dcache-unmounted)  
-           * [**WebDAV**](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-webdav)  
-           * [**dCap**](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-dcap)  
+     
+       * [Checking the Functionality](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml)  
+       * [dCache without mounted namespace](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#dcache-unmounted)  
+       * [**WebDAV**](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-webdav)  
+       * [**dCap**](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-dcap)  
    
    
       * [The Web Interface for Monitoring dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml)  
