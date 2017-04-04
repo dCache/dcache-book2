@@ -15,7 +15,7 @@ File hopping is a collective term in dCache, summarizing the possibility of havi
 
 -   If a file is requested by a client but the file resides on a pool from which this client, by configuration, is not allowed to read data, the dataset is transferred to an “allowed” pool first.
 
--   If a pool encounters a steady high load, the system may, if configured, decide to replicate files to other pools to achieve an equal load distribution.
+-   If a pool encounters a steady high load, the system may, if configured, decide to replicate files to other pools to achieve an equal load distribution.  
 
 -   HSM restore operations may be split into two steps. The first one reads data from tertiary storage to an “HSM connected” pool and the second step takes care that the file is replicated to a general read pool. Under some conditions this separation of HSM and non-HSM pools might become necessary for performance reasons.
 
