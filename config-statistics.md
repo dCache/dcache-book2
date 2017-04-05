@@ -87,7 +87,8 @@ EXPLANATION OF THE FILE FORMAT OF THE XXX.RAW FILES
 
 The file formats of the **/var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-HH.raw** and the **/var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-day.raw** files are similar. The file **/var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-HH.raw** does not contain columns 2 and 3 as these are related to the day and not to the hour.
 
-Example:
+Example:  
+
 The file format of the **/var/lib/dcache/statistics/YYYY/MM/DD/YYYY-MM-DD-day.raw** files:
 
     #
