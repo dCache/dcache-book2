@@ -4,9 +4,9 @@ CHAPTER 26. ADVANCED TUNING
 Table of Contents
 -----------------
 
-+ [Multiple Queues for Movers in each Pool](#multiple-queues-for Movers in each Pool) 
+* [Multiple Queues for Movers in each Pool](#multiple-queues-for Movers in each Pool) 
 
-      + [Description](#description)
+      * [Description](#description)
       + [Solution](#solution)
       + [Configuration](#configuration)
       + [Tunable Properties for Multiple Queues](#tunable-properties-for-multiple-queues)
