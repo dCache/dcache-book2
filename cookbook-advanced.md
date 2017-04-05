@@ -28,11 +28,13 @@ Description
 
 Client requests to a DCACHE system may have rather diverse behaviour. Sometimes it is possible to classify them into several typical usage patterns. An example are the following two concurrent usage patterns:
 
-Data is copied with a high transfer rate to the DCACHE system from an external source. This is done via the GRIDFTP protocol. At the same time batch jobs on a local farm process data. Since they only need a small part of each file, they use the DCAP protocol via the DCAP library and seek to the position in the file they are interested in, read a few bytes, do a few hours of calculations, and finally read some more data.
+Example:
 
-As long as the number of active requests does not exceed the maximum number of allowed active requests, the two types of requests are processed concurrently. The GRIDFTP transfers complete at a high rate while the processing jobs take hours to finish. This maximum number of allowed requests is set with [???] and should be tuned according to capabilities of the pool host.
+      Data is copied with a high transfer rate to the DCACHE system from an external source. This is done via the GRIDFTP protocol. At the same time batch jobs on a local farm process data. Since they only need a small part of each file, they use the DCAP protocol via the DCAP library and seek to the position in the file they are interested in, read a few bytes, do a few hours of calculations, and finally read some more data.
 
-However, if requests are queued, the slow processing jobs might clog up the queue and not let the fast GRIDFTP request through, even though the pool just sits there waiting for the processing jobs to request more data. While this could be temporarily remedied by setting the maximum active requests to a higher value, then in turn GRIDFTP request would put a very high load on the pool host.
+      As long as the number of active requests does not exceed the maximum number of allowed active requests, the two types of requests are processed concurrently. The GRIDFTP transfers complete at a high rate while the processing jobs take hours to finish. This maximum number of allowed requests is set with [???] and should be tuned according to capabilities of the pool host.
+
+      However, if requests are queued, the slow processing jobs might clog up the queue and not let the fast GRIDFTP request through, even though the pool just sits there waiting for the processing jobs to request more data. While this could be temporarily remedied by setting the maximum active requests to a higher value, then in turn GRIDFTP request would put a very high load on the pool host.
 
 The above example is pretty realistic: As a rule of thumb, GRIDFTP requests are fastest, DCAP requests with the PROG-DCCP program are a little slower and DCAP requests with the DCAP library are very slow. However, the usage patterns might be different at other sites and also might change over time.
 
