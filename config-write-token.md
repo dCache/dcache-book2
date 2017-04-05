@@ -2,6 +2,7 @@ Chapter 21.  Using Space Reservations without SRM
 =================================================
 
 Table of Contents
+-----------------
 
 * [The Space Reservation](#the-space-reservation)
 * [The WriteToken tag](#the-writetoken-tag)
@@ -22,7 +23,8 @@ Space reservations are made for link groups. The file [`LinkGroupAuthorization.c
 
     spacemanager.authz.link-group-file-name=/etc/dcache/LinkGroupAuthorization.conf
 
-Example:
+Example:  
+
 
 In this example we will create the link group `WriteTokenLinkGroup`. Login to the [admin interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml), `cd` to the `SrmSpaceManager` and list the current space reservations.
 
@@ -71,7 +73,7 @@ Currently there are no space reservations and no link groups. We create the link
     total number of bytes reserved  : 0
     last time all link groups were updated: Wed Aug 07 15:42:03 CEST 2013(1375882923234)
 
-A space reservation can only be made, when there is a link group in the **LinkGroupAuthorization.conf** that can be used for the space reservation. Therefore, we configure the **LinkGroupAuthorization.conf** such that the link group `WriteToken_LinkGroup` can be used.
+A space reservation can only be made, when there is a link group in the **LinkGroupAuthorization.conf** that can be used for the space reservation. Therefore, we configure the **LinkGroupAuthorization.conf** such that the link group `WriteToken_LinkGroup` can be used.  
 
     #SpaceManagerLinkGroupAuthorizationFile
     # this is comment and is ignored
@@ -79,7 +81,7 @@ A space reservation can only be made, when there is a link group in the **LinkGr
     LinkGroup WriteToken_LinkGroup
     */Role=*
 
-Now we can make a space reservation for that link group.
+Now we can make a space reservation for that link group.  
 
     (SrmSpaceManager) admin > reserve -desc=WriteToken 6000000 10000
     10000 voGroup:null voRole:null retentionPolicy:CUSTODIAL accessLatency:ONLINE linkGroupId:0 size:6000000 created:Fri Aug 09     12:28:18 CEST 2013 lifetime:10000000ms expiration:Fri Aug 09 15:14:58 CEST 2013 description:WriteToken state:RESERVED used:0 allocated:0 
@@ -104,7 +106,8 @@ The `WriteToken` tag is a [directory tag](https://www.dcache.org/manuals/Book-2.
 
     [root] # /usr/bin/chimera writetag <directory> WriteToken [<IdOfSpaceReservation>]
 
-Example:
+Example:  
+
 In the beginning of the Book we created the directory **/data** and the subdirectory **/data/world-writable**.
 
     [root] # /usr/bin/chimera ls /data/
@@ -134,14 +137,14 @@ Copy a File into the `WriteToken`
 
 Given that you have a `WriteToken` tag which contains the id of a valid space reseravtion, you can copy a file into a space reservation even if you are using a protocol that does not support space reservation.
 
-Example:
+Example:  
 
 In the above example we echoed the id of a space reservation into the `WriteToken` tag. We can now copy a file into this space reservation.
 
     [root] # curl -T test.txt http://webdav-door.example.org:2880/data/write-token/curl-test.txt
     [root] #
 
-  [link groups]: #cf-pm-linkgroups
+ <!-- [link groups]: #cf-pm-linkgroups
   [`LinkGroupAuthorization.conf`]: #cf-srm-linkgroupauthfile
   [admin interface]: #intouch-admin
   [directory tag]: #chimera-tags
