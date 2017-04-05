@@ -1,8 +1,8 @@
 Getting in Touch with DCACHE
 ============================
 
-###Table of Contents
-
+Table of Contents
+------------------
 
 * [Checking the Functionality](#checking-the-functionality)  
 
@@ -14,19 +14,19 @@ Getting in Touch with DCACHE
 * [The Web Interface for Monitoring dCache](#the-web-interface-for-monitoring-dcache)  
 * [The Admin Interface](#the-admin-interface)  
 
-      * [First steps](#first-steps)  
-      * [Access with ssh2](#access-with-ssh2)  
-      * [Access with ssh1](#access-with-ssh1)  
-      * [How to use the Admin Interface](#how-to-use-the-admin-interface)  
-      * [Create a new user](#create-a-new-user)  
-      * [Use of the ssh Admin Interface by scripts](#use-of-the-ssh-admin-interface-by-scripts)  
+     [First steps](#first-steps)  
+     [Access with ssh2](#access-with-ssh2)  
+     [Access with ssh1](#access-with-ssh1)  
+     [How to use the Admin Interface](#how-to-use-the-admin-interface)  
+     [Create a new user](#create-a-new-user)  
+     [Use of the ssh Admin Interface by scripts](#use-of-the-ssh-admin-interface-by-scripts)  
 
 * [Authentication and Authorization in dCache](#authentication-and-authorization-in-dcache)  
 * [How to work with secured dCache](#how-to-work-with-secured-dCache)
 
-      * [GSIdCap](#gsidcap)
-      * [SRM](#srm)
-      * [WebDAV with certificates](#webdav-with-certificates)
+     [GSIdCap](#gsidcap)
+     [SRM](#srm)
+     [WebDAV with certificates](#webdav-with-certificates)
    
  * [Files](#files)
 
