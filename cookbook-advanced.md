@@ -4,14 +4,14 @@ CHAPTER 26. ADVANCED TUNING
 Table of Contents
 -----------------
 
-[Multiple Queues for Movers in each Pool](#multiple-queues-for-movers-in-each-pool) 
++ [Multiple Queues for Movers in each Pool](#multiple-queues-for-movers-in-each-pool) 
 
       +[Description](#description)
       +[Solution](#solution)
       +[Configuration](#configuration)
       +[Tunable Properties for Multiple Queues](#tunable-properties-for-multiple-queues)
     
-[Tunable Properties](#tunable-properties)
++ [Tunable Properties](#tunable-properties)
 
       + [dCap](#dcap)
       + [GridFTP](#gridftp)
