@@ -7,7 +7,7 @@ Table of Contents
 
 [22. dCache Clients.](https://www.dcache.org/manuals/Book-2.16/cookbook/cb-clients-fhs-comments.shtml)
 
-    [GSI-FTP](https://www.dcache.org/manuals/Book-2.16/cookbook/cb-clients-gridftp-fhs-comments.shtml)
+   [GSI-FTP](https://www.dcache.org/manuals/Book-2.16/cookbook/cb-clients-gridftp-fhs-comments.shtml)
 
         Listing a directory
         Checking a file exists
