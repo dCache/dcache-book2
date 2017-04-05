@@ -23,7 +23,7 @@ For the authenticated mode a configured gPlazma is required (see also [the secti
 
 For the authenticated mode using a grid certificate the host certificate has to be imported into the dCache-keystore. In the grid world host certificates are usually signed by national Grid-CAs. Refer to the documentation provided by the Grid-CA to find out how to request a certificate. To import them into the dCache-keystore use this command:
 
-    [root] # dcache import hostcert
+    [root] # dcache import hostcert  
 
 Now you have to initialise your truststore (this is the certificate-store used for the SSL connections) by using this command:
 
