@@ -9,7 +9,7 @@ Table of Contents
 [Explanation of the File Format of the xxx.raw Files](#explanation-of-the-file-format-of-the-xxx.raw-files)  
 
 
-The statistics service collects information on the amount of data stored on all pools and the total data flow including streams from and to tertiary storage systems.
+The `statistics` service collects information on the amount of data stored on all pools and the total data flow including streams from and to tertiary storage systems.
 
 Once per hour an ASCII file is produced, containing a table with information on the amount of used disk space and the data transferred starting midnight up to this point in time. Data is sorted per pool and storage class.
 
