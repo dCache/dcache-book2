@@ -23,7 +23,7 @@ DCACHE provides a comprehensive administrative interface for configuring the DCA
 
 ### Figure 1.1. The dCache Layer Model
 
-![The dCache Layer Model] (layer_model.jpg "The dCache Layer Model")
+![The dCache Layer Model] (dcache-book2/layer_model.jpg "The dCache Layer Model")
 
 The layer model shown in [The dCache Layer Model] gives an overview of the architecture of the dCache system.
 
