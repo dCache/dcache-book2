@@ -1,5 +1,5 @@
-Glossary
-========
+Chapter 30. Glossary
+====================
 
 The following terms are used in DCACHE.
 
