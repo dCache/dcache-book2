@@ -2,6 +2,7 @@ CHAPTER 6. THE REPLICA SERVICE (REPLICA MANAGER)
 ================================================
 
 Table of Contents
+-----------------
 
 * [The Basic Setup](#the-basic-setup)  
         
