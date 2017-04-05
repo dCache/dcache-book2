@@ -29,7 +29,7 @@ DEFINITION OF THE WHITE LIST
 
 The Stage Configuration File will contain a white list. Each line of the white list may contain up to three regular expressions enclosed in double quotes. The regular expressions match the DN, FQAN, and the Storage Group written in the following format:
 
-"<DN>" ["<FQAN>" ["<StorageGroup>"] ]  
+    "<DN>" ["<FQAN>" ["<StorageGroup>"] ]  
 
 Lines starting with a hash symbol `#` are discarded as comments.  
 
