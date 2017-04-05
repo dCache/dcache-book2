@@ -128,8 +128,6 @@ Mandatory storage information’s keys
     - <hsm>: Storage manager name (enstore/osm). Can be overwritten by the parent directory tag (hsmType).   
 
 
-
-<!-- -->
 OSM specific storage information’s keys   
 
 	- <group>: The storage group of the file to be stored as specified in the ".(tag)(sGroup)" tag of the parent directory of the file to be stored.   
@@ -181,7 +179,7 @@ Whenever a disk file needs to be copied to a Tertiary Storage System DCACHE auto
 
 The following arguments are given to the executable of a STORE FILE operation on startup. 
 
-**put** <pnfsID> <filename> -si=<storage-information> <more options> 
+**put** pnfsID filename -si= storage-information more options 
 
 Details on the meaning of certain arguments are described in [the section called “Summary of command line options”.](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-support-fhs.shtml#cf-tss-support-clo)
 
@@ -195,7 +193,7 @@ In case of a `0` return code the `executable` has to return a valid storage URI 
 
 Details on the meaning of certain parameters are described [above](#storage-uri).
 
-The <bfid> can either be provided by the TSS as result of the STORE FILE operation or the `pnfsID` may be used. The latter assumes that the file has to be stored with exactly that `pnfsID` within the TSS. Whatever URI is chosen, it must allow to uniquely identify the file within the Tertiary Storage System.
+The `bfid` can either be provided by the TSS as result of the STORE FILE operation or the `pnfsID` may be used. The latter assumes that the file has to be stored with exactly that `pnfsID` within the TSS. Whatever URI is chosen, it must allow to uniquely identify the file within the Tertiary Storage System.
 
 > **Note**
 >
@@ -208,7 +206,7 @@ Whenever a disk file needs to be restored from a Tertiary Storage System DCACHE 
 
 The following arguments are given to the executable of a FETCH FILE operation on startup: 
 
-**get**  <pnfsID> <filename> -si=<storage-information> -uri=<storage-uri> <more options>
+**get**  pnfsID filename -si= storage-information-uri= storage-uri more options
 
 Details on the meaning of certain arguments are described in [the section called “Summary of command line options”](#summary-of-command-line-options). For return codes see [the section called “Summary of return codes”](#summary-of-return-codes) 
 
@@ -217,7 +215,7 @@ The EXECUTABLE and the REMOVE FILE operation
 
 Whenever a file is removed from the dCache namespace (file system) a process inside dCache makes sure that all copies of the file are removed from all internal and external media. The pool which is connected to the TSS which stores the file is activating the executable with the following command line options:
 
-remove -uri=<storage-uri> <more options>
+remove -uri= storage-uri more options
 
 Details on the meaning of certain arguments are described in [the section called “Summary of command line options.”](#summary-of-command-line-options) For return codes see [the section called “Summary of return codes”.](#summary-of-return-codes)
 
@@ -290,11 +288,11 @@ Define the `executable` and Set the maximum number of concurrent `PUT` and `GET`
    # GET operations
    # set the maximum number of active GET operations >= 1
    #
-   rh set max active <numberOfConcurrentGETs>
-
-    - <hsmType>: the type ot the TSS system. Must be set to “osm” for basic setups.
-    - <hsmInstanceName>: the instance name of the TSS system. Must be set to “osm” for basic setups.
-    - </path/to/executable>: the full path to the executable which should be launched for each TSS operation. 
+   rh set max active `numberOfConcurrentGETs`
+   
+       - <hsmType>: the type ot the TSS system. Must be set to “osm” for basic setups.
+       - <hsmInstanceName>: the instance name of the TSS system. Must be set to “osm” for basic setups.
+       - </path/to/executable>: the full path to the executable which should be launched for each TSS operation. 
 
 Setting the maximum number of concurrent PUT and GET operations.
 
@@ -367,11 +365,11 @@ Example:
     [example.dcache.org] (pool_1) admin > rep ls    
     00008F276A952099472FAD619548F47EF972 <-P---------L(0)[0]> 291910 si={dteam:STATIC}    
     00002A9282C2D7A147C68A327208173B81A6 <-P---------L(0)[0]> 2011264 si={dteam:STATIC}  
-    0000EE298D5BF6BB4867968B88AE16BA86B0 <C----------L(0)[0]> 1976 si={dteam:STATIC}  
+    0000EE298D5BF6BB4867968B88AE16BA86B0 <-C----------L(0)[0]> 1976 si={dteam:STATIC}  
 
 In order to `flush` a file to the tape run the command `flush pnfsid`.    
 
-    [example.dcache.org] (<poolname>) admin > flush pnfsid <pnfsid>   
+       [example.dcache.org] (<poolname>) admin > flush pnfsid <pnfsid>   
 
 Example:  
    [example.dcache.org] (pool_1) admin > flush pnfsid 00002A9282C2D7A147C68A327208173B81A6
@@ -380,7 +378,8 @@ Flush Initiated
 A file that has been flushed to tape gets the flag 'C'.  
 
 Example:  
-    [example.dcache.org] (pool_1) admin > rep ls
+   
+   [example.dcache.org] (pool_1) admin > rep ls
     00008F276A952099472FAD619548F47EF972 <-P---------L(0)[0]> 291910 si={dteam:STATIC}
     00002A9282C2D7A147C68A327208173B81A6 <C----------L(0)[0]> 2011264 si={dteam:STATIC}
     0000EE298D5BF6BB4867968B88AE16BA86B0 <C----------L(0)[0]> 1976 si={dteam:STATIC}
