@@ -1,7 +1,8 @@
 Introduction
 ============
 
-###Table of Contents
+Table of Contents
+------------------
 
 [Cells and Domains](#cells-and-domains)  
 [Protocols Supported by dCache](#protocols-supported-by-dcache)
