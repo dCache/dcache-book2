@@ -2,6 +2,7 @@ CHAPTER 7. THE POOLMANAGER SERVICE
 ==================================
 
 Table of Contents
+------------------
 
 * [The Pool Selection Mechanism](#the-pool-selection-mechanism)  
    
