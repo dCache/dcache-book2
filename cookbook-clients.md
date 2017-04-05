@@ -613,6 +613,6 @@ The `File Id` is also one of the values returned returned by the `lcg-gt` comman
 
 The direction parameter indicates in which direction data was transferred: `0` for reading data and `1` for writing data.
 
-  []: http://www.dcache.org/manuals/experts_docs/tunnel-HOWTO.html
+<!--  []: http://www.dcache.org/manuals/experts_docs/tunnel-HOWTO.html
   [in the SRM section]: #cf-srm-intro
   [the DCACHE wiki]: http://trac.dcache.org/projects/dcache/wiki/manuals/SRM_2.2_Setup
