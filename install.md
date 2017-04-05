@@ -3,7 +3,7 @@ Installing DCACHE
 
 **Table of Contents**
 
-+  [Installing a dCache instance] (#installing-a-dcache-instance)  
++  [Installing a dCache instance](#installing-a-dcache-instance)  
 
      [Prerequisites](#prerequisites)  
      [Installation of the dCache Software](#installation-of-the-dCache-software)  
@@ -13,8 +13,8 @@ Installing DCACHE
      [Installing dCache on several nodes](#installing-dcache-on-several-nodes)  
 
 
-+  [Securiting your dCache installation]  (#securiting-your-dcache-installation)
-+  [Upgrading a dCache Instance]  (#upgrading-a-dcache-instance)
++  [Securiting your dCache installation](#securiting-your-dcache-installation)
++  [Upgrading a dCache Instance](#upgrading-a-dcache-instance)
 
 The first section describes the installation of a fresh DCACHE instance using RPM files downloaded from [the DCACHE home-page]. It is followed by a guide to upgrading an existing installation. In both cases we assume standard requirements of a small to medium sized DCACHE instance without an attached [tertiary storage system](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-tss). The third section contains some pointers on extended features.
 
