@@ -61,8 +61,7 @@ matching clients have to access **NFS** using RPCSEC_GSS authentication. The Qua
 
 For example:
 
-    #
-    /pnfs/dcache.org/data *.dcache.org (rw,sec=krb5i)
+    #/pnfs/dcache.org/data *.dcache.org (rw,sec=krb5i)
 
 Notice, that security flavour used at mount time will be used for client - pool comminication as well.
 
