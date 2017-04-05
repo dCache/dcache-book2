@@ -1,13 +1,16 @@
 Chapter 30. Glossary
 ====================
 
-**The dcache.conf File**
+**The dcache.conf File**  
+
 This is the primary configuration file of a dCache. It is located at **/etc/dcache/dcache.conf.**
 
 The **dcache.conf** file is initially empty. If one of the default configuration values needs to be changed, copy the default setting of this value from one of the [properties files](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-properties-files) in **/usr/share/dcache/defaults** to this file and update the value. 
-The layout File
 
-    The layout file is located in the directory /etc/dcache/layouts. It contains lists of the domains and the services that are to be run within these domains. 
+
+**The layout File** 
+
+The layout file is located in the directory /etc/dcache/layouts. It contains lists of the domains and the services that are to be run within these domains. 
 The properties Files
 
     The properties files are located in the directory /usr/share/dcache/defaults. They contain the default settings of the dCache. 
