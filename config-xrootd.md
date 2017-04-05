@@ -29,9 +29,10 @@ Setting up
 To allow file transfers in and out of dCache using xrootd, a new `xrootd door` must be started. This door acts then as the entry point to all xrootd requests. Compared to the native xrootd server-implementation (produced by SLAC), the `xrootd door` corresponds to the `redirector node`.
 
 To enable the `xrootd door`, you have to change the layout file corresponding to your dCache-instance. Enable the xrootd-service within the domain that you want to run it by adding the following line 
-    ..
-    [<domainName>/xrootd]
-    ..
+   
+       ..
+       [<domainName>/xrootd]
+       ..
 
 Example:
 
