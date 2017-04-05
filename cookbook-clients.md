@@ -235,9 +235,9 @@ Creating a new directory.
 
 Usage:
 
-srmmkdir
-\[[command line options\]]
-[<srmUrl>]
+	srmmkdir
+	\[[command line options\]]
+	[srmUrl]
 
 Example:
 
@@ -251,10 +251,10 @@ Removing files from DCACHE
 
 Usage:
 
-srmrm
-\[[command line options\]]
- [<srmUrl> ...]
-...
+	srmrm
+	\[[command line options\]]
+	 [srmUrl ...]
+	...
 
 Example:
     [user] $ srmrm srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir/myFile
@@ -266,7 +266,7 @@ It is allowed to remove only empty directories as well as trees of empty directo
 
 Usage:
 
-srmrmdir [command line options] [<srmUrl>]
+srmrmdir [command line options] [srmUrl]
 
 Examples:
 
@@ -281,11 +281,11 @@ srmcp for SRM v1
 
 Usage:
 
-srmcp [command line options] <source>... [<destination>]
+srmcp [command line options] source... [destination]
 
 or
 
-srmcp [command line options] [-copyjobfile] <file> 
+srmcp [command line options] [-copyjobfile] file
 
 
 ### Copying files to DCACHE
@@ -323,7 +323,7 @@ Space token support must be set up and reserving space with the admin interface 
 
 Usage:
 
-get-space-tokens [command line options] [<srmUrl>]
+get-space-tokens [command line options] [srmUrl]
 
 Example 22.1. surveying the space tokens available in a directory.
 
@@ -363,7 +363,7 @@ Example 22.2. Listing the space tokens for a SRM:
 
 Usage:
 
-srm-reserve-space [[command line options]] [<srmUrl>]
+srm-reserve-space [[command line options]] [srmUrl]
 
     [user] $ srm-reserve-space  \
     -desired_size 2000 \
@@ -448,7 +448,7 @@ SRM version 2.2 has a much richer set of file listing commands.
 
 Usage:
 
-srmls [command line options] <srmUrl>... 
+srmls [command line options] srmUrl... 
 
 Example 22.3. Using srmls -l:
     [user] $ srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -2
@@ -502,10 +502,10 @@ If you have more than 1000 entries in your directory then DCACHE will return onl
 
 srmls parameter
 
--count=<integer>
+-count=integer
 The number of entries to report.
 
--offset=<integer>
+-offset=integer
 
 Example 22.5. Limited directory listing
 
