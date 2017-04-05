@@ -379,28 +379,29 @@ A file that has been flushed to tape gets the flag 'C'.
 
 Example:  
    
-   [example.dcache.org] (pool_1) admin > rep ls
-    00008F276A952099472FAD619548F47EF972 <-P---------L(0)[0]> 291910 si={dteam:STATIC}
-    00002A9282C2D7A147C68A327208173B81A6 <C----------L(0)[0]> 2011264 si={dteam:STATIC}
-    0000EE298D5BF6BB4867968B88AE16BA86B0 <C----------L(0)[0]> 1976 si={dteam:STATIC}
+   [example.dcache.org] (pool_1) admin > rep ls  
+    00008F276A952099472FAD619548F47EF972 <-P---------L(0)[0]> 291910 si={dteam:STATIC}  
+    00002A9282C2D7A147C68A327208173B81A6 <C----------L(0)[0]> 2011264 si={dteam:STATIC}  
+    0000EE298D5BF6BB4867968B88AE16BA86B0 <C----------L(0)[0]> 1976 si={dteam:STATIC}  
 
 To remove such a file from the repository run the command `rep rm`.
 
    [example.dcache.org] (<poolname>) admin > rep rm <pnfsid>
 
-Example:
-    [example.dcache.org] (pool_1) admin > rep rm  00002A9282C2D7A147C68A327208173B81A6
-Removed 00002A9282C2D7A147C68A327208173B81A6
+Example:  
+    [example.dcache.org] (pool_1) admin > rep rm  00002A9282C2D7A147C68A327208173B81A6  
+Removed 00002A9282C2D7A147C68A327208173B81A6  
 
 In this case the file will be restored when requested.
 
 To `restore` a file from the tape you can simply request it by initializing a reading transfer or you can fetch it by running the command `rh restore`.
 
-    [example.dcache.org] (<poolname>) admin > rh restore [-block] <pnfsid>
+    [example.dcache.org] (<poolname>) admin > rh restore [-block] <pnfsid>  
 
-Example:
-    [example.dcache.org] (pool_1) admin > rh restore 00002A9282C2D7A147C68A327208173B81A6
-    Fetch request queued
+Example:  
+
+    [example.dcache.org] (pool_1) admin > rh restore 00002A9282C2D7A147C68A327208173B81A6  
+    Fetch request queued  
 
 How to monitor what's going on
 ==============================
@@ -446,31 +447,31 @@ needs to be changed to
 
 Example:  
 
-Login into the dCache Command Line Admin Interface and increase the log level of a particular service, for instance for the `poolmanager` service:
+Login into the dCache Command Line Admin Interface and increase the log level of a particular service, for instance for the `poolmanager` service:  
 
-    [example.dcache.org] (local) admin > cd PoolManager
-    [example.dcache.org] (PoolManager) admin > log set stdout ROOT INFO
-    [example.dcache.org] (PoolManager) admin > log ls
-    stdout:
-     ROOT=INFO
-     dmg.cells.nucleus=WARN*
-     logger.org.dcache.cells.messages=ERROR*
+    [example.dcache.org] (local) admin > cd PoolManager  
+    [example.dcache.org] (PoolManager) admin > log set stdout ROOT INFO  
+    [example.dcache.org] (PoolManager) admin > log ls  
+    stdout:  
+     ROOT=INFO  
+     dmg.cells.nucleus=WARN*  
+     logger.org.dcache.cells.messages=ERROR*  
      .....
 
 Obtain information via the DCACHE Command Line Admin Interface
 --------------------------------------------------------------
 
-The DCACHE Command Line Admin Interface gives access to information describing the process of storing and fetching files to and from the TSS, as there are:
+The DCACHE Command Line Admin Interface gives access to information describing the process of storing and fetching files to and from the TSS, as there are:  
 
 -   The
-    *Pool Manager Restore Queue*. A list of all requests which have been issued to all pools for a `FETCH FILE` operation from the TSS (rc ls)
--   The *Pool Collector Queue*. A list of files, per pool and storage group, which will be scheduled for a `STORE FILE` operation as soon as the configured trigger criteria match.
--   The *Pool STORE FILE*  Queue. A list of files per pool, scheduled for the `STORE FILE` operation. A configurable amount of requests within this queue are active, which is equivalent to the number of concurrent store processes, the rest is inactive, waiting to become active.
--   The Pool *FETCH FILE* Queue. A list of files per pool, scheduled for the `FETCH FILE` operation. A configurable amount of requests within this queue are active, which is equivalent to the number of concurrent fetch processes, the rest is inactive, waiting to become active.
+    *Pool Manager Restore Queue*. A list of all requests which have been issued to all pools for a `FETCH FILE` operation from the TSS (rc ls)  
+-   The *Pool Collector Queue*. A list of files, per pool and storage group, which will be scheduled for a `STORE FILE` operation as soon as the configured trigger criteria match.  
+-   The *Pool STORE FILE*  Queue. A list of files per pool, scheduled for the `STORE FILE` operation. A configurable amount of requests within this queue are active, which is equivalent to the number of concurrent store processes, the rest is inactive, waiting to become active.  
+-   The Pool *FETCH FILE* Queue. A list of files per pool, scheduled for the `FETCH FILE` operation. A configurable amount of requests within this queue are active, which is equivalent to the number of concurrent fetch processes, the rest is inactive, waiting to become active.  
 
 For evaluation purposes, the *pinboard* of each component can be used to track down DCACHE behavior. The *pinboard* only keeps the most recent 200 lines of log information but reports not only errors but informational messages as well.
 
-Check the pinboard of a service, here the POOLMNGR service.
+Check the pinboard of a service, here the POOLMNGR service.  
 
 Example:  
 
@@ -480,29 +481,29 @@ Example:
     08.30.59  [writeHandler] [NFSv41-dcachetogo PoolMgrSelectWritePool ...   
     ....
 
-Example:
+Example:  
 
 The **PoolManager** Restore Queue.  Remove the file `test.root` with the pnfs-ID 00002A9282C2D7A147C68A327208173B81A6.   
 
-    [example.dcache.org] (pool_1) admin > rep rm  00002A9282C2D7A147C68A327208173B81A6  
+    [example.dcache.org] (pool_1) admin > rep rm  00002A9282C2D7A147C68A327208173B81A6    
 
-Request the file `test.root`
+Request the file `test.root`  
 
-    [user] $ dccp dcap://example.dcache.org:/data/test.root test.root  
+    [user] $ dccp dcap://example.dcache.org:/data/test.root test.root    
 
-Check the PoolManager Restore Queue: 
+Check the PoolManager Restore Queue:   
 
-    [example.dcache.org] (local) admin > cd PoolManager  
+    [example.dcache.org] (local) admin > cd PoolManager   
     [example.dcache.org] (PoolManager) admin > rc ls  
     0000AB1260F474554142BA976D0ADAF78C6C@0.0.0.0/0.0.0.0-*/* m=1 r=0 [pool_1] [Staging 08.15 17:52:16] {0,}  
 
-Example:
+Example:  
 
-**The Pool Collector Queue.**
+**The Pool Collector Queue.**  
 
-  [example.dcache.org] (local) admin > cd pool_1  
-  [example.dcache.org] (pool_1) admin > queue ls -l queue  
-                       Name: chimera:alpha  
+  [example.dcache.org] (local) admin > cd pool_1    
+  [example.dcache.org] (pool_1) admin > queue ls -l queue    
+                       Name: chimera:alpha    
                   Class@Hsm: chimera:alpha@osm  
      Expiration rest/defined: -39 / 0   seconds  
      Pending   rest/defined: 1 / 0  
@@ -517,25 +518,25 @@ Example:
 
 Example:  
 
-**The pool STORE FILE Queue.**
+**The pool STORE FILE Queue.**  
 
-    [example.dcache.org] (local) admin > cd pool_1
-    [example.dcache.org] (pool_1) admin > st ls
-    0000EC3A4BFCA8E14755AE4E3B5639B155F9  1   Fri Aug 12 15:35:58 CEST 2011  
+    [example.dcache.org] (local) admin > cd pool_1  
+    [example.dcache.org] (pool_1) admin > st ls  
+    0000EC3A4BFCA8E14755AE4E3B5639B155F9  1   Fri Aug 12 15:35:58 CEST 2011    
 
-Example:
+Example:  
 
-**The pool FETCH FILE Queue.**
+**The pool FETCH FILE Queue.**  
 
-    [example.dcache.org] (local) admin > cd pool_1
-    [example.dcache.org] (pool_1) admin >  rh ls
-    0000B56B7AFE71C14BDA9426BBF1384CA4B0  0   Fri Aug 12 15:38:33 CEST 2011
+    [example.dcache.org] (local) admin > cd pool_1  
+    [example.dcache.org] (pool_1) admin >  rh ls  
+    0000B56B7AFE71C14BDA9426BBF1384CA4B0  0   Fri Aug 12 15:38:33 CEST 2011  
 
 To check the repository on the pools run the command `rep ls` that is described in the beginning of [the section called “How to Store-/Restore files via the Admin Interface”.](#how-to-store-/restore-files-via-the-admin-interface)
 
 
-Example of an EXECUTABLE to simulate a tape backend
-===================================================
+Example of an EXECUTABLE to simulate a tape backend  
+===================================================  
 
     #!/bin/sh
     #
@@ -849,7 +850,7 @@ Example of an EXECUTABLE to simulate a tape backend
       rc=$?
       printout "Request 'get' finished at `date` with return code $rc"
       exit $rc
-    #
+    #https://onedio.com/haber/abd-yi-karistiran-kendall-jenner-li-pepsi-reklami-765067
     ################################################################
     #
     elif [ "$command" = "remove" ] ; then
