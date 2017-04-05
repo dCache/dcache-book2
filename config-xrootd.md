@@ -2,6 +2,7 @@ Chapter 11. dCache as xRootd-Server
 ===================================
 
 Table of Contents
+-----------------
 
 * [Setting up](#setting-up)  
 
@@ -72,8 +73,8 @@ The default port the `xrootd door` is listening on is 1094. This can be changed 
  For controlling the `TCP`-portrange within which `xrootd`-movers will start listening in the <pool>Domain, you can add the properties `dcache.net.lan.port.min` and dcache.net.lan.port.max to **/etc/dcache/dcache.conf** and adapt them according to your preferences. The default values can be viewed in **/usr/share/dcache/defaults/dcache.properties**.
 
     ..
-    dcache.net.lan.port.min=30100
-    dcache.net.lan.port.max=30200
+    dcache.net.lan.port.min=30100  
+    dcache.net.lan.port.max=30200  
     ..
 
 QUICK TESTS
@@ -86,35 +87,35 @@ Copying files with xrdcp
 
 A simple way to get files in and out of dCache via `xrootd` is the command xrdcp. It is included in every xrootd and ROOT distribution.
 
-To transfer a single file in and out of dCache, just issue 
+To transfer a single file in and out of dCache, just issue   
 
-    [user] $ xrdcp /bin/sh root://<xrootd-door.example.org>/pnfs/<example.org>/data/xrd_test
-    [user] $ xrdcp root://<xrootd-door.example.org>/pnfs/<example.org>/data/xrd_test /dev/null
+    [user] $ xrdcp /bin/sh root://<xrootd-door.example.org>/pnfs/<example.org>/data/xrd_test  
+    [user] $ xrdcp root://<xrootd-door.example.org>/pnfs/<example.org>/data/xrd_test /dev/null  
 
 Accessing files from within ROOT
 --------------------------------
 
-This simple ROOT example shows how to write a randomly filled histogram to a file in dCache: 
+This simple ROOT example shows how to write a randomly filled histogram to a file in dCache:   
 
-    root [0] TH1F h("testhisto", "test", 100, -4, 4);
-    root [1] h->FillRandom("gaus", 10000);
-    root [2] TFile *f = new TXNetFile("root://<door_hostname>//pnfs/<example.org>/data/test.root","new");
-    061024 12:03:52 001 Xrd: Create: (C) 2004 SLAC INFN XrdClient 0.3
-    root [3] h->Write();
-    root [4] f->Write();
-    root [5] f->Close();
-    root [6] 061101 15:57:42 14991 Xrd: XrdClientSock::RecvRaw: Error reading from socket: Success
-    061101 15:57:42 14991 Xrd: XrdClientMessage::ReadRaw: Error reading header (8 bytes)
+    root [0] TH1F h("testhisto", "test", 100, -4, 4);  
+    root [1] h->FillRandom("gaus", 10000);  
+    root [2] TFile *f = new TXNetFile("root://<door_hostname>//pnfs/<example.org>/data/test.root","new");  
+    061024 12:03:52 001 Xrd: Create: (C) 2004 SLAC INFN XrdClient 0.3  
+    root [3] h->Write();  
+    root [4] f->Write();  
+    root [5] f->Close();  
+    root [6] 061101 15:57:42 14991 Xrd: XrdClientSock::RecvRaw: Error reading from socket: Success  
+    061101 15:57:42 14991 Xrd: XrdClientMessage::ReadRaw: Error reading header (8 bytes)  
 
  Closing remote `xrootd` files that live in dCache produces this warning, but has absolutely no effect on subsequent ROOT commands. It happens because dCache closes all `TCP` connections after finishing a file transfer, while xrootd expects to keep them open for later reuse.
 
-To read it back into ROOT from dCache: 
+To read it back into ROOT from dCache:   
 
-   root [7] TFile *reopen = TXNetFile ("root://<door_hostname>//pnfs/<example.org>/data/test.root","read");
-   root [8] reopen->ls();
-   TXNetFile**             //pnfs/<example.org>/data/test.root
-   TXNetFile*             //pnfs/<example.org>/data/test.root
-   KEY: TH1F     testhisto;1     test
+   	root [7] TFile *reopen = TXNetFile ("root://<door_hostname>//pnfs/<example.org>/data/test.root","read");   
+   	root [8] reopen->ls();   
+   	TXNetFile**             //pnfs/<example.org>/data/test.root   
+   	TXNetFile*             //pnfs/<example.org>/data/test.root   
+  	 KEY: TH1F     testhisto;1     test   
 
 XROOTD security
 ===============
@@ -122,23 +123,23 @@ XROOTD security
 Read-Write access
 -----------------
 
- Per default dCache xrootd is restricted to read-only, because plain xrootd is completely unauthenticated. A typical error message on the clientside if the server is read-only looks like:
+ Per default dCache xrootd is restricted to read-only, because plain xrootd is completely unauthenticated. A typical error message on the clientside if the server is read-only looks like:  
 
-    [user] $ xrdcp -d 1 /bin/sh root://ford.desy.de//pnfs/desy.de/data/xrd_test2
-    Setting debug level 1
-    061024 18:43:05 001 Xrd: main: (C) 2004 SLAC INFN xrdcp 0.2 beta
-    061024 18:43:05 001 Xrd: Create: (C) 2004 SLAC INFN XrdClient kXR_ver002+kXR_asyncap
-    061024 18:43:05 001 Xrd: ShowUrls: The converted URLs count is 1
-    061024 18:43:05 001 Xrd: ShowUrls: URL n.1: root://ford.desy.de:1094//pnfs/desy.de/data/asdfas.
-    061024 18:43:05 001 Xrd: Open: Access to server granted.
-    061024 18:43:05 001 Xrd: Open: Opening the remote file /pnfs/desy.de/data/asdfas
-    061024 18:43:05 001 Xrd: XrdClient::TryOpen: doitparallel=1
-    061024 18:43:05 001 Xrd: Open: File open in progress.
-    061024 18:43:06 5819 Xrd: SendGenCommand: Server declared: Permission denied. Access is read only.(error code: 3003)
-    061024 18:43:06 001 Xrd: Close: File not opened.
-    Error accessing path/file for root://ford//pnfs/desy.de/data/asdfas
+    [user] $ xrdcp -d 1 /bin/sh root://ford.desy.de//pnfs/desy.de/data/xrd_test2  
+    Setting debug level 1   
+    061024 18:43:05 001 Xrd: main: (C) 2004 SLAC INFN xrdcp 0.2 beta   
+    061024 18:43:05 001 Xrd: Create: (C) 2004 SLAC INFN XrdClient kXR_ver002+kXR_asyncap   
+    061024 18:43:05 001 Xrd: ShowUrls: The converted URLs count is 1   
+    061024 18:43:05 001 Xrd: ShowUrls: URL n.1: root://ford.desy.de:1094//pnfs/desy.de/data/asdfas.   
+    061024 18:43:05 001 Xrd: Open: Access to server granted.   
+    061024 18:43:05 001 Xrd: Open: Opening the remote file /pnfs/desy.de/data/asdfas   
+    061024 18:43:05 001 Xrd: XrdClient::TryOpen: doitparallel=1  
+    061024 18:43:05 001 Xrd: Open: File open in progress.  
+    061024 18:43:06 5819 Xrd: SendGenCommand: Server declared: Permission denied. Access is read only.(error code: 3003)  
+    061024 18:43:06 001 Xrd: Close: File not opened.  
+    Error accessing path/file for root://ford//pnfs/desy.de/data/asdfas  
 
-To enable read-write access, add the following line to **${dCacheHome}/etc/dcache.conf**
+To enable read-write access, add the following line to **${dCacheHome}/etc/dcache.conf**  
 
     ..
     xrootdIsReadOnly=false
@@ -155,10 +156,10 @@ Permitting read/write access on selected directories
 
 To activate this feature, a colon-seperated list containing the full paths of authorized directories must be added to **/etc/dcache/dcache.conf.** You will need to specify the read and write permissions separately. 
 
-    ..
- xrootd.authz.read-paths=/pnfs/<example.org>/rpath1:/pnfs/<example.org>/rpath2
- xrootd.authz.write-paths=/pnfs/<example.org>/wpath1:/pnfs/<example.org>/wpath2
-    ..
+   	 ..
+	 xrootd.authz.read-paths=/pnfs/<example.org>/rpath1:/pnfs/<example.org>/rpath2
+ 	 xrootd.authz.write-paths=/pnfs/<example.org>/wpath1:/pnfs/<example.org>/wpath2
+  	  ..
 
 A restart of the `xrootd` door is required to make the changes take effect. As soon as any of the above properties are set, all read or write requests to directories not matching the allowed path lists will be refused. Symlinks are however not restricted to these prefixes. 
 
@@ -171,9 +172,9 @@ The first thing to do is to setup the keystore. The keystore file basically spec
 
 The keys itself have to be converted into a certain format in order to be loaded into the authorization plugin. dCache expects both keys to be binary DER-encoded (Distinguished Encoding Rules for ASN.1). Furthermore the private key must be PKCS #8-compliant and the public key must follow the X.509-standard.
 
-The following example demonstrates how to create and convert a keypair using OpenSSL: 
+The following example demonstrates how to create and convert a keypair using OpenSSL:   
 
-    Generate new RSA private key
+    Generate new RSA private key 
     [root] # openssl genrsa -rand 12938467 -out key.pem 1024
 
     Create certificate request
@@ -247,6 +248,6 @@ Other configuration options
 
 The `xrootd-door` has several other configuration properties. You can configure various timeout parameters, the thread pool sizes on pools, queue buffer sizes on pools, the `xrootd` root path, the xrootd user and the `xrootd` IO queue. Full descriptions on the effect of those can be found in **/usr/share/dcache/defaults/xrootd.properties.**
 
-  [???]: #intouch-web
+<!--  [???]: #intouch-web
   []: http://people.web.psi.ch/feichtinger/doc/authz.pdf
   [1]: #cf-gplazma
