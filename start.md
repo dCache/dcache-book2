@@ -28,22 +28,22 @@ This part is intended for people who are new to DCACHE. It gives an introduction
      [**WebDAV**](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-webdav)  
      [**dCap**](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-dcap)  
       
- * [The Web Interface for Monitoring dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml)  
- * [The Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml)  
+ * [The Web Interface for Monitoring dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml)    
+ * [The Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml)    
    
-     [First steps](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-first-steps)  
-     [Access with **ssh2**](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-ssh2)
-     [Access with **ssh1**](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-ssh1)
-     [How to use the Admin Interface] (https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#idp27209328)  
-     [Create a new user] https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-new-user)  
-     [Use of the **ssh** Admin Interface by scripts](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#idp27345088)  
+     [First steps](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-first-steps)    
+     [Access with **ssh2**](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-ssh2)  
+     [Access with **ssh1**](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-ssh1)  
+     [How to use the Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#idp27209328)    
+     [Create a new user](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-new-user)    
+     [Use of the **ssh** Admin Interface by scripts](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#idp27345088)    
    
    
-* [Authentication and Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-certificates-fhs.shtml)  
-* [How to work with secured dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml)  
+* [Authentication and Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-certificates-fhs.shtml)    
+* [How to work with secured dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml)   
    
-     [**GSIdCap**](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml#intouch-client-gsidcap)  
-     [**SRM**](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml#intouch-client-srm)  
+     [**GSIdCap**](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml#intouch-client-gsidcap)    
+     [**SRM**](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml#intouch-client-srm)    
      [**WebDAV** with certificates](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml#intouch-client-https)  
    
    
