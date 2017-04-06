@@ -29,7 +29,7 @@ This part is intended for people who are new to DCACHE. It gives an introduction
      [**dCap**](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-dcap)  
       
  * [The Web Interface for Monitoring dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml)  
- * [The Admin Interface] (https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml)  
+ * [The Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml)  
    
      [First steps](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-first-steps)  
      [Access with **ssh2**](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-ssh2)
