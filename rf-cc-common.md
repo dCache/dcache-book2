@@ -3,7 +3,7 @@ Common Cell Commands
 
 pin
 pin
-Adds a comment to the pinboard.
+Adds a comment to the pinboard.   
 pin
 comment
 comment  
