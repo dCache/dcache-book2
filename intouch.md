@@ -1,5 +1,5 @@
-Getting in Touch with DCACHE
-============================
+Chapter 3. Getting in Touch with dCache
+=======================================
 
 Table of Contents
 ------------------
