@@ -436,14 +436,14 @@ Lists available partition types. New partition types can be added through plugin
 
 -   `pm create` 
 
-[-type=<partitionType>] <partitionName>
+[-type=partitionType] partitionName
 Creates a new partition. If no partition type is specified, then a `wass` partition is created.
 
 
 -   `pm set`  [partitionName] -parameterName =value|off
-Sets a parameter <parameterName> to a new value.
+Sets a parameter `parameterName` to a new value.
 
-    If <partitionName> is omitted, the common shared set of parameters is updated. The value is used by any partition for which the parameter is not explicitly set.
+    If `partitionName` is omitted, the common shared set of parameters is updated. The value is used by any partition for which the parameter is not explicitly set.
 
 If a parameter is set to off then this parameter is no longer defined and is inherited from the common shared set of parameters, or a partition type specific default value is used if the parameter is not defined in the common set.
 
