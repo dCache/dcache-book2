@@ -23,7 +23,7 @@ dCache is a distributed storage system, nevertheless it provides a single-rooted
 
 The inner dCache components talk to the namespace via a module called `PnfsManager`, which in turn communicates with the Chimera database using a thin Java layer, which in turn communicates directly with the Chimera database. Chimera allows direct access to the namespace by providing an `NFSv3` and `NFSv4.1` server. Clients can `NFS`-mount the namespace locally. This offers the opportunity to use OS-level tools like `ls, mkdir, mv` for Chimera. Direct I/O-operations like `cp` and `cat` are possible with the `NFSv4.1 door`.
 
-The properties of Chimera are defined in **/usr/share/dcache/defaults/chimera.properties**. For customisation the files **/etc/dcache/layouts/mylayout.conf** or **/etc/dcache/dcache.conf** should be modified (see [the section called “Defining domains and services”](#install.md#defining-domains-and-services).
+The properties of Chimera are defined in **/usr/share/dcache/defaults/chimera.properties**. For customisation the files **/etc/dcache/layouts/mylayout.conf** or **/etc/dcache/dcache.conf** should be modified (see [the section called “Defining domains and services”](install.md#defining-domains-and-services).
 
 Example:
 
