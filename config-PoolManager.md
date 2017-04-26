@@ -440,17 +440,17 @@ Lists available partition types. New partition types can be added through plugin
 Creates a new partition. If no partition type is specified, then a `wass` partition is created.
 
 
--   `pm set`  [<partitionName>] -<parameterName> =<value>|off
+-   `pm set`  [partitionName] -parameterName =value|off
 Sets a parameter <parameterName> to a new value.
 
     If <partitionName> is omitted, the common shared set of parameters is updated. The value is used by any partition for which the parameter is not explicitly set.
 
 If a parameter is set to off then this parameter is no longer defined and is inherited from the common shared set of parameters, or a partition type specific default value is used if the parameter is not defined in the common set.
 
--   `pm ls`  [-l] [<partitionName>]
+-   `pm ls`  [-l] [partitionName]
 Lists a single or all partitions, including the type of each partition. If a partition name or the `-l` option are used, then the partition parameters are shown too. Inherited and default values are identified as such.
 
--   `pm destroy`<partitionName>
+-   `pm destroy` partitionName
 Removes a partition from DCACHE. Any links configured to use this partition will fall back to the `default` partition.
 
 
@@ -459,7 +459,7 @@ USING PARTITIONS
 
 A partition, so far, is just a set of parameters which may or may not differ from the default set. To let a partition relate to a part of the DCACHE, links are used. Each link may be assigned to exactly one partition. If not set, or the assigned partition doesn't exist, the link defaults to the `default` partition.
 
-psu set link [<linkName>] -section=<partitionName> [<other-options>...]
+psu set link [linkName] -section= partitionName [other-options...]
 
 Whenever this link is chosen for pool selection, the associated parameters of the assigned partition will become active for further processing.
 
