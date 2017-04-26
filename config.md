@@ -4,9 +4,10 @@ Part II. Configuration of dCache
 This part contains descriptions of the components of DCACHE, their role, functionality within the framework. In short, all information necessary for configuring them.
 
 
-##Table of Contents
+Table of Contents
+-----------------
 
- + [4. Chimera](https://www.dcache.org/manuals/Book-2.16/config/cf-chimera-fhs-comments.shtml)  
+ + [4. Chimera](config-chimera.md)  
        [Mounting Chimera through NFS](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml)  
              [Using dCap with a mounted file system](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml#chimera-useDcap)  
        [Communicating with Chimera](https://www.dcache.org/manuals/Book-2.16/config/chimera-commands-fhs-comments.shtml)  
