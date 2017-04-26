@@ -96,9 +96,9 @@ This part gets you all the help that you might need:
 
 -   For acquiring resources:
 
-    -   The [download page].
+    -   The [download page](https://www.dcache.org/downloads/IAgree.shtml).
 
-    -   The [YUM repositories].
+    -   The [YUM repositories](http://trac.dcache.org/projects/dcache/wiki/manuals/Yum).
 
 -   For getting help during installation:
 
@@ -116,7 +116,6 @@ This part gets you all the help that you might need:
 
 -   For features that you would like to see in DCACHE or bugs that should be fixed: Just write an e-mail to <support@dcache.org>
 
--   If you like to stay up-to-date about new releases you can use the RSS feeds available from [our downloads page][download page].
+-   If you like to stay up-to-date about new releases you can use the RSS feeds available from [our downloads page](https://www.dcache.org/downloads/IAgree.shtml).
 
-  [download page]: http://www.dcache.org/downloads
-  [YUM repositories]: http://trac.dcache.org/projects/dcache/wiki/manuals/Yum
+
