@@ -1,5 +1,5 @@
-Installing DCACHE
-=================
+Chapter 2. Installing dCache
+============================
 
 **Table of Contents**
 
