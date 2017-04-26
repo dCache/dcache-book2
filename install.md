@@ -85,7 +85,7 @@ To allow local users to access PSQL without requiring a password, ensure the fil
 
 > **NOTE**
 >
-> Please note it is also possible to run DCACHE with all PSQL accounts requiring passwords. See [the section called “Configuring Access to PostgreSQL”](cookbook-postgres.md) for more advice on the configuration of PSQL.  
+> Please note it is also possible to run DCACHE with all PSQL accounts requiring passwords. See [the section called “Configuring Access to PostgreSQL”](cookbook-postgres.md#configuring-access-to-postgresql) for more advice on the configuration of PSQL.  
 
 
 > **RESTARTING POSTGRESQL**
@@ -279,7 +279,7 @@ In this example we create a pool called pool1 in the directory **`/srv/dcache/p1
 
 > **MIND THE GAP!**
 >
->The default gap for poolsizes is 4GiB. This means you should make a bigger pool than 4GiB otherwise you would have to change this gap in the dCache admin tool. See the example below. See also [the section called “The Admin Interface”.](config-webadmin.md)
+>The default gap for poolsizes is 4GiB. This means you should make a bigger pool than 4GiB otherwise you would have to change this gap in the dCache admin tool. See the example below. See also [the section called “The Admin Interface”.](intouch.md#the-admin-interface)
 >
 >       (local) admin > cd <poolname>
 >       (<poolname>) admin > set gap 2G
