@@ -99,7 +99,7 @@ If you don’t want to mount chimera you can create the root of the Chimera name
 
     [root] # /usr/bin/chimera mkdir /data
 
-You can now add directory tags. For more information on tags see [the section called “Directory Tags”](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs-comments.shtml).
+You can now add directory tags. For more information on tags see [the section called “Directory Tags”](config-chimera.md #directory-tags).
 
     [root] # /usr/bin/chimera writetag /data sGroup "chimera"
     [root] # /usr/bin/chimera writetag /data OSMTemplate "StoreName sql"
