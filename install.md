@@ -9,14 +9,14 @@ Chapter 2. Installing dCache
      [Installation of the dCache Software](#installation-of-the-dCache-software)  
      [Readying the PostgreSQL server for the use with dCache](#readying-the-postgresql-server-for-the-use-with-dcache)  
      [Configuring Chimera](#configuring-chimera)  
-     [Configuring dCache](#configuring_dcache)  
+     [Configuring dCache](#configuring-dcache)  
      [Installing dCache on several nodes](#installing-dcache-on-several-nodes)  
 
 
 +  [Securiting your dCache installation](#securiting-your-dcache-installation)
 +  [Upgrading a dCache Instance](#upgrading-a-dcache-instance)
 
-The first section describes the installation of a fresh DCACHE instance using RPM files downloaded from [the DCACHE home-page]. It is followed by a guide to upgrading an existing installation. In both cases we assume standard requirements of a small to medium sized DCACHE instance without an attached [tertiary storage system](rf-glossary.md). The third section contains some pointers on extended features.
+The first section describes the installation of a fresh DCACHE instance using RPM files downloaded from [the DCACHE home-page]. It is followed by a guide to upgrading an existing installation. In both cases we assume standard requirements of a small to medium sized DCACHE instance without an attached [tertiary storage system](rf-glossary.md#tertiary-storage-system). The third section contains some pointers on extended features.
 
 INSTALLING A DCACHE INSTANCE
 ============================
