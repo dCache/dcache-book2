@@ -19,7 +19,7 @@ From the technical point of view the `webadmin` service uses a Jetty-Server whic
 INSTALLATION
 ============
 
-For the authenticated mode a configured gPlazma is required (see also [the section called “gPlazma config example to work with authenticated webadmin”](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-setup-fhs.shtml#cf-gplazma-webadmin-example)). The user may either authenticate by presenting his grid certificate or by entering a valid username/password combination. This way it is possible to login even if the user does not have a grid certificate. For a non-authenticated `webadmin` service you just need to start the `httpd` service.
+For the authenticated mode a configured gPlazma is required (see also [the section called “gPlazma config example to work with authenticated webadmin”](#gplazma-config-example-to-work-with-authenticated-webadmin). The user may either authenticate by presenting his grid certificate or by entering a valid username/password combination. This way it is possible to login even if the user does not have a grid certificate. For a non-authenticated `webadmin` service you just need to start the `httpd` service.
 
 For the authenticated mode using a grid certificate the host certificate has to be imported into the dCache-keystore. In the grid world host certificates are usually signed by national Grid-CAs. Refer to the documentation provided by the Grid-CA to find out how to request a certificate. To import them into the dCache-keystore use this command:
 
