@@ -6,13 +6,13 @@ Part I. Getting started
 This part is intended for people who are new to DCACHE. It gives an introduction to DCACHE, including how to configure a simple setup, and details some simple and routine administrative operations.
 
 **Table of Contents**  
-* [1.Introduction](https://www.dcache.org/manuals/Book-2.16/start/intro-fhs.shtml)  
+* [1.Introduction](intro.md)  
       
      [Cells and Domains](https://www.dcache.org/manuals/Book-2.16/start/intro-cells-domains-fhs.shtml)  
      [Protocols Supported by dCache](https://www.dcache.org/manuals/Book-2.16/start/intro-protos-fhs.shtml) 
    
    
-* [2.Installing dCache](https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)   
+* [2.Installing dCache](install.md)   
    
    
      [Installing a dCache instance](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml)   
@@ -26,7 +26,7 @@ This part is intended for people who are new to DCACHE. It gives an introduction
      [Upgrading a dCache Instance](https://www.dcache.org/manuals/Book-2.16/start/in-upgrade-fhs.shtml)  
    
    
-* [3. Getting in Touch with dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-fhs.shtml)  
+* [3. Getting in Touch with dCache](intouch.md)  
      
      [Checking the Functionality](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml)  
      [dCache without mounted namespace](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#dcache-unmounted)  
