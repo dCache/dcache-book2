@@ -32,7 +32,7 @@ Table of Contents
 
 
 
-This section is a guide for exploring a newly installed dCache system. The confidence obtained by this exploration will prove very helpful when encountering problems in the running system. This forms the basis for the more detailed stuff in the later parts of this book. The starting point is a fresh installation according to [the section called “Installing a dCache instance”.](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml)
+This section is a guide for exploring a newly installed dCache system. The confidence obtained by this exploration will prove very helpful when encountering problems in the running system. This forms the basis for the more detailed stuff in the later parts of this book. The starting point is a fresh installation according to [the section called “Installing a dCache instance”.](install.md#installing-a-dcache-instance)
 
 
 
@@ -150,13 +150,13 @@ THE WEB INTERFACE FOR MONITORING DCACHE
 
 In the standard configuration the dCache web interface is started on the head node (meaning that the domain hosting the httpd service is running on the head node) and can be reached via port 2288. Point a web browser to http://<head-node.example.org>:2288/ to get to the main menu of the dCache web interface. The contents of the web interface are self-explanatory and are the primary source for most monitoring and trouble-shooting tasks.
 
-The “Cell Services” page displays the status of some important [cells](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-cell) of the dCache instance.
+The “Cell Services” page displays the status of some important [cells](rf-glossary.md#cell) of the dCache instance.
 
-The “Pool Usage” page gives a good overview of the current space usage of the whole dCache instance. In the graphs, free space is marked yellow, space occupied by [cached files](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-cached) (which may be deleted when space is needed) is marked green, and space occupied by [precious files](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-precious), which cannot be deleted is marked red. Other states (e.g., files which are currently written) are marked purple.
+The “Pool Usage” page gives a good overview of the current space usage of the whole dCache instance. In the graphs, free space is marked yellow, space occupied by [cached files](rf-glossary.md#cached-replica) (which may be deleted when space is needed) is marked green, and space occupied by [precious replica](rf-glossary.md#precious-replica), which cannot be deleted is marked red. Other states (e.g., files which are currently written) are marked purple.
 
 The page “Pool Request Queues” (or “Pool Transfer Queues”) gives information about the number of current requests handled by each pool. “Actions Log” keeps track of all the transfers performed by the pools up to now.
 
-The remaining pages are only relevant with more advanced configurations: The page “Pools” (or “Pool Attraction Configuration”) can be used to analyze the current configuration of the [pool selection unit](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-pm-comp-psu) in the pool manager. The remaining pages are relevant only if a [tertiary storage system (HSM)](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-tss) is connected to the dCache instance.
+The remaining pages are only relevant with more advanced configurations: The page “Pools” (or “Pool Attraction Configuration”) can be used to analyze the current configuration of the [pool selection unit](rf-glossary#pool-selection-unit) in the pool manager. The remaining pages are relevant only if a [tertiary storage system (HSM)](rf-glossary#HSM) is connected to the dCache instance.
 
 THE ADMIN INTERFACE
 ===================
@@ -170,7 +170,7 @@ FIRST STEPS
 
 dCache has a powerful administration interface. It can be accessed with the **ssh1** or with the **ssh2** protocol. The server is part of the **adminDoor** domain.
 
-It is useful to define the admin service in a seperate domain. This allowes to restart the admin service seperatly from other services. In the example in [the section called “Installing a dCache instance”](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml) this domain was called adminDoorDomain.
+It is useful to define the admin service in a seperate domain. This allowes to restart the admin service seperatly from other services. In the example in [the section called “Installing a dCache instance”](install.md) this domain was called adminDoorDomain.
 
 > EXAMPLE:
     [adminDoorDomain]  
@@ -265,7 +265,7 @@ adds this to the **/etc/dcache/dcache.kpwd** file:
 >    # set pwd    
 >    passwd admin 4091aba7 read-write 12345 1000 / /  
 
-Edit the file **/etc/dcache/dcachesrm-gplazma.policy** to switch on the `kpwd-plugin`. For more information about `gPlazma` see [Chapter 10, Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-fhs.shtml).
+Edit the file **/etc/dcache/dcachesrm-gplazma.policy** to switch on the `kpwd-plugin`. For more information about `gPlazma` see [Chapter 10, Authorization in dCache](config-chimera.md).
 
 Now the user `admin` can login to the admin interface with his password `password` by:
 
@@ -315,7 +315,7 @@ The command `help` lists all commands the cell knows and their parameters. Howev
 >
 > Some commands are dangerous. Executing them without understanding what they do may lead to data loss.
 
-Starting from the local prompt ((`local) admin >`) the command `cd` takes you to the specified [cell](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-cell). In general the address of a cell is a concatenation of cell name @ symbol and the domain name. `cd` to a cell by:
+Starting from the local prompt ((`local) admin >`) the command `cd` takes you to the specified [cell](rf-glossary#cell). In general the address of a cell is a concatenation of cell name @ symbol and the domain name. `cd` to a cell by:
 
     (local) admin > **cd <cellName>@<domainName>**
 
