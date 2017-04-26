@@ -8,9 +8,9 @@ Table of Contents
 -----------------
 
  + [4. Chimera](config-chimera.md)    
-       [Mounting Chimera through NFS](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml)  
-             [Using dCap with a mounted file system](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml#chimera-useDcap)  
-       [Communicating with Chimera](https://www.dcache.org/manuals/Book-2.16/config/chimera-commands-fhs-comments.shtml)  
+       [Mounting Chimera through NFS]
+             [Using dCap with a mounted file system]  
+       [Communicating with Chimera]
        [IDs]()  
        [Directory Tags]()  
              [Create, List and Read Directory Tags if the Namespace is not Mounted]
@@ -133,7 +133,7 @@ The billing database
 Customizing the database
 Generating and Displaying Billing Plots
 Upgrading a Previous Installation
- + [16. The alarms Service](config-alarms.md)  
+ + [16. The alarms Service](config-alarms.md)    
 The Basic Setup
 Configure where the alarms service is Running
 Types of Alarms
@@ -145,9 +145,9 @@ Advanced Service Configuration: Enabling Automatic Cleanup
 Advanced Service Configuration: Enabling Email Alerts
 Advanced Service Configuration: Custom Alarm Definitions
 Miscellaneous Properties of the alarms Service
-17. dCache Webadmin Interface
+ + [17. dCache Webadmin Interface](config-webadmin.md)  
 Installation
-18. ACLs in dCache
+ + [18. ACLs in dCache](config-acl.md)  
 Introduction
 Database configuration
 Configuring ACL support
@@ -155,7 +155,7 @@ Enabling ACL support
 Administrating ACLs
 How to set ACLs
 Viewing configured ACLs
-19. GLUE Info Provider
+ + [19. GLUE Info Provider](config-info-provider.md)  
 Internal collection of information
 Configuring the info provider
 Testing the info provider
@@ -163,10 +163,10 @@ Decommissioning the old info provider
 Publishing dCache information
 Troubleshooting BDII problems
 Updating information
-20. Stage Protection
+ + [20. Stage Protection](config-stage-protection.md)  
 Configuration of Stage Protection
 Definition of the White List
-21. Using Space Reservations without SRM
+ + [21. Using Space Reservations without SRM](config-write-token.md)  
 The Space Reservation
 The WriteToken tag
 Copy a File into the WriteToken
