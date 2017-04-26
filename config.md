@@ -6,18 +6,18 @@ This part contains descriptions of the components of DCACHE, their role, functio
 
 ##Table of Contents
 
-  [4. Chimera](https://www.dcache.org/manuals/Book-2.16/config/cf-chimera-fhs-comments.shtml)  
+ + [4. Chimera](https://www.dcache.org/manuals/Book-2.16/config/cf-chimera-fhs-comments.shtml)  
        [Mounting Chimera through NFS](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml)  
              [Using dCap with a mounted file system](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml#chimera-useDcap)  
        [Communicating with Chimera](https://www.dcache.org/manuals/Book-2.16/config/chimera-commands-fhs-comments.shtml)  
        [IDs]()  
        [Directory Tags]()  
-            Create, List and Read Directory Tags if the Namespace is not Mounted
-            Create, List and Read Directory Tags if the Namespace is Mounted
-            Directory Tags and Command Files
-            Directory Tags for dCache
-            Storage Class and Directory Tags
-5. The Cell Package
+             [Create, List and Read Directory Tags if the Namespace is not Mounted]
+             [Create, List and Read Directory Tags if the Namespace is Mounted]
+             [Directory Tags and Command Files]
+             [Directory Tags for dCache]
+             [Storage Class and Directory Tags]
+ + [5. The Cell Package](https://www.dcache.org/manuals/Book-2.16/config/cf-cellpackage-fhs-comments.shtml)
 6. The replica Service (Replica Manager)
 The Basic Setup
 Define a poolgroup for resilient pools
