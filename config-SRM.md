@@ -31,12 +31,12 @@ Table of Contents
 	     
 + [General SRM Concepts (for developers)](#general-srm-concepts-(for-developers))
 
-	 [The SRM service](#the-srm-service)
-	 [Space Management Functions](#space-management-functions)
-	 [Data Transfer Functions](#data-transfer-functions)
-	 [Request Status Functions](#request-status-functions)
-	 [Directory Functions](#directory-functions)
-	 [Permission functions](#permission-functions)
+	 [The SRM service](#the-srm-service)  
+	 [Space Management Functions](#space-management-functions)  
+	 [Data Transfer Functions](#data-transfer-functions)  
+	 [Request Status Functions](#request-status-functions)  
+	 [Directory Functions](#directory-functions)  
+	 [Permission functions](#permission-functions)  
 
 Introduction
 ============
