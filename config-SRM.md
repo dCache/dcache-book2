@@ -53,7 +53,7 @@ CONFIGURING THE SRM SERVICE
 THE BASIC SETUP
 ---------------
 
-Like other services, the srm service can be enabled in the layout file **/etc/dcache/layouts/mylayout** of your dCache installation. For an overview of the layout file format, please see [the section called “Defining domains and services”](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-layout).
+Like other services, the srm service can be enabled in the layout file **/etc/dcache/layouts/mylayout** of your dCache installation. For an overview of the layout file format, please see [the section called “Defining domains and services”](install.md).
 
 Example:  
 
@@ -62,7 +62,7 @@ To enable SRM in a separate <srm-${host.name}Domain> in dCache, add the followin
     [<srm-${host.name}Domain>]
     [<srm-${host.name}Domain>/srm]
 
-The use of the srm service requires an authentication setup, see [Chapter 10, Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-fhs.shtml) for a general description or the [section called “Authentication and Authorization in dCache”](https://www.dcache.org/manuals/Book-2.16/start/intouch-certificates-fhs.shtml) for an example setup with X.509 certificates.
+The use of the srm service requires an authentication setup, see [Chapter 10, Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-fhs.shtml) for a general description or the [section called “Authentication and Authorization in dCache”](config-chimera.md) for an example setup with X.509 certificates.
 
 You can now copy a file into your dCache using the SRM,
 
@@ -287,7 +287,7 @@ Now that the `SRM SpaceManager` is activated you can make a space reservation. A
 
 ### Prerequisites for Space Reservations
 
-Login to the [admin interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml) and `cd` to the cell `SrmSpaceManager`.
+Login to the [admin interface](intouch.md) and `cd` to the cell `SrmSpaceManager`.
 
     [user] $ ssh -p 22224 -l admin admin.example.org
     (local) admin > cd SrmSpaceManager
@@ -300,11 +300,11 @@ The lack of output tells you that there are no link groups. As there are no link
 
 #### The Link Groups
 
-For a general introduction about link groups see [the section called “Link Groups”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs.shtml).
+For a general introduction about link groups see [the section called “Link Groups”](#link-groups).
 
 Example:  
 
-In this example we will create a link group for the VO desy. In order to do so we need to have a pool, a pool group and a link. Moreover, we define unit groups named any-store, world-net and any-protocol. (See [the section called “Types of Units”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs.shtml#cf-pm-links-units).)
+In this example we will create a link group for the VO desy. In order to do so we need to have a pool, a pool group and a link. Moreover, we define unit groups named any-store, world-net and any-protocol. (See [the section called “Types of Units”](#types-of-units).)
 
 Define a pool in your layout file, add it to your pool directory and restart the `poolDomain`.
 
@@ -492,13 +492,13 @@ In order to be able to take advantage of the virtual organization (VO) infrastru
 
 -   User needs to use [`voms-proxy-init`](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml#cf-gplazma-certificates-voms-proxy-init) to create a VO proxy.
 
--   dCache needs to use gPlazma with modules that extract VO attributes from the user’s proxy. (See [Chapter 10, Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-fhs.shtml), have a look at `voms` plugin and see the [section called “Authentication and Authorization in dCache”](https://www.dcache.org/manuals/Book-2.16/start/intouch-certificates-fhs.shtml) for an example with voms.
+-   dCache needs to use gPlazma with modules that extract VO attributes from the user’s proxy. (See [Chapter 10, Authorization in dCache](config-chimera.md), have a look at `voms` plugin and see the [section called “Authentication and Authorization in dCache”](intouch.md) for an example with voms.
 
 Only if these 3 conditions are satisfied the VO based authorization of the SpaceManager will work.
 
 #### VO based Access Control Configuration
 
-As mentioned [above](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml#cf-srm-space-linkgroups) dCache space reservation functionality access control is currently performed at the level of the link groups. Access to making reservations in each link group is controlled by the [`SpaceManagerLinkGroupAuthorizationFile`](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml#cf-srm-linkgroupauthfile).
+As mentioned [above](config-SRM.md) dCache space reservation functionality access control is currently performed at the level of the link groups. Access to making reservations in each link group is controlled by the [`SpaceManagerLinkGroupAuthorizationFile`](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml#cf-srm-linkgroupauthfile).
 
 This file contains a list of the link groups and all the VOs and the VO Roles that are permitted to make reservations in a given link group.
 
