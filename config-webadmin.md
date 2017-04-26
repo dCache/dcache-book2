@@ -48,7 +48,7 @@ The most important value is `httpd.authz.admin-gid`, because it configures who i
 
 To see all webadmin specific property values have a look at **/usr/share/dcache/defaults/httpd.properties**.
 
-For information on CELL-GPLAZMA configuration have a look at [ Chapter 10, Authorization in dCache](chimera.md) and for a special example [the section called “gPlazma config example to work with authenticated webadmin”](#gplazma-config-example-to-work-with-authenticated-webadmin).
+For information on CELL-GPLAZMA configuration have a look at [ Chapter 10, Authorization in dCache](config-chimera.md) and for a special example [the section called “gPlazma config example to work with authenticated webadmin”](#gplazma-config-example-to-work-with-authenticated-webadmin).
 
   [???]: #cf-gplazma-webadmin-example
   [1]: #cf-gplazma
