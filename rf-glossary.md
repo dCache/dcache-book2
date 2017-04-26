@@ -18,12 +18,14 @@ The properties Files
     The properties files are located in the directory /usr/share/dcache/defaults. They contain the default settings of the dCache. 
     
 Chimera
+-------
 
     The Chimera namespace is a core component of dCache. It maps each stored file to a unique identification number and allows storing of metadata against either files or directories.
 
     Chimera includes some features like levels, directory tags and many of the dot commands. 
     
 Chimera ID
+----------
 
     A Chimera ID is a 36 hexadecimal digit that uniquely defines a file or directory. 
     
@@ -58,10 +60,12 @@ Java Virtual Machine (JVM)
     Java programs are typically compiled into a binary form called Java byte-code. Byte-code is comparable to the format that computers understand native; however, no mainstream processor understands Java byte-code. Instead compiled Java programs typically require a translation layer for them to run. This translation layer is called a Java Virtual Machine (JVM). It is a standardised execution environment that Java programs may run within. A JVM is typically represented as a process within the host computer. 
     
 tertiary storage system
+-----------------------
 
     A mass storage system which stores data and is connected to the dCache system. Each dCache pool will write files to it as soon as they have been completely written to the pool (if the pool is not configured as a LFS). The tertiary storage system is not part of dCache. However, it is possible to connect any mass storage system as tertiary storage system to dCache via a simple interface. 
     
 tape backend
+------------
 
     A tertiary storage system which stores data on magnetic tapes. 
     
