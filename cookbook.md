@@ -5,77 +5,77 @@ This part contains guides for specific tasks a system administrator might want t
 Table of Contents
 -----------------
 
-[22. dCache Clients.](https://www.dcache.org/manuals/Book-2.16/cookbook/cb-clients-fhs-comments.shtml)
+[22. dCache Clients.](cookbook-clients.md)
 
-   [GSI-FTP](https://www.dcache.org/manuals/Book-2.16/cookbook/cb-clients-gridftp-fhs-comments.shtml)
+   [GSI-FTP](#gsi-ftp)
 
-        Listing a directory
-        Checking a file exists
-        Deleting files
-        Copying files
+        Listing a directory  
+        Checking a file exists  
+        Deleting files  
+        Copying files  
 
-    dCap
+    dCap  
 
-        dccp
-        Using the dCache client interposition library.
+        dccp  
+        Using the dCache client interposition library.  
 
-    SRM
+    SRM  
+  
+        Creating a new directory.  
+        Removing files from dCache  
+        Removing empty directories from dCache  
+        srmcp for SRM v1  
+        srmcp for SRM v2.2  
 
-        Creating a new directory.
-        Removing files from dCache
-        Removing empty directories from dCache
-        srmcp for SRM v1
-        srmcp for SRM v2.2
+    ldap  
+    Using the LCG commands with dCache  
 
-    ldap
-    Using the LCG commands with dCache
+        The lcg-gt Application  
+        The lcg-sd Application  
 
-        The lcg-gt Application
-        The lcg-sd Application
+23. Pool Operations  
 
-23. Pool Operations
+    Checksums  
 
-    Checksums
+        How to configure checksum calculation  
 
-        How to configure checksum calculation
+    Migration Module  
 
-    Migration Module
+        Overview and Terminology  
+        Command Summary  
+        Examples  
 
-        Overview and Terminology
-        Command Summary
-        Examples
+    Renaming a Pool  
+    Pinning Files to a Pool  
 
-    Renaming a Pool
-    Pinning Files to a Pool
+24. PostgreSQL and dCache  
 
-24. PostgreSQL and dCache
+    Installing a PostgreSQL Server  
+    Configuring Access to PostgreSQL  
+    Performance of the PostgreSQL Server  
 
-    Installing a PostgreSQL Server
-    Configuring Access to PostgreSQL
-    Performance of the PostgreSQL Server
+25. Complex Network Configuration  
 
-25. Complex Network Configuration
+    Firewall Configuration  
 
-    Firewall Configuration
+        Basic Installation  
+        Multi-Node with Firewalls  
 
-        Basic Installation
-        Multi-Node with Firewalls
+    GridFTP Connections via two or more Network Interfaces  
 
-    GridFTP Connections via two or more Network Interfaces
+    GridFTP with Pools in a Private Subnet  
 
-    GridFTP with Pools in a Private Subnet
+26. Advanced Tuning  
 
-26. Advanced Tuning
+    Multiple Queues for Movers in each Pool  
 
-    Multiple Queues for Movers in each Pool
+        Description  
+        Solution  
+        Configuration  
+        Tunable Properties for Multiple Queues  
 
-        Description
-        Solution
-        Configuration
-        Tunable Properties for Multiple Queues
+    Tunable Properties  
 
-    Tunable Properties
-
-        dCap
-        GridFTP
-        SRM
+        dCap  
+        GridFTP  
+        SRM  
