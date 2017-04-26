@@ -15,7 +15,7 @@ This part is intended for people who are new to DCACHE. It gives an introduction
 * [2.Installing dCache](install.md)   
    
    
-     [Installing a dCache instance](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml)   
+     [Installing a dCache instance](#installing-a-dcache-instance)  
      [Prerequisites](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-prerequisites)  
      [Installation of the dCache Software](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-installation)  
      [Readying the PostgreSQL server for the use with dCache](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-postgres)  
