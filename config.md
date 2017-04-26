@@ -1,19 +1,22 @@
+Part II. Configuration of dCache
+================================
+
 This part contains descriptions of the components of DCACHE, their role, functionality within the framework. In short, all information necessary for configuring them.
 
 
 ##Table of Contents
 
-4. Chimera
-Mounting Chimera through NFS
-Using dCap with a mounted file system
-Communicating with Chimera
-IDs
-Directory Tags
-Create, List and Read Directory Tags if the Namespace is not Mounted
-Create, List and Read Directory Tags if the Namespace is Mounted
-Directory Tags and Command Files
-Directory Tags for dCache
-Storage Class and Directory Tags
+  [4. Chimera](https://www.dcache.org/manuals/Book-2.16/config/cf-chimera-fhs-comments.shtml)  
+       [Mounting Chimera through NFS](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml)  
+             [Using dCap with a mounted file system](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml#chimera-useDcap)  
+       [Communicating with Chimera](https://www.dcache.org/manuals/Book-2.16/config/chimera-commands-fhs-comments.shtml)  
+       [IDs]()  
+       [Directory Tags]()  
+            Create, List and Read Directory Tags if the Namespace is not Mounted
+            Create, List and Read Directory Tags if the Namespace is Mounted
+            Directory Tags and Command Files
+            Directory Tags for dCache
+            Storage Class and Directory Tags
 5. The Cell Package
 6. The replica Service (Replica Manager)
 The Basic Setup
