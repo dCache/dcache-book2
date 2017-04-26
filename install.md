@@ -312,7 +312,7 @@ Restart dCache to start the newly configured components **dcache restart** and c
     gPlazmaDomain     running 17744 dcache
     poolDomain        running 17798 dcache
 
-Now you can have a look at your dCache via The Web Interface, see [the section called “The Web Interface for Monitoring dCache”:](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml) http://<httpd.example.org>:2288/, where <httpd.example.org> is the node on which your httpd service is running. For a single node dCache this is the machine on which your dCache is running.  
+Now you can have a look at your dCache via The Web Interface, see [the section called “The Web Interface for Monitoring dCache”:](intouch.md) http://<httpd.example.org>:2288/, where <httpd.example.org> is the node on which your httpd service is running. For a single node dCache this is the machine on which your dCache is running.  
 
 
 ### JAVA heap size
@@ -337,14 +337,14 @@ For optimization of your dCache you can define the Java heap size in the layout 
 
 > **NOTE**
 >
-> dCache uses Java to parse the configuration files and will search for Java on the system path first; if it is found there, no >further action is needed. If Java is not on the system path, the environment variable **JAVA_HOM**E defines the location of the >Java installation directory. Alternatively, the environment variable **JAVA** can be used to point to the Java executable directly.
+> dCache uses Java to parse the configuration files and will search for Java on the system path first; if it is found there, no >further action is needed. If Java is not on the system path, the environment variable **JAVA_HOME** defines the location of the >Java installation directory. Alternatively, the environment variable **JAVA** can be used to point to the Java executable directly.
 
->If JAVA_HOME or JAVA cannot be defined as global environment variables in the operating system, then they can be defined in >either /etc/default/dcache or /etc/dcache.env. These two files are sourced by the init script and allow JAVA_HOME, JAVA and >DCACHE_HOME to be defined.
+>If JAVA_HOME or JAVA cannot be defined as global environment variables in the operating system, then they can be defined in >either **/etc/default/dcache** or **/etc/dcache.env**. These two files are sourced by the init script and allow JAVA_HOME, JAVA and >DCACHE_HOME to be defined.
 
 Installing DCACHE on several nodes
 ----------------------------------
 
-Installing DCACHE on several nodes is not much more complicated than installing it on a single node. Think about how DCACHE should be organised regarding services and domains. Then adapt the layout files, as described in [section\_title], to the layout that you have in mind. The files `PATH-ODE-ED/layouts/head.conf` and `PATH-ODE-ED/layouts/pool.conf` contain examples for a DCACHE head-node and a DCACHE pool respectively.
+Installing DCACHE on several nodes is not much more complicated than installing it on a single node. Think about how DCACHE should be organised regarding services and domains. Then adapt the layout files, as described in [in the section called “Defining domains and services”](install.md), to the layout that you have in mind. The files **/etc/dcache/layouts/head.conf** and **/etc/dcache/layouts/pool.conf**  contain examples for a DCACHE head-node and a DCACHE pool respectively.
 
 > **IMPORTANT**
 >
