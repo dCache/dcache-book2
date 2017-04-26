@@ -6,16 +6,16 @@ Table of Contents
 
 + [Multiple Queues for Movers in each Pool](#multiple-queues-for-movers-in-each-pool) 
 
-     [Description](#description)
-     [Solution](#solution)
-     [Configuration](#configuration)
-     [Tunable Properties for Multiple Queues](#tunable-properties-for-multiple-queues)
+     [Description](#description)  
+     [Solution](#solution)  
+     [Configuration](#configuration)  
+     [Tunable Properties for Multiple Queues](#tunable-properties-for-multiple-queues)  
     
 + [Tunable Properties](#tunable-properties)
 
-      [dCap](#dcap)
-      [GridFTP](#gridftp)
-      [SRM](#srm)
+     [dCap](#dcap)  
+     [GridFTP](#gridftp)  
+     [SRM](#srm)  
 
 
 The use cases described in this chapter are only relevant for large-scale DCACHE instances which require special tuning according to a longer experience with client behaviour.
