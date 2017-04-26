@@ -8,48 +8,48 @@ This part is intended for people who are new to DCACHE. It gives an introduction
 **Table of Contents**  
 * [1.Introduction](intro.md)  
       
-     [Cells and Domains](https://www.dcache.org/manuals/Book-2.16/start/intro-cells-domains-fhs.shtml)  
-     [Protocols Supported by dCache](https://www.dcache.org/manuals/Book-2.16/start/intro-protos-fhs.shtml) 
+     [Cells and Domains](#cells-and-domains)  
+     [Protocols Supported by dCache](#protocols-supported-by-dcache) 
    
    
 * [2.Installing dCache](install.md)   
    
    
      [Installing a dCache instance](#installing-a-dcache-instance)  
-     [Prerequisites](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-prerequisites)  
-     [Installation of the dCache Software](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-installation)  
-     [Readying the PostgreSQL server for the use with dCache](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-postgres)  
-     [Configuring Chimera](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-chimera)  
-     [Configuring dCache](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-configure)  
-     [Installing dCache on several nodes](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-multinode)  
-     [Securiting your dCache installation](https://www.dcache.org/manuals/Book-2.16/start/in-securing-fhs.shtml)  
-     [Upgrading a dCache Instance](https://www.dcache.org/manuals/Book-2.16/start/in-upgrade-fhs.shtml)  
+     [Prerequisites](#prerequisites)  
+     [Installation of the dCache Software](#installation-of-the-dcache-software)  
+     [Readying the PostgreSQL server for the use with dCache](#readying-the-postgresql-server-for-the-use-with-dcache)  
+     [Configuring Chimera](#configuring-chimera)  
+     [Configuring dCache](#configuring-chimera)  
+     [Installing dCache on several nodes](#installing-dcache-on-several-nodes)  
+     [Securiting your dCache installation](#securiting-your-dcache-installation)  
+     [Upgrading a dCache Instance](#upgrading-a-dcache-instance)  
    
    
 * [3. Getting in Touch with dCache](intouch.md)  
      
-     [Checking the Functionality](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml)  
-     [dCache without mounted namespace](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#dcache-unmounted)  
-     [**WebDAV**](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-webdav)  
-     [**dCap**](https://www.dcache.org/manuals/Book-2.16/start/intouch-client-fhs.shtml#intouch-client-dcap)  
+     [Checking the Functionality](#checking-the-functionality)  
+     [dCache without mounted namespace](#dcache-without-mounted-namespace)  
+     [**WebDAV**](#webdav)  
+     [**dCap**](#dcap)  
       
- * [The Web Interface for Monitoring dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml)    
- * [The Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml)    
+ * [The Web Interface for Monitoring dCache](#the-web-interface-for-monitoring-dcache)    
+ * [The Admin Interface](#the-admin-interface)    
    
-     [First steps](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-first-steps)    
-     [Access with **ssh2**](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-ssh2)  
-     [Access with **ssh1**](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-ssh1)  
-     [How to use the Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#idp27209328)    
-     [Create a new user](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#intouch-admin-new-user)    
-     [Use of the **ssh** Admin Interface by scripts](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml#idp27345088)    
-   
-   
-* [Authentication and Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-certificates-fhs.shtml)    
-* [How to work with secured dCache](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml)   
-   
-     [**GSIdCap**](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml#intouch-client-gsidcap)    
-     [**SRM**](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml#intouch-client-srm)    
-     [**WebDAV** with certificates](https://www.dcache.org/manuals/Book-2.16/start/intouch-sec-dcache-fhs.shtml#intouch-client-https)  
+     [First steps](#first-steps)    
+     [Access with **ssh2**](#ssh2)  
+     [Access with **ssh1**](#ssh1)  
+     [How to use the Admin Interface](#how-to-use-the-admin-interface)    
+     [Create a new user](#create-a-new-user)    
+     [Use of the **ssh** Admin Interface by scripts](#use-of-the-ssh-admin-interface-by-scripts)    
    
    
-   [Files](https://www.dcache.org/manuals/Book-2.16/start/intouch-files-fhs.shtml)  
+* [Authentication and Authorization in dCache](#authentication-and-authorization-in-dcache)    
+* [How to work with secured dCache](#how-to-work-with-secured-dcache)   
+   
+     [**GSIdCap**](#gsidcap)    
+     [**SRM**](#srm)    
+     [**WebDAV** with certificates](#webdav-with-certificates)  
+   
+   
+   [Files](#files)  
