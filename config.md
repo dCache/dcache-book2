@@ -7,7 +7,7 @@ This part contains descriptions of the components of DCACHE, their role, functio
 Table of Contents
 -----------------
 
- + [4. Chimera](config-chimera.md)  
+ + [4. Chimera](config-chimera.md)    
        [Mounting Chimera through NFS](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml)  
              [Using dCap with a mounted file system](https://www.dcache.org/manuals/Book-2.16/config/chimera-mount-fhs-comments.shtml#chimera-useDcap)  
        [Communicating with Chimera](https://www.dcache.org/manuals/Book-2.16/config/chimera-commands-fhs-comments.shtml)  
@@ -18,8 +18,8 @@ Table of Contents
              [Directory Tags and Command Files]
              [Directory Tags for dCache]
              [Storage Class and Directory Tags]
- + [5. The Cell Package](https://www.dcache.org/manuals/Book-2.16/config/cf-cellpackage-fhs-comments.shtml)
-6. The replica Service (Replica Manager)
+ + [5. The Cell Package](config-cellpackage.md)  
+ + [6. The replica Service (Replica Manager)](config-ReplicaManager.md)  
 The Basic Setup
 Define a poolgroup for resilient pools
 Operation
@@ -29,7 +29,7 @@ Avoid replicas on the same host
 Hybrid dCache
 Commands for the admin interface
 Properties of the replica service
-7. The poolmanager Service
+ + [7. The poolmanager Service](config-PoolManager.md)  
 The Pool Selection Mechanism
 Links
 Examples
@@ -39,7 +39,7 @@ Managing Partitions
 Using Partitions
 Classic Partitions
 Link Groups
-8. The dCache Tertiary Storage System Interface
+ + [8. The dCache Tertiary Storage System Interface](config-hsm.md)  
 Introduction
 Scope of this chapter
 Requirements for a Tertiary Storage System
@@ -60,12 +60,12 @@ How to monitor what’s going on
 Log Files
 Obtain information via the dCache Command Line Admin Interface
 Example of an executable to simulate a tape backend
-9. File Hopping
+ + [9. File Hopping](config-hopping.md)  
 File Hopping on arrival from outside dCache
 File mode of replicated files
 File Hopping managed by the PoolManager
 File Hopping managed by the HoppingManager
-10. Authorization in dCache
+ + [10. Authorization in dCache](config-gplazma.md)  
 Basics
 Configuration
 Plug-ins
@@ -83,7 +83,7 @@ The gridmap plug-in
 gPlazma specific dCache configuration
 Enabling Username/Password Access for WebDAV
 gPlazma config example to work with authenticated webadmin
-11. dCache as xRootd-Server
+ + [11. dCache as xRootd-Server](config-xrootd.md)  
 Setting up
 Parameters
 Quick tests
@@ -96,11 +96,11 @@ Token-based authorization
 Strong authentication
 Precedence of security mechanisms
 Other configuration options
-12. dCache as NFSv4.1 Server
+ + [12. dCache as NFSv4.1 Server](config-nfs.md)
 Setting up
 Configuring NFSv4.1 door with GSS-API support
 Configuring principal-id mapping for NFS access
-13. dCache Storage Resource Manager
+ + [13. dCache Storage Resource Manager](config-SRM.md)  
 Introduction
 Configuring the srm service
 The Basic Setup
@@ -123,17 +123,17 @@ Data Transfer Functions
 Request Status Functions
 Directory Functions
 Permission functions
-14. The statistics Service
+ + [14. The statistics Service](config-statistics.md)  
 The Basic Setup
 The Statistics Web Page
 Explanation of the File Format of the xxx.raw Files
-15. The billing Service
+ + [15. The billing Service](config-billing.md)  
 The billing log files
 The billing database
 Customizing the database
 Generating and Displaying Billing Plots
 Upgrading a Previous Installation
-16. The alarms Service
+ + [16. The alarms Service](config-alarms.md)  
 The Basic Setup
 Configure where the alarms service is Running
 Types of Alarms
