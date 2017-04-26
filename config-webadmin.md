@@ -4,7 +4,7 @@ CHAPTER 17. DCACHE WEBADMIN INTERFACE
 Table of contents
 -----------------
 
-[Installation](https://www.dcache.org/manuals/Book-2.16/config/cf-webadmin-install-fhs.shtml)
+[Installation](#installation)
 
 This part describes how to configure the `webadmin` service which runs inside the `httpdDomain` and offers additional features to admins like sending admin-commands equal to those of admin interface (CLI) to chosen cells or displaying billing plots.
 
