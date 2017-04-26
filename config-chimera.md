@@ -117,7 +117,7 @@ If you plan to use `dCap` with a mounted file system instead of the URL-syntax (
     [root] # echo "<door host>:<port>" > /mnt/admin/etc/config/dCache/dcache.conf
 
 
-The default values for ports can be found in [Chapter 29, dCache Default Port Values](#rf-ports.md) (for `dCap` the default port is 22125) and in the file **/usr/share/dcache/defaults/dcache.properties**. They can be altered in **/etc/dcache/dcache.conf**
+The default values for ports can be found in [Chapter 29, dCache Default Port Values](rf-ports.md) (for `dCap` the default port is 22125) and in the file **/usr/share/dcache/defaults/dcache.properties**. They can be altered in **/etc/dcache/dcache.conf**
 
 Create the directory in which the users are going to store their data and change to this directory.
 
