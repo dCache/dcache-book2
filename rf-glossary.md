@@ -1,6 +1,8 @@
 Chapter 30. Glossary
 ====================
 
+The following terms are used in dCache.
+
 **The dcache.conf File**  
 
 This is the primary configuration file of a dCache. It is located at **/etc/dcache/dcache.conf.**
@@ -14,27 +16,33 @@ The layout file is located in the directory /etc/dcache/layouts. It contains lis
 The properties Files
 
     The properties files are located in the directory /usr/share/dcache/defaults. They contain the default settings of the dCache. 
+    
 Chimera
 
     The Chimera namespace is a core component of dCache. It maps each stored file to a unique identification number and allows storing of metadata against either files or directories.
 
     Chimera includes some features like levels, directory tags and many of the dot commands. 
+    
 Chimera ID
 
     A Chimera ID is a 36 hexadecimal digit that uniquely defines a file or directory. 
+    
 Domain
 
     A domain is a collection of one or more cells that provide a set of related services within a dCache instance. Each domain requires its own Java Virtual Machine. A typical domain might provide external connectivity (i.e., a door) or manage the pools hosted on a machine.
 
     Each domain has at least one cell, called the System cell and many tunnel cells for communicating with other Domains. To provide a useful service, a domain will contain other cells that provide specific behaviour. 
+    
 Cell
 
     A cell is a collection of Java threads that provide a discrete and simple service within dCache. Each cell is hosted within a domain.
 
     Cells have an address derived from concatenating their name, the @ symbol and their containing domain name. 
+    
 Well Known Cell
 
     A well-known cell is a cell that registers itself centrally. Within the admin interface, a well-known cell may be referred to by just its cell name. 
+    
 Door
 
     Door is the generic name for special cells that provides the first point of access for end clients to communicate with a dCache instance. There are different door implementations (e.g., GSIdCap door and GridFTP door), allowing a dCache instance to support multiple communication protocols.
@@ -44,21 +52,27 @@ Door
     A door will typically identify which pool will satisfy the end user’s operation and redirect the client to the corresponding pool. In some cases this is not possible; for example, some protocols (such as GridFTP version 1) do not allow servers to redirect end-clients, in other cases pool servers may be behind a firewall, so preventing direct access. When direct end-client access is not possible, the door may act as a data proxy, streaming data to the client.
 
     By default, each door is hosted in a dedicated domain. This allows easy control of whether a protocol is supported from a particular machine. 
+    
 Java Virtual Machine (JVM)
 
     Java programs are typically compiled into a binary form called Java byte-code. Byte-code is comparable to the format that computers understand native; however, no mainstream processor understands Java byte-code. Instead compiled Java programs typically require a translation layer for them to run. This translation layer is called a Java Virtual Machine (JVM). It is a standardised execution environment that Java programs may run within. A JVM is typically represented as a process within the host computer. 
+    
 tertiary storage system
 
     A mass storage system which stores data and is connected to the dCache system. Each dCache pool will write files to it as soon as they have been completely written to the pool (if the pool is not configured as a LFS). The tertiary storage system is not part of dCache. However, it is possible to connect any mass storage system as tertiary storage system to dCache via a simple interface. 
+    
 tape backend
 
     A tertiary storage system which stores data on magnetic tapes. 
+    
 Hierarchical Storage Manager (HSM)
 
     See tertiary storage system.
+    
 HSM Type
 
     The type of HSM which is connected to dCache as a tertiary storage system. The choice of the HSM type influences the communication between dCache and the HSM. Currently there are osm and enstore. osm is used for most HSMs (TSM, HPSS, ...). 
+    
 HSM Instance
 
 Large File Store (LFS)
