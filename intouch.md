@@ -236,11 +236,11 @@ To use `gPlazma` make sure that you defined a `gPlazmaDomain` in your layout fil
 
 To use gPlazma2 you need to specify it in the **/etc/dcache/dcache.conf** file:    
 
->    # This is the main configuration file of dCache.  
->    #  
+>     This is the main configuration file of dCache.  
+>      
 >    ...  
->    #  
->    # use gPlazma2  
+>      
+>     use gPlazma2  
 >    gplazma.version=2   
 
 Moreover, you need to create the file **/etc/dcache/gplazma.conf** with the content  
