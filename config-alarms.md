@@ -221,7 +221,7 @@ The Alarms Web Page is an admin page and thus requires authentication. You must 
         [httpdDomain/httpd]
         
 
-![] (Alarms.jpg)
+![Alarms](dcache-book2/Alarms.jpg)
 
 1.  The QUERY FILTER form can be used to limit the display of alarms in the table. The underlying query to the database is based on whether the entry has been marked as an alarm (the radio buttons indicating undefined, yes and no, respectively), the time interval in which to search, the
     alarm type
