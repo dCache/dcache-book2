@@ -785,9 +785,9 @@ To set the space cost factor on the `default` partition to `0.3`, use the follow
 Link Groups
 ===========
 
-The PoolManager supports a type of objects called link groups. These link groups are used by the [SRM SpaceManager](config-SRM.md) to make reservations against space. Each link group corresponds to a number of dCache pools in the following way: A link group is a collection of [links](#links) and each link points to a set of pools. Each link group knows about the size of its available space, which is the sum of all sizes of available space in all the pools included in this link group.
+The PoolManager supports a type of objects called link groups. These link groups are used by the [SRM SpaceManager](config-SRM.md#srm-spacemanager) to make reservations against space. Each link group corresponds to a number of dCache pools in the following way: A link group is a collection of [links](#links) and each link points to a set of pools. Each link group knows about the size of its available space, which is the sum of all sizes of available space in all the pools included in this link group.
 
-To create a new link group login to the [Admin Interface](intouch.md#admin-interface) and `cd` to the PoolManager.
+To create a new link group login to the [Admin Interface](intouch.md#the-admin-interface) and `cd` to the PoolManager.
 
     (local) admin > cd PoolManager
     (PoolManager) admin > psu create linkGroup <linkgroup>
