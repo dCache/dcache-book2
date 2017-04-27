@@ -8,37 +8,43 @@ Table of Contents
 -----------------
 
  + [4. Chimera](config-chimera.md)    
-       [Mounting Chimera through NFS](#mounting-chimera-through-nfs)   
-             [Using dCap with a mounted file system](#using-dcap-with-a-mounted-file-system)  
-       [Communicating with Chimera]  
-       [IDs](ids)    
-       [Directory Tags]()    
-             [Create, List and Read Directory Tags if the Namespace is not Mounted]  
-             [Create, List and Read Directory Tags if the Namespace is Mounted]  
-             [Directory Tags and Command Files]  
-             [Directory Tags for dCache]  
-             [Storage Class and Directory Tags]  
+       
+             [Mounting Chimera through NFS](config-chimera.md#mounting-chimera-through-nfs)   
+             [Using dCap with a mounted file system](config-chimera.md#using-dcap-with-a-mounted-file-system)  
+             [Communicating with Chimera](config-chimera.md#communicating-with-chimera)  
+             [IDs](config-chimera.md#ids)    
+             [Directory Tags](config-chimera.md#directory-tags)    
+             
+             [Create, List and Read Directory Tags if the Namespace is not Mounted](config-chimera.md)  
+             [Create, List and Read Directory Tags if the Namespace is Mounted](config-chimera.md)  
+             [Directory Tags and Command Files](config-chimera.md)  
+             [Directory Tags for dCache](config-chimera.md)  
+             [Storage Class and Directory Tags](config-chimera.md) 
  + [5. The Cell Package](config-cellpackage.md)    
  + [6. The replica Service (Replica Manager)](config-ReplicaManager.md)    
-The Basic Setup  
-Define a poolgroup for resilient pools  
-Operation  
-Pool States  
-Startup  
-Avoid replicas on the same host  
-Hybrid dCache  
-Commands for the admin interface  
-Properties of the replica service  
- + [7. The poolmanager Service](config-PoolManager.md)    
-The Pool Selection Mechanism  
-Links  
-Examples  
-The Partition Manager  
-Overview  
-Managing Partitions  
-Using Partitions  
-Classic Partitions  
-Link Groups
+              
+              [The Basic Setup(config-ReplicaManager.md)    
+              [Define a poolgroup for resilient pools(config-ReplicaManager.md)      
+              [Operation(config-ReplicaManager.md)      
+              [Pool States(config-ReplicaManager.md)     
+              [Startup(config-ReplicaManager.md)      
+              [Avoid replicas on the same host(config-ReplicaManager.md)      
+              [Hybrid dCache(config-ReplicaManager.md)      
+              [Commands for the admin interface(config-ReplicaManager.md)      
+              [Properties of the replica service(config-ReplicaManager.md) 
+              
+ + [7. The poolmanager Service](config-PoolManager.md)
+ 
+             The Pool Selection Mechanism(config-PoolManager.md)   
+Links(config-PoolManager.md)    
+Examples(config-PoolManager.md)    
+The Partition Manager(config-PoolManager.md)    
+Overview(config-PoolManager.md)   
+Managing Partitions(config-PoolManager.md)    
+Using Partitions(config-PoolManager.md)    
+Classic Partitions(config-PoolManager.md)   
+Link Groups(config-PoolManager.md)  
+
  + [8. The dCache Tertiary Storage System Interface](config-hsm.md)    
 Introduction  
 Scope of this chapter  
