@@ -9,17 +9,17 @@ Table of Contents
 
  + [4. Chimera](config-chimera.md)    
        
-             [Mounting Chimera through NFS](config-chimera.md#mounting-chimera-through-nfs)   
-             [Using dCap with a mounted file system](config-chimera.md#using-dcap-with-a-mounted-file-system)  
-             [Communicating with Chimera](config-chimera.md#communicating-with-chimera)  
-             [IDs](config-chimera.md#ids)    
-             [Directory Tags](config-chimera.md#directory-tags)    
+      [Mounting Chimera through NFS](config-chimera.md#mounting-chimera-through-nfs)   
+      [Using dCap with a mounted file system](config-chimera.md#using-dcap-with-a-mounted-file-system)  
+      [Communicating with Chimera](config-chimera.md#communicating-with-chimera)  
+      [IDs](config-chimera.md#ids)    
+      [Directory Tags](config-chimera.md#directory-tags)    
              
-             [Create, List and Read Directory Tags if the Namespace is not Mounted](config-chimera.md)  
-             [Create, List and Read Directory Tags if the Namespace is Mounted](config-chimera.md)  
-             [Directory Tags and Command Files](config-chimera.md)  
-             [Directory Tags for dCache](config-chimera.md)  
-             [Storage Class and Directory Tags](config-chimera.md) 
+      [Create, List and Read Directory Tags if the Namespace is not Mounted](config-chimera.md)  
+      [Create, List and Read Directory Tags if the Namespace is Mounted](config-chimera.md)  
+      [Directory Tags and Command Files](config-chimera.md)  
+      [Directory Tags for dCache](config-chimera.md)  
+      [Storage Class and Directory Tags](config-chimera.md) 
  + [5. The Cell Package](config-cellpackage.md)    
  + [6. The replica Service (Replica Manager)](config-ReplicaManager.md)    
               
