@@ -26,7 +26,7 @@ These options can be enabled simultaneously. If the database option is selected,
 THE BILLING LOG FILES
 =====================
 
-If you installed DCACHE following the instructions in the Chapter [Installing dCache](https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml) you enabled the BILLING in the domain where the HTTPD service is running (see the extract of the layout file).
+If you installed DCACHE following the instructions in the Chapter [Installing dCache](install.md) you enabled the BILLING in the domain where the HTTPD service is running (see the extract of the layout file).
 
     ...
     [httpdDomain]
@@ -186,7 +186,7 @@ In most cases, the billing service will be run out-of-the-box; nevertheless, the
         ""
         )
 
-    Changing this configuration requires an understanding of [DataNucleus] , and we expect it will be rather uncommon to utilize this option (it is suggested that the administrator in this case consult with a member of the DCACHE team).
+    Changing this configuration requires an understanding of [DataNucleus](http://www.datanucleus.org/), and we expect it will be rather uncommon to utilize this option (it is suggested that the administrator in this case consult with a member of the DCACHE team).
 
 -   Changing the database type (which defaults to PSQL) to something else would entail the above-mentioned necessary modification of the **datanucleus.properties** as well as changing the `billing.db.driver` and `billing.db.url` properties appropriately. This is not a recommended procedure, though in certain exceptional circumstances, it may be desirable or necessary. Once again, consultation with the DCACHE team is suggested in this case.
 
