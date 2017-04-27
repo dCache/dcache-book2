@@ -5,27 +5,27 @@ This part contains guides for specific tasks a system administrator might want t
 Table of Contents
 -----------------
 
-+ [22. dCache Clients.](cookbook-clients.md)
++ [22. dCache Clients.](cookbook-clients.md)  
 
-   [GSI-FTP](#gsi-ftp)
+   [GSI-FTP](cookbook-clients.md#gsi-ftp)  
 
-     [Listing a directory  
-     [Checking a file exists  
-     [Deleting files  
-     [Copying files  
+     [Listing a directory](cookbook-clients.md#listing-a-directory)   
+     [Checking a file exists](cookbook-clients.md#checking-a-file-exists)    
+     [Deleting files](cookbook-clients.md#deleting-files)   
+     [Copying files](cookbook-clients.md#copying-files)     
 
-    dCap  
+    [dCap](cookbook-clients.md#dcap)    
 
-        dccp  
-        Using the dCache client interposition library.  
+     [dccp](cookbook-clients.md#dccp)    
+     [Using the dCache client interposition library.](cookbook-clients.md#using-the-dcache-client-interposition-library)   
 
-    SRM  
+    [SRM](cookbook-clients.md#srm)  
   
-        Creating a new directory.  
-        Removing files from dCache  
-        Removing empty directories from dCache  
-        srmcp for SRM v1  
-        srmcp for SRM v2.2  
+     Creating a new directory.  
+     Removing files from dCache  
+     Removing empty directories from dCache  
+     srmcp for SRM v1  
+     srmcp for SRM v2.2  
 
     ldap  
     Using the LCG commands with dCache  
