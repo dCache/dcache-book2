@@ -84,6 +84,6 @@ It is possible to allow all `dCap` users to stage files located in a certain sto
 Example:   
 In this example, all `dCap` users are allowed to stage files located in the storage group `h1:raw@osm`:
 
-    "" "" "h1:raw@osm"
+    "" "" "h1:raw@osm" 
 
   [Java Pattern class]: http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html
