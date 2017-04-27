@@ -41,9 +41,9 @@ Table of Contents
 Introduction
 ============
 
-Storage Resource Managers (SRMs) are middleware components whose function is to provide dynamic space allocation and file management on shared storage components on the Grid. SRMs support protocol negotiation and a reliable replication mechanism. The [SRM specification] standardizes the interface, thus allowing for a uniform access to heterogeneous storage elements.
+Storage Resource Managers (SRMs) are middleware components whose function is to provide dynamic space allocation and file management on shared storage components on the Grid. SRMs support protocol negotiation and a reliable replication mechanism. The [SRM specification](https://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html) standardizes the interface, thus allowing for a uniform access to heterogeneous storage elements.
 
-The SRM utilizes the Grid Security Infrastructure (GSI) for authentication. The SRM is a Web Service implementing a published WSDL document. Please visit the [SRM Working Group Page] to see the SRM Version 1.1 and SRM Version 2.2 protocol specification documents.
+The SRM utilizes the Grid Security Infrastructure (GSI) for authentication. The SRM is a Web Service implementing a published WSDL document. Please visit the [SRM Working Group Page](https://sdm.lbl.gov/srm-wg/) to see the SRM Version 1.1 and SRM Version 2.2 protocol specification documents.
 
 The SRM protocol uses HTTP over GSI as a transport. The DCACHE SRM implementation added HTTPS as a transport layer option. The main benefits of using HTTPS rather than HTTP over GSI is that HTTPS is a standard protocol and has support for sessions, improving latency in case a client needs to connect to the same server multiple times. The current implementation does not offer a delegation service. Hence `srmCopy` will not work with SRM over HTTPS. A separate delegation service will be added in a later release.
 
@@ -53,7 +53,7 @@ CONFIGURING THE SRM SERVICE
 THE BASIC SETUP
 ---------------
 
-Like other services, the srm service can be enabled in the layout file **/etc/dcache/layouts/mylayout** of your dCache installation. For an overview of the layout file format, please see [the section called “Defining domains and services”](install.md).
+Like other services, the srm service can be enabled in the layout file **/etc/dcache/layouts/mylayout** of your dCache installation. For an overview of the layout file format, please see [the section called “Defining domains and services”](install.md#defining-domains-and-services).
 
 Example:  
 
@@ -62,7 +62,7 @@ To enable SRM in a separate <srm-${host.name}Domain> in dCache, add the followin
     [<srm-${host.name}Domain>]
     [<srm-${host.name}Domain>/srm]
 
-The use of the srm service requires an authentication setup, see [Chapter 10, Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-fhs.shtml) for a general description or the [section called “Authentication and Authorization in dCache”](config-chimera.md) for an example setup with X.509 certificates.
+The use of the srm service requires an authentication setup, see [Chapter 10, Authorization in dCache](config-gplazma.md) for a general description or the [section called “Authentication and Authorization in dCache”](intouch.md#authentication-and-authorization-in-dcache) for an example setup with X.509 certificates.
 
 You can now copy a file into your dCache using the SRM,
 
@@ -125,7 +125,7 @@ UTILIZATION OF SPACE RESERVATIONS FOR DATA STORAGE
 
 `SRM` version 2.2 introduced a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
 
-Users can create space reservations using an appropriate `SRM` client, although it is more common for the DCACHE administrator to make space reservations for VOs (see [the section called “SpaceManager configuration”](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml). Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the dCache administrator.
+Users can create space reservations using an appropriate `SRM` client, although it is more common for the DCACHE administrator to make space reservations for VOs (see [the section called “SpaceManager configuration”](#spacemanager-configuration). Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the dCache administrator.
 
 When a file is about to be transferred to a storage system, the space available in the space reservation is checked if it can accomodate the entire file. If yes, this chunk of space is marked as allocated, so that it can not be taken by another, concurrently transferred file. If the file is transferred successfully the allocated space becomes used space within the space reservation, else the allocated space is released back to the space reservation as free space.
 
@@ -213,7 +213,7 @@ EXPLICIT AND IMPLICIT SPACE RESERVATIONS FOR DATA STORAGE IN DCACHE
 
 ### Explicit Space Reservations  
 
-Each SRM space reservation is made against the total available disk space of a particular link group. If dCache is configured correctly each byte of disk space, that can be reserved, belongs to one and only one link group. See [the section called “SpaceManager configuration”](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml) for a detailed description.
+Each SRM space reservation is made against the total available disk space of a particular link group. If dCache is configured correctly each byte of disk space, that can be reserved, belongs to one and only one link group. See [the section called “SpaceManager configuration”](spacemanager-configuration) for a detailed description.
 
 > **IMPORTANT**
 >
@@ -227,7 +227,7 @@ The total space in DCACHE that can be reserved is the sum of the available space
 
 ### Implicit Space Reservations
 
-dCache can perform implicit space reservations for non-`SRM` transfers, `SRM` Version 1 transfers and for `SRM` Version 2.2 data transfers that are not given the space token explicitly. The parameter that enables this behavior is srm.enable.space-reservation.implicit, which is described in [the section called “SRM configuration for experts”](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml#cf-srm-expert-config). If no implicit space reservation can be made, the transfer will fail.
+dCache can perform implicit space reservations for non-`SRM` transfers, `SRM` Version 1 transfers and for `SRM` Version 2.2 data transfers that are not given the space token explicitly. The parameter that enables this behavior is srm.enable.space-reservation.implicit, which is described in [the section called “SRM configuration for experts”](srm-configuration-for-experts). If no implicit space reservation can be made, the transfer will fail.
 
 Implicit space reservation means that the `srm` will create a space reservation for a single upload while negotiating the transfer parameters with the client. The space reservation will be created in a link group for which the user is authorized to create space reservations, which has enough available space, and which is able to hold the type of file being uploaded. The space reservation will be short lived. Once it expires, it will be released and the file it held will live on outside any space reservation, but still within the link group to which it was uploaded. Implicit space reservations are thus a technical means to upload files to link groups without using explicit space reservations.
 
@@ -277,7 +277,7 @@ SPACEMANAGER CONFIGURATION
 SRM SPACEMANAGER AND LINK GROUPS
 --------------------------------
 
-`SpaceManager` is making reservations against free space available in [link groups](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs.shtml). The total free space in the given link group is the sum of available spaces in all links. The available space in each link is the sum of all sizes of available space in all pools assinged to a given link. Therefore for the space reservation to work correctly it is essential that each pool belongs to one and only one link, and each link belongs to only one link group. Link groups are assigned several parameters that determine what kind of space the link group corresponds to and who can make reservations against this space.
+`SpaceManager` is making reservations against free space available in [link groups](config-PoolManager.md#link-groups). The total free space in the given link group is the sum of available spaces in all links. The available space in each link is the sum of all sizes of available space in all pools assinged to a given link. Therefore for the space reservation to work correctly it is essential that each pool belongs to one and only one link, and each link belongs to only one link group. Link groups are assigned several parameters that determine what kind of space the link group corresponds to and who can make reservations against this space.
 
 
 MAKING A SPACE RESERVATION
@@ -287,7 +287,7 @@ Now that the `SRM SpaceManager` is activated you can make a space reservation. A
 
 ### Prerequisites for Space Reservations
 
-Login to the [admin interface](intouch.md) and `cd` to the cell `SrmSpaceManager`.
+Login to the [admin interface](intouch.md#the-admin-interface) and `cd` to the cell `SrmSpaceManager`.
 
     [user] $ ssh -p 22224 -l admin admin.example.org
     (local) admin > cd SrmSpaceManager
@@ -300,7 +300,7 @@ The lack of output tells you that there are no link groups. As there are no link
 
 #### The Link Groups
 
-For a general introduction about link groups see [the section called “Link Groups”](#link-groups).
+For a general introduction about link groups see [the section called “Link Groups”][link groups](config-PoolManager.md#link-groups).
 
 Example:  
 
@@ -433,7 +433,7 @@ You can now copy a file into that space token.
 
    [user] $ srmcp file:////bin/sh srm://<dcache.example.org>:8443/data/world-writable/space-token-test-file -space_token=110000
 
-Now you can check via the [Webadmin Interface](https://www.dcache.org/manuals/Book-2.16/config/cf-webadmin-fhs.shtml) or the [Web Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml) that the file has been copied to the pool `spacemanager-pool`.
+Now you can check via the [Webadmin Interface](config-webadmin.md) or the [Web Interface](intouch.md#the-web-interface-for-monitoring-dcache) that the file has been copied to the pool `spacemanager-pool`.
 
 There are several parameters to be specified for a space reservation.
 
@@ -490,15 +490,15 @@ In order to be able to take advantage of the virtual organization (VO) infrastru
 
 -   User needs to be registered with the VO.
 
--   User needs to use [`voms-proxy-init`](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml#cf-gplazma-certificates-voms-proxy-init) to create a VO proxy.
+-   User needs to use [`voms-proxy-init`](config-gplazma.md#creating-a-voms-proxy) to create a VO proxy.
 
--   dCache needs to use gPlazma with modules that extract VO attributes from the user’s proxy. (See [Chapter 10, Authorization in dCache](config-chimera.md), have a look at `voms` plugin and see the [section called “Authentication and Authorization in dCache”](intouch.md) for an example with voms.
+-   dCache needs to use gPlazma with modules that extract VO attributes from the user’s proxy. (See [Chapter 10, Authorization in dCache](config-gplazma.md), have a look at `voms` plugin and see the [section called “Authentication and Authorization in dCache”](config-gplazma.md#authentication-and-authorization-in-dcache) for an example with voms.
 
 Only if these 3 conditions are satisfied the VO based authorization of the SpaceManager will work.
 
 #### VO based Access Control Configuration
 
-As mentioned [above](config-SRM.md) dCache space reservation functionality access control is currently performed at the level of the link groups. Access to making reservations in each link group is controlled by the [`SpaceManagerLinkGroupAuthorizationFile`](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml#cf-srm-linkgroupauthfile).
+As mentioned [above](#spacemanager-configuration) dCache space reservation functionality access control is currently performed at the level of the link groups. Access to making reservations in each link group is controlled by the [`SpaceManagerLinkGroupAuthorizationFile`](#the-spacemanagerlinkgroupauthorizationfile).
 
 This file contains a list of the link groups and all the VOs and the VO Roles that are permitted to make reservations in a given link group.
 
