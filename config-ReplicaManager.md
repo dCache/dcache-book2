@@ -118,12 +118,12 @@ Later on some of the failed pools can come up and bring online more valid replic
 The replica service counts the number of replicas for each file in the pools which can be used online (see Pool States below) and keeps the number of replicas within the valid range (`replica.limits.replicas.min, replica.limits.replicas.max`).
 
 
-POOL STATES
+POOL STATES 
 -----------
 
 The possible states of a pool are `online`, `down`, `offline`, `offline-prepare` and `drainoff`. They can be set by the admin through the admin interface.  (See [the section called “Commands for the admin interface”](#commands-for-the-admin-interface).)
 
-![Pool State Diagram] (poolstate.png "Figure 6.1. Pool State Diagram")
+![Pool State Diagram] (poolstate.jpg "Figure 6.1. Pool State Diagram")
 
 
 
