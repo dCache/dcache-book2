@@ -255,7 +255,7 @@ The Alarms Web Page is an admin page and thus requires authentication. You must 
     will actually eliminate the entry from persistent store.
 5.  Closed
     is a way of marking the alarm as having been dealt with while maintaining a record of it. The
-    Show Closed Alarms
+    Show Closed Alarms 
     checkbox allows you to display them (turned off by default).
 6.  All column titles appearing in white can be clicked to sort the table by that column. While there is no column indicating alarm priority (as this attribute is external to the alarm schema), alarms are sorted by priority first. Non-alarms follow alarms. If both alarms and non-alarms are displayed, alarms are colored dark red.
 7.  Notes
