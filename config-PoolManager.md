@@ -26,7 +26,7 @@ A new copy can either be created by a `pool to pool transfer` (p2p) or by fetchi
 
 The behaviour of the `poolmanager` service is highly configurable. In order to exploit the full potential of the software it is essential to understand the mechanisms used and how they are configured. The `poolmanager` service creates the `PoolManager` cell, which is a unique cell in dCache and consists of several sub-modules: The important ones are the `pool selection unit` (PSU) and the load balancing policy as defined by the partition manager (PM). 
 
-The `poolmanager` can be configured by either directly editing the file **/var/lib/dcache/config/poolmanager.conf** or via the Admin Interface. Changes made via the [Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs-comments.shtml) will be saved in the file **/var/lib/dcache/config/poolmanager.conf** by the `save` command. This file will be parsed, whenever the dCache starts up. It is a simple text file containing the corresponding Admin Interface commands. It can therefore also be edited before the system is started. It can also be loaded into a running system with the `reload` command. In this chapter we will describe the commands allowed in this file.
+The `poolmanager` can be configured by either directly editing the file **/var/lib/dcache/config/poolmanager.conf** or via the Admin Interface. Changes made via the [Admin Interface](intouch.md#admin-interface) will be saved in the file **/var/lib/dcache/config/poolmanager.conf** by the `save` command. This file will be parsed, whenever the dCache starts up. It is a simple text file containing the corresponding Admin Interface commands. It can therefore also be edited before the system is started. It can also be loaded into a running system with the `reload` command. In this chapter we will describe the commands allowed in this file.
 
 
 
@@ -313,7 +313,6 @@ Assume, the experiment data is copied into the cache from the hosts with IP `111
 >
 > For a given transfer exactly zero or one storage class unit, cache class unit, net unit and protocol unit will match. As always the most restrictive one will match, the IP `111.111.111.201` will match the `111.111.111.201/255.255.255.255` unit and not the `111.111.111.0/255.255.255.0` unit. Therefore if you only add `111.111.111.0/255.255.255.0` to the unit group “read-cond”, the transfer request coming from the IP `111.111.111.201` will only be allowed to write and not to read. The same is true for transfer requests from `111.111.111.202` and `111.111.111.203`.
 
-[return to top](#the-pool-selection-mechanism)
 
 ### Reserving Pools for Storage and Cache Classes
 
@@ -467,7 +466,7 @@ Whenever this link is chosen for pool selection, the associated parameters of th
 >
 > Depending on the way links are setup it may very well happen that more than just one link is triggered for a particular dCache request. This is not illegal but leads to an ambiguity in selecting an appropriate dCache partition. If only one of the selected links has a partition assigned, this partition is chosen. Otherwise, if different links point to different partitions, the result is indeterminate. This issue is not yet solved and we recommend to clean up the poolmanager configuration to eliminate links with the same preferences for the same type of requests.
 
-In the [Web Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs-comments.shtml) you can find a web page listing partitions and more information. You will find a page summarizing the partition status of the system. This is essentially the output of the command `pm ls -l`.
+In the [Web Interface](intouch.md#the-web-interface-for-monitoring-dcache) you can find a web page listing partitions and more information. You will find a page summarizing the partition status of the system. This is essentially the output of the command `pm ls -l`.
 
 Example:  
 
@@ -576,13 +575,13 @@ To create a classic partition use the command: `pm create` -type=classic  <parti
 
 ### Load Balancing Policy
 
-From the allowable pools as determined by the [pool selection unit](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-pm-comp-psu), the pool manager determines the pool used for storing or reading a file by calculating a [cos](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-cost) value for each pool. The pool with the lowest cost is used.
+From the allowable pools as determined by the [pool selection unit](rf-glossary.md#pool-selection-unit), the pool manager determines the pool used for storing or reading a file by calculating a [cost](rf-glossary.md#cost) value for each pool. The pool with the lowest cost is used.
 
-If a client requests to read a file which is stored on more than one allowable pool, [the performance costs](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-performance_cost) are calculated for these pools. In short, this cost value describes how much the pool is currently occupied with transfers.
+If a client requests to read a file which is stored on more than one allowable pool, [the performance costs](rf-glossary.md#the-performance_costs) are calculated for these pools. In short, this cost value describes how much the pool is currently occupied with transfers.
 
-If a pool has to be selected for storing a file, which is either written by a client or [restored](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-restore) from a [tape backend](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-tape_backend), this performance cost is combined with a [space cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-space_cost) value to a [total cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-cost) value for the decision. The space cost describes how much it “hurts” to free space on the pool for the file.
+If a pool has to be selected for storing a file, which is either written by a client or [restored](rf-glossary.md#restored) from a [tape backend](rf-glossary.md#tape_backend), this performance cost is combined with a [space cost](rf-glossary.md#space_cost) value to a [total cost](rf-glossary.md#total-cost) value for the decision. The space cost describes how much it “hurts” to free space on the pool for the file.
 
-The [cost module](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-pm-comp-cm) is responsible for calculating the cost values for all pools. The pools regularly send all necessary information about space usage and request queue lengths to the cost module. It can be regarded as a cache for all this information. This way it is not necessary to send “get cost” requests to the pools for each client request. The cost module interpolates the expected costs until a new precise information package is coming from the pools. This mechanism prevents clumping of requests.
+The [cost module](rf-glossary.md#cost-module) is responsible for calculating the cost values for all pools. The pools regularly send all necessary information about space usage and request queue lengths to the cost module. It can be regarded as a cache for all this information. This way it is not necessary to send “get cost” requests to the pools for each client request. The cost module interpolates the expected costs until a new precise information package is coming from the pools. This mechanism prevents clumping of requests.
 
 Calculating the cost for a data transfer is done in two steps. First, the cost module merges all information about space and transfer queues of the pools to calculate the performance and space costs separately. Second, in the case of a write or stage request, these two numbers are merged to build the total cost for each pool. The first step is isolated within a separate loadable class. The second step is done by the partition.
 
@@ -592,11 +591,11 @@ The load of a pool is determined by comparing the current number of active and w
 
 perfCost(per Type) = ( activeTransfers + waitingTransfers ) / maxAllowed .
 
-The maximum number of concurrent transfers (`maxAllowed`) can be configured with the commands [store](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-store)[restore] (https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-restore), pool-to-pool client, pool-to-pool server, and client request) with the following equation:.
+The maximum number of concurrent transfers (`maxAllowed`) can be configured with the commands [store](rf-glossary.md#to-store),[restore](rf-glossary.md#to-restore), pool-to-pool client, pool-to-pool server, and client request) with the following equation:.
 
 perfCost(per Type) = ( activeTransfers + waitingTransfers ) / maxAllowed .
 
-The maximum number of concurrent transfers (maxAllowed) can be configured with the commands [st set max active](https://www.dcache.org/manuals/Book-2.16/reference/cmd-st_set_max_active-fhs-comments.shtml) (store), [rh set max active](https://www.dcache.org/manuals/Book-2.16/reference/cmd-rh_set_max_active-fhs-comments.shtml) (restore), [mover set max] active(https://www.dcache.org/manuals/Book-2.16/reference/cmd-mover_set_max_active-fhs-comments.shtml) (client request), [mover set max active -queue=p2p](https://www.dcache.org/manuals/Book-2.16/reference/cmd-p2p_set_max_active-fhs-comments.shtml) (pool-to-pool server), and [pp set max active](https://www.dcache.org/manuals/Book-2.16/reference/cmd-pp_set_max_active-fhs-comments.shtml) (pool-to-pool client).
+The maximum number of concurrent transfers (maxAllowed) can be configured with the commands [st set max active](reference.md#st-set-max-active) (store), [rh set max active](reference.md#rh-set-max-active) (restore), [mover set max] activereference.md#mover-set-max) (client request), [mover set max active -queue=p2p](reference.md#mover-set-max-active-queue-p2p) (pool-to-pool server), and [pp set max active](reference.md#pp-set-max-active) (pool-to-pool client).
 
 Then the average is taken for each mover type where maxAllowed is not zero. For a pool where store, restore and client transfers are allowed, e.g.,
 
@@ -610,9 +609,9 @@ For a well balanced system, the performance cost should not exceed 1.0.
 
 ### The Space Cost
 
-In this section only the new scheme for calculating the space cost will be described. Be aware, that the old scheme will be used if the [breakeven parameter](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-breakeven) of a pool is larger or equal 1.0.
+In this section only the new scheme for calculating the space cost will be described. Be aware, that the old scheme will be used if the [breakeven parameter](rf-glossary.md#breakeven-parameter) of a pool is larger or equal 1.0.
 
-The cost value used for determining a pool for storing a file depends either on the free space on the pool or on the age of the [least recently used (LRU) file](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-lru), which whould have to be deleted.
+The cost value used for determining a pool for storing a file depends either on the free space on the pool or on the age of the [least recently used (LRU) file](rf-glossary.md#least-recently-used-lru-file), which whould have to be deleted.
 
 The space cost is calculated as follows:
 
@@ -662,15 +661,15 @@ newFileSize
 The size of the file to be written to one of the pools, and at least 50MB.
 
 lruAge  
-The age of the [least recently used file](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-lru) on the pool.
+The age of the [least recently used file](rf-glossary.md#least-recently-used-lru-file) on the pool.
 
 gapPara  
 The gap parameter. Default is 4 GiB. The size of free space below which it will be assumed that the pool is full and consequently the least recently used file has to be removed. If, on the other hand, the free space is greater than `gapPara`, it will be expensive to store a file on the pool which exceeds the free space.
 
-It can be set per pool with the [set gap](https://www.dcache.org/manuals/Book-2.16/reference/cmd-set_gap-fhs-comments.shtml) command. This has to be done in the pool cell and not in the pool manager cell. Nevertheless it only influences the cost calculation scheme within the pool manager and not the bahaviour of the pool itself.
+It can be set per pool with the [set gap](reference.md#set-gap) command. This has to be done in the pool cell and not in the pool manager cell. Nevertheless it only influences the cost calculation scheme within the pool manager and not the bahaviour of the pool itself.
 
 costForMinute  
-A parameter which fixes the space cost of a one-minute-old LRU file to (1 + costForMinute). It can be set with the [set breakeven](https://www.dcache.org/manuals/Book-2.16/reference/cmd-set_breakeven-fhs-comments.shtml), where
+A parameter which fixes the space cost of a one-minute-old LRU file to (1 + costForMinute). It can be set with the [set breakeven](reference.md#set-breakeven), where
 
 costForMinute = breakeven \* 7 \* 24 \* 60.
 
@@ -695,11 +694,11 @@ If the LRU file is smaller than the new file, other files might have to be delet
 
 ### The Total Cost
 
-The total cost is a linear combination of the [performance](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-performance_cost) and [space cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-space_cost). I.e. totalCost = ccf \* perfCost + scf \* spaceCost , where `ccf` and `scf` are configurable with the command [set pool decision](https://www.dcache.org/manuals/Book-2.16/reference/cmd-set_pool_decision-fhs-comments.shtml). E.g.,
+The total cost is a linear combination of the [performance](rf-glossary.md#performance-cost) and [space cost](rf-glossary.md#space-cost). I.e. totalCost = ccf \* perfCost + scf \* spaceCost , where `ccf` and `scf` are configurable with the command [set pool decision](reference.md#set-pool-decision). E.g.,
 
     (PoolManager) admin > set pool decision -spacecostfactor=3 -cpucostfactor=1
 
-will give the [space cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-space_cost) three times the weight of the [performance cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-performance_cost).
+will give the [space cost](rf-glossary.md#space-cost) three times the weight of the [performance cost](rf-glossary.md#performance-cost).
 
 ### Parameters of Classic Partitions  
 
@@ -786,9 +785,9 @@ To set the space cost factor on the `default` partition to `0.3`, use the follow
 Link Groups
 ===========
 
-The PoolManager supports a type of objects called link groups. These link groups are used by the [SRM SpaceManager](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs-comments.shtml) to make reservations against space. Each link group corresponds to a number of dCache pools in the following way: A link group is a collection of [links](#links) and each link points to a set of pools. Each link group knows about the size of its available space, which is the sum of all sizes of available space in all the pools included in this link group.
+The PoolManager supports a type of objects called link groups. These link groups are used by the [SRM SpaceManager](config-SRM.md) to make reservations against space. Each link group corresponds to a number of dCache pools in the following way: A link group is a collection of [links](#links) and each link points to a set of pools. Each link group knows about the size of its available space, which is the sum of all sizes of available space in all the pools included in this link group.
 
-To create a new link group login to the [Admin Interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs-comments.shtml) and `cd` to the PoolManager.
+To create a new link group login to the [Admin Interface](intouch.md#admin-interface) and `cd` to the PoolManager.
 
     (local) admin > cd PoolManager
     (PoolManager) admin > psu create linkGroup <linkgroup>
@@ -817,7 +816,7 @@ With `save` the changes will be saved to the file **/var/lib/dcache/config/poolm
 
 **Access latency and retention policy.**
 
-A space reservation has a *retention policy* and an *access latency*, where retention policy describes the quality of the storage service that will be provided for files in the space reservation and access latency describes the availability of the files. See [the section called “Properties of Space Reservation”](https://www.dcache.org/manuals/Book-2.16/config/ch13s03-fhs-comments.shtml#cf-srm-intro-spaceReservation) for further details.
+A space reservation has a *retention policy* and an *access latency*, where retention policy describes the quality of the storage service that will be provided for files in the space reservation and access latency describes the availability of the files. See [the section called “Properties of Space Reservation”](config-SRM.md#properties-of-space-reservation) for further details.
 
 A link group has five boolean properties called `replicaAllowed, outputAllowed, custodialAllowed, onlineAllowed` and `nearlineAllowed`, which determine the access latencies and retention policies allowed in the link group. The values of these properties (true or false) can be configured via the Admin Interface or directly in the file **/var/lib/dcache/config/poolmanager.conf**.
 
