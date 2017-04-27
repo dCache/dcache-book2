@@ -12,21 +12,21 @@ If you are using space reservations, i.e. you set
 
     dcache.enable.space-reservation=true
 
-in your configuration file and all of your pools are in [link groups](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-linkgroups-fhs.shtml), then you can only write into dCache if a link group is available for your transfer. Using the `SRM` you can specify the link group to write into. If you want to use another protocol like `curl` or `xrootd` you cannot specify a link group. In this case you need to use the `WriteToken` directory tag. 
+in your configuration file and all of your pools are in [link groups](config-PoolManager.md#link-groups), then you can only write into dCache if a link group is available for your transfer. Using the `SRM` you can specify the link group to write into. If you want to use another protocol like `curl` or `xrootd` you cannot specify a link group. In this case you need to use the `WriteToken` directory tag. 
 
 The Space Reservation
 =====================
 
 Before you can create a `WriteToken` tag you need to have a space reservation.
 
-Space reservations are made for link groups. The file [`LinkGroupAuthorization.conf`](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-space-fhs.shtml#cf-srm-linkgroupauthfile) needs to contain the link groups that can be used for space reservations. You need to specify the location of the file in the **/etc/dcache/dcache.conf** file.
+Space reservations are made for link groups. The file [`LinkGroupAuthorization.conf`](config-SRM.md#the spacemanagerlinkgroupauthorizationfile) needs to contain the link groups that can be used for space reservations. You need to specify the location of the file in the **/etc/dcache/dcache.conf** file.
 
     spacemanager.authz.link-group-file-name=/etc/dcache/LinkGroupAuthorization.conf
 
 Example:  
 
 
-In this example we will create the link group `WriteTokenLinkGroup`. Login to the [admin interface](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml), `cd` to the `SrmSpaceManager` and list the current space reservations.
+In this example we will create the link group `WriteTokenLinkGroup`. Login to the [admin interface](intouch.md#the-admin-interface), `cd` to the `SrmSpaceManager` and list the current space reservations.
 
     (local) admin > cd SrmSpaceManager
     (SrmSpaceManager) admin > ls
@@ -102,7 +102,7 @@ Now we can make a space reservation for that link group.
 The `WriteToken` Tag
 ====================
 
-The `WriteToken` tag is a [directory tag](https://www.dcache.org/manuals/Book-2.16/config/chimera-tags-fhs.shtml). Create the `WriteToken` tag with
+The `WriteToken` tag is a [directory tag](config-chimera.md#directory-tag). Create the `WriteToken` tag with
 
     [root] # /usr/bin/chimera writetag <directory> WriteToken [<IdOfSpaceReservation>]
 
