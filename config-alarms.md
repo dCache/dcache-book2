@@ -336,5 +336,5 @@ Miscellaneous Properties of the ALARMS Service
 
 There are a number of other settings avaible for customization; check the files **/usr/share/dcache/alarms.properties** and **/usr/share/dcache/httpd.properties** for the complete list with explanations.
 
- <!-- []: images/Alarms.png
+ <!-- []: images/Alarms.png 
   [Regular Expressions]: http://docs.oracle.com/javase/tutorial/essential/regex
