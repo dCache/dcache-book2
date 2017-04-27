@@ -50,7 +50,7 @@ After a restart of the domain running the DOOR-XROOTD, done e.g. by executing
     Stopping xrootd-babelfishDomain (pid=30246) 0 1 2 3 4 5 6 7 done
     Starting xrootd-babelfishDomain done
 
-the xrootd door should be running. A few minutes later it should appear at the web monitoring interface under "Cell Services" (see [the section called “The Web Interface for Monitoring dCache”).](https://www.dcache.org/manuals/Book-2.16/start/intouch-web-fhs.shtml)
+the xrootd door should be running. A few minutes later it should appear at the web monitoring interface under "Cell Services" (see [the section called “The Web Interface for Monitoring dCache”).](intouch.md#the-web-interface-for-monitoring-dcache)
 
 Parameters
 ----------
@@ -220,7 +220,7 @@ When using `GSI` authentication, depending on your setup, you may or may not wan
     dcache.authn.hostcert.verify=true
     ..
 
-*Authorization* of the user information obtained by strong authentication is performed by contacting the CELL-GPLAZMA service. Please refer to [Chapter 10, Authorization in dCache](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-fhs.shtml) for instructions about how to configure gPlazma. 
+*Authorization* of the user information obtained by strong authentication is performed by contacting the gPlazma service. Please refer to [Chapter 10, Authorization in dCache](config-gplazma.md) for instructions about how to configure gPlazma. 
 
 > **SECURITY CONSIDERATION**
 >
