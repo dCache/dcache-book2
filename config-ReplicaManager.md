@@ -163,7 +163,7 @@ offline-prepare
 
 drainoff  
 	This is a transient state betweeen `online` and `down`.
-
+ 
 	The admin will set the pool state to be `drainoff` if he needs to set a pool or a set of pools permanently out of 		operation and wants to make sure that there are no replicas “locked out”.
 
 	Unique files will be evacuated MDASH at least one replica for each unique file will be copied out. It is unlikely that a 	 file will be locked out when a single pool goes down as normally a few replicas are online. But when several pools go 		down or set drainoff or offline file lockout might happen.
