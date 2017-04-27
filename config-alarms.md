@@ -15,7 +15,7 @@ Table of Contents
         
 * [Advanced Service Configuration: Enabling Automatic Cleanup](#advanced-service-configuration-enabling-automatic-cleanup)   
 * [Advanced Service Configuration: Enabling Email Alerts](#advanced-service-configuration-enabling-email-alerts)    
-* [Advanced Service Configuration: Custom Alarm Definitions](#custom-alarm-definitions)     
+* [Advanced Service Configuration: Custom Alarm Definitions](#advanced-service-configuration-custom-alarm-definitions)     
 * [Miscellaneous Properties of the alarms Service](#miscellaneous-properties-of-the-alarm-service)     
 
 
@@ -221,7 +221,7 @@ The Alarms Web Page is an admin page and thus requires authentication. You must 
         [httpdDomain/httpd]
         
 
-![Alarms](dcache-book2/Alarms.jpg)
+![Alarm](Alarms.jpg "") 
 
 1.  The QUERY FILTER form can be used to limit the display of alarms in the table. The underlying query to the database is based on whether the entry has been marked as an alarm (the radio buttons indicating undefined, yes and no, respectively), the time interval in which to search, the
     alarm type
