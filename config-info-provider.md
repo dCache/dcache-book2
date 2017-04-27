@@ -44,7 +44,7 @@ It is also possible to run the `info` service inside a domain that runs other se
     [information/topo]
     [information/info]
 
-For more information on configuring DCACHE layout files, see [the section called “Defining domains and services”](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-layout).
+For more information on configuring DCACHE layout files, see [the section called “Defining domains and services”](install.md#defining-domains-and-services).
 
 Use the `dcache services` command to see if a particular node is configured to run the `info` service. The following shows the output if the node has an `information`  domain that is configured to run the `info`  cell.
 
