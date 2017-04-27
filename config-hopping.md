@@ -8,7 +8,7 @@ Table of Contents
 
     [File mode of replicated files](#file-mode-of-replicated-files)  
     [File Hopping managed by the PoolManager](#file-hopping-managed-by-the-poolmanager)  
-    [File Hopping managed by the HoppingManager](#file-hopping-managed-by-th-hoppingmanager)  
+    [File Hopping managed by the HoppingManager](#file-hopping-managed-by-the-hoppingmanager)  
 
 
 File hopping is a collective term in dCache, summarizing the possibility of having files being transferred between dCache pools triggered by a variety of conditions. The most prominent examples are:
@@ -62,7 +62,7 @@ or for several pools in the **/etc/dcache/dcache.conf** file.
     ...
     pool.destination.replicate=PoolManager
 
-File hopping configuration instructs a pool to send a `replicateFile` request to the `PoolManager` as the result of a file arriving on that pool from some external client. All arriving files will be treated the same. The `PoolManager` will process this transfer request by trying to find a matching link (Please find detailed information at [Chapter 7, The poolmanager Service](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-fhs.shtml).
+File hopping configuration instructs a pool to send a `replicateFile` request to the `PoolManager` as the result of a file arriving on that pool from some external client. All arriving files will be treated the same. The `PoolManager` will process this transfer request by trying to find a matching link (Please find detailed information at [Chapter 7, The poolmanager Service](config-PoolManager.md).
 
 It is possible to configure the CELL-POOLMNGR such that files are replicated from this pool to a special set of destination pools.
 
@@ -249,7 +249,7 @@ or for several pools in the **/etc/dcache/dcache.conf** file.
 This is the name of the hopping rule. Rules are checked in alphabetic order concerning their names.
 
 **pattern**   
-`pattern` is a [storage class](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs.shtml#secStorageClass) pattern. If the incoming storage class matches this pattern, this rule is processed.
+`pattern` is a [storage class](config-PoolManager.md#storage-classes) pattern. If the incoming storage class matches this pattern, this rule is processed.
 
 **precious|cached|keep**  
 `precious|cached|keep` determines the mode of the replicated file. With `keep` the mode of the file will be determined by the mode of the destination pool.
