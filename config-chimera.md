@@ -14,7 +14,7 @@ Table of Contents
 
      [Create, List and Read Directory Tags if the Namespace is not Mounted](#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)     
      [Create, List and Read Directory Tags if the Namespace is Mounted](#create-list-and-read-directory-tags-if-the-namespace-is-mounted)   
-     [Directory Tags and Command Files](#directory-tags-and-command)   
+     [Directory Tags and Command Files](#directory-tags-and-command-files)   
      [Directory Tags for dCache](#directory-tags-for-dcache)  
      [Storage Class and Directory Tags](#storage-class-and-directory-tags)
 
@@ -200,7 +200,7 @@ This way, the complete path of a file may be obtained starting from the ID.
 DIRECTORY TAGS
 ==============
 
-In the Chimera namespace, each directory can have a number of tags. These directory tags may be used within dCache to control the file placement policy in the pools (see [the section called “The Pool Selection Mechanism”](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml)). They might also be used by a [tertiary storage system](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-fhs-comments.shtml) for similar purposes (e.g. controlling the set of tapes used for the files in the directory).
+In the Chimera namespace, each directory can have a number of tags. These directory tags may be used within dCache to control the file placement policy in the pools (see [the section called “The Pool Selection Mechanism”](config-PoolManager.md#the-pool-selection-mechanism)). They might also be used by a [tertiary storage system](config-hsm.md) for similar purposes (e.g. controlling the set of tapes used for the files in the directory).
 
 
 > **NOTE**
@@ -321,13 +321,13 @@ DIRECTORY TAGS FOR DCACHE
 The following directory tags appear in the DCACHE context:
 
 OSMTemplate  
-Must contain a line of the form “`StoreName` <storeName>” and specifies the name of the store that is used by dCache to construct the [storage class](#storage-class-and-directory-tags) if the [HSM Type](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-hsm_type) is `osm`.
+Must contain a line of the form “`StoreName` <storeName>” and specifies the name of the store that is used by dCache to construct the [storage class](#storage-class-and-directory-tags) if the [HSM Type](rf-glossary.md#hsm-type) is `osm`.
 
 HSMType  
-The [`HSMType`](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-hsm_type) tag is normally determined from the other existing tags. E.g., if the tag `OSMTemplate` exists, `HSMType`=`osm` is assumed. With this tag it can be set explicitly. A class implementing that HSM type has to exist. Currently the only implementations are `osm` and `enstore`.
+The [`HSMType`](rf-glossary.md#hsm-type) tag is normally determined from the other existing tags. E.g., if the tag `OSMTemplate` exists, `HSMType`=`osm` is assumed. With this tag it can be set explicitly. A class implementing that HSM type has to exist. Currently the only implementations are `osm` and `enstore`.
 
 sGroup  
-The storage group is also used to construct the [storage class](#storage-class-and-directory-tags) if the [`HSMType`](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs-comments.shtml#gl-hsm_type) is `osm`.
+The storage group is also used to construct the [storage class](#storage-class-and-directory-tags) if the [`HSMType`](rf-glossary.md#hsm-type) is `osm`.
 
 cacheClass  
 The cache class is only used to control on which pools the files in a directory may be stored, while the storage class (constructed from the two above tags) might also be used by the HSM. The cache class is only needed if the above two tags are already fixed by HSM usage and more flexibility is needed.
@@ -341,7 +341,7 @@ Assign a `WriteToken` tag to a directory in order to be able to write to a space
 STORAGE CLASS AND DIRECTORY TAGS
 --------------------------------
 
-The [storage class](https://www.dcache.org/manuals/Book-2.16/config/cf-pm-psu-fhs-comments.shtml#secStorageClass) is a string of the form `StoreName`:`StorageGroup`@`hsm-type`, where `StoreName`is given by the OSMTemplate tag, `StorageGroup` by the sGroup tag and `hsm-type` by the HSMType tag. As mentioned above the HSMType tag is assumed to be osm if the tag OSMTemplate exists.
+The [storage class](config-PoolManager.md#storage-classes) is a string of the form `StoreName`:`StorageGroup`@`hsm-type`, where `StoreName`is given by the OSMTemplate tag, `StorageGroup` by the sGroup tag and `hsm-type` by the HSMType tag. As mentioned above the HSMType tag is assumed to be osm if the tag OSMTemplate exists.
 
 In the examples above two tags have been created.
 
