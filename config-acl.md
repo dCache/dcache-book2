@@ -16,7 +16,7 @@ Table of Contents
 
 * [Viewing configured ACLs](#viewing-configured-acls)
 
-dCache includes support for Access Control Lists (ACLs). This support is conforming to the [NFS version 4 Protocol specification].
+dCache includes support for Access Control Lists (ACLs). This support is conforming to the [NFS version 4 Protocol specification](http://www.nfsv4-editor.org/).
 
 This chapter provides some background information and details on configuring dCache to use ACLs and how to administer the resulting system.
 
@@ -77,7 +77,7 @@ To enable ACL support set `pnfsmanager.enable.acl`=`true` in the layout file.
 ADMINISTRATING ACLS
 ===================
 
-Altering dCache ACL behaviour is achieved by connecting to the `PnfsManager` [well-known cell](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-well-known-cell) using the administrator interface. For further details about how to use the administrator interface, see [the section called “The Admin Interface”](https://www.dcache.org/manuals/Book-2.16/start/intouch-admin-fhs.shtml).
+Altering dCache ACL behaviour is achieved by connecting to the `PnfsManager` [well-known cell](rf-glossary.md#well-known-cell) using the administrator interface. For further details about how to use the administrator interface, see [the section called “The Admin Interface”](intouch.md#the-admin-interface).
 
 The `info` and `help` commands are available within `PnfsManager` and fulfil their usual functions.
 
@@ -293,7 +293,7 @@ Example 18.3.
 
 ACL to allow a user to delete all files and subdirectories  
 
-This example is an extension to [Example 18.1, “ACL allowing specific user to delete files in a directory”. The previous example allowed deletion of the contents of a directory](#example-18.1.-acl-allowing-specific-user-to-delete-files-in-a-directory) but not the contents of any subdirectories. This example allows user 3750 to delete all files and subdirectories within the directory.
+This example is an extension to [Example 18.1, “ACL allowing specific user to delete files in a directory”](#example-18.1.-acl-allowing-specific-user-to-delete-files-in-a-directory). The previous example allowed deletion of the contents of a directory] but not the contents of any subdirectories. This example allows user 3750 to delete all files and subdirectories within the directory.
 
 
    (PnfsManager) admin > setfacl /pnfs/example.org/data/exampleDir USER:3750:+D:d
