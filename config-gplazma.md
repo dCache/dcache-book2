@@ -8,7 +8,7 @@ Table of Contents
 
     [Plug-ins](#plug-ins)   
 
-+ [Using X.509 Certificates](#using-x.509-certificates)    
++ [Using X.509 Certificates](#using-x509-certificates)    
 
     [CA Certificates](#ca-certificates)  
     [User Certificate](#user-certificates)
@@ -25,7 +25,7 @@ Table of Contents
 
 + [gPlazma specific dCache configuration](#gplazma-specific-dcache-configuration)  
 
-    [Enabling Username/Password Access for WebDAV](#enabling-username/password-access-for-webdav)    
+    [Enabling Username/Password Access for WebDAV](#enabling-username-password-access-for-webdav)    
     [gPlazma config example to work with authenticated webadmin](#gplazma-config-example-to-work-with-authenticated-webadmin)  
 
 To limit access to data, dCache comes with an authentication and authorization interface called `gPlazma2`. gPlazma is an acronym for Grid-aware PLuggable AuthorZation Management. Earlier versions of dCache worked with `gPlazma1` which has now been completely removed from dCache. So if you are upgrading, you have to reconfigure `gPlazma` if you used `gPlazma1` until now. 
@@ -175,7 +175,7 @@ Properties
 
 #### vorolemap
 
-The `voms` plug-in maps pairs of DN and FQAN to usernames via a [vorolemap](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-plug-inconfig-vorolemap-gridvorolemap) file. 
+The `voms` plug-in maps pairs of DN and FQAN to usernames via a [vorolemap](config-gplazma.md#preparing-grid-vorolemap) file. 
 
 
 
@@ -598,7 +598,7 @@ Example:
 
 #### Certifying your membership of a VO
 
- You can certify your membership of a VO by using the command **voms-proxy-init -voms <yourVO>**. This is useful as in dCache authorization can be done by VO (see [the section called “Authorizing a VO”](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-plug-inconfig-voauth)). To be able to use the extension **-voms <yourVO>** you need to be able to access VOMS servers. To this end you need the the VOMS server’s and the CA’s DN. Create a file **/etc/grid-security/vomsdir/<VO>/<hostname>.lsc** per VOMS server containing on the 1st line the VOMS server’s DN and on the 2nd line, the corresponding CA’s DN. The name of this file should be the fully qualified hostname followed by an **.lsc** extension and the file must appear in a subdirectory **/etc/grid-security/vomsdir/<VO>** for each VO that is supported by that VOMS server and by the site.
+ You can certify your membership of a VO by using the command **voms-proxy-init -voms <yourVO>**. This is useful as in dCache authorization can be done by VO (see [the section called “Authorizing a VO”](#authorizing-a-vo)). To be able to use the extension **-voms <yourVO>** you need to be able to access VOMS servers. To this end you need the the VOMS server’s and the CA’s DN. Create a file **/etc/grid-security/vomsdir/<VO>/<hostname>.lsc** per VOMS server containing on the 1st line the VOMS server’s DN and on the 2nd line, the corresponding CA’s DN. The name of this file should be the fully qualified hostname followed by an **.lsc** extension and the file must appear in a subdirectory **/etc/grid-security/vomsdir/<VO>** for each VO that is supported by that VOMS server and by the site.
 
 At [http://operations-portal.egi.eu/vo](https://operations-portal.egi.eu/vo) you can search for a VO and find this information. 
 
@@ -703,7 +703,7 @@ Example:
 
     version 2.1
 
-DCACHE supports versions 2.1 and to some extend 2.2.
+dCache supports versions 2.1 and to some extend 2.2.
 
 Except for empty lines and comments (lines start with `#`) the configuration lines have the following format:
 
@@ -742,7 +742,7 @@ and replace the word `login` with `authorize`. The following line does this for 
 The gplazmalite-vorole-mapping plug-in
 --------------------------------------
 
-The second is the **storage-authzdb** used in other plug-ins. See the above documentation on [`storage-authdb`](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-plug-inconfig-authzdb) for how to create the file.
+The second is the **storage-authzdb** used in other plug-ins. See the above documentation on [`storage-authdb`](config-gplazma.md#storage-authzdb) for how to create the file.
 
 ### Preparing `grid-vorolemap`
 
@@ -754,7 +754,7 @@ The file is similar in format to the `grid-mapfile`, however there is an additio
 
 Therefore each line has three fields: the user's DN, the user's FQAN, and the username that the DN and FQAN combination are to be mapped to.
 
-The FQAN is sometimes semantically referred to as the “role”. The same user can be mapped to different usernames depending on what their FQAN is. The FQAN is determined by how the user creates their proxy, for example, using [`voms-proxy-init`](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml#cb-voms-proxy-glite). The FQAN contains the user's Group, Role (optional), and Capability (optional). The latter two may be set to the string “NULL”, in which case they will be ignored by the plug-in. Therefore the three lines in the example above are equivalent.
+The FQAN is sometimes semantically referred to as the “role”. The same user can be mapped to different usernames depending on what their FQAN is. The FQAN is determined by how the user creates their proxy, for example, using [`voms-proxy-init`](config-gplazma.md#voms-proxy-certificate). The FQAN contains the user's Group, Role (optional), and Capability (optional). The latter two may be set to the string “NULL”, in which case they will be ignored by the plug-in. Therefore the three lines in the example above are equivalent.
 
 Example:
 
@@ -868,7 +868,7 @@ Example:
 
     "/C=DE/O=GermanGrid/OU=DESY/CN=John Doe" johndoe
 
-When using the `gridmap`, the **storage-authzdb** file must also be configured. See [the section called “storage-authzdb”](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-plug-inconfig-authzdb) for details. 
+When using the `gridmap`, the **storage-authzdb** file must also be configured. See [the section called “storage-authzdb”](config-gplazma.md#storage-authzdb) for details. 
 
 gPlazma specific dCache configuration
 =====================================
@@ -882,11 +882,11 @@ Setting the value for `gplazma.cell.limits.threads` too high may result in large
 Enabling Username/Password Access for WEBDAV
 --------------------------------------------
 
-This section describes how to activate the Username/Password access for `WEBDAV`. It uses **dcache.kwpd** file as an example format for storing Username/Password information. First make sure `gPlazma2` is enabled in the **/etc/dcache/dcache.conf ** or in the layout file.
+This section describes how to activate the Username/Password access for `WebDAV`. It uses **dcache.kwpd** file as an example format for storing Username/Password information. First make sure `gPlazma2` is enabled in the **/etc/dcache/dcache.conf ** or in the layout file.
 
 Example:
 
-Check your `WEBDAV` settings: enable the `HTTP` access, disallow the anonymous access, disable requesting and requiring the client authentication and activate basic authentication.
+Check your `WebDAV` settings: enable the `HTTP` access, disallow the anonymous access, disable requesting and requiring the client authentication and activate basic authentication.
 
     webdav.authn.protocol=http
     webdav.authz.anonymous-operations=NONE
@@ -894,7 +894,7 @@ Check your `WEBDAV` settings: enable the `HTTP` access, disallow the anonymous a
     webdav.authn.require-client-cert=false
     webdav.authn.basic=true
 
-Adjust the **/etc/dcache/gplazma.conf** to use the `kpwd` plug-in (for more information see also [the section called “Plug-ins”](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-gp2-configuration-fhs.shtml#cf-gplazma-gp2-configuration-plug-ins)). 
+Adjust the **/etc/dcache/gplazma.conf** to use the `kpwd` plug-in (for more information see also [the section called “Plug-ins”](config-gplazma.md#plug-ins). 
 
 It will look something like this:
 
@@ -920,7 +920,7 @@ Some file access examples:
 gPlazma config example to work with authenticated webadmin
 ----------------------------------------------------------
 
-This section describes how to configure GPLAZMA to enable the webadmin servlet in authenticated mode with a grid certificate as well as with a username/password and how to give a user administrator access.
+This section describes how to configure gplazma to enable the webadmin servlet in authenticated mode with a grid certificate as well as with a username/password and how to give a user administrator access.
 
 Example:
 In this example for the **/etc/dcache/gplazma.conf ** file the GP2-X509 plugin is used for the authentication step with the grid certificate and the GP2-KPWD plugin is used for the authentication step with username/password.
@@ -951,7 +951,7 @@ applies unix-like values to john, most important is the `1000`, because it is th
 
     passwd john 8402480 read-write 1700 1000 / / /
 
-enables username/password login, such as a valid login would be user `john` with some password. The password is encrypted with the kpwd-algorithm (also see [the section called “The kpwd plug-in”](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-kpwd)) and then stored in the file. Again the 1000 here is the assigned GID. 
+enables username/password login, such as a valid login would be user `john` with some password. The password is encrypted with the kpwd-algorithm (also see [the section called “The kpwd plug-in”](#the-kpwd-plug-in) and then stored in the file. Again the 1000 here is the assigned GID. 
 
 <!--  [vorolemap]: #cf-gplazma-plug-inconfig-vorolemap-gridvorolemap
   [section\_title]: #cf-gplazma-plug-inconfig-voauth
