@@ -78,7 +78,7 @@ Some tape systems provide a simple PUT, GET, REMOVE interface. Typically, a copy
 How DCACHE interacts with a Tertiary Storage System
 ===================================================
 
-Whenever DCACHE decides to copy a file from disk to tertiary storage a user-provided [executable](https://www.dcache.org/manuals/Book-2.16/config/tss-executable-fhs.shtml) which can be either a script or a binary is automatically started on the pool where the file is located. That `executable` is expected to write the file into the Backend Storage System and to return a URI, uniquely identifying the file within that storage system. The format of the URI as well as the arguments to the `executable`, are described later in this document. The unique part of the URI can either be provided by the storage element, in return of the `STORE FILE` operation, or can be taken from DCACHE. A non-error return code from the `executable` lets DCACHE assume that the file has been successfully stored and, depending on the properties of the file, DCACHE can decide to remove the disk copy if space is running short on that pool. On a non-zero return from the `executable`, the file doesn't change its state and the operation is retried or an error flag is set on the file, depending on the error [return code](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-support-fhs.shtml#cf-tss-support-return-codes) from the `executable`.
+Whenever DCACHE decides to copy a file from disk to tertiary storage a user-provided [executable](#example-of-an-executable -to-simulate-a-tape-backend) which can be either a script or a binary is automatically started on the pool where the file is located. That `executable` is expected to write the file into the Backend Storage System and to return a URI, uniquely identifying the file within that storage system. The format of the URI as well as the arguments to the `executable`, are described later in this document. The unique part of the URI can either be provided by the storage element, in return of the `STORE FILE` operation, or can be taken from DCACHE. A non-error return code from the `executable` lets DCACHE assume that the file has been successfully stored and, depending on the properties of the file, DCACHE can decide to remove the disk copy if space is running short on that pool. On a non-zero return from the `executable`, the file doesn't change its state and the operation is retried or an error flag is set on the file, depending on the error [return code](#summary-of-return-codes) from the `executable`.
 
 If DCACHE needs to restore a file to disk the same `executable` is launched with a different set of arguments, including the URI, provided when the file was written to tape. It is in the responsibility of the `executable` to fetch the file back from tape based on the provided URI and to return `0` if the `FETCH FILE` operation was successful or non-zero otherwise. In case of a failure the pool retries the operation or DCACHE decides to fetch the file from tape using a different pool.
 
@@ -175,13 +175,13 @@ Summary of return codes
 The EXECUTABLE and the STORE FILE operation
 ------------------------------------------
 
-Whenever a disk file needs to be copied to a Tertiary Storage System DCACHE automatically launches an `executable` on the pool containing the file to be copied. Exactly one instance of the `executable` is started for each file. Multiple instances of the `executable` may run concurrently for different files. The maximum number of concurrent instances of the `executable` per pool as well as the full path of the `executable` can be configured in the 'setup' file of the pool as described in [the section called “The pool ’setup’ file”.](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-pools-fhs.shtml#cf-tss-pools-layout-setup)
+Whenever a disk file needs to be copied to a Tertiary Storage System DCACHE automatically launches an `executable` on the pool containing the file to be copied. Exactly one instance of the `executable` is started for each file. Multiple instances of the `executable` may run concurrently for different files. The maximum number of concurrent instances of the `executable` per pool as well as the full path of the `executable` can be configured in the 'setup' file of the pool as described in [the section called “The pool ’setup’ file”.](#the-pool-setup-file)
 
 The following arguments are given to the executable of a STORE FILE operation on startup. 
 
 **put** pnfsID filename -si= storage-information more options 
 
-Details on the meaning of certain arguments are described in [the section called “Summary of command line options”.](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-support-fhs.shtml#cf-tss-support-clo)
+Details on the meaning of certain arguments are described in [the section called “Summary of command line options”.](#summary-of-command-line-options)
 
 With the arguments provided the `executable` is supposed to copy the file into the Tertiary Storage System. The `executable` must not terminate before the transfer of the file was either successful or failed.
 
@@ -202,7 +202,7 @@ The `bfid` can either be provided by the TSS as result of the STORE FILE operati
 The EXECUTABLE and the FETCH FILE operation
 -------------------------------------------
 
-Whenever a disk file needs to be restored from a Tertiary Storage System DCACHE automatically launches an `executable` on the pool containing the file to be copied. Exactly one instance of the `executable` is started for each file. Multiple instances of the `executable` may run concurrently for different files. The maximum number of concurrent instances of the `executable` per pool as well as the full path of the `executable` can be configured in the 'setup' file of the pool as described in [the section called “The pool ’setup’ file”](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-pools-fhs.shtml#cf-tss-pools-layout-setup).
+Whenever a disk file needs to be restored from a Tertiary Storage System DCACHE automatically launches an `executable` on the pool containing the file to be copied. Exactly one instance of the `executable` is started for each file. Multiple instances of the `executable` may run concurrently for different files. The maximum number of concurrent instances of the `executable` per pool as well as the full path of the `executable` can be configured in the 'setup' file of the pool as described in [the section called “The pool ’setup’ file”](#the-pool-setup-file).
 
 The following arguments are given to the executable of a FETCH FILE operation on startup: 
 
@@ -300,7 +300,7 @@ Both numbers must be non zero to allow the pool to perform transfers.
 
 Example:
 
-We provide a [script](https://www.dcache.org/manuals/Book-2.16/config/tss-executable-fhs.shtml) to simulate a connection to a TSS. To use this script place it in the directory **/usr/share/dcache/lib**, and create a directory to simulate the base of the TSS.
+We provide a [script](#example-of-an-executable-to-simulate-a-tape-backend) to simulate a connection to a TSS. To use this script place it in the directory **/usr/share/dcache/lib**, and create a directory to simulate the base of the TSS.
 
     [root] # mkdir -p /hsmTape/data
 
@@ -327,7 +327,7 @@ In order to allow DCACHE to remove files from attached TSSes, the “cleaner.ena
 What happens next
 -----------------
 
-After restarting the necessary DCACHE domains, pools, already containing files, will start transferring them into the TSS as those files only have a disk copy so far. The number of transfers is determined by the configuration in the pool 'setup' file as described above in [the section called “The pool ’setup’ file”.](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-pools-fhs.shtml#cf-tss-pools-layout-setup)
+After restarting the necessary DCACHE domains, pools, already containing files, will start transferring them into the TSS as those files only have a disk copy so far. The number of transfers is determined by the configuration in the pool 'setup' file as described above in [the section called “The pool ’setup’ file”.](#the-pool-setup-file)
 
 How to Store-/Restore files via the Admin Interface
 ===================================================
@@ -419,7 +419,7 @@ Since you provide the `executable`, interfacing DCACHE and the TSS, it is in you
 
 ### dCache log files in general
 
-In DCACHE, each domain (e.g. dCacheDomain, <pool>Domain etc) prints logging information into its own log file named after the domain. The location of those log files it typically the **/var/log** or **/var/log/dCache** directory depending on the individual configuration. In the default logging setup only errors are reported. This behavior can be changed by either modifying **/etc/dcache/logback.xml** or using the DCACHE CLI to increase the log level of particular components as described [below](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-monitor-fhs.shtml#cf-tss-monitor-log-cli).
+In DCACHE, each domain (e.g. dCacheDomain, <pool>Domain etc) prints logging information into its own log file named after the domain. The location of those log files it typically the **/var/log** or **/var/log/dCache** directory depending on the individual configuration. In the default logging setup only errors are reported. This behavior can be changed by either modifying **/etc/dcache/logback.xml** or using the DCACHE CLI to increase the log level of particular components as described [below](#obtain-information-via-the-dcache-command-line-admin-interface).
 
 #### Increase the DCACHE log level by changes in **/etc/dcache/logback.xml**
 
@@ -532,7 +532,7 @@ Example:
     [example.dcache.org] (pool_1) admin >  rh ls  
     0000B56B7AFE71C14BDA9426BBF1384CA4B0  0   Fri Aug 12 15:38:33 CEST 2011  
 
-To check the repository on the pools run the command `rep ls` that is described in the beginning of [the section called “How to Store-/Restore files via the Admin Interface”.](#how-to-store-/restore-files-via-the-admin-interface)
+To check the repository on the pools run the command `rep ls` that is described in the beginning of [the section called “How to Store-/Restore files via the Admin Interface”.](#how-to-store-restore-files-via-the-admin-interface)
 
 
 Example of an EXECUTABLE to simulate a tape backend  
