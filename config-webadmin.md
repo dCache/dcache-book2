@@ -19,7 +19,7 @@ From the technical point of view the `webadmin` service uses a Jetty-Server whic
 INSTALLATION
 ============
 
-For the authenticated mode a configured gPlazma is required (see also [the section called “gPlazma config example to work with authenticated webadmin”](#gplazma-config-example-to-work-with-authenticated-webadmin). The user may either authenticate by presenting his grid certificate or by entering a valid username/password combination. This way it is possible to login even if the user does not have a grid certificate. For a non-authenticated `webadmin` service you just need to start the `httpd` service.
+For the authenticated mode a configured gPlazma is required (see also [the section called “gPlazma config example to work with authenticated webadmin”](config-gplazma.md#gplazma-config-example-to-work-with-authenticated-webadmin). The user may either authenticate by presenting his grid certificate or by entering a valid username/password combination. This way it is possible to login even if the user does not have a grid certificate. For a non-authenticated `webadmin` service you just need to start the `httpd` service.
 
 For the authenticated mode using a grid certificate the host certificate has to be imported into the dCache-keystore. In the grid world host certificates are usually signed by national Grid-CAs. Refer to the documentation provided by the Grid-CA to find out how to request a certificate. To import them into the dCache-keystore use this command:
 
@@ -48,7 +48,7 @@ The most important value is `httpd.authz.admin-gid`, because it configures who i
 
 To see all webadmin specific property values have a look at **/usr/share/dcache/defaults/httpd.properties**.
 
-For information on CELL-GPLAZMA configuration have a look at [ Chapter 10, Authorization in dCache](config-chimera.md) and for a special example [the section called “gPlazma config example to work with authenticated webadmin”](#gplazma-config-example-to-work-with-authenticated-webadmin).
+For information on CELL-GPLAZMA configuration have a look at [ Chapter 10, Authorization in dCache](config-gplazma.md) and for a special example [the section called “gPlazma config example to work with authenticated webadmin”](config-gplazma.md#gplazma-config-example-to-work-with-authenticated-webadmin).
 
   [???]: #cf-gplazma-webadmin-example
   [1]: #cf-gplazma
