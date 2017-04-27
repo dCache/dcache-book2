@@ -6,7 +6,7 @@ Table of Contents
 
 [The Basic Setup](#the-basic-setup)  
 [The Statistics Web Page](#the-statistics-web-page)  
-[Explanation of the File Format of the xxx.raw Files](#explanation-of-the-file-format-of-the-xxx-raw-files)  
+[Explanation of the File Format of the xxx.raw Files](#explanation-of-the-file-format-of-the-xxxraw-files)  
 
 
 The `statistics` service collects information on the amount of data stored on all pools and the total data flow including streams from and to tertiary storage systems.
