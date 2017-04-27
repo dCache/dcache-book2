@@ -5,14 +5,14 @@ This part contains guides for specific tasks a system administrator might want t
 Table of Contents
 -----------------
 
-[22. dCache Clients.](cookbook-clients.md)
++ [22. dCache Clients.](cookbook-clients.md)
 
    [GSI-FTP](#gsi-ftp)
 
-        Listing a directory  
-        Checking a file exists  
-        Deleting files  
-        Copying files  
+     [Listing a directory  
+     [Checking a file exists  
+     [Deleting files  
+     [Copying files  
 
     dCap  
 
@@ -33,7 +33,7 @@ Table of Contents
         The lcg-gt Application  
         The lcg-sd Application  
 
-23. Pool Operations  
++ [23. Pool Operations]  
 
     Checksums  
 
@@ -48,13 +48,13 @@ Table of Contents
     Renaming a Pool  
     Pinning Files to a Pool  
 
-24. PostgreSQL and dCache  
++ [24. PostgreSQL and dCache  
 
     Installing a PostgreSQL Server  
     Configuring Access to PostgreSQL  
     Performance of the PostgreSQL Server  
 
-25. Complex Network Configuration  
++ [25. Complex Network Configuration]  
 
     Firewall Configuration  
 
@@ -65,7 +65,7 @@ Table of Contents
 
     GridFTP with Pools in a Private Subnet  
 
-26. Advanced Tuning  
++ [26. Advanced Tuning  
 
     Multiple Queues for Movers in each Pool  
 
