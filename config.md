@@ -14,63 +14,64 @@ Table of Contents
       [Communicating with Chimera](config-chimera.md#communicating-with-chimera)  
       [IDs](config-chimera.md#ids)    
       [Directory Tags](config-chimera.md#directory-tags)    
-             
-      [Create, List and Read Directory Tags if the Namespace is not Mounted](config-chimera.md)  
-      [Create, List and Read Directory Tags if the Namespace is Mounted](config-chimera.md)  
-      [Directory Tags and Command Files](config-chimera.md)  
-      [Directory Tags for dCache](config-chimera.md)  
-      [Storage Class and Directory Tags](config-chimera.md) 
- + [5. The Cell Package](config-cellpackage.md)    
+      [Create, List and Read Directory Tags if the Namespace is not Mounted](config-chimera.md#create-list-and-read-directory-tags-if-the-namespace-is-not-mounted)  
+      [Create, List and Read Directory Tags if the Namespace is Mounted](config-chimera.md#config-chimera.md#create-list-and-read-directory-tags-if-the-namespace-is-mounted)  
+      [Directory Tags and Command Files](config-chimera.md#directory-tags-and-command-files)  
+      [Directory Tags for dCache](config-chimera.md#directory-tags-for-dcache)  
+      [Storage Class and Directory Tags](config-chimera.md#storage-class-and-directory) 
+ + [5. The Cell Package](config-cellpackage.md#the-cell-package)    
  + [6. The replica Service (Replica Manager)](config-ReplicaManager.md)    
               
-              [The Basic Setup(config-ReplicaManager.md)    
-              [Define a poolgroup for resilient pools(config-ReplicaManager.md)      
-              [Operation(config-ReplicaManager.md)      
-              [Pool States(config-ReplicaManager.md)     
-              [Startup(config-ReplicaManager.md)      
-              [Avoid replicas on the same host(config-ReplicaManager.md)      
-              [Hybrid dCache(config-ReplicaManager.md)      
-              [Commands for the admin interface(config-ReplicaManager.md)      
-              [Properties of the replica service(config-ReplicaManager.md) 
+      [The Basic Setup](config-ReplicaManager.md#the-basic-setup)    
+      [Define a poolgroup for resilient pools](config-ReplicaManager.md#define-a-poolgroup-for-resilient-pools)      
+      [Operation](config-ReplicaManager.md#operation)      
+      [Pool States](config-ReplicaManager.md#pool-states)     
+      [Startup](config-ReplicaManager.md#startup)      
+      [Avoid replicas on the same host](config-ReplicaManager.md#avoid-replicas-on-the-same-host)      
+      [Hybrid dCache](config-ReplicaManager.md-hybrid-dcache)      
+      [Commands for the admin interface](config-ReplicaManager.md#commands-for-the-admin-interface)      
+      [Properties of the replica service](config-ReplicaManager.md#properties-of-the-replica-service) 
               
  + [7. The poolmanager Service](config-PoolManager.md)
  
-             The Pool Selection Mechanism(config-PoolManager.md)   
-Links(config-PoolManager.md)    
-Examples(config-PoolManager.md)    
-The Partition Manager(config-PoolManager.md)    
-Overview(config-PoolManager.md)   
-Managing Partitions(config-PoolManager.md)    
-Using Partitions(config-PoolManager.md)    
-Classic Partitions(config-PoolManager.md)   
-Link Groups(config-PoolManager.md)  
+     [The Pool Selection Mechanism](config-PoolManager.md#the-pool-selection-mechanism)   
+     [Links](config-PoolManager.md#links)    
+     [Examples](config-PoolManager.md#examples)    
+     [The Partition Manager](config-PoolManager.md#the-partition-manager)    
+     [Overview](config-PoolManager.md#overview)   
+     [Managing Partitions](config-PoolManager.md#managing-partitions)    
+     [Using Partitions](config-PoolManager.md-using-partitions)    
+     [Classic Partitions](config-PoolManager.md#classic-partitions)   
+     [Link Groups](config-PoolManager.md#link-groups)  
 
  + [8. The dCache Tertiary Storage System Interface](config-hsm.md)    
-Introduction  
-Scope of this chapter  
-Requirements for a Tertiary Storage System  
-Migrating Tertiary Storage Systems with a file system interface.  
-Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface  
-How dCache interacts with a Tertiary Storage System  
-Details on the TSS-support executable  
-Summary of command line options  
-Summary of return codes  
-The executable and the STORE FILE operation  
-The executable and the FETCH FILE operation  
-The executable and the REMOVE FILE operation  
-Configuring pools to interact with a Tertiary Storage System  
-The dCache layout files  
-What happens next  
-How to Store-/Restore files via the Admin Interface  
-How to monitor what’s going on  
-Log Files  
-Obtain information via the dCache Command Line Admin Interface  
-Example of an executable to simulate a tape backend  
- + [9. File Hopping](config-hopping.md)    
-File Hopping on arrival from outside dCache  
-File mode of replicated files  
-File Hopping managed by the PoolManager  
-File Hopping managed by the HoppingManager  
+    [Introduction] 
+    [Scope of this chapter]  
+    [Requirements for a Tertiary Storage System]  
+    [Migrating Tertiary Storage Systems with a file system interface]  
+    [Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface]  
+    [How dCache interacts with a Tertiary Storage System]  
+    [Details on the TSS-support executable]  
+    [Summary of command line options]  
+    [Summary of return codes]  
+    [The executable and the STORE FILE operation]  
+    [The executable and the FETCH FILE operation]  
+    [The executable and the REMOVE FILE operation]  
+    [Configuring pools to interact with a Tertiary Storage System]  
+    [The dCache layout files]  
+    [What happens next]  
+    [How to Store-/Restore files via the Admin Interface]  
+    [How to monitor what’s going on]  
+    [Log Files] 
+    [Obtain information via the dCache Command Line Admin Interface]  
+    [Example of an executable to simulate a tape backend]  
+
++ [9. File Hopping](config-hopping.md)    
+    [File Hopping on arrival from outside dCache]  
+    [File mode of replicated files]  
+    [File Hopping managed by the PoolManager]  
+    [File Hopping managed by the HoppingManager]  
+ 
  + [10. Authorization in dCache](config-gplazma.md)    
 Basics  
 Configuration  
