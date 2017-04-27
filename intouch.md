@@ -156,7 +156,7 @@ The “Pool Usage” page gives a good overview of the current space usage of th
 
 The page “Pool Request Queues” (or “Pool Transfer Queues”) gives information about the number of current requests handled by each pool. “Actions Log” keeps track of all the transfers performed by the pools up to now.
 
-The remaining pages are only relevant with more advanced configurations: The page “Pools” (or “Pool Attraction Configuration”) can be used to analyze the current configuration of the [pool selection unit](rf-glossary#pool-selection-unit) in the pool manager. The remaining pages are relevant only if a [tertiary storage system (HSM)](rf-glossary#HSM) is connected to the dCache instance.
+The remaining pages are only relevant with more advanced configurations: The page “Pools” (or “Pool Attraction Configuration”) can be used to analyze the current configuration of the [pool selection unit](rf-glossary#pool-selection-unit) in the pool manager. The remaining pages are relevant only if a [tertiary storage system (HSM)](rf-glossary#hsm-type) is connected to the dCache instance.
 
 THE ADMIN INTERFACE
 ===================
@@ -245,9 +245,9 @@ To use gPlazma2 you need to specify it in the **/etc/dcache/dcache.conf** file:
 
 Moreover, you need to create the file **/etc/dcache/gplazma.conf** with the content  
 
->    auth optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"   
->    map optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"   
->    session optional kpwd "kpwd=PATH-ODE-ED/dcache.kpwd"   
+>    auth optional kpwd "kpwd=etc/dcache/dcache.kpwd"   
+>    map optional kpwd "kpwd=etc/dcache/dcache.kpwd"   
+>    session optional kpwd "kpwd=etc/dcache/dcache.kpwd"   
 
 and add the user `admin` to the **`/etc/dcache/dcache.kpwd`** file using the `dcache` script.  
 
@@ -265,7 +265,7 @@ adds this to the **/etc/dcache/dcache.kpwd** file:
 >    # set pwd    
 >    passwd admin 4091aba7 read-write 12345 1000 / /  
 
-Edit the file **/etc/dcache/dcachesrm-gplazma.policy** to switch on the `kpwd-plugin`. For more information about `gPlazma` see [Chapter 10, Authorization in dCache](config-chimera.md).
+Edit the file **/etc/dcache/dcachesrm-gplazma.policy** to switch on the `kpwd-plugin`. For more information about `gPlazma` see [Chapter 10, Authorization in dCache](config-plazma.md).
 
 Now the user `admin` can login to the admin interface with his password `password` by:
 
@@ -296,7 +296,7 @@ The initial password is “`dickerelch`” (which is German for “fat elk”) a
        dCache Admin (VII) (user=admin)
 
 
-    DC-PROMPT-LOCAL
+    (local) admin >
 
 The password can now be changed with
 
@@ -315,15 +315,15 @@ The command `help` lists all commands the cell knows and their parameters. Howev
 >
 > Some commands are dangerous. Executing them without understanding what they do may lead to data loss.
 
-Starting from the local prompt ((`local) admin >`) the command `cd` takes you to the specified [cell](rf-glossary#cell). In general the address of a cell is a concatenation of cell name @ symbol and the domain name. `cd` to a cell by:
+Starting from the local prompt ((`local) admin >`) the command `cd` takes you to the specified [cell](rf-glossary.md#cell). In general the address of a cell is a concatenation of cell name @ symbol and the domain name. `cd` to a cell by:
 
     (local) admin > **cd <cellName>@<domainName>**
 
 > **NOTE**
 >
-> If the cells are well-known, they can be accessed without adding the domain-scope. See [Chapter 5, The Cell Package](https://www.dcache.org/manuals/Book-2.16/config/cf-cellpackage-fhs.shtml) for more information.
+> If the cells are well-known, they can be accessed without adding the domain-scope. See [Chapter 5, The Cell Package](config-cellpackage.md) for more information.
 
-The domains that are running on the DCACHE-instance, can be viewed in the layout-configuration (see  [Chapter 2, Installing dCache](https://www.dcache.org/manuals/Book-2.16/start/in-fhs.shtml)). Additionally, there is the `topo` cell, which keeps track of the instance's domain topology. If it is running, it can be used to obtain the list of domains the following way:  
+The domains that are running on the DCACHE-instance, can be viewed in the layout-configuration (see  [Chapter 2, Installing dCache](install.md)). Additionally, there is the `topo` cell, which keeps track of the instance's domain topology. If it is running, it can be used to obtain the list of domains the following way:  
 
 > **NOTE**  
 >
@@ -357,7 +357,7 @@ The escape sequence `..` takes you back to the local prompt.
 
 The command `logoff` exits the admin shell.  
 
-If you want to find out which cells are running on a certain domain, you can issue the command `ps` in the CELL-SYSTEM cell of the domain.  
+If you want to find out which cells are running on a certain domain, you can issue the command `ps` in the System `cell` of the domain.  
 
 Example:  
 For example, if you want to list the cells running on the `poolDomain`, `cd` to its `System` cell and issue the `ps` command.  
@@ -405,11 +405,11 @@ Login to the routing manager of the `dCacheDomain` to get a list of all well-kno
       poolDomain : [pool_2, pool_1]  
        namespaceDomain : [PnfsManager, dirLookupPool, cleaner]  
 
-All cells know the commands `info` for general information about the cell and `show pinboard` for listing the last lines of the [pinboard](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-pinboard) of the cell. The output of these commands contains useful information for solving problems.  
+All cells know the commands `info` for general information about the cell and `show pinboard` for listing the last lines of the [pinboard](rf-glossary.md#pinboard) of the cell. The output of these commands contains useful information for solving problems.  
 
 It is a good idea to get aquainted with the normal output in the following cells: `PoolManager, PnfsManager`, and the pool cells (e.g.,` <poolHostname>_1`).  
 
-The most useful command of the pool cells is [rep ls](https://www.dcache.org/manuals/Book-2.16/reference/cmd-rep_ls-fhs.shtml).  To execute this command `cd` into the pool. It lists the files which are stored in the pool by their `pnfs` IDs:  
+The most useful command of the pool cells is [rep ls](reference.md#rep-ls).  To execute this command `cd` into the pool. It lists the files which are stored in the pool by their `pnfs` IDs:  
 
     Example:    
 
@@ -420,7 +420,7 @@ The most useful command of the pool cells is [rep ls](https://www.dcache.org/man
   Each file in a pool has one of the 4 primary states: “cached” (<C---), “precious” (<-P--), “from client” (<--C-), and        “from store” (<---S).  
 
 
-See [the section called “How to Store-/Restore files via the Admin Interface”](https://www.dcache.org/manuals/Book-2.16/config/cf-tss-pools-admin-fhs.shtml) for more information about `rep ls`.  
+See [the section called “How to Store-/Restore files via the Admin Interface”](config-hsm.md#how-to-store-restore-files-via-the-admin-interface) for more information about `rep ls`.  
 
 The most important commands in the `PoolManager` are: `rc ls` and `cm ls -r`.  
 
@@ -440,9 +440,9 @@ As the error message at the end of the line indicates, no pool was found contain
 
 
 
-See [the section called “Obtain information via the dCache Command Line Admin Interface”](#obtain-information-via-the-dcache-command-line-admin-interface) for more information about the command `rc ls`
+See [the section called “Obtain information via the dCache Command Line Admin Interface”](config-hsm.md#how-to-monitor-whats-going-on) for more information about the command `rc ls`
 
-Finally, [cm ls](https://www.dcache.org/manuals/Book-2.16/reference/cmd-cm_ls-fhs.shtml) with the option `-r` gives the information about the pools currently stored in the cost module of the pool manager. A typical output is:
+Finally, [cm ls](reference.md#cm-ls) with the option `-r` gives the information about the pools currently stored in the cost module of the pool manager. A typical output is:
 
     Example:
 
@@ -455,7 +455,7 @@ Finally, [cm ls](https://www.dcache.org/manuals/Book-2.16/reference/cmd-cm_ls-fh
       pool_2={Tag={{hostname=example.org}};size=0;SC=2.7939677238464355E-4;CC=0.0;}
       
       
-While the first line for each pool gives the information stored in the cache of the cost module, the second line gives        the    costs (SC: [space cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-space_cost), CC: [performance cost](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-performance_cost)) calculated for a (hypothetical) file of zero size. For details on how these are calculated and their meaning, see [the section called “Classic Partitions”](#classic-partitions).
+While the first line for each pool gives the information stored in the cache of the cost module, the second line gives the    costs (SC: [space cost](rf-glossary.md#space-cost), CC: [performance cost](rf-glossary.md#performance-cost)) calculated for a (hypothetical) file of zero size. For details on how these are calculated and their meaning, see [the section called “Classic Partitions”](#config-poolmanager.md#classic-partitions).
 
 CREATE A NEW USER
 -----------------
@@ -596,7 +596,7 @@ In dCache digital certificates are used for authentication and authorisation. To
       CA
       ...  
 
-You will need a server certificate for the host on which your dCache is running and a user certificate. The host certificate needs to be copied to the directory **/etc/grid-security/** on your server and converted to **hostcert.pem** and **hostkey.pem** as described in [Using X.509 Certificates](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml). Your user certificate is usually located in **.globus**. If it is not there you should copy it from your browser to **.globus** and convert the **.p12** file to **usercert.pem** and **userkey.pem**.  
+You will need a server certificate for the host on which your dCache is running and a user certificate. The host certificate needs to be copied to the directory **/etc/grid-security/** on your server and converted to **hostcert.pem** and **hostkey.pem** as described in [Using X.509 Certificates](config-gplazma.md#using-x509-certificates). Your user certificate is usually located in **.globus**. If it is not there you should copy it from your browser to **.globus** and convert the **.p12** file to **usercert.pem** and **userkey.pem**.  
 
 Example:  
 
@@ -663,7 +663,7 @@ Authentication and authorization in DCACHE is done by the GPLAZMA service. Defin
       [gPlazmaDomain]  
       [gPlazmaDomain/gplazma]  
 
-In this tutorial we will use the [gplazmalite-vorole-mapping plugin](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-plug-inconfig-fhs.shtml#cf-gplazma-plug-inconfig-vorolemap). To this end you need to edit the **/etc/grid-security/grid-vorolemap** and the **/etc/grid-security/storage-authzdb** as well as the **PATH-ODE-ED/dcachesrm-gplazma.policy**.  
+In this tutorial we will use the [gplazmalite-vorole-mapping plugin](config-gplazma.md#the-gplazmalite-vorole-mapping-plug-in). To this end you need to edit the **/etc/grid-security/grid-vorolemap** and the **/etc/grid-security/storage-authzdb** as well as the **/etc/dcache/dcachesrm-gplazma.policy**.  
  
 Example:  
 The **/etc/grid-security/grid-vorolemap:**  
@@ -720,7 +720,7 @@ It is also available on the [dCap downloads page](https://www.dcache.org/downloa
     Example:
     [root] # rpm -i http://www.dcache.org/repository/yum/sl5/x86_64/RPMS.stable//libdcap-tunnel-gsi-2.47.5-0.x86_64.rpm  
 
-The machine running the GSIdCap door needs to have a host certificate and you need to have a valid user certificate. In addition, you should have created a [voms proxy](https://www.dcache.org/manuals/Book-2.16/config/cf-gplazma-certificates-fhs.shtml#cf-gplazma-certificates-voms-proxy-init) as mentioned [above](https://www.dcache.org/manuals/Book-2.16/start/intouch-certificates-fhs.shtml).  
+The machine running the GSIdCap door needs to have a host certificate and you need to have a valid user certificate. In addition, you should have created a [voms proxy](config-gplazma.md#creating-a-voms-proxy) as mentioned [above](#authentication-and-authorization-in-dcache).  
 
 Now you can copy a file into your dCache using GSIdCap  
 
@@ -820,7 +820,7 @@ The dCache software is installed in various directories according to the Filesys
 
 Log files of domains are by default stored in **/var/log/dcache/<domainName>.log.**
 
-More details about domains and cells can be found in [Chapter 5, The Cell Package.](https://www.dcache.org/manuals/Book-2.16/config/cf-cellpackage-fhs.shtml)
+More details about domains and cells can be found in [Chapter 5, The Cell Package.](config-cellpackage.md)
 
 The most central component of a dCache instance is the PoolManager cell. It reads additional configuration information from the file **/var/lib/dcache/config/poolmanager.conf** at start-up. However, it is not necessary to restart the domain when changing the file. We will see an example of this below.  
 
