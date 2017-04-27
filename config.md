@@ -19,7 +19,9 @@ Table of Contents
       [Directory Tags and Command Files](config-chimera.md#directory-tags-and-command-files)  
       [Directory Tags for dCache](config-chimera.md#directory-tags-for-dcache)  
       [Storage Class and Directory Tags](config-chimera.md#storage-class-and-directory) 
- + [5. The Cell Package](config-cellpackage.md#the-cell-package)    
+      
+ + [5. The Cell Package](config-cellpackage.md#the-cell-package)
+ 
  + [6. The replica Service (Replica Manager)](config-ReplicaManager.md)    
               
       [The Basic Setup](config-ReplicaManager.md#the-basic-setup)    
@@ -45,136 +47,148 @@ Table of Contents
      [Link Groups](config-PoolManager.md#link-groups)  
 
  + [8. The dCache Tertiary Storage System Interface](config-hsm.md)    
-    [Introduction] 
-    [Scope of this chapter]  
-    [Requirements for a Tertiary Storage System]  
-    [Migrating Tertiary Storage Systems with a file system interface]  
-    [Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface]  
-    [How dCache interacts with a Tertiary Storage System]  
-    [Details on the TSS-support executable]  
-    [Summary of command line options]  
-    [Summary of return codes]  
-    [The executable and the STORE FILE operation]  
-    [The executable and the FETCH FILE operation]  
-    [The executable and the REMOVE FILE operation]  
-    [Configuring pools to interact with a Tertiary Storage System]  
-    [The dCache layout files]  
-    [What happens next]  
-    [How to Store-/Restore files via the Admin Interface]  
-    [How to monitor what’s going on]  
-    [Log Files] 
-    [Obtain information via the dCache Command Line Admin Interface]  
-    [Example of an executable to simulate a tape backend]  
+    [Introduction](config-hsm.md)  
+    [Scope of this chapter](config-hsm.md)   
+    [Requirements for a Tertiary Storage System](config-hsm.md)   
+    [Migrating Tertiary Storage Systems with a file system interface](config-hsm.md)   
+    [Tertiary Storage Systems with a minimalistic PUT, GET and REMOVE interface](config-hsm.md)   
+    [How dCache interacts with a Tertiary Storage System](config-hsm.md)   
+    [Details on the TSS-support executable](config-hsm.md)   
+    [Summary of command line options](config-hsm.md)   
+    [Summary of return codes](config-hsm.md)   
+    [The executable and the STORE FILE operation](config-hsm.md)   
+    [The executable and the FETCH FILE operation](config-hsm.md)   
+    [The executable and the REMOVE FILE operation](config-hsm.md)   
+    [Configuring pools to interact with a Tertiary Storage System](config-hsm.md)   
+    [The dCache layout files](config-hsm.md)   
+    [What happens next](config-hsm.md)   
+    [How to Store-/Restore files via the Admin Interface](config-hsm.md)   
+    [How to monitor what’s going on](config-hsm.md)   
+    [Log Files](config-hsm.md)  
+    [Obtain information via the dCache Command Line Admin Interface](config-hsm.md)   
+    [Example of an executable to simulate a tape backend](config-hsm.md)   
 
 + [9. File Hopping](config-hopping.md)    
-    [File Hopping on arrival from outside dCache]  
-    [File mode of replicated files]  
-    [File Hopping managed by the PoolManager]  
-    [File Hopping managed by the HoppingManager]  
+    [File Hopping on arrival from outside dCache](config-hopping.md)   
+    [File mode of replicated files](config-hopping.md)   
+    [File Hopping managed by the PoolManager](config-hopping.md)   
+    [File Hopping managed by the HoppingManager](config-hopping.md)   
  
  + [10. Authorization in dCache](config-gplazma.md)    
-Basics  
-Configuration  
-Plug-ins  
-Using X.509 Certificates  
-CA Certificates  
-User Certificate  
-Host Certificate  
-VOMS Proxy Certificate  
-Configuration files  
-storage-authzdb  
-The gplazmalite-vorole-mapping plug-in  
-Authorizing a VO    
-The kpwd plug-in  
-The gridmap plug-in  
-gPlazma specific dCache configuration  
-Enabling Username/Password Access for WebDAV  
-gPlazma config example to work with authenticated webadmin  
+ [Basics](config-gplazma.md)       
+ [Configuration](config-gplazma.md)       
+ [Plug-ins](config-gplazma.md)       
+ [Using X.509 Certificates](config-gplazma.md)       
+ [CA Certificates](config-gplazma.md)       
+ [User Certificate](config-gplazma.md)       
+ [Host Certificate](config-gplazma.md)       
+ [VOMS Proxy Certificate](config-gplazma.md)       
+ [Configuration files](config-gplazma.md)       
+ [storage-authzdb](config-gplazma.md)      
+ [The gplazmalite-vorole-mapping plug-in](config-gplazma.md)      
+ [Authorizing a VO](config-gplazma.md)         
+ [The kpwd plug-in](config-gplazma.md)       
+ [The gridmap plug-in](config-gplazma.md)       
+ [gPlazma specific dCache configuration](config-gplazma.md)       
+ [Enabling Username/Password Access for WebDAV](config-gplazma.md)       
+ [gPlazma config example to work with authenticated webadmin](config-gplazma.md)       
+ 
+ 
  + [11. dCache as xRootd-Server](config-xrootd.md)    
-Setting up  
-Parameters  
-Quick tests  
-Copying files with xrdcp  
-Accessing files from within ROOT  
-xrootd security  
-Read-Write access  
-Permitting read/write access on selected directories  
-Token-based authorization  
-Strong authentication  
-Precedence of security mechanisms  
-Other configuration options  
- + [12. dCache as NFSv4.1 Server](config-nfs.md)  
-Setting up  
-Configuring NFSv4.1 door with GSS-API support  
-Configuring principal-id mapping for NFS access  
- + [13. dCache Storage Resource Manager](config-SRM.md)    
-Introduction  
-Configuring the srm service  
-The Basic Setup    
-Important srm configuration options  
-Utilization of Space Reservations for Data Storage  
-Properties of Space Reservation  
-dCache specific concepts  
-Activating SRM SpaceManager  
-Explicit and Implicit Space Reservations for Data Storage in dCache  
-SpaceManager configuration  
-SRM SpaceManager and Link Groups  
-Making a Space Reservation  
-SRM configuration for experts  
-Configuring the PostgreSQL Database  
-SRM or srm monitoring on a separate node  
-General SRM Concepts (for developers)  
-The SRM service  
-Space Management Functions  
-Data Transfer Functions  
-Request Status Functions  
-Directory Functions  
-Permission functions  
- + [14. The statistics Service](config-statistics.md)    
-The Basic Setup  
-The Statistics Web Page  
-Explanation of the File Format of the xxx.raw Files  
- + [15. The billing Service](config-billing.md)   
-The billing log files  
-The billing database  
-Customizing the database  
-Generating and Displaying Billing Plots  
-Upgrading a Previous Installation  
- + [16. The alarms Service](config-alarms.md)    
-The Basic Setup  
-Configure where the alarms service is Running  
-Types of Alarms  
-Alarm Priority  
-Working with Alarms: Shell Commands  
-Working with Alarms: Admin Commands  
-Working with Alarms: The Webadmin Alarms Page  
-Advanced Service Configuration: Enabling Automatic Cleanup  
-Advanced Service Configuration: Enabling Email Alerts  
-Advanced Service Configuration: Custom Alarm Definitions  
-Miscellaneous Properties of the alarms Service  
+ [Setting up](config-xrootd.md)       
+ [Parameters](config-xrootd.md)       
+ [Quick tests](config-xrootd.md)       
+ [Copying files with xrdcp](config-xrootd.md)       
+ [Accessing files from within ROOT(config-xrootd.md)    ]   
+ [xrootd security](config-xrootd.md)       
+ [Read-Write access](config-xrootd.md)      
+ [Permitting read/write access on selected directories](config-xrootd.md)       
+ [Token-based authorization](config-xrootd.md)       
+ [Strong authentication](config-xrootd.md)       
+ [Precedence of security mechanisms](config-xrootd.md)       
+ [Other configuration options](config-xrootd.md)       
+
++ [12. dCache as NFSv4.1 Server](config-nfs.md)  
+ [Setting up](config-nfs.md)     
+ [Configuring NFSv4.1 door with GSS-API support](config-nfs.md)   
+ [Configuring principal-id mapping for NFS access](config-nfs.md)   
+
++ [13. dCache Storage Resource Manager](config-SRM.md)    
+ [Introduction](config-SRM.md)     
+ [Configuring the srm service](config-SRM.md)     
+ [The Basic Setup](config-SRM.md)       
+ [Important srm configuration options](config-SRM.md)     
+ [Utilization of Space Reservations for Data Storage](config-SRM.md)     
+ [Properties of Space Reservation](config-SRM.md)     
+ [dCache specific concepts](config-SRM.md)     
+ [Activating SRM SpaceManager](config-SRM.md)     
+ [Explicit and Implicit Space Reservations for Data Storage in dCache](config-SRM.md)     
+ [SpaceManager configuration](config-SRM.md)    
+ [SRM SpaceManager and Link Groups](config-SRM.md)     
+ [Making a Space Reservation](config-SRM.md)     
+ [SRM configuration for experts](config-SRM.md)    
+ [Configuring the PostgreSQL Database](config-SRM.md)     
+ [SRM or srm monitoring on a separate node](config-SRM.md)     
+ [General SRM Concepts (for developers)](config-SRM.md)     
+ [The SRM service](config-SRM.md)    
+ [Space Management Functions](config-SRM.md)     
+ [Data Transfer Functions](config-SRM.md)     
+ [Request Status Functions](config-SRM.md)    
+ [Directory Functions](config-SRM.md)     
+ [Permission functions](config-SRM.md)     
+
++ [14. The statistics Service](config-statistics.md)    
+ [The Basic Setup](config-statistics.md)      
+ [The Statistics Web Page](config-statistics.md)       
+ [Explanation of the File Format of the xxx.raw Files](config-statistics.md)       
+
++ [15. The billing Service](config-billing.md)   
+ [The billing log files](config-billing.md)    
+ [The billing database](config-billing.md)    
+ [Customizing the database](config-billing.md)    
+ [Generating and Displaying Billing Plots](config-billing.md)    
+ [Upgrading a Previous Installation](config-billing.md)    
+
++ [16. The alarms Service](config-alarms.md)    
+ [The Basic Setup](config-alarms.md)       
+ [Configure where the alarms service is Running](config-alarms.md)       
+ [Types of Alarms](config-alarms.md)      
+ [Alarm Priority](config-alarms.md)       
+ [Working with Alarms: Shell Commands](config-alarms.md)       
+ [Working with Alarms: Admin Commands](config-alarms.md)       
+ [Working with Alarms: The Webadmin Alarms Page](config-alarms.md)         
+ [Advanced Service Configuration: Enabling Automatic Cleanup](config-alarms.md)         
+ [Advanced Service Configuration: Enabling Email Alerts](config-alarms.md)         
+ [Advanced Service Configuration: Custom Alarm Definitions](config-alarms.md)         
+ [Miscellaneous Properties of the alarms Service](config-alarms.md)         
+ 
  + [17. dCache Webadmin Interface](config-webadmin.md)  
-Installation  
- + [18. ACLs in dCache](config-acl.md)  
-Introduction  
-Database configuration  
-Configuring ACL support  
-Enabling ACL support  
-Administrating ACLs  
-How to set ACLs  
-Viewing configured ACLs  
- + [19. GLUE Info Provider](config-info-provider.md)  
-Internal collection of information  
-Configuring the info provider  
-Testing the info provider  
-Decommissioning the old info provider  
-Publishing dCache information  
-Troubleshooting BDII problems  
-Updating information  
+ [Installation](config-webadmin.md#installation)     
+
++ [18. ACLs in dCache](config-acl.md)  
+ [Introduction](config-acl.md)     
+ [Database configuration](config-acl.md)     
+ [Configuring ACL support](config-acl.md)     
+ [Enabling ACL support](config-acl.md)     
+ [Administrating ACLs](config-acl.md)     
+ [How to set ACLs](config-acl.md)     
+ [Viewing configured ACLs](config-acl.md)     
+
++ [19. GLUE Info Provider](config-info-provider.md)  
+ [Internal collection of information](config-info-provider.md)     
+ [Configuring the info provider](config-info-provider.md)     
+ [Testing the info provider](config-info-provider.md)     
+ [Decommissioning the old info provider](config-info-provider.md)     
+ [Publishing dCache information](config-info-provider.md)     
+ [Troubleshooting BDII problems](config-info-provider.md)     
+ [Updating information](config-info-provider.md)     
+ 
  + [20. Stage Protection](config-stage-protection.md)  
-Configuration of Stage Protection  
-Definition of the White List  
- + [21. Using Space Reservations without SRM](config-write-token.md)  
-The Space Reservation    
-The WriteToken tag    
-Copy a File into the WriteToken    
+ [Configuration of Stage Protection](config-stage-protection.md)    
+ [Definition of the White List](config-stage-protection.md)     
+
++ [21. Using Space Reservations without SRM](config-write-token.md)  
+ [The Space Reservation](config-write-token.md)       
+ [The WriteToken tag](config-write-token.md)       
+ [Copy a File into the WriteToken](config-write-token.md)    
 
