@@ -18,16 +18,16 @@ Table of Contents
 [dump pinboard — Dump the full pinboard of the cell to a file.](reference.md#dump-pinboard-dump-the-pinboard-of-the-cell-to-a-file)  
 [show pinboard — Print a part of the pinboard of the cell to STDOUT.](reference.md#show-pinboard-print-a-part-of-the-pinboard-of-the-cell-to-stdout)  
 
-+ [PnfsManager Commands](reference.md#pnfsmanager-commands)    
-[pnfsidof — Print the pnfs id of a file given by its global path.]()   
-[flags remove — Remove a flag from a file.]()   
-[flags ls — List the flags of a file.]()   
-[flags set — Set a flag for a file.]()   
-[metadataof — Print the meta-data of a file.]()   
-[pathfinder — Print the global or local path of a file from its PNFS id.]()   
-[set meta — Set the meta-data of a file.]()   
-[storageinfoof — Print the storage info of a file.]()   
-[cacheinfoof — Print the cache info of a file.]()   
++ [PnfsManager Commands](rf-cc-pnfsm.md)    
+[pnfsidof](rf-cc-pnfsm.md)  — Print the pnfs id of a file given by its global path.   
+[flags remove](rf-cc-pnfsm.md)  — Remove a flag from a file.   
+[flags ls](rf-cc-pnfsm.md)  — List the flags of a file.   
+[flags set](rf-cc-pnfsm.md) — Set a flag for a file.   
+[metadataof](rf-cc-pnfsm.md)  — Print the meta-data of a file.   
+[pathfinder](rf-cc-pnfsm.md)  — Print the global or local path of a file from its PNFS id.    
+[set meta](rf-cc-pnfsm.md)  — Set the meta-data of a file.  
+[storageinfoof](rf-cc-pnfsm.md)  — Print the storage info of a file.     
+[cacheinfoof](rf-cc-pnfsm.md)  — Print the cache info of a file.    
 
 + [Pool Commands](rf-cc-pool.md)
 
@@ -51,10 +51,10 @@ Table of Contents
 [migration suspend](rf-cc-pool.md#migration-suspend)   — Suspends a migration job.  
 [migration resume](rf-cc-pool.md#migration-resume)   — Resumes a suspended migration job.  
 
-[PoolManager Commands]()
-[rc ls — List the requests currently handled by the PoolManager]()   
-[cm ls — List information about the pools in the cost module cache.]()   
-[set pool decision — Set the factors for the calculation of the total costs of the pools.]()   
++ [PoolManager Commands](rf-cc-pm.md)
+[rc ls](rf-cc-pm.md#rc-ls) — List the requests currently handled by the PoolManager  
+[cm ls](rf-cc-pm.md#cm-ls) — List information about the pools in the cost module cache.   
+[set pool decision](rf-cc-pm.md#set-pool-decision) — Set the factors for the calculation of the total costs of the pools.   
 
 + [29. dCache Default Port Values](rf-ports.md)  
 
