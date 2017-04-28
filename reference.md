@@ -6,10 +6,10 @@ Table of Contents
 
 + [27. dCache Clients]()  
 [The SRM Client Suite](rf-clients-srm.md)  
-[srmcp](reference.md#srmcp) — Copy a file from or to an SRM or between two SRMs.  
-[srmstage](reference.md#srmstage) — Request staging of a file.  
-[dccp](reference.md#dccp)  
-[dccp](reference.md#dccp) — Copy a file from or to a dCache server.  
+[srmcp](rf-clients-srm.md#srmcp) — Copy a file from or to an SRM or between two SRMs.  
+[srmstage](rf-clients-srm.md#srmstage) — Request staging of a file.  
+[dccp](rf-clients-srm.md#dccp)  
+[dccp](rf-clients-srm.md#dccp) — Copy a file from or to a dCache server.  
 
 + [28. dCache Cell Commands](reference.md#dcache-cell-commands)      
 [Common Cell Commands](reference.md#common-cell-commands)      
