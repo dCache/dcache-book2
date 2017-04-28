@@ -6,10 +6,10 @@ Table of Contents
 
  
 + [Common Cell Commands](reference.md#common-cell-commands)        
-[pin — Adds a comment to the pinboard.](reference.md#pin-adds-a-comment-to-the-pinboard)      
-[info — Print info about the cell.](reference.md#info-print-info-about-the-cell)   
-[dump pinboard — Dump the full pinboard of the cell to a file.](reference.md#dump-pinboard-dump-the-pinboard-of-the-cell-to-a-file)  
-[show pinboard — Print a part of the pinboard of the cell to STDOUT.](reference.md#show-pinboard-print-a-part-of-the-pinboard-of-the-cell-to-stdout)  
+[pin](reference.md#pin-adds-a-comment-to-the-pinboard)  — Adds a comment to the pinboard.  
+[info](reference.md#info-print-info-about-the-cell)  — Print info about the cell.   
+[dump pinboard](reference.md#dump-pinboard-dump-the-pinboard-of-the-cell-to-a-file)   — Dump the full pinboard of the cell to a file.  
+[show pinboard](reference.md#show-pinboard-print-a-part-of-the-pinboard-of-the-cell-to-stdout)   — Print a part of the pinboard of the cell to STDOUT.]
 
 + [PnfsManager Commands](rf-cc-pnfsm.md)    
 [pnfsidof](rf-cc-pnfsm.md)  — Print the pnfs id of a file given by its global path.   
