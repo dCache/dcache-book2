@@ -30,7 +30,6 @@ Table of Contents
 [cacheinfoof](rf-cc-pnfsm.md)  — Print the cache info of a file.    
 
 + [Pool Commands](rf-cc-pool.md)
-
 [rep ls](rf-cc-pool.md#rep-ls) — List the files currently in the repository of the pool.  
 [st set max active](rf-cc-pool.md#st-set-max-active) — Set the maximum number of active store transfers. 
 [rh set max active](rf-cc-pool.md#rh-set-max-active) — Set the maximum number of active restore transfers.  
