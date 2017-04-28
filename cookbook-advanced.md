@@ -31,7 +31,7 @@ Client requests to a DCACHE system may have rather diverse behaviour. Sometimes 
 Example:
 
   Data is copied with a high transfer rate to the dCache system from an external source. This is done via the `GridFTP` protocol. At the same time batch jobs on a local farm process data. Since they only need a small part of each file, they use the `dCap` protocol via the `dCap` library and seek to the position in the file they are interested in, read a few bytes, do a few hours of calculations, and finally read some more data.
-As long as the number of active requests does not exceed the maximum number of allowed active requests, the two types of requests are processed concurrently. The `GridFTP` transfers complete at a high rate while the processing jobs take hours to finish. This maximum number of allowed requests is set with [mover set max active](https://www.dcache.org/manuals/Book-2.16/reference/cmd-mover_set_max_active-fhs.shtml) and should be tuned according to capabilities of the pool host.
+As long as the number of active requests does not exceed the maximum number of allowed active requests, the two types of requests are processed concurrently. The `GridFTP` transfers complete at a high rate while the processing jobs take hours to finish. This maximum number of allowed requests is set with [mover set max active](reference.md#mover-set-max-active) and should be tuned according to capabilities of the pool host.
 However, if requests are queued, the slow processing jobs might clog up the queue and not let the fast `GridFTP` request through, even though the pool just sits there waiting for the processing jobs to request more data. While this could be temporarily remedied by setting the maximum active requests to a higher value, then in turn `GridFTP` request would put a very high load on the pool host.
 
 The above example is pretty realistic: As a rule of thumb, `GridFTP` requests are fastest, `dCap` requests with the dccp program are a little slower and dCap requests with the `dCap` library are very slow. However, the usage patterns might be different at other sites and also might change over time.
@@ -39,9 +39,9 @@ The above example is pretty realistic: As a rule of thumb, `GridFTP` requests ar
 Solution
 --------
 
- Use separate queues for the movers, depending on the door initiating them. This easily allows for a separation of requests of separate protocols. (Transfers from and to a [tape backend](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-tape_backend) and [pool-to-pool](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-p2p) transfers are handled by separate queues, one for each of these transfers.)
+ Use separate queues for the movers, depending on the door initiating them. This easily allows for a separation of requests of separate protocols. (Transfers from and to a [tape backend](rf-glossary.md#tape-backend) and [pool-to-pool](rf-glossary.md#pool-to-pool-transfer) are handled by separate queues, one for each of these transfers.)
 
-A finer grained queue selection mechanism based on, e.g. the `IP` address of the client or the file which has been requested, is not possible with this mechanism. However, the [pool selection unit (PSU)](https://www.dcache.org/manuals/Book-2.16/reference/rf-glossary-fhs.shtml#gl-pm-comp-psu) may provide a separation onto separate pools using those criteria.
+A finer grained queue selection mechanism based on, e.g. the `IP` address of the client or the file which has been requested, is not possible with this mechanism. However, the [pool selection unit (PSU)](rf-glossary.md#pool-selection-unit) may provide a separation onto separate pools using those criteria.
 
 In the above example, two separate queues for fast `GridFTP`  transfers and slow `dCap` library access would solve the problem. The maximum number of active movers for the `GridFTP`  queue should be set to a lower value compared to the `dCap` queue since the fast `GridFTP` transfers will put a high load on the system while the `dCap` requests will be mostly idle. 
 
@@ -91,7 +91,7 @@ In this example `queueC`is defined for `pool1` and `queueD` is defined for `pool
 
 There is always a default queue called `regular`. Transfers not requesting a particular mover queue or requesting a mover queue not existing on the selected pool, are handled by the `regular` queue.
 
-The pool cell commands [mover ls](https://www.dcache.org/manuals/Book-2.16/reference/cmd-mover_ls-fhs.shtml) and [mover set max active ](https://www.dcache.org/manuals/Book-2.16/reference/cmd-mover_set_max_active-fhs.shtml) have a `-queue` option to select the mover queue to operate on. Without this option, [mover set max active ](https://www.dcache.org/manuals/Book-2.16/reference/cmd-mover_set_max_active-fhs.shtml) will act on the default queue while [mover ls](https://www.dcache.org/manuals/Book-2.16/reference/cmd-mover_ls-fhs.shtml) will list all active and waiting client transfer requests.
+The pool cell commands [mover ls](reference.md#mover-ls) and [mover set max active ](reference.md#mover-set-max-active) have a `-queue` option to select the mover queue to operate on. Without this option, [mover set max active](reference.md#mover-set-max-active) will act on the default queue while [mover ls](reference.md#mover-ls) will list all active and waiting client transfer requests.
 
 For the `dCap` protocol, it is possible to allow the client to choose another queue name than the one defined in the file **dcache.conf**. To achieve this the property `dcap.authz.mover-queue-overwrite` needs to be set to allowed. 
 
