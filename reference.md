@@ -1,17 +1,10 @@
-Part IV. Reference
-==================
+Chapter 28. dCache cell commands
+=================================
 
 Table of Contents
 ------------------
 
-+ [27. dCache Clients](rf-clients-srm.md) 
-[The SRM Client Suite](rf-clients-srm.md#the-srm-client-suite)  
-[srmcp](rf-clients-srm.md#srmcp) — Copy a file from or to an SRM or between two SRMs.  
-[srmstage](rf-clients-srm.md#srmstage) — Request staging of a file.  
-[dccp](rf-clients-srm.md#dccp)  
-[dccp](rf-clients-srm.md#dccp) — Copy a file from or to a dCache server.  
-
-+ [28. dCache Cell Commands](reference.md#dcache-cell-commands)        
+ 
 + [Common Cell Commands](reference.md#common-cell-commands)        
 [pin — Adds a comment to the pinboard.](reference.md#pin-adds-a-comment-to-the-pinboard)      
 [info — Print info about the cell.](reference.md#info-print-info-about-the-cell)   
