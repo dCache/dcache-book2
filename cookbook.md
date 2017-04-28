@@ -21,61 +21,61 @@ Table of Contents
 
     [SRM](cookbook-clients.md#srm)  
   
-     Creating a new directory.  
-     Removing files from dCache  
-     Removing empty directories from dCache  
-     srmcp for SRM v1  
-     srmcp for SRM v2.2  
+    [Creating a new directory.](cookbook-clients.md#creating-a-new-directory)    
+    [Removing files from dCache](cookbook-clients.md#removing-files-from-dcache)    
+    [Removing empty directories from dCache](cookbook-clients.md#removing-empty-directories-from-dcache)    
+    [srmcp for SRM v1](cookbook-clients.md#srmcp-for-srm-v1)    
+    [srmcp for SRM v2.2](cookbook-clients.md#srmcp-for-v2.2)    
 
-    ldap  
-    Using the LCG commands with dCache  
+    [ldap](cookbook-clients.md#ldap)    
+    [Using the LCG commands with dCache](cookbook-clients.md#using-the-lcg-commands-with-dcache)    
 
-        The lcg-gt Application  
-        The lcg-sd Application  
+   [The lcg-gt Application](cookbook-clients.md#the-lcg-gt-application)    
+   [The lcg-sd Application](cookbook-clients.md#the-lcg-sd-application)   
 
-+ [23. Pool Operations]  
++ [23. Pool Operations](cookbook-pool.md)  
 
-    Checksums  
+    [Checksums](cookbook-pool.md#checksums)    
 
-        How to configure checksum calculation  
+    [How to configure checksum calculation](cookbook-pool.md#how-to-configure-checksum-calculation)    
 
-    Migration Module  
+    [Migration Module](cookbook-pool.md#migration-module)    
 
-        Overview and Terminology  
-        Command Summary  
-        Examples  
+    [Overview and Terminology](cookbook-pool.md#overview-and-terminology)    
+    [Command Summary](cookbook-pool.md#command-summary)    
+    [Examples](cookbook-pool.md#examples)    
 
-    Renaming a Pool  
-    Pinning Files to a Pool  
+    [Renaming a Pool](cookbook-pool.md#renaming-a-pool)    
+    [Pinning Files to a Pool](cookbook-pool.md#pinning-files-to-a-pool)    
 
-+ [24. PostgreSQL and dCache  
++ [24. PostgreSQL and dCache](cookbook-postgres.md)  
 
-    Installing a PostgreSQL Server  
-    Configuring Access to PostgreSQL  
-    Performance of the PostgreSQL Server  
+    [Installing a PostgreSQL Server](cookbook-postgres.md)    
+    [Configuring Access to PostgreSQL](cookbook-postgres.md)   
+    [Performance of the PostgreSQL Server](cookbook-postgres.md)    
 
 + [25. Complex Network Configuration]  
 
-    Firewall Configuration  
+    [Firewall Configuration](cookbook-net.md#firewall-configuration)  
 
-        Basic Installation  
-        Multi-Node with Firewalls  
+     [Basic Installation](cookbook-net.md#basic-installation)    
+     [Multi-Node with Firewalls](cookbook-net.md#multi-node-with-firewalls)    
 
-    GridFTP Connections via two or more Network Interfaces  
+    [GridFTP Connections via two or more Network Interfaces](cookbook-net.md#gridftp-connections-via-two-or-more-network-interfaces)  
 
-    GridFTP with Pools in a Private Subnet  
+    [GridFTP with Pools in a Private Subnet](cookbook-net.md#gridftp-with-pools-in-a-private-subnet)    
 
-+ [26. Advanced Tuning  
++ [26. Advanced Tuning](cookbook-advanced.md)  
 
-    Multiple Queues for Movers in each Pool  
+    [Multiple Queues for Movers in each Pool](cookbook-advanced.md#multiple-queues-for-movers-in-each-pool)    
 
-        Description  
-        Solution  
-        Configuration  
-        Tunable Properties for Multiple Queues  
+    [Description](cookbook-advanced.md#description)    
+    [Solution](cookbook-advanced.md#solution)    
+    [Configuration](cookbook-advanced.md#configuration)    
+    [Tunable Properties for Multiple Queues](cookbook-advanced.md#tunable-properties-for-multiple-queues)    
 
-    Tunable Properties  
+    [Tunable Properties](cookbook-advanced.md#tunable-properties)    
 
-        dCap  
-        GridFTP  
-        SRM  
+    [dCap](cookbook-advanced.md#dcap)    
+    [GridFTP](cookbook-advanced.md#gridftp)    
+    [SRM](cookbook-advanced.md#srm)    
