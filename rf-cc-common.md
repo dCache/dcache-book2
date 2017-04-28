@@ -4,14 +4,14 @@ Chapter 28. Common Cell Commands
 Table of Contents
 ------------------
 + [Common Cell Commands](rf-cc-common.md)    
-[pin](rf-cc-common.md#pin) — Adds a comment to the pinboard.
-[info](rf-cc-common.md#info) — Print info about the cell.
-[dump pinboard](rf-cc-common.md#dump-inboard) — Dump the full pinboard of the cell to a file.
-[show pinboard](rf-cc-common.md#show-pinboard) — Print a part of the pinboard of the cell to STDOUT. 
+[pin](rf-cc-common.md#pin) — Adds a comment to the pinboard.  
+[info](rf-cc-common.md#info) — Print info about the cell.  
+[dump pinboard](rf-cc-common.md#dump-inboard) — Dump the full pinboard of the cell to a file.  
+[show pinboard](rf-cc-common.md#show-pinboard) — Print a part of the pinboard of the cell to STDOUT.   
 
-+ [PnfsManager Commands](rf-cc-pnfsm.md)     
-[pnfsidof](rf-cc-pnfsm.md)  — Print the pnfs id of a file given by its global path.   
-[flags remove](rf-cc-pnfsm.md)  — Remove a flag from a file.   
++ [PnfsManager Commands](rf-cc-pnfsm.md)       
+[pnfsidof](rf-cc-pnfsm.md)  — Print the pnfs id of a file given by its global path.     
+[flags remove](rf-cc-pnfsm.md)  — Remove a flag from a file.     
 [flags ls](rf-cc-pnfsm.md)  — List the flags of a file.   
 [flags set](rf-cc-pnfsm.md) — Set a flag for a file.   
 [metadataof](rf-cc-pnfsm.md)  — Print the meta-data of a file.   
