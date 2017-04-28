@@ -1,6 +1,12 @@
-for DCACHE-VERSION-series (LAYOUT-CURRENT layout)
 Preface
 =======
+
+**Table of Contents**
+
+[Who should read this book?](#who-should-read-this-book)    
+[Minimum System Requirements?](#minimum-system-requirements)  
+[What is inside?](#what-is-inside)  
+[Looking for help?](#looking-for-help)  
 
 Welcome to the DCACHE. DCACHE is a distributed storage solution for storing huge amounts of data without a hard limit, used to provide storage in the petabyte range. Therefore it qualifies as the storage system supporting data intensive experiments.
 
@@ -10,21 +16,21 @@ DCACHE can use hierarchical storage management (e.g., hard disk and tape), provi
 
 There are several ways of accessing data stored in DCACHE:
 
--   NFS v4.1 (CHIMERA)
+-   **NFS** v4.1 (CHIMERA)
 
--   HTTP and WEBDAV
+-   **HTTP** and **WEBDAV**
 
--   GRIDFTP (GSIFTP)
+-   **GRIDFTP** (**GSI-FTP**)
 
 -   xrootd
 
--   SRM (versions 1.1 and 2.2)
+-   **SRM** (versions 1.1 and 2.2)
 
--   DCAP and GSIDCAP
+-   **dCap** and **GSIdCap**
 
-DCACHE supports certificate based authentication through the Grid Security Infrastructure used in GSIFTP, GSIDCAP transfer protocols and the SRM management protocol. Certificate authentication is also available for HTTP and WEBDAV.
+DCACHE supports certificate based authentication through the Grid Security Infrastructure used in **GSI-FTP**, **GSIdCap** transfer protocols and the **SRM** management protocol. Certificate authentication is also available for **HTTP** and **WEBDAV**.
 
-DCACHE also supports fine-grain authorization with support for POSIX file permissions and NFS-style access control lists.
+DCACHE also supports fine-grain authorization with support for POSIX file permissions and **NFS**-style access control lists.
 
 Other features of DCACHE are:
 
@@ -50,9 +56,9 @@ Other features of DCACHE are:
 
 -   Ensuring data integrity through checksumming.
 
-DCACHE / SRM can transparently manage data distributed among dozens of disk storage nodes (sometimes distributed over several countries). The system has shown to significantly improve the efficiency of connected tape storage systems, by caching, gather and flush and scheduled staging techniques. Furthermore, it optimizes the throughput to and from data clients by dynamically replicating datasets on the detection of load hot spots. The system is tolerant against failures of its data servers, which allows administrators to deploy commodity disk storage components.
+DCACHE / **SRM** can transparently manage data distributed among dozens of disk storage nodes (sometimes distributed over several countries). The system has shown to significantly improve the efficiency of connected tape storage systems, by caching, gather and flush and scheduled staging techniques. Furthermore, it optimizes the throughput to and from data clients by dynamically replicating datasets on the detection of load hot spots. The system is tolerant against failures of its data servers, which allows administrators to deploy commodity disk storage components.
 
-Access to the data is provided by various standard protocols. Furthermore the software comes with an implementation of the Storage Resource Manager protocol (SRM), which is an open standard for grid middleware to communicate with site specific storage fabrics.
+Access to the data is provided by various standard protocols. Furthermore the software comes with an implementation of the Storage Resource Manager protocol (**SRM**), which is an open standard for grid middleware to communicate with site specific storage fabrics.
 
 Who should read this book?
 --------------------------
@@ -90,9 +96,9 @@ This part gets you all the help that you might need:
 
 -   For acquiring resources:
 
-    -   The [download page].
+    -   The [download page](https://www.dcache.org/downloads/IAgree.shtml).
 
-    -   The [YUM repositories].
+    -   The [YUM repositories](http://trac.dcache.org/projects/dcache/wiki/manuals/Yum).
 
 -   For getting help during installation:
 
@@ -110,7 +116,6 @@ This part gets you all the help that you might need:
 
 -   For features that you would like to see in DCACHE or bugs that should be fixed: Just write an e-mail to <support@dcache.org>
 
--   If you like to stay up-to-date about new releases you can use the RSS feeds available from [our downloads page][download page].
+-   If you like to stay up-to-date about new releases you can use the RSS feeds available from [our downloads page](https://www.dcache.org/downloads/IAgree.shtml).
 
-  [download page]: http://www.dcache.org/downloads
-  [YUM repositories]: http://trac.dcache.org/projects/dcache/wiki/manuals/Yum
+

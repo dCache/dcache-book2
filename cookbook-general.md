@@ -4,7 +4,7 @@ General
 Installing dCache on Opteron Machines
 =====================================
 
-The PNFS server, dCache server, and dCache client software have to be taken care of:
+The PNFS server, dCache server, and dCache client software have to be taken care of: 
 
 The dCache Server
 -----------------

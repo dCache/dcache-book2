@@ -1,59 +1,95 @@
-DCACHE Clients.
-===============
+CHAPTER 22. DCACHE CLIENTS.
+==========================
 
-There are many client tools for DCACHE. These can most easily be classified by communication protocol.
+Table of Contents
+-----------------
 
-GSIFTP
-======
++ [GSI-FTP](#gsi-ftp)  
 
-DCACHE provides a GSIFTP door, which is in effect a GSI authenticated FTP access point to DCACHE
+    [Listing a directory](#listing-a-directory)   
+    [Checking a file exists](#checking-a-file-exists)  
+    [Deleting files](#deleting-files)  
+    [Copying files](#copying-files)  
+
++ [dCap](#dcap)  
+
+    [dccp](#dccp)  
+    [Using the dCache client interposition library.](#using-the-dcache-client-interposition-library.)  
+
++ [SRM](#srm)  
+
+    [Creating a new directory.](#creating-a-new-directory)  
+    [Removing files from dCache](#removing-files-from-dcache)  
+    [Removing empty directories from dCache](#removing-empty-directories-from-dcache)  
+    [srmcp for SRM v1](#srmcp-for-srm-v1)  
+    [srmcp for SRM v2.2](#srmcp-for-srm-v2.2)  
+
++ [ldap](#ldap)  
++ [Using the LCG commands with dCache](#using-the-lcg-commands-with-dcache)  
+
+    [The lcg-gt Application](#the-lcg-gt-application)  
+    [The lcg-sd Application](#the-lcg-sd-application)  
+
+There are many client tools for dCache. These can most easily be classified by communication protocol. 
+
+
+As can be seen from above even a single node standard install of dCache returns a considerable number of lines and for this reason we have not included the output, in this case 205 lines where written. 
+
+
+GSI-FTP
+=======
+
+DCACHE provides a GSI-FTP door, which is in effect a GSI authenticated FTP access point to DCACHE
 
 Listing a directory
 -------------------
 
-To list the content of a DCACHE directory, the GSIFTP protocol can be used;
+To list the content of a DCACHE directory, the GSI-FTP protocol can be used;
 
-    PROMPT-USER edg-gridftp-ls gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/
+    [user] $ edg-gridftp-ls gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/
+
+
 
 Checking a file exists
 ----------------------
 
-To check the existence of a file with GSIFTP.
+To check the existence of a file with GSI-FTP.
 
-    PROMPT-USER edg-gridftp-exists gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test20050819130209790873000
-    PROMPT-USER echo $?
+    [user] $ edg-gridftp-exists gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test20050819130209790873000
+    [user] $ echo $?
     0
-    PROMPT-USER edg-gridftp-exists gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test200508191302097908730002
+    [user] $ edg-gridftp-exists gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test200508191302097908730002
     error the server sent an error response: 451 451 /pnfs/example.org/data/dteam/filler_test200508191302097908730002  not found
-    PROMPT-USER echo $?
+    [user] $ echo $?
     1
 
-> **Note**
+> **Use the return code**
 >
 > Please note the `echo $?` show the return code of the last run application. The error message returned from the client this should not be scripted against as it is one of many possible errors.
 
 Deleting files
 --------------
 
-To delete files with GSIFTP use the `edg-gridftp-rm` command.
+To delete files with GSI-FTP use the `edg-gridftp-rm` command.
 
-    PROMPT-USER edg-gridftp-rm gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test20050811160948926780000
+    [user] $ edg-gridftp-rm gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test20050811160948926780000
 
-This deletes the file `filler_test20050811160948926780000` from the `/pnfs/example.org/data/dteam` using the door running on the host gridftp-door.example.org within the DCACHE cluster example.org
+This deletes the file **filler_test20050811160948926780000** from the **/pnfs/example.org/data/dteam** using the door running on the host gridftp-door.example.org within the DCACHE cluster example.org
 
 Copying files
 -------------
 
 globus-url-copy
 \[command line options\]
-srcUrl
-destinationUrl
+[<srcUrl>]
+[<destinationUrl>] 
 ...
 Copying file with `globus-url-copy` follows the syntax source, destination.
 
-The following example copies the file `/etc/group` into DCACHE as the file `/pnfs/example.org/data/dteam/test_GlobusUrlCopy.clinton.504.22080.20071102160121.2`
+Example:
+The following example copies the file **/etc/group** into DCACHE as the file **/pnfs/example.org/data/dteam/test_GlobusUrlCopy.clinton.504.22080.20071102160121.2**
 
-    PROMPT-USER globus-url-copy \
+    [user] $ globus-url-copy \
     file://///etc/group \
     gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/test_GlobusUrlCopy.clinton.504.22080.20071102160121.2
 
@@ -62,29 +98,29 @@ Please note that the five slashes are really needed.
 DCAP
 ====
 
-When using PROG-DCCP client or using the interposition library the errors `Command
+When using `dccp` client or using the interposition library the errors `Command
 	failed!` can be safely ignored.
 
-PROG-DCCP
----------
+DCCP
+----
 
-The following example shows PROG-DCCP being used to copy the file `/etc/group` into DCACHE as the the file `/pnfs/example.org/data/dteam/test6`. The PROG-DCCP program will connect to DCACHE without authenticating.
+The following example shows `dccp` being used to copy the file **/etc/group** into dCache as the the file **/pnfs/example.org/data/dteam/test6**. The `dccp` program will connect to dCache without authenticating. 
 
-    PROMPT-USER /opt/d-cache/dcap/bin/dccp /etc/group dcap://dcap-door.example.org:22125/pnfs/example.org/data/dteam/test6
-    Command failed!
-    Server error message for [1]: "path /pnfs/example.org/data/dteam/test6 not found" (errno 10001).
-    597 bytes in 0 seconds
+     [user] $ /opt/d-cache/dcap/bin/dccp /etc/group dcap://dcap-door.example.org:22125/pnfs/example.org/data/dteam/test6
+     Command failed!
+     Server error message for [1]: "path /pnfs/example.org/data/dteam/test6 not found" (errno 10001).
+     597 bytes in 0 seconds
 
-The following example shows PROG-DCCP being used to upload the file `/etc/group`. In this example, PROG-DCCP will authenticate with DCACHE using the GSI protocol.
+The following example shows `dccp` being used to upload the file **/etc/group**. In this example, dccp will authenticate with dCache using the GSI protocol. 
 
-    PROMPT-USER /opt/d-cache/dcap/bin/dccp /etc/group gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/test5
+    [user] $ /opt/d-cache/dcap/bin/dccp /etc/group gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/test5
     Command failed!
     Server error message for [1]: "path /pnfs/example.org/data/dteam/test5 not found" (errno 10001).
     597 bytes in 0 seconds
 
-The following example shows PROG-DCCP with the debugging enabled. The value `63` controls how much information is displayed.
+The following example shows `dccp` with the debugging enabled. The value `63` controls how much information is displayed.
 
-    PROMPT-USER /opt/d-cache/dcap/bin/dccp -d 63   /etc/group dcap://dcap-door.example.org:22128/pnfs/example.org/data/dteam/test3
+    [user] $ /opt/d-cache/dcap/bin/dccp -d 63   /etc/group dcap://dcap-door.example.org:22128/pnfs/example.org/data/dteam/test3
     Dcap Version version-1-2-42 Jul 10 2007 19:56:02
     Using system native stat64 for /etc/group.
     Allocated message queues 0, used 0
@@ -156,39 +192,41 @@ The following example shows PROG-DCCP with the debugging enabled. The value `63`
 Using the DCACHE client interposition library.
 ----------------------------------------------
 
-> **Tip**
+> **Finding the GSI tunnel.**
 >
 > When the LD\_PRELOAD library `libpdcap.so` variable produces errors finding the GSI tunnel it can be useful to specify the location of the GSI tunnel library directly using the following command:
 >
->     PROMPT-USER export
+>     [user] $ export
 >     DCACHE_IO_TUNNEL=/opt/d-cache/dcap/lib/libgsiTunnel.so
 >
-> Please see [] for further details on tunnel setup for the server.
+> Please see [http://www.dcache.org/manuals/experts_docs/tunnel-HOWTO.html](https://www.dcache.org/manuals/experts_docs/tunnel-HOWTO.html) for further details on tunnel setup for the server.
 
-DCAP is a POSIX like interface for accessing DCACHE, allowing unmodified applications to access DCACHE transparently. This access method uses a proprietary data transfer protocol, which can emulate POSIX access across the LAN or WAN.
+dCap is a POSIX like interface for accessing DCACHE, allowing unmodified applications to access DCACHE transparently. This access method uses a proprietary data transfer protocol, which can emulate POSIX access across the LAN or WAN.
 
 Unfortunately the client requires inbound connectivity and so it is not practical to use this protocol over the WAN as most sites will not allow inbound connectivity to worker nodes.
 
 To make non DCACHE aware applications access files within DCACHE through DCAP all that is needed is set the LD\_PRELOAD environment variable to `/opt/d-cache/dcap/lib/libpdcap.so`.
 
-    PROMPT-USER export LD_PRELOAD=/opt/d-cache/dcap/lib/libpdcap.so
+    [user] $ export LD_PRELOAD=/opt/d-cache/dcap/lib/libpdcap.so
 
 Setting the LD\_PRELOAD environment variable results in the library `libpdcap.so` overriding the operating system calls. After setting this environment variable, the standard shell command should work with DCAP and GSIDCAP URLs.
 
+Example:
+
 The following session demonstrates copying a file into DCACHE, checking the file is present with the `ls` command, reading the first 3 lines from DCACHE and finally deleting the file.
 
-    PROMPT-USER cp /etc/group gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/myFile
-    PROMPT-USER ls gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/DirOrFile
-    PROMPT-USER head -3 gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/myFile
+    [user] $ cp /etc/group gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/myFile
+    [user] $ ls gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/DirOrFile
+    [user] $ head -3 gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/myFile
     root:x:0:
     daemon:x:1:
     bin:x:2:
-    PROMPT-USER rm gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/MyFile
-
+    [user] $ rm gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/MyFile
+    
 SRM
 ===
 
-DCACHE provides a series of clients one of which is the SRM client which supports a large number operations, but is just one Java application, the script name is sent to the Java applications command line to invoke each operation.
+DCACHE provides a series of clients one of which is the `SRM?  client which supports a large number operations, but is just one Java application, the script name is sent to the Java applications command line to invoke each operation.
 
 This page just shows the scripts command line and not the invocation of the Java application directly.
 
@@ -197,25 +235,29 @@ Creating a new directory.
 
 Usage:
 
-srmmkdir
-\[command line options\]
-srmUrl
+	srmmkdir
+	\[[command line options\]]
+	[srmUrl]
+
 Example:
 
-The following example creates the directory `/pnfs/example.org/data/dteam/myDir`.
+The following example creates the directory **/pnfs/example.org/data/dteam/myDir**.
 
-    PROMPT-USER srmmkdir srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir
+    [user] $ srmmkdir srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir
+
 
 Removing files from DCACHE
 --------------------------
 
 Usage:
 
-srmrm
-\[command line options\]
-srmUrl
-...
-    PROMPT-USER srmrm srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir/myFile
+	srmrm
+	\[[command line options\]]
+	 [srmUrl ...]
+	...
+
+Example:
+    [user] $ srmrm srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir/myFile
 
 Removing empty directories from DCACHE
 --------------------------------------
@@ -224,41 +266,40 @@ It is allowed to remove only empty directories as well as trees of empty directo
 
 Usage:
 
-srmrmdir
-command line options
-srmUrl
+srmrmdir [command line options] [srmUrl]
+
 Examples:
 
-    PROMPT-USER srmrmdir srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir
+    [user] $ srmrmdir srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir
+    
+Examples:    
 
-    PROMPT-USER srmrmdir -recursive=true srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir
+    [user] $ srmrmdir -recursive=true srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir
 
 srmcp for SRM v1
 ----------------
 
 Usage:
 
-srmcp
-command line options
-source
-destination
+srmcp [command line options] source... [destination]
+
 or
 
-srmcp
-command line options
--copyjobfile
-file
+srmcp [command line options] [-copyjobfile] file
+
+
 ### Copying files to DCACHE
 
-    PROMPT-USER srmcp -webservice_protocol=http \
-       file://///etc/group \
-       srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/test_Srm.clinton.501.32050.20070907153055.0
+Example:
+   [user] $ srmcp -webservice_protocol=http \
+   file://///etc/group \
+   srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/test_Srm.clinton.501.32050.20070907153055.0
 
 ### Copying files from DCACHE
 
-    PROMPT-USER srmcp -webservice_protocol=http \
-       srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/test_Srm.clinton.501.32050.20070907153055.0 \
-       file://///tmp/testfile1 -streams_num=1
+    [user] $ srmcp -webservice_protocol=http \
+   srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/test_Srm.clinton.501.32050.20070907153055.0 \
+   file://///tmp/testfile1 -streams_num=1
 
 srmcp for SRM v2.2
 ------------------
@@ -267,25 +308,26 @@ srmcp for SRM v2.2
 
 The `srmping` command will tell you the version of DCACHE. This only works for authorized users and not just authenticated users.
 
-    PROMPT-USER srmping -2 srm://srm-door.example.org:8443/pnfs
-    WARNING: SRM_PATH is defined, which might cause a wrong version of srm client to be executed
-    WARNING: SRM_PATH=/opt/d-cache/srm
-    VersionInfo : v2.2
-    backend_type:dCache
-    backend_version:production-1-9-1-11
+   [user] $ srmping -2 srm://srm-door.example.org:8443/pnfs
+   WARNING: SRM_PATH is defined, which might cause a wrong version of srm client to be executed
+   WARNING: SRM_PATH=/opt/d-cache/srm
+   VersionInfo : v2.2
+   backend_type:dCache
+   backend_version:production-1-9-1-11
 
 ### Space Tokens
 
-Space token support must be set up and reserving space with the admin interface this is also documented [in the SRM section] and in [the DCACHE wiki].
+Space token support must be set up and reserving space with the admin interface this is also documented [in the SRM section](config-SRM.md#introduction) and in [the DCACHE wiki](http://trac.dcache.org/wiki/manuals/SRM_2.2_Setup).
 
 #### Space Token Listing
 
 Usage:
 
-get-space-tokens
-command line options
-srmUrl
-    PROMPT-USER srm-get-space-tokens srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -srm_protocol_version=2
+get-space-tokens [command line options] [srmUrl]
+
+Example 22.1. surveying the space tokens available in a directory.
+
+[user] $ srm-get-space-tokens srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -srm_protocol_version=2
 
 A successful result:
 
@@ -303,7 +345,9 @@ A successful result:
     148231
     148352
 
-    PROMPT-USER srm-get-space-tokens srm://srm-door.example.org:8443
+Example 22.2. Listing the space tokens for a SRM:
+
+    [user] $ srm-get-space-tokens srm://srm-door.example.org:8443
     Space Reservation Tokens:
     145614
     145615
@@ -319,10 +363,9 @@ A successful result:
 
 Usage:
 
-srm-reserve-space
-\[command line options\]
-srmUrl
-    PROMPT-USER srm-reserve-space  \
+srm-reserve-space [[command line options]] [srmUrl]
+
+    [user] $ srm-reserve-space  \
     -desired_size 2000 \
     -srm_protocol_version=2 \
     -retention_policy=REPLICA \
@@ -347,7 +390,7 @@ A typical failure
 
 Also you can get info for this space token `144573`:
 
-    PROMPT-USER srm-get-space-metadata srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -space_tokens=144573
+    [user] $ srm-get-space-metadata srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -space_tokens=144573
 
 Possible result:
 
@@ -367,11 +410,11 @@ Usage: srmcp \[command line options\] source(s) destination
 
 Examples:
 
-    PROMPT-USER srmcp -protocols=gsiftp -space_token=144573 \
+    [user] $ srmcp -protocols=gsiftp -space_token=144573 \
     file://///home/user/path/to/myFile \
     srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myFile
 
-    PROMPT-USER srmcp -protocols=gsiftp -space_token=144573 \
+    [user] $ srmcp -protocols=gsiftp -space_token=144573 \
     file://///home/user/path/to/myFile1 \
     file://///home/user/path/to/myFile2 \
     srm://srm-door.example.org:8443/pnfs/example.org/data/dteam
@@ -380,7 +423,7 @@ Examples:
 
 Users can get the metadata available for the space, but the ability to query the metadata of a space reservation may be restricted so that only certain users can obtain this information.
 
-    PROMPT-USER srm-get-space-metadata srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -space_tokens=120049
+    [user] $ srm-get-space-metadata srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -space_tokens=120049
     WARNING: SRM_PATH is defined, which might cause a wrong version of srm client to be executed
     WARNING: SRM_PATH=/opt/d-cache/srm
     Space Reservation with token=120049
@@ -397,7 +440,7 @@ Users can get the metadata available for the space, but the ability to query the
 
 Removes a space token from the SRM.
 
-    PROMPT-USER srm-release-space srm://srm-door.example.org:8443 -space_token=15
+    [user] $ srm-release-space srm://srm-door.example.org:8443 -space_token=15
 
 ### Listing a file in SRM
 
@@ -405,10 +448,10 @@ SRM version 2.2 has a much richer set of file listing commands.
 
 Usage:
 
-srmls
-command line options
-srmUrl
-    PROMPT-USER srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -2
+srmls [command line options] srmUrl... 
+
+Example 22.3. Using srmls -l:
+    [user] $ srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -2
       0 /pnfs/example.org/data/dteam/testdir/
           31 /pnfs/example.org/data/dteam/testdir/testFile1
           31 /pnfs/example.org/data/dteam/testdir/testFile2
@@ -420,8 +463,8 @@ srmUrl
 >
 > The `-l` option results in `srmls` providing additional information. Collecting this additional information may result in a dramatic increase in execution time.
 
-    PROMPT-USER srmls -l srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir -2
-      0 /pnfs/example.org/data/dteam/testdir/
+     [user] $ srmls -l srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir -2
+     0 /pnfs/example.org/data/dteam/testdir/
       storage type:PERMANENT
       retention policy:CUSTODIAL
       access latency:NEARLINE
@@ -457,15 +500,19 @@ srmUrl
 
 If you have more than 1000 entries in your directory then DCACHE will return only the first 1000. To view directories with more than 1000 entries, please use the following parameters:
 
--count=integer  
+srmls parameter
+
+-count=integer
 The number of entries to report.
 
--offset=integer  
+-offset=integer
+
+Example 22.5. Limited directory listing
 
 The first command shows the output without specifying `-count` or `-offset`. Since the directory contains less than 1000 entries, all entries are listed.
 
-    PROMPT-USER srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/dir1 \
-    srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/dir2
+      [user] $ srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/dir1 \
+      srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/dir2
       0 /pnfs/example.org/data/dteam/dir1/
           31 /pnfs/example.org/data/dteam/dir1/myFile1
           28 /pnfs/example.org/data/dteam/dir1/myFile2
@@ -476,15 +523,15 @@ The first command shows the output without specifying `-count` or `-offset`. Sin
 
 The following examples shows the result when using the `-count` option to listing the first three entries.
 
-    PROMPT-USER srmls -count=3 srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -srm_protocol_version=2
-    0 /pnfs/example.org/data/dteam/testdir/
-          31 /pnfs/example.org/data/dteam/testdir/testFile1
-          31 /pnfs/example.org/data/dteam/testdir/testFile2
-          31 /pnfs/example.org/data/dteam/testdir/testFile3
+    [user] $ srmls -count=3 srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -srm_protocol_version=2
+0 /pnfs/example.org/data/dteam/testdir/
+      31 /pnfs/example.org/data/dteam/testdir/testFile1
+      31 /pnfs/example.org/data/dteam/testdir/testFile2
+      31 /pnfs/example.org/data/dteam/testdir/testFile3
 
 In the next command, the `-offset` option is used to view a different set of entries.
 
-    PROMPT-USER srmls -count=3 -offset=1 srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -srm_protocol_version=2
+    [user] $ srmls -count=3 -offset=1 srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -srm_protocol_version=2
     0 /pnfs/example.org/data/dteam/testdir/
           31 /pnfs/example.org/data/dteam/testdir/testFile2
           31 /pnfs/example.org/data/dteam/testdir/testFile3
@@ -493,10 +540,11 @@ In the next command, the `-offset` option is used to view a different set of ent
 ldap
 ====
 
-DCACHE is commonly deployed with the BDII. The information provider within DCACHE publishes information to BDII. To querying the DCACHE BDII is a matter of using the standard command ldapsearch. For grid the standard ldap port is set to 2170 from the previous value of 2135.
+dCache is commonly deployed with the BDII. The information provider within dCache publishes information to BDII. To querying the dCache BDII is a matter of using the standard command ldapsearch. For grid the standard ldap port is set to 2170 from the previous value of 2135.
 
-    PROMPT-USER ldapsearch -x -H ldap://localhost:2170 -b mds-vo-name=resource,o=grid > /tmp/ldap.output.ldif
-    PROMPT-USER wc -l  /tmp/ldap.output.ldif
+
+    [user] $ ldapsearch -x -H ldap://localhost:2170 -b mds-vo-name=resource,o=grid > /tmp/ldap.output.ldif
+    [user] $ wc -l  /tmp/ldap.output.ldif
     205 /tmp/ldap.output.ldif
 
 As can be seen from above even a single node standard install of DCACHE returns a considerable number of lines and for this reason we have not included the output, in this case 205 lines where written.
@@ -510,19 +558,20 @@ Each command line application operates on a different method of the SRM interfac
 
 `lcg-gt` queries the BDII information server. This adds an additional requirement that the BDII information server can be found by `lcg-gt`, please only attempt to contact servers found on your user interface using.
 
-    PROMPT-USER lcg-infosites --vo dteam se
-
+    [user] $ lcg-infosites --vo dteam se
+    
+    
 The `lcg-gt` Application
 ------------------------
 
-SRM provides a protocol negotiating interface, and returns a TURL (transfer URL). The protocol specified by the client will be returned by the server if the server supports the requested protocol.
+`SRM` provides a protocol negotiating interface, and returns a TURL (transfer URL). The protocol specified by the client will be returned by the server if the server supports the requested protocol.
 
-To read a file from DCACHE using `lcg-gt` you must specify two parameters the SURL (storage URL), and the protcol (GSIDCAP or GSIFTP) you wish to use to access the file.
+To read a file from dCache using `lcg-gt` you must specify two parameters the SURL (storage URL), and the protcol (`GSIdCap` or `GSI-FTP`) you wish to use to access the file. 
 
-    PROMPT-USER lcg-gt srm://srm-door.example.org/pnfs/example.org/data/dteam/group gsidcap
-    gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/group
-    -2147365977
-    -2147365976
+    [user] $ lcg-gt srm://srm-door.example.org/pnfs/example.org/data/dteam/group gsidcap
+     gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/group
+     -2147365977
+     -2147365976
 
 Each of the above three lines contains different information. These are explained below.
 
@@ -534,11 +583,9 @@ Each of the above three lines contains different information. These are explaine
 `-2147365976` is the Unique identifier for the file with respect to the `Request
 	  Id`. Please note that with this example this is a negative number.
 
-> **Important**
+> **Remember to return your Request Id**
 >
-> DCACHE limits the number of `Request
->             Id`s a user may have. All `Request
->             Id`s should be returned to DCACHE using the command `lcg-sd`.
+> dCache limits the number of Request Ids a user may have. All Request Ids should be returned to dCache using the command `lcg-sd`. 
 
 If you use `lcg-gt` to request a file with a protocol that is not supported by DCACHE the command will block for some time as DCACHE's SRM interface times out after approximately 10 minutes.
 
@@ -553,11 +600,11 @@ This command should be used to return any TURLs given by DCACHE's SRM interface.
 
 The following example is to complete the get operation, the values are taken form the above example of `lcg-gt`.
 
-    PROMPT-USER lcg-sd srm://srm-door.example.org:22128/pnfs/example.org/data/dteam/group " -2147365977" " -2147365976" 0
+    [user] $ lcg-sd srm://srm-door.example.org:22128/pnfs/example.org/data/dteam/group " -2147365977" " -21
 
-> **Note**
+> **Negative numbers**
 >
-> DCACHE returns negative numbers for `Request
+> dCache returns negative numbers for `Request
 > 	    Id` and `File Id`. Please note that `lcg-sd` requires that these values are places in double-quotes with a single space before the `-` sign.
 
 The `Request Id` is one of the values returned by the `lcg-gt` command. In this example, the value (`-2147365977`) comes from the above example `lcg-gt`.
@@ -566,6 +613,6 @@ The `File Id` is also one of the values returned returned by the `lcg-gt` comman
 
 The direction parameter indicates in which direction data was transferred: `0` for reading data and `1` for writing data.
 
-  []: http://www.dcache.org/manuals/experts_docs/tunnel-HOWTO.html
+<!--  []: http://www.dcache.org/manuals/experts_docs/tunnel-HOWTO.html
   [in the SRM section]: #cf-srm-intro
   [the DCACHE wiki]: http://trac.dcache.org/projects/dcache/wiki/manuals/SRM_2.2_Setup

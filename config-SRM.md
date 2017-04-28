@@ -1,52 +1,93 @@
-DCACHE Storage Resource Manager
-===============================
+CHAPTER 13. DCACHE STORAGE RESOURCE MANAGER
+===========================================
+
+
+Table of Contents 
+------------------
+
++ [Introduction](#introduction)
++ [Configuring the srm service](#configuring-the-srm-service)
+
+	 [The Basic Setup](#the-basic-setup)
+	 [Important srm configuration options](#important-srm-configuration-options)
+	   
++ [Utilization of Space Reservations for Data Storage](#utilization-of-space-reservations-for-data-storage)
+
+	 [Properties of Space Reservation](#properties-of-space-reservation)
++ [dCache specific concepts](#dcache-specific-concepts)
+
+	 [Activating SRM SpaceManager](#activating-srm-spacemanager)
+	 [Explicit and Implicit Space Reservations for Data Storage in dCache](#explicit-and-implicit-space-reservations-for-data-storage-in-dcache)
+	   
++ [SpaceManager configuration](#spacemanager-configuration)
+
+	 [SRM SpaceManager and Link Groups](#srm-spacemanager-and-link-groups)
+         [Making a Space Reservation](#making-a-space-reservation)
+	 [SRM configuration for experts](#srm-configuration-for-experts)
+		
++ [Configuring the PostgreSQL Database](#configuring-the-postgresql-database)
+
+	 [SRM or srm monitoring on a separate node](#srm-or-srm-monitoring-on-a-separate-node)
+	     
++ [General SRM Concepts (for developers)](#general-srm-concepts-(for-developers))
+
+	 [The SRM service](#the-srm-service)  
+	 [Space Management Functions](#space-management-functions)  
+	 [Data Transfer Functions](#data-transfer-functions)  
+	 [Request Status Functions](#request-status-functions)  
+	 [Directory Functions](#directory-functions)  
+	 [Permission functions](#permission-functions)  
 
 Introduction
 ============
 
-Storage Resource Managers (SRMs) are middleware components whose function is to provide dynamic space allocation and file management on shared storage components on the Grid. SRMs support protocol negotiation and a reliable replication mechanism. The [SRM specification] standardizes the interface, thus allowing for a uniform access to heterogeneous storage elements.
+Storage Resource Managers (SRMs) are middleware components whose function is to provide dynamic space allocation and file management on shared storage components on the Grid. SRMs support protocol negotiation and a reliable replication mechanism. The [SRM specification](https://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html) standardizes the interface, thus allowing for a uniform access to heterogeneous storage elements.
 
-The SRM utilizes the Grid Security Infrastructure (GSI) for authentication. The SRM is a Web Service implementing a published WSDL document. Please visit the [SRM Working Group Page] to see the SRM Version 1.1 and SRM Version 2.2 protocol specification documents.
+The SRM utilizes the Grid Security Infrastructure (GSI) for authentication. The SRM is a Web Service implementing a published WSDL document. Please visit the [SRM Working Group Page](https://sdm.lbl.gov/srm-wg/) to see the SRM Version 1.1 and SRM Version 2.2 protocol specification documents.
 
 The SRM protocol uses HTTP over GSI as a transport. The DCACHE SRM implementation added HTTPS as a transport layer option. The main benefits of using HTTPS rather than HTTP over GSI is that HTTPS is a standard protocol and has support for sessions, improving latency in case a client needs to connect to the same server multiple times. The current implementation does not offer a delegation service. Hence `srmCopy` will not work with SRM over HTTPS. A separate delegation service will be added in a later release.
 
-Configuring the SRM service
-================================
+CONFIGURING THE SRM SERVICE
+============================
 
-The Basic Setup
+THE BASIC SETUP
 ---------------
 
-Like other services, the SRM service can be enabled in the layout file `PATH-ODE-ED/layouts/mylayout` of your DCACHE installation. For an overview of the layout file format, please see [???].
+Like other services, the srm service can be enabled in the layout file **/etc/dcache/layouts/mylayout** of your dCache installation. For an overview of the layout file format, please see [the section called “Defining domains and services”](install.md#defining-domains-and-services).
 
-To enable SRM in a separate srm-${host.name}Domain in DCACHE, add the following lines to your layout file:
+Example:  
 
-    [srm-${host.name}Domain]
-    [srm-${host.name}Domain/srm]
+To enable SRM in a separate <srm-${host.name}Domain> in dCache, add the following lines to your layout file:
 
-The use of the SRM service requires an authentication setup, see [???][1] for a general description or [???][2] for an example setup with X509 certificates.
+    [<srm-${host.name}Domain>]
+    [<srm-${host.name}Domain>/srm]
 
-You can now copy a file into your DCACHE using the SRM,
+The use of the srm service requires an authentication setup, see [Chapter 10, Authorization in dCache](config-gplazma.md) for a general description or the [section called “Authentication and Authorization in dCache”](intouch.md#authentication-and-authorization-in-dcache) for an example setup with X.509 certificates.
 
-> **Note**
+You can now copy a file into your dCache using the SRM,
+
+> **NOTE**
 >
 > Please make sure to use latest srmcp client otherwise you will need to specify `-2` in order to use the right version.
 
-    PROMPT-USER srmcp file:////bin/sh srm://dcache.example.org:8443/data/world-writable/srm-test-file
+    [user] $ srmcp file:////bin/sh srm://<dcache.example.org>:<8443>/data/world-writable/srm-test-file
 
 copy it back
 
-    PROMPT-USER srmcp srm://dcache.example.org:8443/data/world-writable/srm-test-file file:////tmp/srmtestfile.tmp
+    [user] $ srmcp srm://<dcache.example.org>:<8443>/data/world-writable/srm-test-file file:////tmp/srmtestfile.tmp
 
 and delete it
 
-    PROMPT-USER srmrm srm://dcache.example.org:8443/data/world-writable/srm-test-file
+    [user] $ srmrm srm://<dcache.example.org>:<8443>/data/world-writable/srm-test-file
 
-Important SRM configuration options
+IMPORTANT SRM CONFIGURATION OPTIONS
 ----------------------------------------
 
-The defaults for the following configuration parameters can be found in the `.properties` files in the directory `PATH-ODS-USD/defaults`.
+The defaults for the following configuration parameters can be found in the **.properties** files in the directory **/usr/share/dcache/defaults**.
 
-If you want to modify parameters, copy them to `PATH-ODE-ED/dcache.conf` or to your layout file `PATH-ODE-ED/layouts/mylayout` and update their value.
+If you want to modify parameters, copy them to **/etc/dcache/dcache.conf** or to your layout file **/etc/dcache/layouts/mylayout** and update their value.
+
+Example:  
 
 Change the value for `srm.db.host` in the layout file.
 
@@ -61,43 +102,47 @@ The property `srm.request.copy.threads` controls number of copy requests in the 
 
 The common value should be the roughly equal to the maximum number of the SRM - to -SRM copies your system can sustain.
 
+Example:  
+
 So if you think about 3 gridftp transfers per pool and you have 30 pools then the number should be 3x30=90.
 
     srm.request.copy.threads=90
     transfermanagers.limits.external-transfers=90
+
+Example:  
 
 US-CMS T1 has:
 
     srm.request.copy.threads=2000
     transfermanagers.limits.external-transfers=2000
 
-> **Note**
+> **NOTE**
 >
-> CELL-SRM might produce a lot of log entries, especially if it runs in debug mode. It is recommended to make sure that logs are redirected into a file on a large disk.
+> `SRM` might produce a lot of log entries, especially if it runs in debug mode. It is recommended to make sure that logs are redirected into a file on a large disk.
 
-Utilization of Space Reservations for Data Storage
+UTILIZATION OF SPACE RESERVATIONS FOR DATA STORAGE
 ==================================================
 
-SRM version 2.2 introduced a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
+`SRM` version 2.2 introduced a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
 
-Users can create space reservations using an appropriate SRM client, although it is more common for the DCACHE administrator to make space reservations for VOs (see [section\_title]. Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the DCACHE administrator.
+Users can create space reservations using an appropriate `SRM` client, although it is more common for the DCACHE administrator to make space reservations for VOs (see [the section called “SpaceManager configuration”](#spacemanager-configuration). Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the dCache administrator.
 
 When a file is about to be transferred to a storage system, the space available in the space reservation is checked if it can accomodate the entire file. If yes, this chunk of space is marked as allocated, so that it can not be taken by another, concurrently transferred file. If the file is transferred successfully the allocated space becomes used space within the space reservation, else the allocated space is released back to the space reservation as free space.
 
-SRM space reservation can be assigned a non-unique description which can be used to query the system for space reservations with a given description.
+`SRM` space reservation can be assigned a non-unique description which can be used to query the system for space reservations with a given description.
 
 DCACHE only manages write space, i.e. space on disk can be reserved only for write operations. Once files are migrated to tape, and if no copy is required on disk, space used by these files is returned back into space reservation. When files are read back from tape and cached on disk, they are not counted as part of any space.
 
-Properties of Space Reservation
+PROPERTIES OF SPACE RESERVATION
 -------------------------------
 
 A space reservation has a retention policy and an access latency.
 
-Retention policy describes the quality of the storage service that will be provided for the data (files) stored in the space reservation and access latency describes the availability of this data. The SRM specification requires that if a space reservation is given on upload, then the specified retention policy and access latency must match those of the space reservation.
+Retention policy describes the quality of the storage service that will be provided for the data (files) stored in the space reservation and access latency describes the availability of this data. The `SRM` specification requires that if a space reservation is given on upload, then the specified retention policy and access latency must match those of the space reservation.
 
-The default values for the retention policy and access latency can be changed in the file `PATH-ODE-ED/dcache.conf`.
+The default values for the retention policy and access latency can be changed in the file **/etc/dcache/dcache.conf**.
 
-Retention policy  
+**Retention policy**  
 The values of retention policy supported by DCACHE are `REPLICA` and `CUSTODIAL`.
 
 -   `REPLICA` corresponds to the lowest quality of the service, usually associated with storing a single copy of each file on the disk.
@@ -108,17 +153,18 @@ Once a file is written into a given space reservation, it inherits the reservati
 
 If the space reservation request does not specify a retention policy, we will assign a value given by `spacemanager.default-retention-policy`. The default value is `CUSTODIAL`.
 
-Edit the file `PATH-ODE-ED/dcache.conf` to change the default value.
+Edit the file **/etc/dcache/dcache.conf** to change the default value.
 
+Example:  
 Change the default value to `REPLICA`.
 
     spacemanager.default-retention-policy=REPLICA
 
-> **Note**
+> **NOTE**
 >
 > `spacemanager.default-retention-policy` merely specifies to value to use while allocating space reservations when no value was given by the client or DCACHE admin. It is not to be confused with `pnfsmanager.default-retention-policy` which specifies the default retention policy of files uploaded outside of any space reservation.
 
-Access latency  
+**Access latency**  
 The two values allowed for access latency are `NEARLINE` and `ONLINE`.
 
 -   `NEARLINE` means that data stored in this reservation is allowed to migrate to permanent media. Retrieving these data may result in delays associated with preparatory steps that the storage system has to perform to make these data available for the user I/O (e.g., staging data from tape to a disk cache).
@@ -129,45 +175,47 @@ In case of DCACHE `ONLINE` means that there will always be a copy of the file on
 
 If a space reservation request does not specify an access latency, we will assign a value given by `spacemanager.default-access-latency`. The default value is `NEARLINE`.
 
-Edit the file `PATH-ODE-ED/dcache.conf` to change the default value.
+Edit the file **/etc/dcache/dcache.conf** to change the default value.
 
+Example:
 Change the default value to `ONLINE`.
 
     spacemanager.default-access-latency=ONLINE
 
-> **Note**
+> **NOTE**
 >
 > `spacemanager.default-access-latency` merely specifies to value to use while allocating space reservations when no value was given by the client or DCACHE admin. It is not to be confused with `pnfsmanager.default-access-latency` which specifies the default retention policy of files uploaded outside of any space reservation.
 
-> **Important**
+> **IMPORTANT**
 >
 > Please make sure to use capital letters for `REPLICA`, `CUSTODIAL`, `ONLINE` and `NEARLINE` otherwise you will receive an error message.
 
-DCACHE specific concepts
+DCACHE SPECIFIC CONCEPTS
 ========================
 
-Activating SRM CELL-SPACEMNGR
+ACTIVATING SRM SPACEMANAGER
 -----------------------------
 
-In order to enable the SRM CELL-SPACEMNGR you need to add the SPACEMNGR service to your layout file
+In order to enable the `SRM SpaceManager` you need to add the `spacemanager` service to your layout file
 
-    [dCacheDomain]
-    [dCacheDomain/spacemanager]
+   [dCacheDomain]
+   [dCacheDomain/spacemanager]
 
-and add the following definition in the file `PATH-ODE-ED/dcache.conf`
+and add the following definition in the file **/etc/dcache/dcache.conf**
 
     dcache.enable.space-reservation=true
 
-Unless you have reason not to, we recommend placing the SPACEMNGR service in the same domain as the POOLMNGR service.
+Unless you have reason not to, we recommend placing the `spacemanager` service in the same domain as the `poolmanager` service.
 
-Explicit and Implicit Space Reservations for Data Storage in DCACHE
+
+EXPLICIT AND IMPLICIT SPACE RESERVATIONS FOR DATA STORAGE IN DCACHE
 -------------------------------------------------------------------
 
-### Explicit Space Reservations
+### Explicit Space Reservations  
 
-Each SRM space reservation is made against the total available disk space of a particular link group. If DCACHE is configured correctly each byte of disk space, that can be reserved, belongs to one and only one link group. See [section\_title] for a detailed description.
+Each SRM space reservation is made against the total available disk space of a particular link group. If dCache is configured correctly each byte of disk space, that can be reserved, belongs to one and only one link group. See [the section called “SpaceManager configuration”](spacemanager-configuration) for a detailed description.
 
-> **Important**
+> **IMPORTANT**
 >
 > Make sure that no pool belongs to more than one pool group, no pool group belongs to more than one link and no link belongs to more than one link group.
 
@@ -179,77 +227,84 @@ The total space in DCACHE that can be reserved is the sum of the available space
 
 ### Implicit Space Reservations
 
-DCACHE can perform implicit space reservations for non-SRM transfers, SRM Version 1 transfers and for SRM Version 2.2 data transfers that are not given the space token explicitly. The parameter that enables this behavior is `srm.enable.space-reservation.implicit`, which is described in [section\_title][3]. If no implicit space reservation can be made, the transfer will fail.
+dCache can perform implicit space reservations for non-`SRM` transfers, `SRM` Version 1 transfers and for `SRM` Version 2.2 data transfers that are not given the space token explicitly. The parameter that enables this behavior is srm.enable.space-reservation.implicit, which is described in [the section called “SRM configuration for experts”](srm-configuration-for-experts). If no implicit space reservation can be made, the transfer will fail.
 
-Implicit space reservation means that the SRM will create a space reservation for a single upload while negotiating the transfer parameters with the client. The space reservation will be created in a link group for which the user is authorized to create space reservations, which has enough available space, and which is able to hold the type of file being uploaded. The space reservation will be short lived. Once it expires, it will be released and the file it held will live on outside any space reservation, but still within the link group to which it was uploaded. Implicit space reservations are thus a technical means to upload files to link groups without using explicit space reservations.
+Implicit space reservation means that the `srm` will create a space reservation for a single upload while negotiating the transfer parameters with the client. The space reservation will be created in a link group for which the user is authorized to create space reservations, which has enough available space, and which is able to hold the type of file being uploaded. The space reservation will be short lived. Once it expires, it will be released and the file it held will live on outside any space reservation, but still within the link group to which it was uploaded. Implicit space reservations are thus a technical means to upload files to link groups without using explicit space reservations.
 
-The reason DCACHE cannot just allow the file to be uploaded to the link group without any space reservation at all is, that we have to guarantee, that space already allocated for other reservations isn't used by the file being uploaded. The best way to guarantee that there is enough space for the file is to make a space reservation to which to upload it.
+The reason dCache cannot just allow the file to be uploaded to the link group without any space reservation at all is, that we have to guarantee, that space already allocated for other reservations isn’t used by the file being uploaded. The best way to guarantee that there is enough space for the file is to make a space reservation to which to upload it.
 
-In case of SRM version 1.1 data transfers, where the access latency and retention policy cannot be specified, and in case of SRM V2.2 clients, when the access latency and retention policy are not specified, default values will be used. First SRM will attempt to use the values of access latency and retention policy tags from the directory to which a file is being written. If the tags are not present, then the access latency and retention policy will be set on basis of PNFSMNGR defaults controlled by `pnfsmanager.default-retention-policy` and `pnfsmanager.default-access-latency` variables in `PATH-ODE-ED/dcache.conf`.
+In case of `SRM` version 1.1 data transfers, where the access latency and retention policy cannot be specified, and in case of `SRM` V2.2 clients, when the access latency and retention policy are not specified, default values will be used. First `SRM` will attempt to use the values of access latency and retention policy tags from the directory to which a file is being written. If the tags are not present, then the access latency and retention policy will be set on basis of `pnfsmanager` defaults controlled by `pnfsmanager.default-retention-policy` and `pnfsmanager.default-access-latency` variables in **/etc/dcache/dcache.conf**.
 
-You can check if the `AccessLatency` and `RetentionPolicy` tags are present by using the following command:
+You can check if the `AccessLatency` and `RetentionPolicy` tags are present by using the following command:  
 
-    PROMPT-ROOT CHIMERA-CLI lstag /path/to/directory
-    Total: numberOfTags
-    tag1
-    tag2
-    ..
-    AccessLatency
-    RetentionPolicy
+        [root] # /usr/bin/chimera lstag /path/to/directory
+	Total: numberOfTags
+	tag1
+	tag2
+	..
+	AccessLatency
+	RetentionPolicy
 
-If the output contains the lines `AccessLatency` and `RetentionPolicy` then the tags are already present and you can get the actual values of these tags by executing the following commands, which are shown together with example outputs:
+If the output contains the lines AccessLatency and RetentionPolicy then the tags are already present and you can get the actual values of these tags by executing the following commands, which are shown together with example outputs:
 
-    PROMPT-ROOT CHIMERA-CLI readtag /data/experiment-a AccessLatency
-    ONLINE
-    PROMPT-ROOT CHIMERA-CLI readtag /data/experiment-a RetentionPolicy
-    CUSTODIAL
+     Example:  
+     
+     [root] # /usr/bin/chimera readtag /data/experiment-a AccessLatency
+     ONLINE
+     [root] # /usr/bin/chimera readtag /data/experiment-a RetentionPolicy
+     CUSTODIAL
 
 The valid `AccessLatency` values are `ONLINE` and `NEARLINE`, valid `RetentionPolicy` values are `REPLICA` and `CUSTODIAL`.
 
 To create/change the values of the tags, please execute :
 
-    PROMPT-ROOT CHIMERA-CLI writetag /path/to/directory AccessLatency "New AccessLatency"
-    PROMPT-ROOT CHIMERA-CLI writetag /path/to/directory RetentionPolicy "New RetentionPolicy"
+    [root] # /usr/bin/chimera writetag /path/to/directory AccessLatency "<New AccessLatency>"
+    [root] # /usr/bin/chimera writetag /path/to/directory RetentionPolicy "<New RetentionPolicy>"
 
-> **Note**
+
+> **NOTE**
 >
 > Some clients also have default values, which are used when not explicitly specified by the user. In this case server side defaults will have no effect.
 
-> **Note**
->
+> **NOTE**
+> 
 > If the implicit space reservation is not enabled, pools in link groups will be excluded from consideration and only the remaining pools will be considered for storing the incoming data, and classical pool selection mechanism will be used.
 
-CELL-SPACEMNGR configuration
-============================
 
-SRM CELL-SPACEMNGR and Link Groups
-----------------------------------
+SPACEMANAGER CONFIGURATION
+==========================
 
-CELL-SPACEMNGR is making reservations against free space available in [link groups]. The total free space in the given link group is the sum of available spaces in all links. The available space in each link is the sum of all sizes of available space in all pools assinged to a given link. Therefore for the space reservation to work correctly it is essential that each pool belongs to one and only one link, and each link belongs to only one link group. Link groups are assigned several parameters that determine what kind of space the link group corresponds to and who can make reservations against this space.
+SRM SPACEMANAGER AND LINK GROUPS
+--------------------------------
 
-Making a Space Reservation
+`SpaceManager` is making reservations against free space available in [link groups](config-PoolManager.md#link-groups). The total free space in the given link group is the sum of available spaces in all links. The available space in each link is the sum of all sizes of available space in all pools assinged to a given link. Therefore for the space reservation to work correctly it is essential that each pool belongs to one and only one link, and each link belongs to only one link group. Link groups are assigned several parameters that determine what kind of space the link group corresponds to and who can make reservations against this space.
+
+
+MAKING A SPACE RESERVATION
 --------------------------
 
-Now that the SRM CELL-SPACEMNGR is activated you can make a space reservation. As mentioned above you need link groups to make a space reservation.
+Now that the `SRM SpaceManager` is activated you can make a space reservation. As mentioned above you need link groups to make a space reservation.
 
 ### Prerequisites for Space Reservations
 
-Login to the [admin interface] and `cd` to the cell `SrmSpaceManager`.
+Login to the [admin interface](intouch.md#the-admin-interface) and `cd` to the cell `SrmSpaceManager`.
 
-    PROMPT-USER ssh -p 22224 -l admin admin.example.org
-    DC-PROMPT-LOCAL cd SrmSpaceManager
+    [user] $ ssh -p 22224 -l admin admin.example.org
+    (local) admin > cd SrmSpaceManager
 
 Type `ls link groups` to get information about link groups.
 
-    DC-PROMPT-SPACEMNGR ls link groups
+    (SrmSpaceManager) admin > ls link groups
 
 The lack of output tells you that there are no link groups. As there are no link groups, no space can be reserved.
 
 #### The Link Groups
 
-For a general introduction about link groups see [???][link groups].
+For a general introduction about link groups see [the section called “Link Groups”][link groups](config-PoolManager.md#link-groups).
 
-In this example we will create a link group for the VO `desy`. In order to do so we need to have a pool, a pool group and a link. Moreover, we define unit groups named `any-store`, `world-net` and `any-protocol`. (See [???][4].)
+Example:  
+
+In this example we will create a link group for the VO desy. In order to do so we need to have a pool, a pool group and a link. Moreover, we define unit groups named any-store, world-net and any-protocol. (See [the section called “Types of Units”](#types-of-units).)
 
 Define a pool in your layout file, add it to your pool directory and restart the `poolDomain`.
 
@@ -258,69 +313,72 @@ Define a pool in your layout file, add it to your pool directory and restart the
     path=/srv/dcache/spacemanager-pool
     name=spacemanager-pool
 
-    PROMPT-ROOT mkdir -p /srv/dcache/spacemanager-pool
-    PROMPT-ROOT PATH-ODB-UBdcache restart
+    [root] # mkdir -p /srv/dcache/spacemanager-pool
+    [root] # /usr/bin/dcache restart
 
 In the admin interface, `cd` to the CELL-POOLMNGR and create a pool group, a link and a link group.
 
-    DC-PROMPT-SPACEMNGR ..
-    DC-PROMPT-LOCAL cd PoolManager
-    DC-PROMPT-PM psu create pgroup spacemanager_poolGroup
-    DC-PROMPT-PM psu addto pgroup spacemanager_poolGroup spacemanager-pool
-    DC-PROMPT-PM psu removefrom pgroup default spacemanager-pool
-    DC-PROMPT-PM psu create link spacemanager_WriteLink any-store world-net any-protocol
-    DC-PROMPT-PM psu set link spacemanager_WriteLink -readpref=10 -writepref=10 -cachepref=0 -p2ppref=-1
-    DC-PROMPT-PM psu add link spacemanager_WriteLink  spacemanager_poolGroup
-    DC-PROMPT-PM psu create linkGroup spacemanager_WriteLinkGroup
-    DC-PROMPT-PM psu set linkGroup custodialAllowed spacemanager_WriteLinkGroup true
-    DC-PROMPT-PM psu set linkGroup replicaAllowed spacemanager_WriteLinkGroup true
-    DC-PROMPT-PM psu set linkGroup nearlineAllowed spacemanager_WriteLinkGroup true
-    DC-PROMPT-PM psu set linkGroup onlineAllowed spacemanager_WriteLinkGroup true
-    DC-PROMPT-PM psu addto linkGroup spacemanager_WriteLinkGroup spacemanager_WriteLink
-    DC-PROMPT-PM save
-    DC-PROMPT-PM ..
-    	
-
+    (SrmSpaceManager) admin > ..
+    (local) admin > cd PoolManager
+    (PoolManager) admin > psu create pgroup spacemanager_poolGroup
+    (PoolManager) admin > psu addto pgroup spacemanager_poolGroup spacemanager-pool
+    (PoolManager) admin > psu removefrom pgroup default spacemanager-pool
+    (PoolManager) admin > psu create link spacemanager_WriteLink any-store world-net any-protocol
+    (PoolManager) admin > psu set link spacemanager_WriteLink -readpref=10 -writepref=10 -cachepref=0 -p2ppref=-1
+    (PoolManager) admin > psu add link spacemanager_WriteLink  spacemanager_poolGroup
+    (PoolManager) admin > psu create linkGroup spacemanager_WriteLinkGroup
+    (PoolManager) admin > psu set linkGroup custodialAllowed spacemanager_WriteLinkGroup true
+    (PoolManager) admin > psu set linkGroup replicaAllowed spacemanager_WriteLinkGroup true
+    (PoolManager) admin > psu set linkGroup nearlineAllowed spacemanager_WriteLinkGroup true
+    (PoolManager) admin > psu set linkGroup onlineAllowed spacemanager_WriteLinkGroup true
+    (PoolManager) admin > psu addto linkGroup spacemanager_WriteLinkGroup spacemanager_WriteLink
+    (PoolManager) admin > save
+    (PoolManager) admin > ..
+	
+ 	
 Check whether the link group is available. Note that this can take several minutes to propagate to SPACEMNGR.
 
-    DC-PROMPT-LOCAL cd SrmSpaceManager
-    DC-PROMPT-SPACEMNGR ls link groups
+    (local) admin > cd SrmSpaceManager
+    (SrmSpaceManager) admin > ls link groups
     FLAGS CNT RESVD        AVAIL         FREE             UPDATED NAME
     --rc:no 0     0 + 7278624768 = 7278624768 2011-11-28 12:12:51 spacemanager_WriteLinkGroup
+    
         
-
 The link group `spacemanager_WriteLinkGroup` was created. Here the flags indicate first the status (- indicates that neither the expired \[e\] nor the released flags \[r\] are set), followed by the type of reservations allowed in the link group (here replica \[r\], custodial \[c\], nearline \[n\] and online \[o\] files; output \[o\] files are not allowed - see `help ls
       link groups` for details on the format). No space reservations have been created, as indicated by the count field. Since no space reservation has been created, no space in the link group is reserved.
 
 #### The `SpaceManagerLinkGroupAuthorizationFile`
 
-Now you need to edit the `LinkGroupAuthorization.conf` file. This file contains a list of the link groups and all the VOs and the VO Roles that are permitted to make reservations in a given link group.
+Now you need to edit the **LinkGroupAuthorization.conf** file. This file contains a list of the link groups and all the VOs and the VO Roles that are permitted to make reservations in a given link group.
 
-Specify the location of the `LinkGroupAuthorization.conf` file in the `PATH-ODE-ED/dcache.conf` file.
+Specify the location of the **LinkGroupAuthorization.conf** file in the **/etc/dcache/dcache.conf** file.
 
     spacemanager.authz.link-group-file-name=/path/to/LinkGroupAuthorization.conf
 
-The file `LinkGroupAuthorization.conf` has following syntax:
+The file **LinkGroupAuthorization.conf** has following syntax:
 
-LinkGroup NameOfLinkGroup followed by the list of the Fully Qualified Attribute Names (FQANs). Each FQAN is on a separate line, followed by an empty line, which is used as a record separator, or by the end of the file.
+LinkGroup <NameOfLinkGroup> followed by the list of the Fully Qualified Attribute Names (FQANs). Each FQAN is on a separate line, followed by an empty line, which is used as a record separator, or by the end of the file.
 
-FQAN is usually a string of the form VO/Role=VORole. Both VO and VORole can be set to `*`, in this case all VOs or VO Roles will be allowed to make reservations in this link group. Any line that starts with \# is a comment and may appear anywhere.
+FQAN is usually a string of the form <VO>/Role=<VORole>. Both <VO> and <VORole> can be set to *, in this case all VOs or VO Roles will be allowed to make reservations in this link group. Any line that starts with # is a comment and may appear anywhere.
 
 Rather than an FQAN, a mapped user name can be used. This allows clients or protocols that do not provide VOMS attributes to make use of space reservations.
+
 
     #SpaceManagerLinkGroupAuthorizationFile
 
     LinkGroup NameOfLinkGroup
     /VO/Role=VORole
 
-> **Note**
+> **NOTE**
 >
 > You do not need to restart the DOMAIN-SRM or DCACHE after changing the `LinkGroupAuthorization.conf` file. The changes will be applied automatically after a few minutes.
 >
 > Use `update link groups` to be sure that the `LinkGroupAuthorization.conf` file and the link groups have been updated.
 >
->     DC-PROMPT-SPACEMNGR update link groups
+>     (SrmSpaceManager) admin > update link groups
 >     Update started.
+
+Example:  
 
 In the example above you created the link group `spacemanager_WriteLinkGroup`. Now you want to allow members of the VO `desy` with the role `production` to make a space reservation in this link group.
 
@@ -331,92 +389,100 @@ In the example above you created the link group `spacemanager_WriteLinkGroup`. N
     #
     /desy/Role=production
 
+Example:  
+
 In this more general example for a `SpaceManagerLinkGroupAuthorizationFile` members of the VO `desy` with role `test` are authorized to make a space reservation in a link group called `desy-test-LinkGroup`. Moreover, all members of the VO `desy` are authorized to make a reservation in the link group called `desy-anyone-LinkGroup` and anyone is authorized to make a space reservation in the link group called `default-LinkGroup`.
 
-    #SpaceManagerLinkGroupAuthorizationFile
-    # this is a comment and is ignored
+    #SpaceManagerLinkGroupAuthorizationFile  
+    # this is a comment and is ignored  
 
-    LinkGroup desy-test-LinkGroup
-    /desy/Role=test
+    LinkGroup desy-test-LinkGroup  
+    /desy/Role=test  
 
-    LinkGroup desy-anyone-LinkGroup
-    /desy/Role=*
+    LinkGroup desy-anyone-LinkGroup  
+    /desy/Role=*  
 
-    LinkGroup default-LinkGroup
-    # allow anyone :-)
-    */Role=*
+    LinkGroup default-LinkGroup  
+    # allow anyone :-)  
+    */Role=*  
 
-### Making and Releasing a Space Reservation as DCACHE Administrator
+### Making and Releasing a Space Reservation as DCACHE Administrator  
 
-#### Making a Space Reservation
+#### Making a Space Reservation  
 
-Now you can make a space reservation for the VO `desy`.
+Example:  
 
-    DC-PROMPT-SPACEMNGR reserve space -owner=/desy/Role=production -desc=DESY_TEST -lifetime=10000 -lg=spacemanager_WriteLinkGroup 5MB
-    110000 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Fri Dec 09 12:43:48 CET 2011 lifetime:10000000ms expiration:Fri Dec 09 15:30:28 CET 2011 description:DESY_TEST state:RESERVED used:0 allocated:0
+Now you can make a space reservation for the VO `desy`.  
+
+   (SrmSpaceManager) admin > reserve space -owner=/desy/Role=production -desc=DESY_TEST -lifetime=10000 -lg=spacemanager_WriteLinkGroup 5MB
+110000 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Fri Dec 09 12:43:48 CET 2011 lifetime:10000000ms expiration:Fri Dec 09 15:30:28 CET 2011 description:DESY_TEST state:RESERVED used:0 allocated:0  
 
 The space token of the reservation is `110000`.
-
 Check the status of the reservation by
 
-    DC-PROMPT-SPACEMNGR ls spaces -e -h
-     TOKEN RETENTION LATENCY FILES ALLO   USED   FREE   SIZE             EXPIRES DESCRIPTION
-    110000 CUSTODIAL NEARLINE    0   0B +   0B + 5.0M = 5.0M 2011-12-09 12:43:48 DESY_TEST
+    (SrmSpaceManager) admin > ls spaces -e -h  
+ TOKEN RETENTION LATENCY FILES ALLO   USED   FREE   SIZE             EXPIRES DESCRIPTION  
+110000 CUSTODIAL NEARLINE    0   0B +   0B + 5.0M = 5.0M 2011-12-09 12:43:48 DESY_TEST  
 
-    DC-PROMPT-SPACEMNGR ls link groups -h
-    FLAGS CNT RESVD   AVAIL   FREE             UPDATED NAME
-    --rc:no 1  5.0M +  7.3G = 7.3G 2011-11-28 12:12:51 spacemanager_WriteLinkGroup
+(SrmSpaceManager) admin > ls link groups -h  
+FLAGS CNT RESVD   AVAIL   FREE             UPDATED NAME  
+--rc:no 1  5.0M +  7.3G = 7.3G 2011-11-28 12:12:51 spacemanager_WriteLinkGroup  
 
 Here the `-h` option indicates that approximate, but human readable, byte sizes are to be used, and `-e` indicates that ephemeral (time limited) reservations should be displayed too (by default time limited reservations are not displayed as they are often implicit reservations). As can be seen, 5 MB are now reserved in the link group, although with approximate byte sizes, 5 MB do not make a visible difference in the 7.3 GB total size.
-
 You can now copy a file into that space token.
 
-    PROMPT-USER srmcp file:////bin/sh srm://dcache.example.org:8443/data/world-writable/space-token-test-file -space_token=110000
+   [user] $ srmcp file:////bin/sh srm://<dcache.example.org>:8443/data/world-writable/space-token-test-file -space_token=110000
 
-Now you can check via the [Webadmin Interface] or the [Web Interface] that the file has been copied to the pool `spacemanager-pool`.
+Now you can check via the [Webadmin Interface](config-webadmin.md) or the [Web Interface](intouch.md#the-web-interface-for-monitoring-dcache) that the file has been copied to the pool `spacemanager-pool`.
 
 There are several parameters to be specified for a space reservation.
 
-    DC-PROMPT-SPACEMNGR reserve space [-al=online|nearline] [-desc=string] -lg=name
-    [-lifetime=seconds] [-owner=user|fqan] [-rp=output|replica|custodial] size
+    (SrmSpaceManager) admin > reserve space [-al=online|nearline] [-desc=<string>] -lg=<name>  
+    [-lifetime=<seconds>] [-owner=<user>|<fqan>] [-rp=output|replica|custodial] <size>  
 
-\[-owner=user|fqan\]  
+[-owner=<user>|<fqan>]  
 The owner of the space is identified by either mapped user name or FQAN. The owner must be authorized to reserve space in the link group in which the space is to be created. Besides the DCACHE admin, only the owner can release the space. Anybody can however write into the space (although the link group may only allow certain storage groups and thus restrict which file system paths can be written to space reservation, which in turn limits who can upload files to it).
 
-\[-al=AccessLatency\]  
+[-al=<AccessLatency>]  
 `AccessLatency` needs to match one of the access latencies allowed for the link group.
 
-\[-rp=RetentionPolicy\]  
+[-rp=<RetentionPolicy>]  
 `RetentionPolicy` needs to match one of the retention policies allowed for the link group.
 
-\[-desc=Description\]  
+[-desc=<Description>]   
 You can chose a value to describe your space reservation.
 
--lg=LinkGroupName  
+-lg=<LinkGroupName>  
 Which link group to create the reservation in.
 
-size  
+<size>  
 The size of the space reservation should be specified in bytes, optionally using a byte unit suffix using either SI or IEEE prefixes.
 
-\[-lifetime=lifetime\]  
+[-lifetime=<lifetime]>  
 The life time of the space reservation should be specified in seconds. If no life time is specified, the space reservation will not expire automatically.
 
 #### Releasing a Space Reservation
 
 If a space reservation is not needed anymore it can be released with
 
-    DC-PROMPT-SPACEMNGR release space spaceTokenId
+    (SrmSpaceManager) admin > release space <spaceTokenId>
 
-    DC-PROMPT-SPACEMNGR reserve space -owner=/desy -desc=DESY_TEST -lifetime=600 5000000
-    110042 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Thu Dec 15 12:00:35 CET 2011 lifetime:600000ms expiration:Thu Dec 15 12:10:35 CET 2011 description:DESY_TEST state:RESERVED used:0 allocated:0
-    DC-PROMPT-SPACEMNGR release space 110042
-    110042 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 created:Thu Dec 15 12:00:35 CET 2011 lifetime:600000ms expiration:Thu Dec 15 12:10:35 CET 2011 description:DESY_TEST state:RELEASED used:0 allocated:0
+Example:    
+
+       (SrmSpaceManager) admin > reserve space -owner=/desy -desc=DESY_TEST -lifetime=600 5000000
+        110042 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000    
+	created:Thu Dec 15 12:00:35 CET 2011 lifetime:600000ms expiration:Thu Dec 15 12:10:35 CET 2011 description:DESY_TEST   
+	state:RESERVED used:0 allocated:0
+       (SrmSpaceManager) admin > release space 110042
+        110042 voGroup:/desy voRole:production retentionPolicy:CUSTODIAL accessLatency:NEARLINE linkGroupId:0 size:5000000 
+	created:Thu Dec 15 12:00:35 CET 2011 lifetime:600000ms expiration:Thu Dec 15 12:10:35 CET 2011 description:DESY_TEST   
+	state:RELEASED used:0 allocated:0
 
 You can see that the value for `state` has changed from `RESERVED` to `RELEASED`.
 
 ### Making and Releasing a Space Reservation as a User
 
-If so authorized, a user can make a space reservation through the SRM protocol. A user is authorized to do so using the `LinkGroupAuthorization.conf` file.
+If so authorized, a user can make a space reservation through the SRM protocol. A user is authorized to do so using the **LinkGroupAuthorization.conf** file.
 
 #### VO based Authorization Prerequisites
 
@@ -424,19 +490,19 @@ In order to be able to take advantage of the virtual organization (VO) infrastru
 
 -   User needs to be registered with the VO.
 
--   User needs to use [`voms-proxy-init`] to create a VO proxy.
+-   User needs to use [`voms-proxy-init`](config-gplazma.md#creating-a-voms-proxy) to create a VO proxy.
 
--   DCACHE needs to use CELL-GPLAZMA with modules that extract VO attributes from the user's proxy. (See [???][1], have a look at `voms` plugin and see [???][2] for an example with `voms`.
+-   dCache needs to use gPlazma with modules that extract VO attributes from the user’s proxy. (See [Chapter 10, Authorization in dCache](config-gplazma.md), have a look at `voms` plugin and see the [section called “Authentication and Authorization in dCache”](config-gplazma.md#authentication-and-authorization-in-dcache) for an example with voms.
 
-Only if these 3 conditions are satisfied the VO based authorization of the CELL-SPACEMNGR will work.
+Only if these 3 conditions are satisfied the VO based authorization of the SpaceManager will work.
 
 #### VO based Access Control Configuration
 
-As mentioned [above] DCACHE space reservation functionality access control is currently performed at the level of the link groups. Access to making reservations in each link group is controlled by the [`SpaceManagerLinkGroupAuthorizationFile`].
+As mentioned [above](#spacemanager-configuration) dCache space reservation functionality access control is currently performed at the level of the link groups. Access to making reservations in each link group is controlled by the [`SpaceManagerLinkGroupAuthorizationFile`](#the-spacemanagerlinkgroupauthorizationfile).
 
 This file contains a list of the link groups and all the VOs and the VO Roles that are permitted to make reservations in a given link group.
 
-When a SRM Space Reservation request is executed, its parameters, such as reservation size, lifetime, access latency and retention policy as well as user's VO membership information is forwarded to the SRM CELL-SPACEMNGR.
+When a `SRM` Space Reservation request is executed, its parameters, such as reservation size, lifetime, access latency and retention policy as well as user's VO membership information is forwarded to the `SRM SpaceManager.
 
 Once a space reservation is created, no access control is performed, any user can store the files in this space reservation, provided he or she knows the exact space token.
 
@@ -444,52 +510,55 @@ Once a space reservation is created, no access control is performed, any user ca
 
 A user who is given the rights in the `SpaceManagerLinkGroupAuthorizationFile` can make a space reservation by
 
-    PROMPT-USER srm-reserve-space -retention_policy=RetentionPolicy -lifetime=lifetimeInSecs -desired_size=sizeInBytes -guaranteed_size=sizeInBytes  srm://example.org:8443
-    Space token =SpaceTokenId
+    [user] $ srm-reserve-space -retention_policy=<RetentionPolicy> -lifetime=<lifetimeInSecs> -desired_size=<sizeInBytes> -guaranteed_size=<sizeInBytes>  srm://<example.org>:8443  
+Space token =SpaceTokenId  
 
 and release it by
 
-    PROMPT-USER srm-release-space srm://example.org:8443 -space_token=SpaceTokenId
+    [user] $ srm-release-space srm://<example.org>:8443 -space_token=SpaceTokenId
 
-> **Note**
+> **NOTE**
 >
 > Please note that it is obligatory to specify the retention policy while it is optional to specify the access latency.
 
-    PROMPT-USER srm-reserve-space -retention_policy=REPLICA -lifetime=300 -desired_size=5500000 -guaranteed_size=5500000  srm://srm.example.org:8443
-    Space token =110044
-
+Example:
+    [user] $ srm-reserve-space -retention_policy=REPLICA -lifetime=300 -desired_size=5500000 -guaranteed_size=5500000  srm://srm.example.org:8443  
+Space token =110044  
+  
 The space reservation can be released by:
 
-    PROMPT-USER srm-release-space srm://srm.example.org:8443 -space_token=110044
+    [user] $ srm-release-space srm://srm.example.org:8443 -space_token=110044
+
+
 
 #### Space Reservation without VOMS certificate
 
-If a client uses a regular grid proxy, created with `grid-proxy-init`, and not a VO proxy, which is created with the `voms-proxy-init`, when it is communicating with SRM server in DCACHE, then the VO attributes can not be extracted from its credential. In this case the name of the user is extracted from the Distinguished Name (DN) to use name mapping. For the purposes of the space reservation the name of the user as mapped by GPLAZMA is used as its VO Group name, and the VO Role is left empty. The entry in the `SpaceManagerLinkGroupAuthorizationFile` should be:
+If a client uses a regular grid proxy, created with `grid-proxy-init`, and not a VO proxy, which is created with the `voms-proxy-init`, when it is communicating with `SRM` server in DCACHE, then the VO attributes can not be extracted from its credential. In this case the name of the user is extracted from the Distinguished Name (DN) to use name mapping. For the purposes of the space reservation the name of the user as mapped by `gplazma` is used as its VO Group name, and the VO Role is left empty. The entry in the `SpaceManagerLinkGroupAuthorizationFile` should be:
 
     #LinkGroupAuthorizationFile
     #
-    userName
+    <userName>  
 
 #### Space Reservation for non SRM Transfers
 
-Edit the file `PATH-ODE-ED/dcache.conf` to enable space reservation for non SRM transfers.
+Edit the file **/etc/dcache/dcache.conf** to enable space reservation for non `SRM` transfers.
 
     spacemanager.enable.reserve-space-for-non-srm-transfers=true
 
-If the SPACEMNGR is enabled, `spacemanager.enable.reserve-space-for-non-srm-transfers` is set to `true`, and if the transfer request comes from a door, and there was no prior space reservation made for this file, the CELL-SPACEMNGR will try to reserve space before satisfying the request.
+If the `spacemanager` is enabled, `spacemanager.enable.reserve-space-for-non-srm-transfers` is set to true, and if the transfer request comes from a door, and there was no prior space reservation made for this file, the `SpaceManager` will try to reserve space before satisfying the request.
 
-Possible values are `true` or `false` and the default value is `false`.
+Possible values are `true` or `false` and the default value is false.
 
-This is analogous to implicit space reservations performed by the SRM, except that these reservations are created by the SPACEMNGR itself. Since an SRM client uses a non-SRM protocol for the actual upload, setting the above option to true while disabling implicit space reservations in the SRM, will still allow files to be uploaded to a link group even when no space token is provided. Such a configuration should however be avoided: If the SRM does not create the reservation itself, it has no way of communicating access latency, retention policy, file size, nor lifetime to SPACEMNGR.
+This is analogous to implicit space reservations performed by the srm, except that these reservations are created by the `spacemanager` itself. Since an `SRM` client uses a non-`SRM` protocol for the actual upload, setting the above option to true while disabling implicit space reservations in the `srm`, will still allow files to be uploaded to a link group even when no space token is provided. Such a configuration should however be avoided: If the srm does not create the reservation itself, it has no way of communicating access latency, retention policy, file size, nor lifetime to `spacemanager`.
 
-CELL-SRM configuration for experts
-----------------------------------
+SRM CONFIGURATION FOR EXPERTS
+------------------------------
 
-There are a few parameters in `PATH-ODS-USD/defaults/*.properties` that you might find useful for nontrivial CELL-SRM deployment.
+There are a few parameters in **/usr/share/dcache/defaults/*.properties** that you might find useful for nontrivial `SRM` deployment.
 
-### dcache.enable.space-reservation
+### dcache.enable.space-reservation  
 
-`dcache.enable.space-reservation` tells if the space management is activated in CELL-SRM.
+`dcache.enable.space-reservation` tells if the space management is activated in `SRM`.
 
 Possible values are `true` and `false`. Default is `true`.
 
@@ -503,7 +572,8 @@ Usage example:
 
 Possible values are `true` and `false`. This is enabled by default. It has no effect if `dcache.enable.space-reservation` is set to `true`.
 
-Usage example:
+Usage example:  
+
 
     srm.enable.space-reservation.implicit=true
 
@@ -523,151 +593,158 @@ Usage example:
 
 Possible values are `true` and `false`. Default is `false`.
 
-Usage example:
+Usage example:  
+
 
     srm.enable.overwrite-by-default=false 
 
 ### srm.db.host
 
-`srm.db.host` tells CELL-SRM which database host to connect to.
+`srm.db.host` tells `SRM` which database host to connect to.
 
 Default value is `localhost`.
 
-Usage example:
+Usage example:  
+
 
     srm.db.host=database-host.example.org
 
 ### spaceManagerDatabaseHost
 
-`spaceManagerDatabaseHost` tells CELL-SPACEMNGR which database host to connect to.
+`spaceManagerDatabaseHost` tells SpaceManager which database host to connect to.
 
 Default value is `localhost`.
 
-Usage example:
+Usage example:  
 
     spaceManagerDatabaseHost=database-host.example.org
 
 ### pinmanager.db.host
 
-`pinmanager.db.host` tells CELL-PINMNGR which database host to connect to.
+`pinmanager.db.host` tells PinManager which database host to connect to.
 
 Default value is `localhost`.
 
-Usage example:
+Usage example:  
+
 
     pinmanager.db.host=database-host.example.org
 
 ### srm.db.name
 
-`srm.db.name` tells CELL-SRM which database to connect to.
+`srm.db.name` tells `SRM` which database to connect to.
 
 Default value is `srm`.
 
-Usage example:
+Usage example:  
+
 
     srm.db.name=srm
 
 ### srm.db.user
 
-`srm.db.user` tells CELL-SRM which database user name to use when connecting to database. Do not change unless you know what you are doing.
+`srm.db.user` tells `SRM` which database user name to use when connecting to database. Do not change unless you know what you are doing.
 
 Default value is `dcache`.
 
-Usage example:
+Usage example:  
+
 
     srm.db.user=dcache
 
 ### srm.db.password
 
-`srm.db.password` tells CELL-SRM which database password to use when connecting to database. The default value is an `empty` value (no password).
+`srm.db.password` tells SRM which database password to use when connecting to database. The default value is an `empty` value (no password).
 
-Usage example:
+Usage example:  
+
 
     srm.db.password=NotVerySecret
 
 ### srm.db.password.file
 
-`srm.db.password.file` tells CELL-SRM which database password file to use when connecting to database. Do not change unless you know what you are doing. It is recommended that MD5 authentication method is used. To learn about file format please see []. To learn more about authentication methods please visit [][5], Please read "Encrypting Passwords Across A Network" section.
+`srm.db.password.file` tells `SRM` which database password file to use when connecting to database. Do not change unless you know what you are doing. It is recommended that MD5 authentication method is used. To learn about file format please see http://www.postgresql.org/docs/8.1/static/libpq-pgpass.html. To learn more about authentication methods please visit http://www.postgresql.org/docs/8.1/static/encryption-options.html, Please read "Encrypting Passwords Across A Network" section.
 
 This option is not set by default.
 
-Usage example:
+Usage example:  
+
 
     srm.db.password.file=/root/.pgpass
 
 ### srm.request.enable.history-database
 
-`srm.request.enable.history-database` enables logging of the transition history of the SRM request in the database. The request transitions can be examined through the command line interface. Activation of this option might lead to the increase of the database activity, so if the PSQL load generated by CELL-SRM is excessive, disable it.
+`srm.request.enable.history-database` enables logging of the transition history of the `SRM` request in the database. The request transitions can be examined through the command line interface. Activation of this option might lead to the increase of the database activity, so if the PSQL load generated by `SRM` is excessive, disable it.
 
 Possible values are `true` and `false`. Default is `false`.
 
-Usage example:
+Usage example:  
 
     srm.request.enable.history-database=true
 
 ### transfermanagers.enable.log-to-database
 
-`transfermanagers.enable.log-to-database` tells CELL-SRM to store the information about the remote (copy, srmCopy) transfer details in the database. Activation of this option might lead to the increase of the database activity, so if the PSQL load generated by CELL-SRM is excessive, disable it.
+`transfermanagers.enable.log-to-database` tells `SRM` to store the information about the remote (copy, srmCopy) transfer details in the database. Activation of this option might lead to the increase of the database activity, so if the PSQL load generated by SRM is excessive, disable it.
 
 Possible values are `true` and `false`. Default is `false`.
 
-Usage example:
+Usage example:  
 
     transfermanagers.enable.log-to-database=false
 
 ### srmVersion
 
-`srmVersion` is not used by CELL-SRM; it was mentioned that this value is used by some publishing scripts.
+`srmVersion` is not used by `SRM` it was mentioned that this value is used by some publishing scripts.
 
 Default is `version1`.
 
 ### srm.root
 
-`srm.root` tells CELL-SRM what the root of all SRM paths is in pnfs. CELL-SRM will prepend path to all the local SURL paths passed to it by SRM client. So if the `srm.root` is set to `/pnfs/fnal.gov/THISISTHEPNFSSRMPATH` and someone requests the read of <srm://srm.example.org:8443/file1>, SRM will translate the SURL path `/file1` into `/pnfs/fnal.gov/THISISTHEPNFSSRMPATH/file1`. Setting this variable to something different from `/` is equivalent of performing Unix `chroot` for all SRM operations.
+`srm.root` tells `SRM` what the root of all `SRM` paths is in pnfs. `SRM` will prepend path to all the local SURL paths passed to it by `SRM` client. So if the `srm.root` is set to `/pnfs/fnal.gov/THISISTHEPNFSSRMPATH` and someone requests the read of <srm://srm.example.org:8443/file1>, `SRM` will translate the SURL path `/file1` into `/pnfs/fnal.gov/THISISTHEPNFSSRMPATH/file1`. Setting this variable to something different from `/` is equivalent of performing Unix `chroot` for all `SRM` operations.
 
 Default value is `/`.
 
-Usage example:
+Usage example:  
 
     srm.root="/pnfs/fnal.gov/data/experiment"
 
 ### srm.limits.parallel-streams
 
-`srm.limits.parallel-streams` specifies the number of the parallel streams that CELL-SRM will use when performing third party transfers between this system and remote GSIFTP servers, in response to SRM v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the SRM clients.
+`srm.limits.parallel-streams` specifies the number of the parallel streams that `SRM` will use when performing third party transfers between this system and remote GSIFTP servers, in response to `SRM` v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the `SRM` clients.
 
 Default value is `10`.
 
-Usage example:
+Usage example:  
 
     srm.limits.parallel-streams=20
 
 ### srm.limits.transfer-buffer.size
 
-`srm.limits.transfer-buffer.size` specifies the number of bytes to use for the in memory buffers for performing third party transfers between this system and remote GSIFTP servers, in response to SRM v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the SRM clients.
+`srm.limits.transfer-buffer.size` specifies the number of bytes to use for the in memory buffers for performing third party transfers between this system and remote GSIFTP servers, in response to SRM v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the `SRM` clients.
 
 Default value is `1048576`.
 
-Usage example:
+Usage example:  
 
     srm.limits.transfer-buffer.size=1048576
 
 ### srm.limits.transfer-tcp-buffer.size
 
-`srm.limits.transfer-tcp-buffer.size` specifies the number of bytes to use for the tcp buffers for performing third party transfers between this system and remote GSIFTP servers, in response to SRM v1.1 copy or SRM V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the SRM clients.
+`srm.limits.transfer-tcp-buffer.size` specifies the number of bytes to use for the tcp buffers for performing third party transfers between this system and remote GSIFTP servers, in response to `SRM` v1.1 copy or `SRM` V2.2 srmCopy function. This will have no effect on srmPrepareToPut and srmPrepareToGet command results and parameters of GRIDFTP transfers driven by the `SRM` clients.
 
 Default value is `1048576`.
 
-Usage example:
+Usage example:  
 
     srm.limits.transfer-tcp-buffer.size=1048576
 
 ### srm.service.gplazma.cache.timeout
 
-`srm.service.gplazma.cache.timeout` specifies the duration that authorizations will be cached. Caching decreases the volume of messages to the CELL-GPLAZMA cell or other authorization mechanism. To turn off caching, set the value to `0`.
+`srm.service.gplazma.cache.timeout` specifies the duration that authorizations will be cached. Caching decreases the volume of messages to the `gplazma` cell or other authorization mechanism. To turn off caching, set the value to `0`.
 
 Default value is `120`.
 
-Usage example:
+Usage example:  
 
     srm.service.gplazma.cache.timeout=60
 
@@ -677,7 +754,7 @@ Usage example:
 
 Default value is `14400000` (4 hours)
 
-Usage example:
+Usage example:  
 
     srm.limits.request.bring-online.lifetime=14400000
     srm.limits.request.put.lifetime=14400000
@@ -687,7 +764,7 @@ Usage example:
 
 `srm.limits.request.scheduler.ready.max` and `srm.limits.request.put.scheduler.ready.max` specify the maximum number of the files for which the transfer URLs will be computed and given to the users in response to SRM get (srmPrepareToGet) and put (srmPrepareToPut) requests. The rest of the files that are ready to be transfered are put on the `Ready` queues, the maximum length of these queues are controlled by `srm.limits.request.scheduler.ready-queue.size` and `srm.limits.request.put.scheduler.ready-queue.size` parameters. These parameters should be set according to the capacity of the system, and are usually greater than the maximum number of the GRIDFTP transfers that this DCACHE instance GRIDFTP doors can sustain.
 
-Usage example:
+Usage example:  
 
     srm.limits.request.scheduler.ready-queue.size=10000
     srm.limits.request.scheduler.ready.max=2000
@@ -696,9 +773,9 @@ Usage example:
 
 ### srm.limits.request.copy.scheduler.thread.pool.size and transfermanagers.limits.external-transfers
 
-`srm.limits.request.copy.scheduler.thread.pool.size` and `transfermanagers.limits.external-transfers`. `srm.limits.request.copy.scheduler.thread.pool.size` is used to specify how many parallel srmCopy file copies to execute simultaneously. Once the CELL-SRM contacted the remote SRM system, and obtained a Transfer URL (usually GSIFTP URL), it contacts a Copy Manager module (usually CELL-REMOTEGSITRANSFERMNGR), and asks it to perform a GRIDFTP transfer between the remote GRIDFTP server and a DCACHE pool. The maximum number of simultaneous transfers that CELL-REMOTEGSITRANSFERMNGR will support is `transfermanagers.limits.external-transfers`, therefore it is important that `transfermanagers.limits.external-transfers` is greater than or equal to `srm.limits.request.copy.scheduler.thread.pool.size`.
+`srm.limits.request.copy.scheduler.thread.pool.size` and `transfermanagers.limits.external-transfers`. `srm.limits.request.copy.scheduler.thread.pool.size` is used to specify how many parallel srmCopy file copies to execute simultaneously. Once the `SRM` contacted the remote `SRM` system, and obtained a Transfer URL (usually GSI-FTP URL), it contacts a Copy Manager module (usually RemoteGSIFTPTransferManager), and asks it to perform a GRIDFTP transfer between the remote GRIDFTP server and a DCACHE pool. The maximum number of simultaneous transfers that RemoteGSIFTPTransferManager will support is `transfermanagers.limits.external-transfers`, therefore it is important that `transfermanagers.limits.external-transfers` is greater than or equal to `srm.limits.request.copy.scheduler.thread.pool.size`.
 
-Usage example:
+Usage example:  
 
     srm.limits.request.copy.scheduler.thread.pool.size=250
     transfermanagers.limits.external-transfers=260
@@ -707,7 +784,7 @@ Usage example:
 
 `srm.enable.custom-get-host-by-address` `srm.enable.custom-get-host-by-address` enables using the BNL developed procedure for host by IP resolution if standard InetAddress method failed.
 
-Usage example:
+Usage example:  
 
     srm.enable.custom-get-host-by-address=true
 
@@ -717,7 +794,7 @@ Usage example:
 
 Automatic directory creation is allowed by default.
 
-Usage example:
+Usage example:  
 
     srm.enable.recursive-directory-creation=true
 
@@ -729,7 +806,7 @@ By changing this parameter you can control how long the host certificate is cach
 
 Please note that the value of this parameter has to be specified in seconds.
 
-Usage example:
+Usage example:  
 
     hostCertificateRefreshPeriod=86400
 
@@ -741,28 +818,28 @@ By changing this parameter you can control how long the set of trust anchors rem
 
 Please note that the value of this parameter has to be specified in seconds.
 
-> **Tip**
+> **TIP**
 >
 > Trust-anchors usually change more often than the host certificate. Thus, it might be sensible to set the refresh period of the trust anchors lower than the refresh period of the host certificate.
 
-Usage example:
+Usage example:  
 
     trustAnchorRefreshPeriod=3600
 
-Configuring the PSQL Database
-=============================
+CONFIGURING THE POSTGRESQL DATABASE
+===================================
 
 We highly recommend to make sure that PSQL database files are stored on a separate disk that is not used for anything else (not even PSQL logging). BNL Atlas Tier 1 observed a great improvement in srm-database communication performance after they deployed PSQL on a separate dedicated machine.
 
-SRM or srm monitoring on a separate node
+SRM OR SRM MONITORING ON A SEPARATE NODE
 ----------------------------------------
 
-If SRM or srm monitoring is going to be installed on a separate node, you need to add an entry in the file `/var/lib/pgsql/data/pg_hba.conf` for this node as well:
+If `SRM` or srm monitoring is going to be installed on a separate node, you need to add an entry in the file **/var/lib/pgsql/data/pg_hba.conf** for this node as well:
 
-    host    all         all       monitoring node    trust
-    host    all         all       srm node    trust
+    host    all         all       <monitoring node>    trust
+    host    all         all       <srm node>           trust
 
-The file `postgresql.conf` should contain the following:
+The file **postgresql.conf** should contain the following:
 
     #to enable network connection on the default port
     max_connections = 100
@@ -796,26 +873,26 @@ The file `postgresql.conf` should contain the following:
     # - Planner Cost Constants -
     effective_cache_size = 16384            # typically 8KB each
 
-General SRM Concepts (for developers)
+GENERAL SRM CONCEPTS (FOR DEVELOPERS)
 =====================================
 
-The CELL-SRM service
---------------------
+THE SRM SERVICE
+---------------
 
-DCACHE CELL-SRM is implemented as a Web Service running in a JETTY servlet container and an Axis Web Services engine. The JETTY server is executed as a cell, embedded in DCACHE and started automatically by the CELL-SRM service. Other cells started automatically by CELL-SRM are CELL-SPACEMNGR, CELL-PINMNGR and CELL-REMOTEGSITRANSFERMNGR. Of these services only CELL-SRM and CELL-SPACEMNGR require special configuration.
+dCache `SRM` is implemented as a Web Service running in a Jetty servlet container and an Axis Web Services engine. The Jetty server is executed as a cell, embedded in dCache and started automatically by the `SRM` service. Other cells started automatically by `SRM` are `SpaceManager`, `PinManager` and `RemoteGSIFTPTransferManager`. Of these services only `SRM` and SpaceManager require special configuration.
 
-The SRM consists of the five categories of functions:
+The `SRM` consists of the five categories of functions:
 
--   Space Management Functions
--   Data Transfer Functions
--   Request Status Functions
--   Directory Functions
--   Permission Functions
+-   [Space Management Functions](#space-management-functions)
+-   [Data Transfer Functions](#data-transfer-functions)
+-   [Request Status Functions](#request-status-functions)
+-   [Directory Functions](#directory-functions)
+-   [Permission Functions](#permission-functions)
 
-Space Management Functions
+SPACE MANAGEMENT FUNCTIONS
 --------------------------
 
-SRM version 2.2 introduces a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
+`SRM` version 2.2 introduces a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
 
 We use three functions for space management:
 
@@ -827,20 +904,21 @@ Space reservation is made using the `srmReserveSpace` function. In case of succe
 
 DCACHE only manages write space, i.e. space on disk can be reserved only for write operations. Once files are migrated to tape, and if no copy is required on disk, space used by these files is returned back into space reservation. When files are read back from tape and cached on disk, they are not counted as part of any space. SRM space reservation can be assigned a non-unique description that can be used to query the system for space reservations with a given description.
 
-[Properties of the SRM space reservations] can be discovered using the `SrmGetSpaceMetadata` function.
+[Properties of the SRM space reservations](#properties-of-the-srm-space-reservations) can be discovered using the `SrmGetSpaceMetadata` function.
 
 Space Reservations might be released with the function `srmReleaseSpace`.
 
-For a complete description of the available space management functions please see the [SRM Version 2.2 Specification].
+For a complete description of the available space management functions please see the [SRM Version 2.2 Specification](https://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html#_Toc241633085).
 
-Data Transfer Functions
+DATA TRANSFER FUNCTIONS
 -----------------------
 
 ### SURLs and TURLs
 
-SRM defines a protocol named SRM, and introduces a way to address the files stored in the SRM managed storage by site URL (SURL of the format `srm://<host>:<port>/[<web service
+`SRM` defines a protocol named `SRM`, and introduces a way to address the files stored in the `SRM` managed storage by site URL (SURL of the format `srm://<host>:<port>/[<web service
 	  path>?SFN=]<path>`.
 
+Example:
 Examples of the SURLs a.k.a. SRM URLs are:
 
     srm://fapl110.fnal.gov:8443/srm/managerv2?SFN=//pnfs/fnal.gov/data/test/file1
@@ -849,15 +927,16 @@ Examples of the SURLs a.k.a. SRM URLs are:
 
 A transfer URL (TURL) encodes the file transport protocol in the URL.
 
+Example:  
     gsiftp://gridftpdoor.fnal.gov:2811/data/test/file1
 
-SRM version 2.2 provides three functions for performing data transfers:
+`SRM` version 2.2 provides three functions for performing data transfers:
 
 -   srmPrepareToGet
 -   srmPrepareToPut
 -   srmCopy
 
-(in SRM version 1.1 these functions were called `get`, `put` and `copy`).
+(in `SRM` version 1.1 these functions were called `get`, `put` and `copy`).
 
 All three functions accept lists of SURLs as parameters. All data transfer functions perform file/directory access verification and `srmPrepareToPut` and `srmCopy` check if the receiving storage element has sufficient space to store the files.
 
@@ -867,22 +946,22 @@ All three functions accept lists of SURLs as parameters. All data transfer funct
 
 Both functions support transfer protocol negotiation. A client supplies a list of transfer protocols and the SRM server computes the TURL using the first protocol from the list that it supports. Function invocation on the Storage Element depends on implementation and may range from simple SURL to TURL translation to stage from tape to disk cache and dynamic selection of transfer host and transfer protocol depending on the protocol availability and current load on each of the transfer server load.
 
-The function `srmCopy` is used to copy files between SRM managed storage elements. If both source and target are local to the SRM, it performes a local copy. There are two modes of remote copies:
+The function `srmCopy` is used to copy files between `SRM` managed storage elements. If both source and target are local to the `SRM`, it performes a local copy. There are two modes of remote copies:
 
--   PULL mode : The target SRM initiates an `srmCopy` request. Upon the client\\u0411\\u2500\\u2265s `srmCopy` request, the target SRM makes a space at the target storage, executes `srmPrepareToGet` on the source SRM. When the TURL is ready at the source SRM, the target SRM transfers the file from the source TURL into the prepared target storage. After the file transfer completes, `srmReleaseFiles` is issued to the source SRM.
+-   PULL mode : The target `SRM` initiates an `srmCopy` request. Upon the client\\u0411\\u2500\\u2265s `srmCopy` request, the target `SRM` makes a space at the target storage, executes `srmPrepareToGet` on the source `SRM`. When the TURL is ready at the source `SRM`, the target `SRM` transfers the file from the source TURL into the prepared target storage. After the file transfer completes, `srmReleaseFiles` is issued to the source `SRM`.
 
--   PUSH mode : The source SRM initiates an `srmCopy` request. Upon the client\\u0411\\u2500\\u2265s `srmCopy` request, the source SRM prepares a file to be transferred out to the target SRM, executes `srmPrepareToPut` on the target SRM. When the TURL is ready at the target SRM, the source SRM transfers the file from the prepared source into the prepared target TURL. After the file transfer completes, `srmPutDone` is issued to the target SRM.
+-   PUSH mode : The source `SRM` initiates an `srmCopy` request. Upon the client\\u0411\\u2500\\u2265s `srmCopy` request, the source `SRM` prepares a file to be transferred out to the target `SRM`, executes `srmPrepareToPut` on the target `SRM`. When the TURL is ready at the target `SRM`, the source SRM transfers the file from the prepared source into the prepared target TURL. After the file transfer completes, `srmPutDone` is issued to the target `SRM`.
 
 When a specified target space token is provided, the files will be located in the space associated with the space token.
 
-SRM Version 2.2 `srmPrepareToPut` and `srmCopy` PULL mode transfers allow the user to specify a space reservation token or a retention policy and access latency. Any of these parameters are optional, and it is up to the implementation to decide what to do, if these properties are not specified. The specification requires that if a space reservation is given, then the specified access latency or retention policy must match those of the space reservation.
+`SRM` Version 2.2 `srmPrepareToPut` and `srmCopy` PULL mode transfers allow the user to specify a space reservation token or a retention policy and access latency. Any of these parameters are optional, and it is up to the implementation to decide what to do, if these properties are not specified. The specification requires that if a space reservation is given, then the specified access latency or retention policy must match those of the space reservation.
 
-The Data Transfer Functions are asynchronous, an initial SRM call starts a request execution on the server side and returns a request status that contains a unique request token. The status of request is polled periodically by SRM get request status functions. Once a request is completed and the client receives the TURLs the data transfers are initiated. When the transfers are completed the client notifies the SRM server by executing `srmReleaseFiles` in case of `srmPrepareToGet` or `srmPutDone` in case of `srmPrepareToPut`. In case of `srmCopy`, the system knows when the transfers are completed and resources can be released, so it requires no special function at the end.
+The Data Transfer Functions are asynchronous, an initial `SRM` call starts a request execution on the server side and returns a request status that contains a unique request token. The status of request is polled periodically by `SRM` get request status functions. Once a request is completed and the client receives the TURLs the data transfers are initiated. When the transfers are completed the client notifies the `SRM` server by executing `srmReleaseFiles` in case of `srmPrepareToGet` or `srmPutDone` in case of `srmPrepareToPut`. In case of `srmCopy`, the system knows when the transfers are completed and resources can be released, so it requires no special function at the end.
 
 Clients are free to cancel the requests at any time by execution of `srmAbortFiles` or `srmAbortRequest`.
 
-Request Status Functions
-------------------------
+REQUEST STATUS FUNCTIONS
+------------------------ 
 
 The functions for checking the request status are:
 
@@ -894,10 +973,10 @@ The functions for checking the request status are:
 -   srmStatusOfPutRequest
 -   srmStatusOfCopyRequest
 
-Directory Functions
+DIRECTORY FUNCTIONS
 -------------------
 
-SRM Version 2.2, interface provides a complete set of directory management functions. These are
+`SRM` Version 2.2, interface provides a complete set of directory management functions. These are
 
 -   srmLs
     ,
@@ -907,7 +986,7 @@ SRM Version 2.2, interface provides a complete set of directory management funct
     srmRmDir
 -   srmMv
 
-Permission functions
+PERMISSION FUNCTIONS
 --------------------
 
 SRM Version 2.2 supports the following three file permission functions:
@@ -919,7 +998,7 @@ SRM Version 2.2 supports the following three file permission functions:
 
 DCACHE contains an implementation of these functions that allows setting and checking of Unix file permissions.
 
-  [SRM specification]: https://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html
+ <!-- [SRM specification]: https://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html
   [SRM Working Group Page]: http://sdm.lbl.gov/srm-wg/
   [???]: #in-install-layout
   [1]: #cf-gplazma
@@ -937,4 +1016,5 @@ DCACHE contains an implementation of these functions that allows setting and che
   []: http://www.postgresql.org/docs/8.1/static/libpq-pgpass.html
   [5]: http://www.postgresql.org/docs/8.1/static/encryption-options.html
   [Properties of the SRM space reservations]: #cf-srm-intro-spaceReservation
-  [SRM Version 2.2 Specification]: http://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html#_Toc241633085
+  [SRM Version 2.2 Specification]: http://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html#_Toc241633085 
+--!> 

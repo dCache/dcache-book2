@@ -1,7 +1,13 @@
-Introduction
-============
+Chapter 1. Introduction
+=======================
 
-DCACHE is a distributed storage solution. It organises storage across computers so the combined storage can be used without the end-users being aware of where their data is stored. They simply see a large amount of storage.
+Table of Contents
+------------------
+
+[Cells and Domains](#cells-and-domains)  
+[Protocols Supported by dCache](#protocols-supported-by-dcache)
+
+dCache is a distributed storage solution. It organises storage across computers so the combined storage can be used without the end-users being aware of where their data is stored. They simply see a large amount of storage.
 
 Because end-users do not need to know on which computer their data is stored, it can be migrated from one computer to another without any interruption of service. As a consequence, (new) servers may be added to or taken away from the DCACHE storage cluster at any time.
 
@@ -13,7 +19,14 @@ Another performance feature of DCACHE is hot-spot data migration. In this proces
 
 The flow of data within DCACHE can also be carefully controlled. This is especially important for large sites as chaotic movement of data may lead to suboptimal usage. Instead, incoming and outgoing data can be marshaled so they use designated resources guaranteeing better throughput and improving end-user experience.
 
-DCACHE provides a comprehensive administrative interface for configuring the DCACHE instance. This is described in the later sections of this book.
+DCACHE provides a comprehensive administrative interface for configuring the DCACHE instance. This is described in the later sections of this book.  
+
+### Figure 1.1. The dCache Layer Model
+
+![The dCache Layer Model](layer_model.jpg "The dCache Layer Model") 
+
+The layer model shown in [The dCache Layer Model] gives an overview of the architecture of the dCache system.
+
 
 Cells and Domains
 =================
@@ -26,33 +39,31 @@ Cells can be grouped into common types; for example, pools, doors. Cells of the 
 
 There are only a few cells where (at most) only a single instance is required. The majority of cells within a DCACHE instance can have multiple instances and DCACHE is designed to allow load-balancing over these cells.
 
-A domain is a container for running cells. Each domain runs in its own Java Virtual Machine (JVM) instance, which it cannot share with any other domain. In essence, a domain *is* a JVM with the additional functionality necessary to run cells (such as system administration and inter-cell communication). This also implies, that a node's resources, such as memory, available CPU and network bandwidth, are shared among several domains running on the same node.
+A *domain* is a container for running cells. Each domain runs in its own Java Virtual Machine (JVM) instance, which it cannot share with any other domain. In essence, a domain *is* a JVM with the additional functionality necessary to run cells (such as system administration and inter-cell communication). This also implies, that a node's resources, such as memory, available CPU and network bandwidth, are shared among several domains running on the same node.
 
 DCACHE comes with a set of domain definitions, each specifying a useful set of cells to run within that domain to achieve a certain goal. These goals include storing data, providing a front-end to the storage, recording file names, and so on. The list of cells to run within these domains are recommended deployments: the vast majority of DCACHE deployments do not need to alter these lists.
 
 A node is free to run multiple domains, provided there's no conflicting requirement from the domains for exclusive access to hardware. A node may run a single domain; but, typically a node will run multiple domains. The choice of which domains to run on which nodes will depend on expected load of the DCACHE instance and on the available hardware. If this sounds daunting, don't worry: starting and stopping a domain is easy and migrating a domain from one node to another is often as easy as stopping the domain on one node and starting it on another.
 
-DCACHE is scalable storage software. This means that (in most cases) the performance of DCACHE can be improved by introducing new hardware. Depending on the performance issue, the new hardware may be used by hosting a domain migrated from a overloaded node, or by running an additional instance of a domain to allow load-balancing.
+DCACHE is scalable storage software. This means that (in most cases) the performance of DCACHE can be improved by introducing new hardware. Depending on the performance issue, the new hardware may be used by hosting a domain migrated from a overloaded node, or by running an additional instance of a domain to allow load-balancing. 
 
 Most cells communicate in such a way that they don't rely on in which domain they are running. This allows a site to move cells from one domain to another or to create new domain definitions with some subset of available cells. Although this is possible, it is rare that redefining domains or defining new domains is necessary. Starting or stopping domains is usually sufficient for managing load.
 
-![The DCACHE Layer Model]
 
-The layer model shown in [figure\_title] gives an overview of the architecture of the DCACHE system.
 
 Protocols Supported by DCACHE
 =============================
 
-|                              | DCAP | FTP | XROOTD | NFS4 | WEBDAV | SRM |
-|------------------------------|------|-----|--------|------|--------|-----|
-|                              | +    | +   | +      | +    | +      | -   |
-| kerberos                     | +    | +   | -      | +    | -      | -   |
-| Client Certificate           | +    | +   | +      | -    | +      | +   |
-| username/password            | +    | +   | -      | -    | +      | -   |
-| Control Connection Encrypted | +    | +   | +      | +    | +      | +   |
-| Data Connection Encrypted    | -    | -   | -      | +    | -      | -   |
-| passiv                       | +    | +   | +      | +    | +      | +   |
-| active                       | +    | +   | -      | -    | -      | -   |
+|                              |dCap  |FTP   |xrootd|NFSv4.1| WebDAV | SRM |
+|:----------------------------:|:----:|:----:|:----:|:-----:|:------:|:---:|
+|                              | +    | +    | +    | +     | +      | -   |
+|    kerberos                  | +    | +    | -    | +     |  -     | -   |
+| Client Certificate           | +    | +    | +    | -     | +      | +   |
+| username/password            | +    | +    | -    | -     | +      | -   |
+| Control Connection Encrypted | +    | +    | +    | +     | +      | +   |
+| Data Connection Encrypted    | -    | -    | -    | +     | -      | -   |
+| passiv                       | +    | +    | +    | +     | +      | +   |
+| active                       | +    | +    | -    | -     | -      | -   |
 
   [The DCACHE Layer Model]: images/test2.svg
   [figure\_title]: #fig-intro-layer-model
