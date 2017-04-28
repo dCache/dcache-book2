@@ -234,7 +234,7 @@ The Alarms Web Page is an admin page and thus requires authentication. You must 
     button will reload the data from the database based on these parameters. The default behavior is ALL ALARMS ONLY (unspecified type or range). Placing a single date in the Beginning box will give you all entries from that date up to today (inclusive); a single date in the Ending box will give all entries up to that date (inclusive). The other options, marked by 'M', all do in-memory filtering.
 2.  The
     Priority
-    choice works like a debugging level, such that choosing
+    choice works like a debugging level, such that choosing 
     MODERATE
     will expose all alarms of that priority or above, thus including
     HIGH
