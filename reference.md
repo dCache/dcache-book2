@@ -4,8 +4,8 @@ Part IV. Reference
 Table of Contents
 ------------------
 
-+ [27. dCache Clients](dcache-clients)  
-[The SRM Client Suite](reference.md#the-srm-client-suite)  
++ [27. dCache Clients]()  
+[The SRM Client Suite](rf-clients-srm.md)  
 [srmcp](reference.md#srmcp) — Copy a file from or to an SRM or between two SRMs.  
 [srmstage](reference.md#srmstage) — Request staging of a file.  
 [dccp](reference.md#dccp)  
