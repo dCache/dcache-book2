@@ -11,7 +11,7 @@ Table of Contents
 [dccp](rf-clients-srm.md#dccp)  
 [dccp](rf-clients-srm.md#dccp) — Copy a file from or to a dCache server.  
 
-+ [28. dCache Cell Commands]()   
++ [28. dCache Cell Commands](rf-cc-common.md)   
 + [Common Cell Commands](rf-cc-common.md)  
 [pin](rf-cc-common.md#pin) — Adds a comment to the pinboard.
 [info](rf-cc-common.md#info) — Print info about the cell.
