@@ -1,3 +1,18 @@
+Chapter 27. dCache Clients
+===========================
+
+Table of Contents
+-----------------
+
++ [The SRM Client Suite](#the-srm-client-suite)
+
+  [srmcp](#srmcp) — Copy a file from or to an SRM or between two SRMs.
+  [srmstage](#srmstage) — Request staging of a file.
+
++ [dccp](#dccp)
+  [dccp](#dccp) — Copy a file from or to a dCache server.
+
+
 The SRM Client Suite
 ====================
 
