@@ -82,7 +82,7 @@ Copying files
 globus-url-copy
 \[command line options\]
 [<srcUrl>]
-[<destinationUrl>]
+[<destinationUrl>] 
 ...
 Copying file with `globus-url-copy` follows the syntax source, destination.
 
@@ -317,7 +317,7 @@ The `srmping` command will tell you the version of DCACHE. This only works for a
 
 ### Space Tokens
 
-Space token support must be set up and reserving space with the admin interface this is also documented [in the SRM section](https://www.dcache.org/manuals/Book-2.16/config/cf-srm-intro-fhs.shtml) and in [the DCACHE wiki](http://trac.dcache.org/wiki/manuals/SRM_2.2_Setup).
+Space token support must be set up and reserving space with the admin interface this is also documented [in the SRM section](config-SRM.md#introduction) and in [the DCACHE wiki](http://trac.dcache.org/wiki/manuals/SRM_2.2_Setup).
 
 #### Space Token Listing
 
