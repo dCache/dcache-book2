@@ -41,7 +41,7 @@ CHECKING THE FUNCTIONALITY
 
 Reading and writing data to and from a dCache instance can be done with a number of protocols. After a standard installation, these protocols are **dCap**, **GSIdCap**, and **GridFTP**. In addition dCache comes with an implementation of the **SRM** protocol which negotiates the actual data transfer protocol.  
 
-DCACHE WITHOUT MOUNTED NAMESPACE
+dCache WITHOUT MOUNTED NAMESPACE
 --------------------------------
 
 Create the root of the Chimera namespace and a world-writable directory by
@@ -120,7 +120,7 @@ For anonymous access you need to set the property `dcap.authz.anonymous-operatio
         [dCacheDomain/dcap]
           dcap.authz.anonymous-operations=FULL
 
-For this tutorial install dCap on your worker node. This can be the machine where your DCACHE is running.
+For this tutorial install dCap on your worker node. This can be the machine where your dCache is running.
 
 Get the GLITE repository (which contains dCap) and install DCAP using `yum`.
 
@@ -145,7 +145,7 @@ and copy the file back.
 To remove the file you will need to mount the namespace.
 
 
-THE WEB INTERFACE FOR MONITORING DCACHE
+THE WEB INTERFACE FOR MONITORING dCache
 =======================================
 
 In the standard configuration the dCache web interface is started on the head node (meaning that the domain hosting the httpd service is running on the head node) and can be reached via port 2288. Point a web browser to http://<head-node.example.org>:2288/ to get to the main menu of the dCache web interface. The contents of the web interface are self-explanatory and are the primary source for most monitoring and trouble-shooting tasks.
@@ -323,7 +323,7 @@ Starting from the local prompt ((`local) admin >`) the command `cd` takes you to
 >
 > If the cells are well-known, they can be accessed without adding the domain-scope. See [Chapter 5, The Cell Package](config-cellpackage.md) for more information.
 
-The domains that are running on the DCACHE-instance, can be viewed in the layout-configuration (see  [Chapter 2, Installing dCache](install.md)). Additionally, there is the `topo` cell, which keeps track of the instance's domain topology. If it is running, it can be used to obtain the list of domains the following way:  
+The domains that are running on the dCache-instance, can be viewed in the layout-configuration (see  [Chapter 2, Installing dCache](install.md)). Additionally, there is the `topo` cell, which keeps track of the instance's domain topology. If it is running, it can be used to obtain the list of domains the following way:  
 
 > **NOTE**  
 >
@@ -572,7 +572,7 @@ or, the equivalent as stdin.
       
       
 
-AUTHENTICATION AND AUTHORIZATION IN DCACHE  
+AUTHENTICATION AND AUTHORIZATION IN dCache  
 ------------------------------------------
 
 In dCache digital certificates are used for authentication and authorisation. To be able to verify the chain of trust when using the non-commercial grid-certificates you should install the list of certificates of grid Certification Authorities (CAs). In case you are using commercial certificates you will find the list of CAs in your browser.  
@@ -658,7 +658,7 @@ Now you can generate your voms proxy containing your VO.
       Your proxy is valid until Thu Mar 31 21:49:06 2011  
  
  
-Authentication and authorization in DCACHE is done by the GPLAZMA service. Define this service in the layout file.  
+Authentication and authorization in dCache is done by the GPLAZMA service. Define this service in the layout file.  
 
       [gPlazmaDomain]  
       [gPlazmaDomain/gplazma]  
@@ -690,7 +690,7 @@ The **/etc/dcache/dcachesrm-gplazma.policy:**
       
           
 
-HOW TO WORK WITH SECURED DCACHE
+HOW TO WORK WITH SECURED dCache
 -------------------------------
 
 If you want to copy files into dCache with GSIdCap, SRM or WebDAV with certificates you need to follow the instructions in the section [above](#authentication-and-authorization-in-dcache).  
@@ -814,7 +814,7 @@ You can access your files via https://<dcache.example.org>:2880 with your browse
 Files
 =====
 
-In this section we will have a look at the configuration and log files of DCACHE.
+In this section we will have a look at the configuration and log files of dCache.
 
 The dCache software is installed in various directories according to the Filesystem Hierarchy Standard. All configuration files can be found in  **/etc/dcache**.
 

@@ -8,13 +8,13 @@ Preface
 [What is inside?](#what-is-inside)  
 [Looking for help?](#looking-for-help)  
 
-Welcome to the DCACHE. DCACHE is a distributed storage solution for storing huge amounts of data without a hard limit, used to provide storage in the petabyte range. Therefore it qualifies as the storage system supporting data intensive experiments.
+Welcome to the dCache. dCache is a distributed storage solution for storing huge amounts of data without a hard limit, used to provide storage in the petabyte range. Therefore it qualifies as the storage system supporting data intensive experiments.
 
-DCACHE is a joined effort between the Deutsches Elektronen-Synchrotron (DESY) in Hamburg, Nordic Data Grid Facility (NDGF based in Copenhagen), the Fermi National Accelerator Laboratory near Chicago with significant distributions and support from the University of California, San Diego, INFN, Bari as well as Rutherford Appleton Laboratory, UK and CERN in Geneva.
+dCache is a joined effort between the Deutsches Elektronen-Synchrotron (DESY) in Hamburg, Nordic Data Grid Facility (NDGF based in Copenhagen), the Fermi National Accelerator Laboratory near Chicago with significant distributions and support from the University of California, San Diego, INFN, Bari as well as Rutherford Appleton Laboratory, UK and CERN in Geneva.
 
-DCACHE can use hierarchical storage management (e.g., hard disk and tape), provides mechanisms to automatically increase performance and balance loads, increase resilience and availability. It also supplies advanced control systems to manage data as well as data flows. Normal filesystem (btrfs, ext4, XFS, ZFS) is used to store data on storage nodes.
+dCache can use hierarchical storage management (e.g., hard disk and tape), provides mechanisms to automatically increase performance and balance loads, increase resilience and availability. It also supplies advanced control systems to manage data as well as data flows. Normal filesystem (btrfs, ext4, XFS, ZFS) is used to store data on storage nodes.
 
-There are several ways of accessing data stored in DCACHE:
+There are several ways of accessing data stored in dCache:
 
 -   **NFS** v4.1 (CHIMERA)
 
@@ -28,11 +28,11 @@ There are several ways of accessing data stored in DCACHE:
 
 -   **dCap** and **GSIdCap**
 
-DCACHE supports certificate based authentication through the Grid Security Infrastructure used in **GSI-FTP**, **GSIdCap** transfer protocols and the **SRM** management protocol. Certificate authentication is also available for **HTTP** and **WEBDAV**.
+dCache supports certificate based authentication through the Grid Security Infrastructure used in **GSI-FTP**, **GSIdCap** transfer protocols and the **SRM** management protocol. Certificate authentication is also available for **HTTP** and **WEBDAV**.
 
-DCACHE also supports fine-grain authorization with support for POSIX file permissions and **NFS**-style access control lists.
+dCache also supports fine-grain authorization with support for POSIX file permissions and **NFS**-style access control lists.
 
-Other features of DCACHE are:
+Other features of dCache are:
 
 -   Resilience and high availability can be implemented in different ways by having multiple replicas of the same files.
 
@@ -56,7 +56,7 @@ Other features of DCACHE are:
 
 -   Ensuring data integrity through checksumming.
 
-DCACHE / **SRM** can transparently manage data distributed among dozens of disk storage nodes (sometimes distributed over several countries). The system has shown to significantly improve the efficiency of connected tape storage systems, by caching, gather and flush and scheduled staging techniques. Furthermore, it optimizes the throughput to and from data clients by dynamically replicating datasets on the detection of load hot spots. The system is tolerant against failures of its data servers, which allows administrators to deploy commodity disk storage components.
+dCache / **SRM** can transparently manage data distributed among dozens of disk storage nodes (sometimes distributed over several countries). The system has shown to significantly improve the efficiency of connected tape storage systems, by caching, gather and flush and scheduled staging techniques. Furthermore, it optimizes the throughput to and from data clients by dynamically replicating datasets on the detection of load hot spots. The system is tolerant against failures of its data servers, which allows administrators to deploy commodity disk storage components.
 
 Access to the data is provided by various standard protocols. Furthermore the software comes with an implementation of the Storage Resource Manager protocol (**SRM**), which is an open standard for grid middleware to communicate with site specific storage fabrics.
 
@@ -74,18 +74,18 @@ For minimal test installation:
 
 -   Software: Oracle/Sun Java, Postgres SQL Server
 
-For a high performance Grid scenario the hardware requirements highly differ, which makes it impossible to provide such parameters here. However, if you wish to setup a DCACHE-based storage system, just let us know and we will help you with your system specifications. Just contact us: <support@dcache.org>.
+For a high performance Grid scenario the hardware requirements highly differ, which makes it impossible to provide such parameters here. However, if you wish to setup a dCache-based storage system, just let us know and we will help you with your system specifications. Just contact us: <support@dcache.org>.
 
 What is inside?
 ---------------
 
-This book shall introduce you to DCACHE and provide you with the details of the installation. It describes configuration, customization of DCACHE as well as the usage of several protocols that DCACHE supports. Additionally, it provides cookbooks for standard tasks.
+This book shall introduce you to dCache and provide you with the details of the installation. It describes configuration, customization of dCache as well as the usage of several protocols that dCache supports. Additionally, it provides cookbooks for standard tasks.
 
 Here is an overview part by part:
 
-Part 1, Getting started: This part introduces you to the cells and domain concept in DCACHE. It provides a detailed description of installing, the basic configuration, and upgrading DCACHE.
+Part 1, Getting started: This part introduces you to the cells and domain concept in dCache. It provides a detailed description of installing, the basic configuration, and upgrading dCache.
 
-Part 2, Configuration of dCache: Within this part the configuration of several additional features of DCACHE is described. They are not necessary to run DCACHE but will be needed by some users depending on their requirements.
+Part 2, Configuration of dCache: Within this part the configuration of several additional features of dCache is described. They are not necessary to run dCache but will be needed by some users depending on their requirements.
 
 Part 3, Cookbook: This part comprises guides for specific tasks a system administrator might want to perform.
 
@@ -114,7 +114,7 @@ This part gets you all the help that you might need:
 
         -   User Forum: <user-forum@dcache.org>
 
--   For features that you would like to see in DCACHE or bugs that should be fixed: Just write an e-mail to <support@dcache.org>
+-   For features that you would like to see in dCache or bugs that should be fixed: Just write an e-mail to <support@dcache.org>
 
 -   If you like to stay up-to-date about new releases you can use the RSS feeds available from [our downloads page](https://www.dcache.org/downloads/IAgree.shtml).
 

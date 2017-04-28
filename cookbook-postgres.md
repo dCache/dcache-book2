@@ -76,7 +76,7 @@ Performance of the PostgreSQL Server
 
 On small systems it should never be a problem to use one single PSQL server for all the functions listed above. In the standard installation, the `ReplicaManager` is not activated by default. The `billing` will only write to a file by default.
 
-Whenever the PostgreSQL server is going to be used for another functionality, the impact on performance should be checked carefully. To improve the performance, the functionality should be installed on a separate host. Generally, a PSQL server for a specific funcionality should be on the same host as the DCACHE cell accessing that PSQL server, and the PSQL server containing the databases for CHIMERA should run on the same host as CHIMERA and the PnfsManager cell of the DCACHE system accessing it.
+Whenever the PostgreSQL server is going to be used for another functionality, the impact on performance should be checked carefully. To improve the performance, the functionality should be installed on a separate host. Generally, a PSQL server for a specific funcionality should be on the same host as the dCache cell accessing that PSQL server, and the PSQL server containing the databases for CHIMERA should run on the same host as CHIMERA and the PnfsManager cell of the dCache system accessing it.
 
 It is especially useful to use a separate PostgreSQL server for the `billing` cell. 
 

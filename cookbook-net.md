@@ -22,9 +22,9 @@ This chapter contains solutions for several non-trivial network configurations. 
 Firewall Configuration
 ======================
 
-The components of a DCACHE instance may be distributed over several hosts (nodes). Some of these components are accessed from outside and consequently the firewall needs to be aware of that. We contemplate two communication types, the DCACHE internal communication and the interaction from DCACHE with clients.
+The components of a dCache instance may be distributed over several hosts (nodes). Some of these components are accessed from outside and consequently the firewall needs to be aware of that. We contemplate two communication types, the dCache internal communication and the interaction from dCache with clients.
 
-Since DCACHE is very flexible, most port numbers may be changed in the configuration. The command `dcache
+Since dCache is very flexible, most port numbers may be changed in the configuration. The command `dcache
       ports` will provide you with a list of services and the ports they are using.
 
 Basic Installation
@@ -118,7 +118,7 @@ Description
 
 If pool nodes of a dCache instance are connected to a secondary interface of the `GridFTP` door, e.g. because they are in a private subnet, the `GridFTP` door will still tell the pool to connect to its primary interface, which might be unreachable.
 
-The reason for this is that the control communication between the door and the pool is done via the network of `TCP` connections which have been established at start-up. In the standard setup this communication is routed via the DCACHE domain. However, for the data transfer, the pool connects to the `GridFTP` door. The IP address it connects to is sent by the `GridFTP` door to the pool via the control connection. Since the `GridFTP` door cannot find out which of its interfaces the pool should use, it normally sends the IP address of the primary interface.
+The reason for this is that the control communication between the door and the pool is done via the network of `TCP` connections which have been established at start-up. In the standard setup this communication is routed via the dCache domain. However, for the data transfer, the pool connects to the `GridFTP` door. The IP address it connects to is sent by the `GridFTP` door to the pool via the control connection. Since the `GridFTP` door cannot find out which of its interfaces the pool should use, it normally sends the IP address of the primary interface.
 
 Solution
 --------

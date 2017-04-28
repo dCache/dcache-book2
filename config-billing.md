@@ -26,7 +26,7 @@ These options can be enabled simultaneously. If the database option is selected,
 THE BILLING LOG FILES
 =====================
 
-If you installed DCACHE following the instructions in the Chapter [Installing dCache](install.md) you enabled the BILLING in the domain where the HTTPD service is running (see the extract of the layout file).
+If you installed dCache following the instructions in the Chapter [Installing dCache](install.md) you enabled the BILLING in the domain where the HTTPD service is running (see the extract of the layout file).
 
     ...
     [httpdDomain]
@@ -186,9 +186,9 @@ In most cases, the billing service will be run out-of-the-box; nevertheless, the
         ""
         )
 
-    Changing this configuration requires an understanding of [DataNucleus](http://www.datanucleus.org/), and we expect it will be rather uncommon to utilize this option (it is suggested that the administrator in this case consult with a member of the DCACHE team).
+    Changing this configuration requires an understanding of [DataNucleus](http://www.datanucleus.org/), and we expect it will be rather uncommon to utilize this option (it is suggested that the administrator in this case consult with a member of the dCache team).
 
--   Changing the database type (which defaults to PSQL) to something else would entail the above-mentioned necessary modification of the **datanucleus.properties** as well as changing the `billing.db.driver` and `billing.db.url` properties appropriately. This is not a recommended procedure, though in certain exceptional circumstances, it may be desirable or necessary. Once again, consultation with the DCACHE team is suggested in this case.
+-   Changing the database type (which defaults to PSQL) to something else would entail the above-mentioned necessary modification of the **datanucleus.properties** as well as changing the `billing.db.driver` and `billing.db.url` properties appropriately. This is not a recommended procedure, though in certain exceptional circumstances, it may be desirable or necessary. Once again, consultation with the dCache team is suggested in this case.
 
 GENERATING AND DISPLAYING BILLING PLOTS
 =======================================
@@ -222,9 +222,9 @@ The plots provide aggregate views of the data for 24-hour, 7-day, 30-day and 365
 
 The plot types are:
 
--   (Giga)bytes read and written for both DCACHE and HSM backend (if any)
+-   (Giga)bytes read and written for both dCache and HSM backend (if any)
 
--   Number of transactions/transfers for both DCACHE and HSM backend (if any)
+-   Number of transactions/transfers for both dCache and HSM backend (if any)
 
 -   Maximum, minimum and average connection time
 
@@ -306,9 +306,9 @@ and then restarting the domain.
 >     billing-> \q  
 >     PROMPT-ROOT  
 >
-> that is, if it has been previously modified by hand or out-of-band to include custom tables not used directly by DCACHE, the existence of such extraneous tables should not impede DCACHE from working correctly, provided those other tables are `READ`-accessible by the database user for billing, which by default is `dcache`. This is a requirement imposed by the use of Liquibase. You thus may need explicitly to grant `READ` privileges to the billing database user on any such tables if they are owned by another database user.  
+> that is, if it has been previously modified by hand or out-of-band to include custom tables not used directly by dCache, the existence of such extraneous tables should not impede dCache from working correctly, provided those other tables are `READ`-accessible by the database user for billing, which by default is `dcache`. This is a requirement imposed by the use of Liquibase. You thus may need explicitly to grant `READ` privileges to the billing database user on any such tables if they are owned by another database user.  
 
-<!-- [Installing DCACHE]: #in
+<!-- [Installing dCache]: #in
   [StringTemplate v3 documentation]: 
          http://www.antlr.org/wiki/display/ST/StringTemplate+3+Documentation
   [cheat sheet]: http://www.antlr.org/wiki/display/ST/StringTemplate+cheat+sheet

@@ -1,13 +1,13 @@
 Central Flushing to tertiary storage systems
 ============================================
 
-This chapter is of interest for DCACHE instances connected to a tertiary storage system or making use of the mass storage interface for any other reason. 
+This chapter is of interest for dCache instances connected to a tertiary storage system or making use of the mass storage interface for any other reason. 
 
 > **Warning**
 >
-> The central flush control is still in the evaluation phase. The configuration description within this chapter is mainly for the DCACHE team to get it running on their test systems. The final prodution version will have most of this stuff already be configured.
+> The central flush control is still in the evaluation phase. The configuration description within this chapter is mainly for the dCache team to get it running on their test systems. The final prodution version will have most of this stuff already be configured.
 
-DCACHE instances, connected to tertiary storage systems, collect incoming data, sort it by storage class and flush it as soon as certain thresholds are reached. All this is done autonomously by each individual write pool. Consequently those flush operations are coordinated on the level of a pool but not globally wrt a set of write pools or even to the whole dCache instance. Experiences during the last years show, that for various purposes a global flush management would be desirable.
+dCache instances, connected to tertiary storage systems, collect incoming data, sort it by storage class and flush it as soon as certain thresholds are reached. All this is done autonomously by each individual write pool. Consequently those flush operations are coordinated on the level of a pool but not globally wrt a set of write pools or even to the whole dCache instance. Experiences during the last years show, that for various purposes a global flush management would be desirable.
 
 > The total thoughput of various disk storage systems tend to drop significantly if extensive read and write operations have to be performed in parallel on datasets exceeding the filesystem caches. To overcome this technical obstacle, it would be good if disk storage systems would either allow writing into a pool or flushing data out of a pool into the HSM system, but never both at the same time.
 
@@ -20,7 +20,7 @@ This section describes how to setup a central flush control manager.
 
 -   Whitin the CELL-POOLMNGR, a pool-group (flushPoolGroup) has to be created and populated with pools planned to be controlled by the central flush mechanism. An arbitrary number of flush control managers may run within the same dCache instance as long as each can work on its own pool-group and no pool is member of more than one flushPoolGroup.
 
--   To start the flush control system, an corresponding DCACHE batch file has to be setup, installed and started. As input parameter, the CELL-HSMFLUSHCTL cell needs the name of the flushPoolGroup) and the name of the driver, controlling the flush behaviour. Within the same batch file more than one flush control manager may be started as long as they get different cell-names and different pool-groups assigned.
+-   To start the flush control system, an corresponding dCache batch file has to be setup, installed and started. As input parameter, the CELL-HSMFLUSHCTL cell needs the name of the flushPoolGroup) and the name of the driver, controlling the flush behaviour. Within the same batch file more than one flush control manager may be started as long as they get different cell-names and different pool-groups assigned.
 
 -   The flush control web pages have to be defined in the `httpd.batch`.
 
@@ -101,7 +101,7 @@ Configuration
             "
     #
 
-Where flushPoolGroup is a PoolGroup defined in the `PoolManager.conf` file, containing all pools which are intended to be managed by this FlushManager. flushDriverConfigFile is a file within the DCACHE `config` directory holding property values for this driver. The driver reloads the file whenever it changes its modification time. One should allow for a minute of two before new setting are getting activated. The configuration file has to contain key value pairs, separated by the = sign. Keys, not corresponding to a driver property are silently ignored. Properties, not set in the configuration file, are set to some reasonable default value.
+Where flushPoolGroup is a PoolGroup defined in the `PoolManager.conf` file, containing all pools which are intended to be managed by this FlushManager. flushDriverConfigFile is a file within the dCache `config` directory holding property values for this driver. The driver reloads the file whenever it changes its modification time. One should allow for a minute of two before new setting are getting activated. The configuration file has to contain key value pairs, separated by the = sign. Keys, not corresponding to a driver property are silently ignored. Properties, not set in the configuration file, are set to some reasonable default value.
 
 Properties
 ----------

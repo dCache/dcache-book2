@@ -90,7 +90,7 @@ The URL of the file which should be staged.
 Description
 -----------
 
-Provides an option to the user to stage files from HSM to DCACHE and not transfer them to the user right away. This case will be useful if files are not needed right away at user end, but its good to stage them to dcache for faster access later.
+Provides an option to the user to stage files from HSM to dCache and not transfer them to the user right away. This case will be useful if files are not needed right away at user end, but its good to stage them to dcache for faster access later.
 
 dccp
 ----

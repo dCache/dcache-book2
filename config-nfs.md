@@ -9,7 +9,7 @@ Table of Contents
 
 
 
-This chapter explains how to configure DCACHE in order to access it via the `NFSv4.1` protocol, allowing clients to mount dCache and perform POSIX IO using standard `NFSv4.1` clients.
+This chapter explains how to configure dCache in order to access it via the `NFSv4.1` protocol, allowing clients to mount dCache and perform POSIX IO using standard `NFSv4.1` clients.
 
 > **Important**
 >
@@ -18,9 +18,9 @@ This chapter explains how to configure DCACHE in order to access it via the `NFS
 Setting up
 ==========
 
-To allow file transfers in and out of DCACHE using NFSv4.1/pNFS, a new NFSv4.1 door must be started. This door acts then as the mount point for NFS clients.
+To allow file transfers in and out of dCache using NFSv4.1/pNFS, a new NFSv4.1 door must be started. This door acts then as the mount point for NFS clients.
 
-To enable the NFSv4.1 door, you have to change the layout file corresponding to your DCACHE-instance. Enable the NFS within the domain that you want to run it by adding the following line
+To enable the NFSv4.1 door, you have to change the layout file corresponding to your dCache-instance. Enable the NFS within the domain that you want to run it by adding the following line
 
     ..
     [<domainName>/nfs]
@@ -93,7 +93,7 @@ The **/etc/dcache/gss.conf** on pool nodes and node running `NFSv4.1` door must 
     principal="nfs/host.domain@<YOUR.REALM>";
     };
 
-Now your `NFS` client can securely access DCACHE.
+Now your `NFS` client can securely access dCache.
 
 Configuring principal-id mapping for NFS access
 ===============================================

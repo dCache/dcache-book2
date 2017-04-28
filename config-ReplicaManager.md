@@ -78,7 +78,7 @@ This is a simple example to get started with. All your pools are assumed to be i
 
 3.  The pool group `default` exists by default and does not need to be defined.
 
-4.  To start the `replica` service restart DCACHE.
+4.  To start the `replica` service restart dCache.
 
         [root] # dcache restart
 
@@ -197,7 +197,7 @@ AVOID REPLICAS ON THE SAME HOST
 For security reasons you might want to spread your replicas such that they are not on the same host, or in the same building or even in the same town. To configure this you need to set the `tag.hostname` label for your pools and check the properties `replica.enable.check-pool-host` and `replica.enable.same-host-replica`.
 
 Example:
-We assume that some pools of your DCACHE are in Hamburg and some are in Berlin. In the layout files where the respective pools are defined you can set
+We assume that some pools of your dCache are in Hamburg and some are in Berlin. In the layout files where the respective pools are defined you can set
 
     [poolDomain]
     [poolDomain/pool1]
@@ -219,7 +219,7 @@ and
 
 By default the property `replica.enable.check-pool-host` is `true` and `replica.enable.same-host-replica` is `false`. This means that the `tag.hostname` will be checked and the replication to a pool with the same `tag.hostname` is not allowed.
 
-HYBRID DCACHE
+HYBRID dCache
 -------------
 
 A * hybrid dCache*  operates on a combination of pools (maybe connected to tape) which are not in a resilient pool group and the set of resilient pools. The `replica` service takes care only of the subset of pools configured in the pool group for resilient pools and ignores all other pools.

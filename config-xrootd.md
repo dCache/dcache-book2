@@ -214,7 +214,7 @@ For instance, to enable `GSI` authentication in `xrootd`, add the following line
     xrootdAuthNPlugin=gsi
     ..
 
-When using `GSI` authentication, depending on your setup, you may or may not want DCACHE to fail if the host certificate chain can not be verified against trusted certificate authorities. Whether DCACHE performs this check can be controlled by setting the option `dcache.authn.hostcert.verify`:
+When using `GSI` authentication, depending on your setup, you may or may not want dCache to fail if the host certificate chain can not be verified against trusted certificate authorities. Whether dCache performs this check can be controlled by setting the option `dcache.authn.hostcert.verify`:
 
     ..
     dcache.authn.hostcert.verify=true

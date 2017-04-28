@@ -1,4 +1,4 @@
-CHAPTER 22. DCACHE CLIENTS.
+CHAPTER 22. dCache CLIENTS.
 ==========================
 
 Table of Contents
@@ -39,12 +39,12 @@ As can be seen from above even a single node standard install of dCache returns 
 GSI-FTP
 =======
 
-DCACHE provides a GSI-FTP door, which is in effect a GSI authenticated FTP access point to DCACHE
+dCache provides a GSI-FTP door, which is in effect a GSI authenticated FTP access point to dCache
 
 Listing a directory
 -------------------
 
-To list the content of a DCACHE directory, the GSI-FTP protocol can be used;
+To list the content of a dCache directory, the GSI-FTP protocol can be used;
 
     [user] $ edg-gridftp-ls gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/
 
@@ -74,7 +74,7 @@ To delete files with GSI-FTP use the `edg-gridftp-rm` command.
 
     [user] $ edg-gridftp-rm gsiftp://gridftp-door.example.org/pnfs/example.org/data/dteam/filler_test20050811160948926780000
 
-This deletes the file **filler_test20050811160948926780000** from the **/pnfs/example.org/data/dteam** using the door running on the host gridftp-door.example.org within the DCACHE cluster example.org
+This deletes the file **filler_test20050811160948926780000** from the **/pnfs/example.org/data/dteam** using the door running on the host gridftp-door.example.org within the dCache cluster example.org
 
 Copying files
 -------------
@@ -87,7 +87,7 @@ globus-url-copy
 Copying file with `globus-url-copy` follows the syntax source, destination.
 
 Example:
-The following example copies the file **/etc/group** into DCACHE as the file **/pnfs/example.org/data/dteam/test_GlobusUrlCopy.clinton.504.22080.20071102160121.2**
+The following example copies the file **/etc/group** into dCache as the file **/pnfs/example.org/data/dteam/test_GlobusUrlCopy.clinton.504.22080.20071102160121.2**
 
     [user] $ globus-url-copy \
     file://///etc/group \
@@ -189,7 +189,7 @@ The following example shows `dccp` with the debugging enabled. The value `63` co
     597 bytes in 0 seconds
     Debugging
 
-Using the DCACHE client interposition library.
+Using the dCache client interposition library.
 ----------------------------------------------
 
 > **Finding the GSI tunnel.**
@@ -197,15 +197,15 @@ Using the DCACHE client interposition library.
 > When the LD\_PRELOAD library `libpdcap.so` variable produces errors finding the GSI tunnel it can be useful to specify the location of the GSI tunnel library directly using the following command:
 >
 >     [user] $ export
->     DCACHE_IO_TUNNEL=/opt/d-cache/dcap/lib/libgsiTunnel.so
+>     dCache_IO_TUNNEL=/opt/d-cache/dcap/lib/libgsiTunnel.so
 >
 > Please see [http://www.dcache.org/manuals/experts_docs/tunnel-HOWTO.html](https://www.dcache.org/manuals/experts_docs/tunnel-HOWTO.html) for further details on tunnel setup for the server.
 
-dCap is a POSIX like interface for accessing DCACHE, allowing unmodified applications to access DCACHE transparently. This access method uses a proprietary data transfer protocol, which can emulate POSIX access across the LAN or WAN.
+dCap is a POSIX like interface for accessing dCache, allowing unmodified applications to access dCache transparently. This access method uses a proprietary data transfer protocol, which can emulate POSIX access across the LAN or WAN.
 
 Unfortunately the client requires inbound connectivity and so it is not practical to use this protocol over the WAN as most sites will not allow inbound connectivity to worker nodes.
 
-To make non DCACHE aware applications access files within DCACHE through DCAP all that is needed is set the LD\_PRELOAD environment variable to `/opt/d-cache/dcap/lib/libpdcap.so`.
+To make non dCache aware applications access files within dCache through DCAP all that is needed is set the LD\_PRELOAD environment variable to `/opt/d-cache/dcap/lib/libpdcap.so`.
 
     [user] $ export LD_PRELOAD=/opt/d-cache/dcap/lib/libpdcap.so
 
@@ -213,7 +213,7 @@ Setting the LD\_PRELOAD environment variable results in the library `libpdcap.so
 
 Example:
 
-The following session demonstrates copying a file into DCACHE, checking the file is present with the `ls` command, reading the first 3 lines from DCACHE and finally deleting the file.
+The following session demonstrates copying a file into dCache, checking the file is present with the `ls` command, reading the first 3 lines from dCache and finally deleting the file.
 
     [user] $ cp /etc/group gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/myFile
     [user] $ ls gsidcap://gsidcap-door.example.org:22128/pnfs/example.org/data/dteam/DirOrFile
@@ -226,7 +226,7 @@ The following session demonstrates copying a file into DCACHE, checking the file
 SRM
 ===
 
-DCACHE provides a series of clients one of which is the `SRM?  client which supports a large number operations, but is just one Java application, the script name is sent to the Java applications command line to invoke each operation.
+dCache provides a series of clients one of which is the `SRM?  client which supports a large number operations, but is just one Java application, the script name is sent to the Java applications command line to invoke each operation.
 
 This page just shows the scripts command line and not the invocation of the Java application directly.
 
@@ -246,7 +246,7 @@ The following example creates the directory **/pnfs/example.org/data/dteam/myDir
     [user] $ srmmkdir srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir
 
 
-Removing files from DCACHE
+Removing files from dCache
 --------------------------
 
 Usage:
@@ -259,7 +259,7 @@ Usage:
 Example:
     [user] $ srmrm srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/myDir/myFile
 
-Removing empty directories from DCACHE
+Removing empty directories from dCache
 --------------------------------------
 
 It is allowed to remove only empty directories as well as trees of empty directories.
@@ -288,14 +288,14 @@ or
 srmcp [command line options] [-copyjobfile] file
 
 
-### Copying files to DCACHE
+### Copying files to dCache
 
 Example:
    [user] $ srmcp -webservice_protocol=http \
    file://///etc/group \
    srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/test_Srm.clinton.501.32050.20070907153055.0
 
-### Copying files from DCACHE
+### Copying files from dCache
 
     [user] $ srmcp -webservice_protocol=http \
    srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/test_Srm.clinton.501.32050.20070907153055.0 \
@@ -304,9 +304,9 @@ Example:
 srmcp for SRM v2.2
 ------------------
 
-### Getting the DCACHE Version
+### Getting the dCache Version
 
-The `srmping` command will tell you the version of DCACHE. This only works for authorized users and not just authenticated users.
+The `srmping` command will tell you the version of dCache. This only works for authorized users and not just authenticated users.
 
    [user] $ srmping -2 srm://srm-door.example.org:8443/pnfs
    WARNING: SRM_PATH is defined, which might cause a wrong version of srm client to be executed
@@ -317,7 +317,7 @@ The `srmping` command will tell you the version of DCACHE. This only works for a
 
 ### Space Tokens
 
-Space token support must be set up and reserving space with the admin interface this is also documented [in the SRM section](config-SRM.md#introduction) and in [the DCACHE wiki](http://trac.dcache.org/wiki/manuals/SRM_2.2_Setup).
+Space token support must be set up and reserving space with the admin interface this is also documented [in the SRM section](config-SRM.md#introduction) and in [the dCache wiki](http://trac.dcache.org/wiki/manuals/SRM_2.2_Setup).
 
 #### Space Token Listing
 
@@ -498,7 +498,7 @@ Example 22.3. Using srmls -l:
      - Status:  null
      - Type:  FILE
 
-If you have more than 1000 entries in your directory then DCACHE will return only the first 1000. To view directories with more than 1000 entries, please use the following parameters:
+If you have more than 1000 entries in your directory then dCache will return only the first 1000. To view directories with more than 1000 entries, please use the following parameters:
 
 srmls parameter
 
@@ -547,12 +547,12 @@ dCache is commonly deployed with the BDII. The information provider within dCach
     [user] $ wc -l  /tmp/ldap.output.ldif
     205 /tmp/ldap.output.ldif
 
-As can be seen from above even a single node standard install of DCACHE returns a considerable number of lines and for this reason we have not included the output, in this case 205 lines where written.
+As can be seen from above even a single node standard install of dCache returns a considerable number of lines and for this reason we have not included the output, in this case 205 lines where written.
 
-Using the LCG commands with DCACHE
+Using the LCG commands with dCache
 ==================================
 
-The `lcg_util` RPM contains many small command line applications which interact with SRM implementations, these where developed independently from DCACHE and provided by the LCG grid computing effort.
+The `lcg_util` RPM contains many small command line applications which interact with SRM implementations, these where developed independently from dCache and provided by the LCG grid computing effort.
 
 Each command line application operates on a different method of the SRM interface. These applications where not designed for normal use but to provide components upon which operations can be built.
 
@@ -587,12 +587,12 @@ Each of the above three lines contains different information. These are explaine
 >
 > dCache limits the number of Request Ids a user may have. All Request Ids should be returned to dCache using the command `lcg-sd`. 
 
-If you use `lcg-gt` to request a file with a protocol that is not supported by DCACHE the command will block for some time as DCACHE's SRM interface times out after approximately 10 minutes.
+If you use `lcg-gt` to request a file with a protocol that is not supported by dCache the command will block for some time as dCache's SRM interface times out after approximately 10 minutes.
 
 The `lcg-sd` Application
 ------------------------
 
-This command should be used to return any TURLs given by DCACHE's SRM interface. This is because DCACHE provides a limited number of TURLs available concurrently.
+This command should be used to return any TURLs given by dCache's SRM interface. This is because dCache provides a limited number of TURLs available concurrently.
 
 `lcg-sd` takes four parameters: the SURL, the `Request Id`, the `File
           Id` with respect to the `Request
@@ -615,4 +615,4 @@ The direction parameter indicates in which direction data was transferred: `0` f
 
 <!--  []: http://www.dcache.org/manuals/experts_docs/tunnel-HOWTO.html
   [in the SRM section]: #cf-srm-intro
-  [the DCACHE wiki]: http://trac.dcache.org/projects/dcache/wiki/manuals/SRM_2.2_Setup
+  [the dCache wiki]: http://trac.dcache.org/projects/dcache/wiki/manuals/SRM_2.2_Setup

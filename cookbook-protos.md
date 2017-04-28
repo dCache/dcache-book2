@@ -4,7 +4,7 @@ Protocols
 DCAP options mover and client options
 =====================================
 
-DCAP is the native random access I/O protocol for files within DCACHE. In additition to the usual data transfer mechanisms, it supports all necessary file metadata and name space manipulation operations.
+DCAP is the native random access I/O protocol for files within dCache. In additition to the usual data transfer mechanisms, it supports all necessary file metadata and name space manipulation operations.
 
 In order to optimize I/O transferrates and memory consumption DCAP allows to configure parameters within the client and the server. e.g:
 
@@ -97,9 +97,9 @@ If the openTimeout expires while a read transfer is already active, this transfe
 Using the dCap protocol for strict file checking
 ================================================
 
-The DCAP protocol allows to check whether a dataset is on tape only or has a copy on a DCACHE disk. The DCAP library API call is ` int dc_check(const char *path, const char
+The DCAP protocol allows to check whether a dataset is on tape only or has a copy on a dCache disk. The DCAP library API call is ` int dc_check(const char *path, const char
        *location)` and the dccp options are `-t -1
-       -P`. For a full list of dCap library API calls and dccp options, please refer to to `http://www.dcache.org/manuals/libdcap.shtml` and `http://www.dcache.org/manuals/dccp.shtml` respectively. Using a standard DCACHE installation those calls will return a guess on the file location only. It is neither checked whether the file is really on that pool or if the pool is up. To get a strict checking a DOOR-DCAP has to be started with a special (-check=strict) option.
+       -P`. For a full list of dCap library API calls and dccp options, please refer to to `http://www.dcache.org/manuals/libdcap.shtml` and `http://www.dcache.org/manuals/dccp.shtml` respectively. Using a standard dCache installation those calls will return a guess on the file location only. It is neither checked whether the file is really on that pool or if the pool is up. To get a strict checking a DOOR-DCAP has to be started with a special (-check=strict) option.
 
     #
     #    dCap    D o o r
@@ -115,17 +115,17 @@ The DCAP protocol allows to check whether a dataset is on tape only or has a cop
                  -protocolFamily=dcap \
                  -loginBroker=LoginBroker"
 
-This door will do a precise checking (-check=strict). To get the dCap lib and dccp to use this door only, the `DCACHE_DOOR` environment variable has to be set to `doorHost:specialDCapPort` in the shell, dccp is going to be used. In the following example we assume that the `specialDCapPort` has been set to `23126` :
+This door will do a precise checking (-check=strict). To get the dCap lib and dccp to use this door only, the `dCache_DOOR` environment variable has to be set to `doorHost:specialDCapPort` in the shell, dccp is going to be used. In the following example we assume that the `specialDCapPort` has been set to `23126` :
 
-    PROMPT-USER export DCACHE_DOOR=dcachedoorhost:23126
+    PROMPT-USER export dCache_DOOR=dcachedoorhost:23126
     PROMPT-USER dccp -P -t -1 /pnfs/domain.tv/data/cms/users/waste.txt
 
-If PROG-DCCP returns `File is not cached` and this DCACHE instance is connected to an HSM, the file is no longer on one of the DCACHE pools but is assumed to have a copy within the HSM. If the PROG-DCCP returns this message and no HSM is attached, the file is either on a pool which is currently down or the file is lost.
+If PROG-DCCP returns `File is not cached` and this dCache instance is connected to an HSM, the file is no longer on one of the dCache pools but is assumed to have a copy within the HSM. If the PROG-DCCP returns this message and no HSM is attached, the file is either on a pool which is currently down or the file is lost.
 
 Passive DCAP
 ============
 
-The DCAP protocol, similiar to FTP, uses a control channel to request a transfer which is subsequently done through data channels. Per default, the data channel is initiated by the server, connecting to an open port in the client library. This is commonly known as active transfer. Starting with DCACHE 1.7.0 the DCAP protocol supports passive transfer mode as well, which consequently means that the client connects to the server pool to initiate the data channel. This is essential to support DCAP clients running behind firewalls and within private networks.
+The DCAP protocol, similiar to FTP, uses a control channel to request a transfer which is subsequently done through data channels. Per default, the data channel is initiated by the server, connecting to an open port in the client library. This is commonly known as active transfer. Starting with dCache 1.7.0 the DCAP protocol supports passive transfer mode as well, which consequently means that the client connects to the server pool to initiate the data channel. This is essential to support DCAP clients running behind firewalls and within private networks.
 
 Preparing the server for dCap passive transfer
 ----------------------------------------------
@@ -145,7 +145,7 @@ The following DCAP API call switches all subsequent dc\_open calls to server-pas
 
     void dc_setClientActive()
 
-The environment variable DCACHE\_CLIENT\_ACTIVE switches the DCAP library to server-passive. This is true for DCAP, DCAP preload and PROG-DCCP.
+The environment variable dCache\_CLIENT\_ACTIVE switches the DCAP library to server-passive. This is true for DCAP, DCAP preload and PROG-DCCP.
 
 PROG-DCCP switches to server-passive when issuing the `-A` command line option.
 
@@ -193,9 +193,9 @@ here min and max are again the lower and upper bounds of the port range
 Disableing unauthenticated DCAP via SRM
 =======================================
 
-In some cases SRM transfers fail because they are tried via the plain DCAP protocol (URL starts with `dcap://`). Since plain DCAP is unauthenticated, the DCACHE server will have no information about the user trying to access the system. While the transfer will succeed if the UNIX file permissions allow access to anybody (e.g. mode 777), it will fail otherwise.
+In some cases SRM transfers fail because they are tried via the plain DCAP protocol (URL starts with `dcap://`). Since plain DCAP is unauthenticated, the dCache server will have no information about the user trying to access the system. While the transfer will succeed if the UNIX file permissions allow access to anybody (e.g. mode 777), it will fail otherwise.
 
-Usually all doors are registered in SRM as potential access points for DCACHE. During a protocol negotiation the SRM chooses one of the available doors. You can force PROG-SRMCP to use the GSIDCAP protocol (`-protocol=gsidcap`) or you can unregister plain, unauthenticated DCAP from known protocols: From the file `config/door.batch` remove `-loginBroker=LoginBroker` and restart DOOR-DCAP with
+Usually all doors are registered in SRM as potential access points for dCache. During a protocol negotiation the SRM chooses one of the available doors. You can force PROG-SRMCP to use the GSIDCAP protocol (`-protocol=gsidcap`) or you can unregister plain, unauthenticated DCAP from known protocols: From the file `config/door.batch` remove `-loginBroker=LoginBroker` and restart DOOR-DCAP with
 
     PROMPT-ROOT jobs/door stop
     PROMPT-ROOT jobs/door -logfile=dCacheLocation/log/door.log start

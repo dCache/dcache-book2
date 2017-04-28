@@ -1,4 +1,4 @@
-CHAPTER 13. DCACHE STORAGE RESOURCE MANAGER
+CHAPTER 13. dCache STORAGE RESOURCE MANAGER
 ===========================================
 
 
@@ -45,7 +45,7 @@ Storage Resource Managers (SRMs) are middleware components whose function is to 
 
 The SRM utilizes the Grid Security Infrastructure (GSI) for authentication. The SRM is a Web Service implementing a published WSDL document. Please visit the [SRM Working Group Page](https://sdm.lbl.gov/srm-wg/) to see the SRM Version 1.1 and SRM Version 2.2 protocol specification documents.
 
-The SRM protocol uses HTTP over GSI as a transport. The DCACHE SRM implementation added HTTPS as a transport layer option. The main benefits of using HTTPS rather than HTTP over GSI is that HTTPS is a standard protocol and has support for sessions, improving latency in case a client needs to connect to the same server multiple times. The current implementation does not offer a delegation service. Hence `srmCopy` will not work with SRM over HTTPS. A separate delegation service will be added in a later release.
+The SRM protocol uses HTTP over GSI as a transport. The dCache SRM implementation added HTTPS as a transport layer option. The main benefits of using HTTPS rather than HTTP over GSI is that HTTPS is a standard protocol and has support for sessions, improving latency in case a client needs to connect to the same server multiple times. The current implementation does not offer a delegation service. Hence `srmCopy` will not work with SRM over HTTPS. A separate delegation service will be added in a later release.
 
 CONFIGURING THE SRM SERVICE
 ============================
@@ -125,13 +125,13 @@ UTILIZATION OF SPACE RESERVATIONS FOR DATA STORAGE
 
 `SRM` version 2.2 introduced a concept of space reservation. Space reservation guarantees that the requested amount of storage space of a specified type is made available by the storage system for a specified amount of time.
 
-Users can create space reservations using an appropriate `SRM` client, although it is more common for the DCACHE administrator to make space reservations for VOs (see [the section called “SpaceManager configuration”](#spacemanager-configuration). Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the dCache administrator.
+Users can create space reservations using an appropriate `SRM` client, although it is more common for the dCache administrator to make space reservations for VOs (see [the section called “SpaceManager configuration”](#spacemanager-configuration). Each space reservation has an associated ID (or space token). VOs then can copy directly into space tokens assigned to them by the dCache administrator.
 
 When a file is about to be transferred to a storage system, the space available in the space reservation is checked if it can accomodate the entire file. If yes, this chunk of space is marked as allocated, so that it can not be taken by another, concurrently transferred file. If the file is transferred successfully the allocated space becomes used space within the space reservation, else the allocated space is released back to the space reservation as free space.
 
 `SRM` space reservation can be assigned a non-unique description which can be used to query the system for space reservations with a given description.
 
-DCACHE only manages write space, i.e. space on disk can be reserved only for write operations. Once files are migrated to tape, and if no copy is required on disk, space used by these files is returned back into space reservation. When files are read back from tape and cached on disk, they are not counted as part of any space.
+dCache only manages write space, i.e. space on disk can be reserved only for write operations. Once files are migrated to tape, and if no copy is required on disk, space used by these files is returned back into space reservation. When files are read back from tape and cached on disk, they are not counted as part of any space.
 
 PROPERTIES OF SPACE RESERVATION
 -------------------------------
@@ -143,7 +143,7 @@ Retention policy describes the quality of the storage service that will be provi
 The default values for the retention policy and access latency can be changed in the file **/etc/dcache/dcache.conf**.
 
 **Retention policy**  
-The values of retention policy supported by DCACHE are `REPLICA` and `CUSTODIAL`.
+The values of retention policy supported by dCache are `REPLICA` and `CUSTODIAL`.
 
 -   `REPLICA` corresponds to the lowest quality of the service, usually associated with storing a single copy of each file on the disk.
 
@@ -162,7 +162,7 @@ Change the default value to `REPLICA`.
 
 > **NOTE**
 >
-> `spacemanager.default-retention-policy` merely specifies to value to use while allocating space reservations when no value was given by the client or DCACHE admin. It is not to be confused with `pnfsmanager.default-retention-policy` which specifies the default retention policy of files uploaded outside of any space reservation.
+> `spacemanager.default-retention-policy` merely specifies to value to use while allocating space reservations when no value was given by the client or dCache admin. It is not to be confused with `pnfsmanager.default-retention-policy` which specifies the default retention policy of files uploaded outside of any space reservation.
 
 **Access latency**  
 The two values allowed for access latency are `NEARLINE` and `ONLINE`.
@@ -171,7 +171,7 @@ The two values allowed for access latency are `NEARLINE` and `ONLINE`.
 
 -   `ONLINE` means that data is readily available allowing for faster access.
 
-In case of DCACHE `ONLINE` means that there will always be a copy of the file on disk, while `NEARLINE` does not provide such guarantee. As with retention policy, once a file is written into a given space reservation, it inherits the reservation's access latency.
+In case of dCache `ONLINE` means that there will always be a copy of the file on disk, while `NEARLINE` does not provide such guarantee. As with retention policy, once a file is written into a given space reservation, it inherits the reservation's access latency.
 
 If a space reservation request does not specify an access latency, we will assign a value given by `spacemanager.default-access-latency`. The default value is `NEARLINE`.
 
@@ -184,13 +184,13 @@ Change the default value to `ONLINE`.
 
 > **NOTE**
 >
-> `spacemanager.default-access-latency` merely specifies to value to use while allocating space reservations when no value was given by the client or DCACHE admin. It is not to be confused with `pnfsmanager.default-access-latency` which specifies the default retention policy of files uploaded outside of any space reservation.
+> `spacemanager.default-access-latency` merely specifies to value to use while allocating space reservations when no value was given by the client or dCache admin. It is not to be confused with `pnfsmanager.default-access-latency` which specifies the default retention policy of files uploaded outside of any space reservation.
 
 > **IMPORTANT**
 >
 > Please make sure to use capital letters for `REPLICA`, `CUSTODIAL`, `ONLINE` and `NEARLINE` otherwise you will receive an error message.
 
-DCACHE SPECIFIC CONCEPTS
+dCache SPECIFIC CONCEPTS
 ========================
 
 ACTIVATING SRM SPACEMANAGER
@@ -208,7 +208,7 @@ and add the following definition in the file **/etc/dcache/dcache.conf**
 Unless you have reason not to, we recommend placing the `spacemanager` service in the same domain as the `poolmanager` service.
 
 
-EXPLICIT AND IMPLICIT SPACE RESERVATIONS FOR DATA STORAGE IN DCACHE
+EXPLICIT AND IMPLICIT SPACE RESERVATIONS FOR DATA STORAGE IN dCache
 -------------------------------------------------------------------
 
 ### Explicit Space Reservations  
@@ -223,7 +223,7 @@ If a space reservation is specified during upload, the file will be stored in it
 
 Files written into a space made within a particular link group will end up on one of the pools belonging to this link group. The difference between the link group's free space and the sum of all its space reservation's unused space is the available space of the link group. The available space of a link group is the space that can be allocated for new space reservations.
 
-The total space in DCACHE that can be reserved is the sum of the available spaces of all link groups. Note however that a space reservation can never span more than a single link group.
+The total space in dCache that can be reserved is the sum of the available spaces of all link groups. Note however that a space reservation can never span more than a single link group.
 
 ### Implicit Space Reservations
 
@@ -371,7 +371,7 @@ Rather than an FQAN, a mapped user name can be used. This allows clients or prot
 
 > **NOTE**
 >
-> You do not need to restart the DOMAIN-SRM or DCACHE after changing the `LinkGroupAuthorization.conf` file. The changes will be applied automatically after a few minutes.
+> You do not need to restart the DOMAIN-SRM or dCache after changing the `LinkGroupAuthorization.conf` file. The changes will be applied automatically after a few minutes.
 >
 > Use `update link groups` to be sure that the `LinkGroupAuthorization.conf` file and the link groups have been updated.
 >
@@ -406,7 +406,7 @@ In this more general example for a `SpaceManagerLinkGroupAuthorizationFile` memb
     # allow anyone :-)  
     */Role=*  
 
-### Making and Releasing a Space Reservation as DCACHE Administrator  
+### Making and Releasing a Space Reservation as dCache Administrator  
 
 #### Making a Space Reservation  
 
@@ -441,7 +441,7 @@ There are several parameters to be specified for a space reservation.
     [-lifetime=<seconds>] [-owner=<user>|<fqan>] [-rp=output|replica|custodial] <size>  
 
 [-owner=<user>|<fqan>]  
-The owner of the space is identified by either mapped user name or FQAN. The owner must be authorized to reserve space in the link group in which the space is to be created. Besides the DCACHE admin, only the owner can release the space. Anybody can however write into the space (although the link group may only allow certain storage groups and thus restrict which file system paths can be written to space reservation, which in turn limits who can upload files to it).
+The owner of the space is identified by either mapped user name or FQAN. The owner must be authorized to reserve space in the link group in which the space is to be created. Besides the dCache admin, only the owner can release the space. Anybody can however write into the space (although the link group may only allow certain storage groups and thus restrict which file system paths can be written to space reservation, which in turn limits who can upload files to it).
 
 [-al=<AccessLatency>]  
 `AccessLatency` needs to match one of the access latencies allowed for the link group.
@@ -486,7 +486,7 @@ If so authorized, a user can make a space reservation through the SRM protocol. 
 
 #### VO based Authorization Prerequisites
 
-In order to be able to take advantage of the virtual organization (VO) infrastructure and VO based authorization and VO based access control to the space in DCACHE, certain things need to be in place:
+In order to be able to take advantage of the virtual organization (VO) infrastructure and VO based authorization and VO based access control to the space in dCache, certain things need to be in place:
 
 -   User needs to be registered with the VO.
 
@@ -533,7 +533,7 @@ The space reservation can be released by:
 
 #### Space Reservation without VOMS certificate
 
-If a client uses a regular grid proxy, created with `grid-proxy-init`, and not a VO proxy, which is created with the `voms-proxy-init`, when it is communicating with `SRM` server in DCACHE, then the VO attributes can not be extracted from its credential. In this case the name of the user is extracted from the Distinguished Name (DN) to use name mapping. For the purposes of the space reservation the name of the user as mapped by `gplazma` is used as its VO Group name, and the VO Role is left empty. The entry in the `SpaceManagerLinkGroupAuthorizationFile` should be:
+If a client uses a regular grid proxy, created with `grid-proxy-init`, and not a VO proxy, which is created with the `voms-proxy-init`, when it is communicating with `SRM` server in dCache, then the VO attributes can not be extracted from its credential. In this case the name of the user is extracted from the Distinguished Name (DN) to use name mapping. For the purposes of the space reservation the name of the user as mapped by `gplazma` is used as its VO Group name, and the VO Role is left empty. The entry in the `SpaceManagerLinkGroupAuthorizationFile` should be:
 
     #LinkGroupAuthorizationFile
     #
@@ -762,7 +762,7 @@ Usage example:
 
 ### srm.limits.request.scheduler.ready.max, srm.limits.request.put.scheduler.ready.max, srm.limits.request.scheduler.ready-queue.size and srm.limits.request.put.scheduler.ready-queue.size
 
-`srm.limits.request.scheduler.ready.max` and `srm.limits.request.put.scheduler.ready.max` specify the maximum number of the files for which the transfer URLs will be computed and given to the users in response to SRM get (srmPrepareToGet) and put (srmPrepareToPut) requests. The rest of the files that are ready to be transfered are put on the `Ready` queues, the maximum length of these queues are controlled by `srm.limits.request.scheduler.ready-queue.size` and `srm.limits.request.put.scheduler.ready-queue.size` parameters. These parameters should be set according to the capacity of the system, and are usually greater than the maximum number of the GRIDFTP transfers that this DCACHE instance GRIDFTP doors can sustain.
+`srm.limits.request.scheduler.ready.max` and `srm.limits.request.put.scheduler.ready.max` specify the maximum number of the files for which the transfer URLs will be computed and given to the users in response to SRM get (srmPrepareToGet) and put (srmPrepareToPut) requests. The rest of the files that are ready to be transfered are put on the `Ready` queues, the maximum length of these queues are controlled by `srm.limits.request.scheduler.ready-queue.size` and `srm.limits.request.put.scheduler.ready-queue.size` parameters. These parameters should be set according to the capacity of the system, and are usually greater than the maximum number of the GRIDFTP transfers that this dCache instance GRIDFTP doors can sustain.
 
 Usage example:  
 
@@ -773,7 +773,7 @@ Usage example:
 
 ### srm.limits.request.copy.scheduler.thread.pool.size and transfermanagers.limits.external-transfers
 
-`srm.limits.request.copy.scheduler.thread.pool.size` and `transfermanagers.limits.external-transfers`. `srm.limits.request.copy.scheduler.thread.pool.size` is used to specify how many parallel srmCopy file copies to execute simultaneously. Once the `SRM` contacted the remote `SRM` system, and obtained a Transfer URL (usually GSI-FTP URL), it contacts a Copy Manager module (usually RemoteGSIFTPTransferManager), and asks it to perform a GRIDFTP transfer between the remote GRIDFTP server and a DCACHE pool. The maximum number of simultaneous transfers that RemoteGSIFTPTransferManager will support is `transfermanagers.limits.external-transfers`, therefore it is important that `transfermanagers.limits.external-transfers` is greater than or equal to `srm.limits.request.copy.scheduler.thread.pool.size`.
+`srm.limits.request.copy.scheduler.thread.pool.size` and `transfermanagers.limits.external-transfers`. `srm.limits.request.copy.scheduler.thread.pool.size` is used to specify how many parallel srmCopy file copies to execute simultaneously. Once the `SRM` contacted the remote `SRM` system, and obtained a Transfer URL (usually GSI-FTP URL), it contacts a Copy Manager module (usually RemoteGSIFTPTransferManager), and asks it to perform a GRIDFTP transfer between the remote GRIDFTP server and a dCache pool. The maximum number of simultaneous transfers that RemoteGSIFTPTransferManager will support is `transfermanagers.limits.external-transfers`, therefore it is important that `transfermanagers.limits.external-transfers` is greater than or equal to `srm.limits.request.copy.scheduler.thread.pool.size`.
 
 Usage example:  
 
@@ -902,7 +902,7 @@ We use three functions for space management:
 
 Space reservation is made using the `srmReserveSpace` function. In case of successful reservation, a unique name, called space token is assigned to the reservation. A space token can be used during the transfer operations to tell the system to put the files being manipulated or transferred into an associated space reservation. A storage system ensures that the reserved amount of the disk space is indeed available, thus providing a guarantee that a client does not run out of space until all space promised by the reservation has been used. When files are deleted, the space is returned to the space reservation.
 
-DCACHE only manages write space, i.e. space on disk can be reserved only for write operations. Once files are migrated to tape, and if no copy is required on disk, space used by these files is returned back into space reservation. When files are read back from tape and cached on disk, they are not counted as part of any space. SRM space reservation can be assigned a non-unique description that can be used to query the system for space reservations with a given description.
+dCache only manages write space, i.e. space on disk can be reserved only for write operations. Once files are migrated to tape, and if no copy is required on disk, space used by these files is returned back into space reservation. When files are read back from tape and cached on disk, they are not counted as part of any space. SRM space reservation can be assigned a non-unique description that can be used to query the system for space reservations with a given description.
 
 [Properties of the SRM space reservations](#properties-of-the-srm-space-reservations) can be discovered using the `SrmGetSpaceMetadata` function.
 
@@ -996,7 +996,7 @@ SRM Version 2.2 supports the following three file permission functions:
     and
 -   srmSetPermission
 
-DCACHE contains an implementation of these functions that allows setting and checking of Unix file permissions.
+dCache contains an implementation of these functions that allows setting and checking of Unix file permissions.
 
  <!-- [SRM specification]: https://sdm.lbl.gov/srm-wg/doc/SRM.v2.2.html
   [SRM Working Group Page]: http://sdm.lbl.gov/srm-wg/

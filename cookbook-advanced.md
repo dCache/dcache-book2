@@ -18,7 +18,7 @@ Table of Contents
      [SRM](#srm)  
 
 
-The use cases described in this chapter are only relevant for large-scale DCACHE instances which require special tuning according to a longer experience with client behaviour.
+The use cases described in this chapter are only relevant for large-scale dCache instances which require special tuning according to a longer experience with client behaviour.
 
 MULTIPLE QUEUES FOR MOVERS IN EACH POOL
 =======================================
@@ -26,7 +26,7 @@ MULTIPLE QUEUES FOR MOVERS IN EACH POOL
 Description
 -----------
 
-Client requests to a DCACHE system may have rather diverse behaviour. Sometimes it is possible to classify them into several typical usage patterns. An example are the following two concurrent usage patterns:
+Client requests to a dCache system may have rather diverse behaviour. Sometimes it is possible to classify them into several typical usage patterns. An example are the following two concurrent usage patterns:
 
 Example:
 

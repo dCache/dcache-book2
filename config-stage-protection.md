@@ -8,7 +8,7 @@ Table of Contents
 + [Definition of the White List](#definition-of-the-white-list)  
 
 
-A dCache system administrator may specify a list of DNs/FQANs which are allowed to trigger tape restores for files not being available on disk. Users, requesting tape-only files, and not being on that *white list, will* receive a permission error and no tape operation is launched. Stage protection can be enhanced to allow authorization specific to a DCACHE storage group. The additional configuration parameter is optional allowing the stage protection to be backwards compatible when stage authorization is not specific to a storage group.
+A dCache system administrator may specify a list of DNs/FQANs which are allowed to trigger tape restores for files not being available on disk. Users, requesting tape-only files, and not being on that *white list, will* receive a permission error and no tape operation is launched. Stage protection can be enhanced to allow authorization specific to a dCache storage group. The additional configuration parameter is optional allowing the stage protection to be backwards compatible when stage authorization is not specific to a storage group.
 
 CONFIGURATION OF STAGE PROTECTION
 =================================

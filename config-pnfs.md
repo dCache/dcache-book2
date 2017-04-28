@@ -7,20 +7,20 @@ PNFS
 > CHIMERA
 > and not PNFS.
 
-This chapter gives background information about PNFS. PNFS is the filesystem, DCACHE used to be based on. Only the aspects of PNFS relevant to DCACHE will be explained here. A complete set of documentation is available from [the PNFS homepage].
+This chapter gives background information about PNFS. PNFS is the filesystem, dCache used to be based on. Only the aspects of PNFS relevant to dCache will be explained here. A complete set of documentation is available from [the PNFS homepage].
 
 > **Important**
 >
 > This chapter is about the namespace PNFS and not about the protocol NFS4-PNFS. Information about the protocol NFS4-PNFS is to be found in [???].
 
-The Use of PNFS in DCACHE
+The Use of PNFS in dCache
 =========================
 
-DCACHE uses PNFS as a filesystem and for storing meta-data. PNFS is a filesystem not designed for storage of actual files. Instead, PNFS manages the filesystem hierarchy and standard meta-data of a UNIX filesystem. In addition, other applications (as for example DCACHE) can use it to store their meta-data. PNFS keeps the complete information in a database.
+dCache uses PNFS as a filesystem and for storing meta-data. PNFS is a filesystem not designed for storage of actual files. Instead, PNFS manages the filesystem hierarchy and standard meta-data of a UNIX filesystem. In addition, other applications (as for example dCache) can use it to store their meta-data. PNFS keeps the complete information in a database.
 
 PNFS implements an NFS server. All the meta-data can be accessed with a standard NFS client, like the one in the Linux kernel. After mounting, normal filesystem operations work fine. However, IO operations on the actual files in the PNFS will normally result in an error.
 
-As a minimum, the PNFS filesystem needs to be mounted only by the server running the DCACHE core services. In fact, the PNFS server has to run on the same system. For details see (has to be written).
+As a minimum, the PNFS filesystem needs to be mounted only by the server running the dCache core services. In fact, the PNFS server has to run on the same system. For details see (has to be written).
 
 The PNFS filesystem may also be mounted by clients. This should be done by
 
@@ -29,7 +29,7 @@ The PNFS filesystem may also be mounted by clients. This should be done by
 (assuming the system is configured as described in the installation instructions). Users may then access the meta-data with regular filesystem operations, like `ls
       -l`, and by the PNFS-specific operations described in the following sections. The files themselves may then be accessed with the DCAP protocol (see [???][1] Client Access and Protocols).
 
-Mounting the PNFS filesystem is not necessary for client access to the DCACHE system if URLs are used to refer to files. In the grid context this is the preferred usage.
+Mounting the PNFS filesystem is not necessary for client access to the dCache system if URLs are used to refer to files. In the grid context this is the preferred usage.
 
 Communicating with the PNFS Server
 ==================================
@@ -52,7 +52,7 @@ Only a subset of file operations are allowed on these special command-files. Any
 pnfsIDs
 =======
 
-Each file in PNFS has a unique 12 byte long pnfsID. This is comparable to the inode number in other filesystems. The pnfsID used for a file will never be reused, even if the file is deleted. DCACHE uses the pnfsID for all internal references to a file.
+Each file in PNFS has a unique 12 byte long pnfsID. This is comparable to the inode number in other filesystems. The pnfsID used for a file will never be reused, even if the file is deleted. dCache uses the pnfsID for all internal references to a file.
 
 The pnfsID of the file `filename` can be obtained by reading the command-file `.(id)(filename)` in the directory of the file.
 
@@ -114,19 +114,19 @@ A nice trick to list all tags with their contents is
     .(tag)(OSMTemplate):StoreName myStore
     .(tag)(sGroup):STRING
 
-Directory tags may be used within DCACHE to control which pools are used for storing the files in the directory (see [???][2]). They might also be used by a tertiary storage system for similar purposes (e.g. controlling the set of tapes used for the files in the directory).
+Directory tags may be used within dCache to control which pools are used for storing the files in the directory (see [???][2]). They might also be used by a tertiary storage system for similar purposes (e.g. controlling the set of tapes used for the files in the directory).
 
-Even if the directory tags are not used to control the bahaviour of DCACHE, some tags have to be set for the directories where DCACHE files are stored. The installation procedure takes care of this: In the directory `/pnfs/site.de/data/` two tags are set to default values:
+Even if the directory tags are not used to control the bahaviour of dCache, some tags have to be set for the directories where dCache files are stored. The installation procedure takes care of this: In the directory `/pnfs/site.de/data/` two tags are set to default values:
 
     PROMPT-USER cd /pnfs/site.de/data/
     PROMPT-USER grep "" $(cat ".(tags)()")
     .(tag)(OSMTemplate):StoreName myStore
     .(tag)(sGroup):STRING
 
-The following directory tags appear in the DCACHE context:
+The following directory tags appear in the dCache context:
 
 OSMTemplate  
-Contains one line of the form “`StoreName` storeName” and specifies the name of the store that is used by DCACHE to construct the storage class if the HSM type is `osm`.
+Contains one line of the form “`StoreName` storeName” and specifies the name of the store that is used by dCache to construct the storage class if the HSM type is `osm`.
 
 hsmType  
 The HSM type is normally determined from the other existing tags. E.g., if the tag `OSMTemplate` exists, HSM type `osm` is assumed. With this tag it can be set explicitly. An class implementing that HSM type has to exist. Currently the only implementations are `osm` and `enstore`.
@@ -140,7 +140,7 @@ The cache class is only used to control on which pools the files in a directory 
 hsmInstance  
 If not set, the HSM instance will be the same as the HSM type. Setting this tag will only change the name as used in the storage class and in the pool commands.
 
-There are more tags used by DCACHE if the HSM type `enstore` is used.
+There are more tags used by dCache if the HSM type `enstore` is used.
 
 When creating or changing directory tags by writing to the command-file as in
 
@@ -160,14 +160,14 @@ one has to take care not to treat the command-files in the same way as regular f
 
 4.  Writing to an inherited tag in the subdirectory will break the inheritance-link. A *pseudo-primary* tag will be created. The directories which inherited the old (inherited) tag will inherit the pseudo-primary tag. A pseudo-primary tag behaves exactly like a primary tag, except that the original inherited tag will be restored if the pseude-primary tag is removed.
 
-If directory tags are used to control the behaviour of DCACHE and/or a tertiary storage system, it is a good idea to plan the directory structure in advance, thereby considering the necessary tags and how they should be set up. Moving directories should be done with great care or even not at all. Inherited tags can only be created by creating a new directory.
+If directory tags are used to control the behaviour of dCache and/or a tertiary storage system, it is a good idea to plan the directory structure in advance, thereby considering the necessary tags and how they should be set up. Moving directories should be done with great care or even not at all. Inherited tags can only be created by creating a new directory.
 
 Global Configuration with Wormholes
 ===================================
 
 PNFS provides a way to distribute configuration information to all directories in the PNFS filesystem. It can be accessed in a subdirectory `.(config)()` of any PNFS-directory. It behaves similar to a hardlink. In the default configuration this link points to `/pnfs/fs/admin/etc/config/`. In it are three files: `'.(config)()'/serverId` contains the domain name of the site, `'.(config)()'/serverName` the fully qualified name of the PNFS server, and `'.(config)()'/serverRoot` should contain “`000000000000000000001080 .`”.
 
-The DCACHE specific configuration can be found in `'.(config)()'/dCache/dcache.conf`. This file contains one line of the format `hostname:port` per DCAP door which may be used by DCAP clients when not using URLs. The `dccp` program will choose randomly between the doors listed here.
+The dCache specific configuration can be found in `'.(config)()'/dCache/dcache.conf`. This file contains one line of the format `hostname:port` per DCAP door which may be used by DCAP clients when not using URLs. The `dccp` program will choose randomly between the doors listed here.
 
 Normally, reading from files in PNFS is disabled. Therefore it is necessary to switch on I/O access to the files in `'.(config)()'/` by e.g.:
 
@@ -178,7 +178,7 @@ After that, you will notice that the file is empty. Therefore, take care, to rew
 Deleted Files in PNFS
 =====================
 
-When a file in the PNFS filesystem is deleted the server stores information about is in the subdirectories of `/opt/pnfsdb/pnfs/trash/`. For DCACHE, the `cleaner` cell in the `pnfsDomain` is responsible for deleting the actual files from the pools asyncronously. It uses the files in the directory `/opt/pnfsdb/pnfs/trash/2/`. It contains a file with the PNFS ID of the deleted file as name. If a pool containing that file is down at the time the cleaner tries to remove it, it will retry for a while. After that, the file `/opt/pnfsdb/pnfs/trash/2/current/failed.poolName` will contain the PNFS IDs which have not been removed from that pool. The cleaner will still retry the removal with a lower frequency.
+When a file in the PNFS filesystem is deleted the server stores information about is in the subdirectories of `/opt/pnfsdb/pnfs/trash/`. For dCache, the `cleaner` cell in the `pnfsDomain` is responsible for deleting the actual files from the pools asyncronously. It uses the files in the directory `/opt/pnfsdb/pnfs/trash/2/`. It contains a file with the PNFS ID of the deleted file as name. If a pool containing that file is down at the time the cleaner tries to remove it, it will retry for a while. After that, the file `/opt/pnfsdb/pnfs/trash/2/current/failed.poolName` will contain the PNFS IDs which have not been removed from that pool. The cleaner will still retry the removal with a lower frequency.
 
 Access Control
 ==============

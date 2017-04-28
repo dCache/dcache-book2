@@ -29,7 +29,7 @@ In dCache the storage of a checksum is part of a successful transfer.
 
 Client Checksum  
 
-The client calculates the checksum before or while the data is sent to DCACHE. The checksum value, depending on when it has been calculated, may be sent together with the open request to the door and stored into CHIMERA before the data transfer begins or it may be sent with the close operation after the data has been transferred.
+The client calculates the checksum before or while the data is sent to dCache. The checksum value, depending on when it has been calculated, may be sent together with the open request to the door and stored into CHIMERA before the data transfer begins or it may be sent with the close operation after the data has been transferred.
 
 The `dCap` protocol provides both methods, but the `dCap` clients use the latter by default.
 
@@ -43,7 +43,7 @@ While data is coming in, the server data mover may calculate the checksum on the
 
 Server File Checksum  
 
-After all the file data has been received by the DCACHE server and the file has been fully written to disk, the server may calculate the checksum, based on the disk file.
+After all the file data has been received by the dCache server and the file has been fully written to disk, the server may calculate the checksum, based on the disk file.
 
 The default configuration is that a checksum is calculated on write, i.e. a Server File Checksum.
 
@@ -397,7 +397,7 @@ to
 
 > **Warning**
 >
-> Be careful about renaming pools in the layout after users have already been writing to them. This can cause inconsistencies in other components of DCACHE, if they are relying on pool names to provide their functionality. An example of such a component is the CHIMERA cache info.
+> Be careful about renaming pools in the layout after users have already been writing to them. This can cause inconsistencies in other components of dCache, if they are relying on pool names to provide their functionality. An example of such a component is the CHIMERA cache info.
 
 Start the domain running the pool:
 

@@ -19,9 +19,9 @@ File hopping is a collective term in dCache, summarizing the possibility of havi
 
 -   HSM restore operations may be split into two steps. The first one reads data from tertiary storage to an “HSM connected” pool and the second step takes care that the file is replicated to a general read pool. Under some conditions this separation of HSM and non-HSM pools might become necessary for performance reasons.
 
--   If a dataset has been written into DCACHE it might become necessary to have this file replicated instantly. The reasons can be, to either have a second, safe copy, or to make sure that clients don't access the file for reading on the write pools.
+-   If a dataset has been written into dCache it might become necessary to have this file replicated instantly. The reasons can be, to either have a second, safe copy, or to make sure that clients don't access the file for reading on the write pools.
 
-FILE HOPPING ON ARRIVAL FROM OUTSIDE DCACHE
+FILE HOPPING ON ARRIVAL FROM OUTSIDE dCache
 ===========================================
 
 *File Hopping on arrival* is a term, denoting the possibility of initiating a pool to pool transfer as the result of a file successfully arriving on a pool from some external client. Files restored from HSM or arriving on a pool as the result of a pool to pool transfer will not yet be forwarded.

@@ -3,7 +3,7 @@ PROG-DCCP
 
 PROG-DCCP
 PROG-DCCP
-Copy a file from or to a DCACHE server.
+Copy a file from or to a dCache server.
 PROG-DCCP
 option
 sourceUrl
@@ -22,7 +22,7 @@ The URL of the destination file.
 Description
 ===========
 
-The PROG-DCCP utility provides a `cp`(1) like functionality on the DCACHE file system. The source must be a single file while the destination could be a directory name or a file name. If the directory is a destination, a new file with the same name as the source name will be created there and the contents of the source will be copied. If the final destination file exists in DCACHE, it won't be overwritten and an error code will be returned. Files in regular file systems will always be overwritten if the `-i` option is not specified. If the source and the final destination file are located on a regular file system, the PROG-DCCP utility can be used similar to the `cp`(1) program.
+The PROG-DCCP utility provides a `cp`(1) like functionality on the dCache file system. The source must be a single file while the destination could be a directory name or a file name. If the directory is a destination, a new file with the same name as the source name will be created there and the contents of the source will be copied. If the final destination file exists in dCache, it won't be overwritten and an error code will be returned. Files in regular file systems will always be overwritten if the `-i` option is not specified. If the source and the final destination file are located on a regular file system, the PROG-DCCP utility can be used similar to the `cp`(1) program.
 
 Options
 =======
@@ -70,7 +70,7 @@ Set location for pre-stage. if the location is not specified, the local host of 
 Bind the callback data connection to the specified TCP port/rangeSet port range. Delimited by the ':' character, the first\_port is required but the last\_port is optional.
 
 `-P`  
-Pre-stage. Do not copy the file to a local host but make sure the file is on disk on the DCACHE server.
+Pre-stage. Do not copy the file to a local host but make sure the file is on disk on the dCache server.
 
 `-r` bufferSize  
 TCP receive buffer size. The default is `256K`. Setting to `0` uses the system default value. Memory useage will increase with higher values, but performance better.
@@ -84,11 +84,11 @@ Stage timeout in seconds. This option must be used with the `-P` option.
 Examples:
 =========
 
-To copy a file to DCACHE:
+To copy a file to dCache:
 
     PROMPT-USER dccp /etc/group dcap://example.org/pnfs/desy.de/gading/
 
-To copy a file from DCACHE:
+To copy a file from dCache:
 
     PROMPT-USER dccp dcap://example.org/pnfs/desy.de/gading/group /tmp/
 

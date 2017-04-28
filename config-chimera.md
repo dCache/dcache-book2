@@ -315,10 +315,10 @@ one has to take care not to treat the command files in the same way as regular f
 
 4.  Empty tags are ignored.
 
-DIRECTORY TAGS FOR DCACHE
+DIRECTORY TAGS FOR dCache
 -------------------------
 
-The following directory tags appear in the DCACHE context:
+The following directory tags appear in the dCache context:
 
 OSMTemplate  
 Must contain a line of the form “`StoreName` <storeName>” and specifies the name of the store that is used by dCache to construct the [storage class](#storage-class-and-directory-tags) if the [HSM Type](rf-glossary.md#hsm-type) is `osm`.
@@ -396,7 +396,7 @@ The storage classes of the files which are copied into these directories after t
 
 To see how storage classes are used for pool selection have a look at the example ’Reserving Pools for Storage and Cache Classes’ in the PoolManager chapter.
 
-There are more tags used by DCACHE if the `HSMType` is `enstore`.
+There are more tags used by dCache if the `HSMType` is `enstore`.
 
 <!--
   [???]: #in-install-layout

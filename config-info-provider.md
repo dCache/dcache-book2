@@ -12,7 +12,7 @@ Table of Contents
 + [Updating information](#updating-information)
 
 
-The GLUE information provider supplied with DCACHE provides the information about the DCACHE instance in a standard format called GLUE. This is necessary so that WLCG infrastructure (such as FTS) and clients using WLCG tools can discover the DCACHE instance and use it correctly.
+The GLUE information provider supplied with dCache provides the information about the dCache instance in a standard format called GLUE. This is necessary so that WLCG infrastructure (such as FTS) and clients using WLCG tools can discover the dCache instance and use it correctly.
 
 The process of configuring the info-provider is designed to have the minimum overhead so you can configure it manually; however, you may prefer to use an automatic configuration tool, such as YAIM.
 
@@ -29,9 +29,9 @@ This chapter describes how to enable and test the dCache-internal collection of 
 INTERNAL COLLECTION OF INFORMATION
 ==================================
 
-The info-provider takes as much information as possible from DCACHE. To achieve this, it needs the internal information-collecting service, `info`, to be running and a means to collect that information: `httpd`. Make sure that both the `httpd` and `info` services are running within your DCACHE instance. By default, the `info` service is started on the admin-node; but it is possible to configure DCACHE so it runs on a different node. You should run only one `info` service per DCACHE instance.
+The info-provider takes as much information as possible from dCache. To achieve this, it needs the internal information-collecting service, `info`, to be running and a means to collect that information: `httpd`. Make sure that both the `httpd` and `info` services are running within your dCache instance. By default, the `info` service is started on the admin-node; but it is possible to configure dCache so it runs on a different node. You should run only one `info` service per dCache instance.
 
-The traditional (pre-1.9.7) allocation of services to domains has the `info` cell running in the `infoDomain` domain. A DCACHE system that has been migrated from this old configuration will have the following fragment in the node's layout file:
+The traditional (pre-1.9.7) allocation of services to domains has the `info` cell running in the `infoDomain` domain. A dCache system that has been migrated from this old configuration will have the following fragment in the node's layout file:
 
     [infoDomain]
     [infoDomain/info]
@@ -44,7 +44,7 @@ It is also possible to run the `info` service inside a domain that runs other se
     [information/topo]
     [information/info]
 
-For more information on configuring DCACHE layout files, see [the section called “Defining domains and services”](install.md#defining-domains-and-services).
+For more information on configuring dCache layout files, see [the section called “Defining domains and services”](install.md#defining-domains-and-services).
 
 Use the `dcache services` command to see if a particular node is configured to run the `info` service. The following shows the output if the node has an `information`  domain that is configured to run the `info`  cell.
 
@@ -55,7 +55,7 @@ If a node has no domain configured to host the CELL-INFO service then the above 
 
     [root] # dcache services | grep info
 
-If no running domain within *any* node of your DCACHE instance is running the `info` service then you must add the service to a domain and restart that domain.
+If no running domain within *any* node of your dCache instance is running the `info` service then you must add the service to a domain and restart that domain.
 
 Example:
 In this example, the `info` service is added to the `example` domain. Note that the specific choice of domain (example) is just to give a concrete `example`; the same process may be applied to a different domain.
@@ -148,7 +148,7 @@ You must edit the **info-provider.xml** to customise its content to match your d
 >     If you want to include a less-than character in the text then you must use the `&lt;` entity; for example, to include the text “1 &lt; 2” the XML file would include `1 &lt;
 >     	    2`.
 > Example:
-> The following example shows the `SE-NAME` constant (which provides a human-readable description of the DCACHE instance) from a well-formed `info-provider.xml` configuration file:
+> The following example shows the `SE-NAME` constant (which provides a human-readable description of the dCache instance) from a well-formed `info-provider.xml` configuration file:
 >
 >     <constant id="SE-NAME">Simple &amp; small dCache instance for small VOs
 >     (typically &lt; 20 users)</constant>
@@ -193,10 +193,10 @@ Running the info-provider script should produce GLUE information in LDIF format;
     GlueSEUniqueID: EXAMPLE-FQDN
     GlueSEImplementationName: dCache
     GlueSEArchitecture: multidisk
-    GlueSEImplementationVersion: DCACHE-PATCH-VERSION (ns=Chimera)
+    GlueSEImplementationVersion: dCache-PATCH-VERSION (ns=Chimera)
     GlueSESizeTotal: 86
 
-The actual values you see will be site-specific and depend on the contents of the **info-provider.xml** file and your DCACHE configuration.
+The actual values you see will be site-specific and depend on the contents of the **info-provider.xml** file and your dCache configuration.
 
 To verify that there are no problems, redirect standard-out to **/dev/null** to show only the error messages:
 
@@ -213,7 +213,7 @@ then it is likely that either the `httpd` or `info` service has not been started
 DECOMMISSIONING THE OLD INFO PROVIDER
 =====================================
 
-Sites that were using the old (pre-1.9.5) info provider should ensure that there are no remnants of this old info-provider on their machine. Although the old info-provider has been removed from DCACHE, it relied on static LDIF files, which might still exist. If so, then BDII will obtain some information from the current info-provider and some out-of-date information from the static LDIF files. BDII will then attempt to merge the two sources of information. The merged information may provide a confusing description of your DCACHE instance, which may prevent clients from working correctly.
+Sites that were using the old (pre-1.9.5) info provider should ensure that there are no remnants of this old info-provider on their machine. Although the old info-provider has been removed from dCache, it relied on static LDIF files, which might still exist. If so, then BDII will obtain some information from the current info-provider and some out-of-date information from the static LDIF files. BDII will then attempt to merge the two sources of information. The merged information may provide a confusing description of your dCache instance, which may prevent clients from working correctly.
 
 The old info provider had two static LDIF files and a symbolic link for BDII. These are:
 
@@ -229,12 +229,12 @@ You must delete the above three entries: **lcg-info-static-SE.ldif**, **lcg-info
 
 The directory with the static LDIF, **/opt/lcg/var/gip/ldif** or **/opt/glite/etc/gip/ldif** by default, may contain other static LDIF entries that are relics of previous info-providers. These may have filenames like **static-file-SE.ldif**.
 
-Delete any static LDIF file that contain information about DCACHE. With the info-provider, all LDIF information comes from the info-provider; there should be no static LDIF files. Be careful not to delete any static LDIF files that come as part of BDII; for example, the **default.ldif**file, if present.
+Delete any static LDIF file that contain information about dCache. With the info-provider, all LDIF information comes from the info-provider; there should be no static LDIF files. Be careful not to delete any static LDIF files that come as part of BDII; for example, the **default.ldif**file, if present.
 
-PUBLISHING DCACHE INFORMATION
+PUBLISHING dCache INFORMATION
 =============================
 
-BDII obtains information by querying different sources. One such source of information is by running an info-provider command and taking the resulting LDIF output. To allow BDII to obtain DCACHE information, you must allow BDII to run the DCACHE info-provider. This is achieved by symbolically linking the **dcache-info-provider ** script into the BDII plugins directory:
+BDII obtains information by querying different sources. One such source of information is by running an info-provider command and taking the resulting LDIF output. To allow BDII to obtain dCache information, you must allow BDII to run the dCache info-provider. This is achieved by symbolically linking the **dcache-info-provider ** script into the BDII plugins directory:
 
     root] # ln -s /usr/sbin/dcache-info-provider
     /opt/glite/etc/gip/provider/
@@ -260,7 +260,7 @@ You can verify that information is present in BDII by querying BDII using the `l
     GlueSchemaVersionMajor: 1
     GlueSEImplementationName: dCache
     GlueSEUniqueID: EXAMPLE-FQDN
-    GlueSEImplementationVersion: DCACHE-VERSION-3 (ns=Chimera)
+    GlueSEImplementationVersion: dCache-VERSION-3 (ns=Chimera)
     GlueSESizeFree: 84
     GlueSEUsedOnlineSize: 2
     GlueSETotalOnlineSize: 86
@@ -274,13 +274,13 @@ You can verify that information is present in BDII by querying BDII using the `l
 
 The LDAP query uses the `o=grid` object as the base; all reported objects are descendant objects of this base object. The `o=grid` base selects only the GLUE v1.3 objects. To see GLUE v2.0 objects, the base object must be `o=glue`.
 
-The above `ldapsearch` command queries BDII using the `(objectClass=GlueSE)` filter. This filter selects only objects that provide the highest-level summary information about a storage-element. Since each storage-element has only one such object and this BDII instance only describes a single DCACHE instance, the command returns only the single LDAP object.
+The above `ldapsearch` command queries BDII using the `(objectClass=GlueSE)` filter. This filter selects only objects that provide the highest-level summary information about a storage-element. Since each storage-element has only one such object and this BDII instance only describes a single dCache instance, the command returns only the single LDAP object.
 
 To see all GLUE v1.3 objects in BDII, repeat the above `ldapsearch` command but omit the `(objectClass=GlueSE)` filter: **ldapsearch -LLL -x -H ldap://EXAMPLE-HOST:2170 -b o=grid**. This command will output all GLUE v1.3 LDAP objects, which includes all the GLUE v1.3 objects from the info-provider.
 
 Searching for all GLUE v2.0 objects in BDII is achieved by repeating the above `ldapsearch` command but omitting the `(objectClass=GlueSE)` filter and changing the search base to `o=glue`: **ldapsearch -LLL -x -H ldap://EXAMPLE-HOST:2170 -b       o=glue**. This command returns a completely different set of objects from the GLUE v1.3 queries.
 
-You should be able to compare this output with the output from running the info-provider script manually: BDII should contain all the objects that the DCACHE info-provider is supplying. Unfortunately, the order in which the objects are returned and the order of an object's properties is not guaranteed; therefore a direct comparison of the output isn't possible. However, it is possible to calculate the number of objects in GLUE v1.3 and GLUE v2.0.
+You should be able to compare this output with the output from running the info-provider script manually: BDII should contain all the objects that the dCache info-provider is supplying. Unfortunately, the order in which the objects are returned and the order of an object's properties is not guaranteed; therefore a direct comparison of the output isn't possible. However, it is possible to calculate the number of objects in GLUE v1.3 and GLUE v2.0.
 
 First, calculate the number of GLUE v1.3 objects in BDII and compare that to the number of GLUE v1.3 objects that the info-provider supplies.
 
@@ -291,7 +291,7 @@ First, calculate the number of GLUE v1.3 objects in BDII and compare that to the
     grep -i "objectClass: GlueSchemaVersion" | wc -l
     10
 
-Now calculate the number of GLUE v2.0 objects in BDII describing your DCACHE instance and compare that to the number provided by the info-provider:
+Now calculate the number of GLUE v2.0 objects in BDII describing your dCache instance and compare that to the number provided by the info-provider:
 
     [root] # ldapsearch -LLL -x -H ldap://<dcache-host>:2170 -b o=glue | perl -p00e 's/\n //g' | \
     grep dn.*GLUE2ServiceID | wc -l
@@ -324,10 +324,10 @@ Once information in BDII has stablised, the only new, incoming objects for BDII 
 UPDATING INFORMATION
 ====================
 
-The information contained within the `info` service may take a short time to achieve a complete overview of DCACHE's state. For certain gathered information it may take a few minutes before the information stabilises. This delay is intentional and prevents the gathering of information from adversely affecting DCACHE's performance.
+The information contained within the `info` service may take a short time to achieve a complete overview of dCache's state. For certain gathered information it may take a few minutes before the information stabilises. This delay is intentional and prevents the gathering of information from adversely affecting dCache's performance.
 
-The information presented by the LDAP server is updated periodically by BDII requesting fresh information from the info-provider. The info-provider obtains this information by requesting DCACHE's current status from CELL-INFO service. By default, BDII will query the info-provider every 60 seconds. This will introduce an additional delay between a change in DCACHE's state and that information propagating.
+The information presented by the LDAP server is updated periodically by BDII requesting fresh information from the info-provider. The info-provider obtains this information by requesting dCache's current status from CELL-INFO service. By default, BDII will query the info-provider every 60 seconds. This will introduce an additional delay between a change in dCache's state and that information propagating.
 
-Some information is hard-coded within the **info-provider.xml** file; that is, you will need to edit this file before the published value(s) will change. These values are ones that typically a site-admin must choose independently of DCACHE's current operations.
+Some information is hard-coded within the **info-provider.xml** file; that is, you will need to edit this file before the published value(s) will change. These values are ones that typically a site-admin must choose independently of dCache's current operations.
 
   [???]: #in-install-layout

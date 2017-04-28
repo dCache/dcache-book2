@@ -1,4 +1,4 @@
-CHAPTER 17. DCACHE WEBADMIN INTERFACE
+CHAPTER 17. dCache WEBADMIN INTERFACE
 =====================================
 
 Table of contents
@@ -41,7 +41,7 @@ Example:
     [httpdDomain]
           authenticated=true
 
-The most important value is `httpd.authz.admin-gid`, because it configures who is allowed to alter DCACHE behaviour, which certainly should not be everyone:
+The most important value is `httpd.authz.admin-gid`, because it configures who is allowed to alter dCache behaviour, which certainly should not be everyone:
 
     # # When a user has this GID he can become an admin for the webadmin interface #
     httpd.authz.admin-gid=0

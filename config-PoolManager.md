@@ -63,7 +63,7 @@ The four properties of a transfer request, which are relevant for the PSU, are t
 
 The location of the file in the file system is not used directly. Each file has the following two properties which can be set per directory:
 
--   **Storage Class.** The storage class is a string. It is used by a tertiary storage system to decide where to store the file (i.e. on which set of tapes) and DCACHE can use the storage class for a similar purpose (i.e. on which pools the file can be stored.). A detailed description of the syntax and how to set the storage class of a directory in the namespace is given in [the section called “Storage Classes”](#storage-classes).
+-   **Storage Class.** The storage class is a string. It is used by a tertiary storage system to decide where to store the file (i.e. on which set of tapes) and dCache can use the storage class for a similar purpose (i.e. on which pools the file can be stored.). A detailed description of the syntax and how to set the storage class of a directory in the namespace is given in [the section called “Storage Classes”](#storage-classes).
 
 -   **Cache Class.** The cache class is a string with essentially the same functionality as the storage class, except that it is not used by a tertiary storage system. It is used in cases, where the storage class does not provide enough flexibility. It should only be used, if an existing configuration using storage classes does not provide sufficient flexibility.
 
@@ -88,7 +88,7 @@ There are four types of units: network (`-net`), protocol (`-protocol`), storage
 
 For each transfer at most one of each of the four unit types will match. If more than one unit of the same type could match the request then the most restrictive unit matches.
 
-The unit that matches is selected from all units defined in DCACHE, not just those for a particular unit group. This means that, if a unit group has a unit that could match a request but this request also matches a more restrictive unit defined elsewhere then the less restrictive unit will not match.
+The unit that matches is selected from all units defined in dCache, not just those for a particular unit group. This means that, if a unit group has a unit that could match a request but this request also matches a more restrictive unit defined elsewhere then the less restrictive unit will not match.
 
 **Network Unit**  
 A *network unit* consists of an IP address and a net mask written as <IP-address>/<net mask>, say 111.111.111.0/255.255.255.0. It is satisfied, if the request is coming from a host with IP address within the subnet given by the address/netmask pair.
@@ -158,7 +158,7 @@ If you later want to treat `pool1_2` differently from the others, you would remo
 
 In the following, we will assume that the necessary pool groups already exist. All names ending with `-pools` will denote pool groups.
 
-Note that a pool-node will register itself with the `PoolManager:` The pool will be created within the PSU and added to the pool group `default`, if that exists. This is why the DCACHE system will automatically use any new pool-nodes in the standard configuration: All pools are in `default` and can therefore handle any request.
+Note that a pool-node will register itself with the `PoolManager:` The pool will be created within the PSU and added to the pool group `default`, if that exists. This is why the dCache system will automatically use any new pool-nodes in the standard configuration: All pools are in `default` and can therefore handle any request.
 
 ### Storage Classes
 
@@ -190,7 +190,7 @@ To summarize: The storage class depends on the directory the data is stored in a
 
 Storage classes might already be in use for the configuration of a tertiary storage system. In most cases they should be flexible enough to configure the PSU. However, in rare cases the existing configuration and convention for storage classes might not be flexible enough.
 
-Consider for example a situation, where data produced by an experiment always has the same storage class `exp-a:alldata@osm`. This is good for the tertiary storage system, since all data is supposed to go to the same tape set sequentially. However, the data also contains a relatively small amount of meta-data, which is accessed much more often by analysis jobs than the rest of the data. You would like to keep the meta-data on a dedicated set of DCACHE pools. However, the storage class does not provide means to accomplish that.
+Consider for example a situation, where data produced by an experiment always has the same storage class `exp-a:alldata@osm`. This is good for the tertiary storage system, since all data is supposed to go to the same tape set sequentially. However, the data also contains a relatively small amount of meta-data, which is accessed much more often by analysis jobs than the rest of the data. You would like to keep the meta-data on a dedicated set of dCache pools. However, the storage class does not provide means to accomplish that.
 
 The cache class of a directory is set by the tag `cacheClass` as follows:
 
@@ -390,18 +390,18 @@ THE PARTITION MANAGER
 
 The partition manager defines one or more load balancing policies. Whereas the PSU produces a prioritized set of candidate pools using a collection of rules defined by the administrator, the load balancing policy determines the specific pool to use. It is also the load balancing policy that determines when to fall back to lesser prirority links, or when to trigger creation of additional copies of a file.
 
-Since the load balancing policy and parameters are defined per partition, understanding the partition manager is essential to tuning load balancing. This does not imply that one has to partition the DCACHE instance. It is perfectly valid to use a single partition for the complete instance.
+Since the load balancing policy and parameters are defined per partition, understanding the partition manager is essential to tuning load balancing. This does not imply that one has to partition the dCache instance. It is perfectly valid to use a single partition for the complete instance.
 
 This section documents the use of the partition manager, how to create partitions, set parameters and how to associate links with partitions. In the following sections the available partition types and their configuration parameters are described.
 
 OVERVIEW
 --------
 
-There are various parameters that affect the load balancing policy. Some of them are generic and apply to any load balancing policy, but many are specific to a particular policy. To avoid limiting the complete DCACHE instance to a single configuration, the choice of load balancing policy and the various parameters apply to partitions of the instance. The load balancing algorithm and the available parameters is determined by the partition type.
+There are various parameters that affect the load balancing policy. Some of them are generic and apply to any load balancing policy, but many are specific to a particular policy. To avoid limiting the complete dCache instance to a single configuration, the choice of load balancing policy and the various parameters apply to partitions of the instance. The load balancing algorithm and the available parameters is determined by the partition type.
 
 Each PSU link can be associated with a different partion and the policy and parameters of that partition will be used to choose a pool from the set of candidate pools. The only partition that exists without being explicitly created is the partition called `default`. This partition is used by all links that do not explicitly identify a partition. Other partitions can be created or modified as needed.
 
-The `default` partition has a hard-coded partition type called `classic`. This type implements the one load balancing policy that was available in DCACHE before version 2.0. The `classic` partition type is described later. Other partitions have one of a number of available types. The system is pluggable, meaning that third party plugins can be loaded at runtime and add additional partition types, thus providing the ultimate control over load balancing in DCACHE. Documentation on how to develop plugins is beyond the scope of this chapter.
+The `default` partition has a hard-coded partition type called `classic`. This type implements the one load balancing policy that was available in dCache before version 2.0. The `classic` partition type is described later. Other partitions have one of a number of available types. The system is pluggable, meaning that third party plugins can be loaded at runtime and add additional partition types, thus providing the ultimate control over load balancing in dCache. Documentation on how to develop plugins is beyond the scope of this chapter.
 
 To ease the management of partition parameters, a common set of shared parameters can be defined outside all partitions. Any parameter not explicitly set on a partition inherits the value from the common set. If not defined in the common set, a default value determined by the partition type is used. Currently, the common set of parameters happens to be the same as the parameters of the `default` partition, however this is only due to compatibility constraints and may change in future versions.
 
@@ -426,7 +426,7 @@ This pool selection algorithm selects pools randomly weighted by available space
 
 This is the partition type of the default partition. See [How to Pick a Pool](https://www.dcache.org/articles/wass.html) for more details.
 
-Commands related to DCACHE partitioning:
+Commands related to dCache partitioning:
 
 -   `pm types` 
 
@@ -450,13 +450,13 @@ If a parameter is set to off then this parameter is no longer defined and is inh
 Lists a single or all partitions, including the type of each partition. If a partition name or the `-l` option are used, then the partition parameters are shown too. Inherited and default values are identified as such.
 
 -   `pm destroy` partitionName
-Removes a partition from DCACHE. Any links configured to use this partition will fall back to the `default` partition.
+Removes a partition from dCache. Any links configured to use this partition will fall back to the `default` partition.
 
 
 USING PARTITIONS
 ----------------
 
-A partition, so far, is just a set of parameters which may or may not differ from the default set. To let a partition relate to a part of the DCACHE, links are used. Each link may be assigned to exactly one partition. If not set, or the assigned partition doesn't exist, the link defaults to the `default` partition.
+A partition, so far, is just a set of parameters which may or may not differ from the default set. To let a partition relate to a part of the dCache, links are used. Each link may be assigned to exactly one partition. If not set, or the assigned partition doesn't exist, the link defaults to the `default` partition.
 
 psu set link [linkName] -section= partitionName [other-options...]
 
@@ -753,7 +753,7 @@ To set the space cost factor on the `default` partition to `0.3`, use the follow
                                                  If the performance cost on the best pool exceeds this threshold then this pool is called hot.                                                                                                                                                                                                                            
                                                                                                                                                                                                                                                                                                                                                                           
                                                  The default value is `0.0`, which disables this feature.                                                                                                                                                                                                                                                                 | float   |
-| `pm set` partitionName -p2p-allowed=value     | This value can be specified if an HSM is attached to the DCACHE.                                                                                                                                                                                                                                                        
+| `pm set` partitionName -p2p-allowed=value     | This value can be specified if an HSM is attached to the dCache.                                                                                                                                                                                                                                                        
                                                                                                                                                                                                                                                                                                                                                                           
                                                  If a partition has no HSM connected, then this option is overridden. This means that no matter which value is set for `p2p-allowed` the pool to pool replication will always be allowed.                                                                                                                                 
                                                                                                                                                                                                                                                                                                                                                                           
@@ -832,7 +832,7 @@ For a space reservation to be allowed in a link group, the the retention policy 
 >
 > It is up to the administrator to ensure that the link groups' properties are specified correctly.
 >
-> For example DCACHE will not complain if a link group that does not support a tape backend will be declared as one that supports `custodial` files.
+> For example dCache will not complain if a link group that does not support a tape backend will be declared as one that supports `custodial` files.
 >
 > It is essential that space in a link group is homogeneous with respect to access latencies, retention policies and storage groups accepted. Otherwise space reservations cannot be guaranteed. For instance, if only a subset of pools accessible through a link group support custodial files, there is no guarantee that a custodial space reservation created within the link group will fit on those pools.
 

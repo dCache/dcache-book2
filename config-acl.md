@@ -1,4 +1,4 @@
-CHAPTER 18.  ACLS IN DCACHE
+CHAPTER 18.  ACLS IN dCache
 ===========================
 
 Table of Contents
@@ -35,9 +35,9 @@ An Access Control List (ACL) is a set of rules for determining whether an end-us
 
 > **FILE- AND DIRECTORY- ACLS**
 >
-> Each ACL is associated with a specific file or directory in DCACHE. Although the general form is the same whether the ACL is associated with a file or directory, some aspects of an ACL may change. Because of this, we introduce the terms file-ACL and directory-ACL when taking about ACLs associated with a file or a directory respectively. If the term ACL is used then it refers to both file-ACLs and directory-ACLs.
+> Each ACL is associated with a specific file or directory in dCache. Although the general form is the same whether the ACL is associated with a file or directory, some aspects of an ACL may change. Because of this, we introduce the terms file-ACL and directory-ACL when taking about ACLs associated with a file or a directory respectively. If the term ACL is used then it refers to both file-ACLs and directory-ACLs.
 
-Each ACL contains a list of one or more Access Control Entries (ACEs). The ACEs describe how DCACHE determines whether an end-user is authorised. Each ACE contains information about which group of end users it applies to and describes whether this group is authorised for some subset of possible operations.
+Each ACL contains a list of one or more Access Control Entries (ACEs). The ACEs describe how dCache determines whether an end-user is authorised. Each ACE contains information about which group of end users it applies to and describes whether this group is authorised for some subset of possible operations.
 
 The order of the ACEs within an ACL is significant. When checking whether an end-user is authorised each ACE is checked in turn to see if it applies to the end-user and the requested operation. If it does then that ACE determines whether that end-user is authorised. If not then the next ACE is checked. Thus an ACL can have several ACEs and the first matched ACE “wins”.
 
@@ -62,7 +62,7 @@ Early versions of Chimera (before dCache 1.9.3) did not create the ACL table dur
 CONFIGURING ACL SUPPORT
 =======================
 
-The **dcache.conf** and layout files contain a number of settings that may be adjusted to configure DCACHE's permission settings. These settings are are described in this section.
+The **dcache.conf** and layout files contain a number of settings that may be adjusted to configure dCache's permission settings. These settings are are described in this section.
 
 ENABLING ACL SUPPORT
 --------------------
@@ -126,10 +126,10 @@ The [Subject](#the-subject) defines to which user or group of users the ACE will
 As indicated by the EBNF above, the Subject of an ACE can take one of several forms. These are described below:
  
 **USER:**<id>  
-The `USER:` prefix indicates that the ACE applies only to the specific end-user: the DCACHE user with ID <id>. For example, `USER:0:+w` is an ACE that allows user 0 to write over a file's existing data.
+The `USER:` prefix indicates that the ACE applies only to the specific end-user: the dCache user with ID <id>. For example, `USER:0:+w` is an ACE that allows user 0 to write over a file's existing data.
 
 **GROUP:**<id>  
-The `GROUP:` prefix indicates that the ACE applies only to those end-users who are a member of the specific group: the DCACHE group with ID <id>. For example, `GROUP:20:+a` is an ACE that allows any user who is a member of group 20 to append data to the end of a file.
+The `GROUP:` prefix indicates that the ACE applies only to those end-users who are a member of the specific group: the dCache group with ID <id>. For example, `GROUP:20:+a` is an ACE that allows any user who is a member of group 20 to append data to the end of a file.
 
 **OWNER@**    
 The `OWNER@` subject indicates that the ACE applies only to whichever end-user owns the file or directory. For example, `OWNER@:+d` is an ACE that allows the file's or directory's owner to delete it.
@@ -311,7 +311,7 @@ Subdirectories (and files) will inherit the second ACE with both `d` and `f` inh
 
 VIEWING CONFIGURED ACLS  
 -----------------------
-The `getfacl` is used to obtain the current ACL for some item in DCACHE namespace. It takes the following arguments.  
+The `getfacl` is used to obtain the current ACL for some item in dCache namespace. It takes the following arguments.  
 
 getfacl [pnfsId] | [globalPath]    
 
