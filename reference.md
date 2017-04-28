@@ -30,22 +30,22 @@ Table of Contents
 [cacheinfoof](rf-cc-pnfsm.md)  — Print the cache info of a file.    
 
 + [Pool Commands](rf-cc-pool.md)
-[rep ls](rf-cc-pool.md#rep-ls) — List the files currently in the repository of the pool.  
-[st set max active](rf-cc-pool.md#st-set-max-active) — Set the maximum number of active store transfers. 
-[rh set max active](rf-cc-pool.md#rh-set-max-active) — Set the maximum number of active restore transfers.  
-[mover set max active](rf-cc-pool.md#mover-set-max-active) — Set the maximum number of active client transfers.   
-[mover set max active -queue=p2p](rf-cc-pool.md#mover-set-max-active-queuep2p) — Set the maximum number of active pool-to-pool server transfers.  
-[pp set max active](rf-cc-pool.md#pp-set-max-active) — Set the value used for scaling the performance cost of pool-to-pool client transfers analogous to the other
-[set gap](rf-cc-pool.md#set-gap)    — Set the gap parameter - the size of free space below which it will be assumed that the pool is full within the cost calculations.   
-[set breakeven](rf-cc-pool.md#set-breakeven)   — Set the breakeven parameter - used within the cost calculations.
-[mover ls](rf-cc-pool.md#mover-ls)    — List the active and waiting client transfer requests.  
-[migration cache](rf-cc-pool.md#migration-cache)    — Caches replicas on other pools.
-[migration cancel](rf-cc-pool.md#migration-cancel)    — Cancels a migration job   
-[migration clear](rf-cc-pool.md#migration-clear)    — Removes completed migration jobs.  
-[migration concurrency](rf-cc-pool.md#migration-concurrency)   — Adjusts the concurrency of a job.   
-[migration copy](rf-cc-pool.md#migration-copy)    — Copies files to other pools.  
-[migration info](rf-cc-pool.md#migration-info)   — Shows detailed information about a migration job.  
-[migration ls](rf-cc-pool.md#migration-ls)   — Lists all migration jobs.     
+[rep ls](rf-cc-pool.md#rep-ls) — List the files currently in the repository of the pool.    
+[st set max active](rf-cc-pool.md#st-set-max-active) — Set the maximum number of active store transfers.   
+[rh set max active](rf-cc-pool.md#rh-set-max-active) — Set the maximum number of active restore transfers.    
+[mover set max active](rf-cc-pool.md#mover-set-max-active) — Set the maximum number of active client transfers.     
+[mover set max active -queue=p2p](rf-cc-pool.md#mover-set-max-active-queuep2p) — Set the maximum number of active pool-to-pool server transfers.    
+[pp set max active](rf-cc-pool.md#pp-set-max-active) — Set the value used for scaling the performance cost of pool-to-pool client transfers analogous to the other  
+[set gap](rf-cc-pool.md#set-gap)    — Set the gap parameter - the size of free space below which it will be assumed that the pool is full within the cost calculations.     
+[set breakeven](rf-cc-pool.md#set-breakeven)   — Set the breakeven parameter - used within the cost calculations.  
+[mover ls](rf-cc-pool.md#mover-ls)    — List the active and waiting client transfer requests.    
+[migration cache](rf-cc-pool.md#migration-cache)    — Caches replicas on other pools.  
+[migration cancel](rf-cc-pool.md#migration-cancel)    — Cancels a migration job     
+[migration clear](rf-cc-pool.md#migration-clear)    — Removes completed migration jobs.    
+[migration concurrency](rf-cc-pool.md#migration-concurrency)   — Adjusts the concurrency of a job.     
+[migration copy](rf-cc-pool.md#migration-copy)    — Copies files to other pools.    
+[migration info](rf-cc-pool.md#migration-info)   — Shows detailed information about a migration job.    
+[migration ls](rf-cc-pool.md#migration-ls)   — Lists all migration jobs.       
 [migration move](rf-cc-pool.md#migration-move)   — Moves replicas to other pools.   
 [migration suspend](rf-cc-pool.md#migration-suspend)   — Suspends a migration job.  
 [migration resume](rf-cc-pool.md#migration-resume)   — Resumes a suspended migration job.  
