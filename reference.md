@@ -4,34 +4,27 @@ Part IV. Reference
 Table of Contents
 ------------------
 
-27. dCache Clients
++ [27. dCache Clients](reference.md#dcache-clients)  
+[The SRM Client Suite](reference.md#the-srm-client-suite)  
+[srmcp](reference.md#srmcp) — Copy a file from or to an SRM or between two SRMs.  
+[srmstage](reference.md#srmstage) — Request staging of a file.  
+[dccp](reference.md#dccp)  
+[dccp](reference.md#dccp) — Copy a file from or to a dCache server.  
 
-    The SRM Client Suite
++ [28. dCache Cell Commands](reference.md#dcache-cell-commands)      
+[Common Cell Commands](reference.md#common-cell-commands)      
+[pin — Adds a comment to the pinboard.](reference.md#pin-adds-a-comment-to-the-pinboard)    
+[info — Print info about the cell.](reference.md#info-print-info-about-the-cell)    
+[dump pinboard — Dump the full pinboard of the cell to a file.](reference.md#dump-pinboard-dump-the-pinboard-of-the-cell-to-a-file)  
+[show pinboard — Print a part of the pinboard of the cell to STDOUT.](reference.md#show-pinboard-print-a-part-of-the-pinboard-of-the-cell-to-stdout)  
 
-        srmcp — Copy a file from or to an SRM or between two SRMs.
-        srmstage — Request staging of a file.
-
-    dccp
-
-        dccp — Copy a file from or to a dCache server.
-
-28. dCache Cell Commands
-
-    Common Cell Commands
-
-        pin — Adds a comment to the pinboard.
-        info — Print info about the cell.
-        dump pinboard — Dump the full pinboard of the cell to a file.
-        show pinboard — Print a part of the pinboard of the cell to STDOUT.
-
-    PnfsManager Commands
-
-        pnfsidof — Print the pnfs id of a file given by its global path.
-        flags remove — Remove a flag from a file.
-        flags ls — List the flags of a file.
-        flags set — Set a flag for a file.
-        metadataof — Print the meta-data of a file.
-        pathfinder — Print the global or local path of a file from its PNFS id.
+[PnfsManager Commands](reference.md#pnfsmanager-commands)  
+[pnfsidof — Print the pnfs id of a file given by its global path.
+[flags remove — Remove a flag from a file.
+[flags ls — List the flags of a file.
+[flags set — Set a flag for a file.
+[metadataof — Print the meta-data of a file.
+[pathfinder — Print the global or local path of a file from its PNFS id.
         set meta — Set the meta-data of a file.
         storageinfoof — Print the storage info of a file.
         cacheinfoof — Print the cache info of a file.
