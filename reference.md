@@ -12,13 +12,13 @@ Table of Contents
 [dccp](rf-clients-srm.md#dccp) — Copy a file from or to a dCache server.  
 
 + [28. dCache Cell Commands](reference.md#dcache-cell-commands)        
-[Common Cell Commands](reference.md#common-cell-commands)        
++ [Common Cell Commands](reference.md#common-cell-commands)        
 [pin — Adds a comment to the pinboard.](reference.md#pin-adds-a-comment-to-the-pinboard)      
 [info — Print info about the cell.](reference.md#info-print-info-about-the-cell)   
 [dump pinboard — Dump the full pinboard of the cell to a file.](reference.md#dump-pinboard-dump-the-pinboard-of-the-cell-to-a-file)  
 [show pinboard — Print a part of the pinboard of the cell to STDOUT.](reference.md#show-pinboard-print-a-part-of-the-pinboard-of-the-cell-to-stdout)  
 
-[PnfsManager Commands](reference.md#pnfsmanager-commands)    
++ [PnfsManager Commands](reference.md#pnfsmanager-commands)    
 [pnfsidof — Print the pnfs id of a file given by its global path.]()   
 [flags remove — Remove a flag from a file.]()   
 [flags ls — List the flags of a file.]()   
@@ -29,27 +29,27 @@ Table of Contents
 [storageinfoof — Print the storage info of a file.]()   
 [cacheinfoof — Print the cache info of a file.]()   
 
-[Pool Commands]()
++ [Pool Commands](rf-cc-pool.md)
 
-[rep ls — List the files currently in the repository of the pool.]()   
-[st set max active — Set the maximum number of active store transfers.]()   
-[rh set max active — Set the maximum number of active restore transfers.]()   
-[mover set max active — Set the maximum number of active client transfers.]()   
-[mover set max active -queue=p2p — Set the maximum number of active pool-to-pool server transfers.]()   
-[pp set max active — Set the value used for scaling the performance cost of pool-to-pool client transfers analogous to the other]( [set max active-commands.]()   
-[set gap — Set the gap parameter - the size of free space below which it will be assumed that the pool is full within the cost calculations.]()   
-[set breakeven — Set the breakeven parameter - used within the cost calculations.]()   
-[mover ls — List the active and waiting client transfer requests.]()   
-[migration cache — Caches replicas on other pools.]()   
-[migration cancel — Cancels a migration job]()   
-[migration clear — Removes completed migration jobs.]()   
-[migration concurrency — Adjusts the concurrency of a job.]()   
-[migration copy — Copies files to other pools.]()   
-[migration info — Shows detailed information about a migration job.]()   
-[migration ls — Lists all migration jobs.]()   
-[migration move — Moves replicas to other pools.]()   
-[migration suspend — Suspends a migration job.]()   
-[migration resume — Resumes a suspended migration job.]()   
+[rep ls](rf-cc-pool.md#rep-ls) — List the files currently in the repository of the pool.  
+[st set max active](rf-cc-pool.md#st-set-max-active) — Set the maximum number of active store transfers. 
+[rh set max active](rf-cc-pool.md#rh-set-max-active) — Set the maximum number of active restore transfers.  
+[mover set max active](rf-cc-pool.md#mover-set-max-active) — Set the maximum number of active client transfers.   
+[mover set max active -queue=p2p](rf-cc-pool.md#mover-set-max-active-queuep2p) — Set the maximum number of active pool-to-pool server transfers.
+[pp set max active](rf-cc-pool.md#pp-set-max-active) — Set the value used for scaling the performance cost of pool-to-pool client transfers analogous to the other
+[set gap](rf-cc-pool.md#set-gap)    — Set the gap parameter - the size of free space below which it will be assumed that the pool is full within the cost calculations.   
+[set breakeven](rf-cc-pool.md#set-breakeven)   — Set the breakeven parameter - used within the cost calculations.
+[mover ls](rf-cc-pool.md#mover-ls)    — List the active and waiting client transfer requests.  
+[migration cache](rf-cc-pool.md#migration-cache)    — Caches replicas on other pools.
+[migration cancel](rf-cc-pool.md#migration-cancel)    — Cancels a migration job   
+[migration clear](rf-cc-pool.md#migration-clear)    — Removes completed migration jobs.  
+[migration concurrency](rf-cc-pool.md#migration-concurrency)   — Adjusts the concurrency of a job.   
+[migration copy](rf-cc-pool.md#migration-copy)    — Copies files to other pools.  
+[migration info](rf-cc-pool.md#migration-info)   — Shows detailed information about a migration job.  
+[migration ls](rf-cc-pool.md#migration-ls)   — Lists all migration jobs.     
+[migration move](rf-cc-pool.md#migration-move)   — Moves replicas to other pools.   
+[migration suspend](rf-cc-pool.md#migration-suspend)   — Suspends a migration job.  
+[migration resume](rf-cc-pool.md#migration-resume)   — Resumes a suspended migration job.  
 
 [PoolManager Commands]()
 [rc ls — List the requests currently handled by the PoolManager]()   
