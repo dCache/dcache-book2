@@ -12,11 +12,11 @@ Table of Contents
 [dccp](rf-clients-srm.md#dccp) — Copy a file from or to a dCache server.  
 
 + [28. dCache Cell Commands]()   
-+ [Common Cell Commands]()  
-[pin]() — Adds a comment to the pinboard.
-[info]() — Print info about the cell.
-[dump pinboard]() — Dump the full pinboard of the cell to a file.
-[show pinboard]() — Print a part of the pinboard of the cell to STDOUT. 
++ [Common Cell Commands](rf-cc-common.md)  
+[pin](rf-cc-common.md#pin) — Adds a comment to the pinboard.
+[info](rf-cc-common.md#info) — Print info about the cell.
+[dump pinboard](rf-cc-common.md#dump-inboard) — Dump the full pinboard of the cell to a file.
+[show pinboard](rf-cc-common.md#show-pinboard) — Print a part of the pinboard of the cell to STDOUT. 
 
 + [PnfsManager Commands](rf-cc-pnfsm.md)     
 [pnfsidof](rf-cc-pnfsm.md)  — Print the pnfs id of a file given by its global path.   
