@@ -378,7 +378,7 @@ Even if the pool contains precious files, this is no problem, since we will regi
      Stopping <poolDomain> (pid=6070) 0 1 2 3 done
     [root] #
 
-Adapt the name of the pool in the layout files of your dCache installation to include your new pool-name. For a general overview of layout-files see [ the section called “Defining domains and services”. ](https://www.dcache.org/manuals/Book-2.16/start/in-install-fhs.shtml#in-install-layout).
+Adapt the name of the pool in the layout files of your dCache installation to include your new pool-name. For a general overview of layout-files see [ the section called “Defining domains and services”. ](install.md#defining-domains-and-services).
 
 Example:
 For example, to rename a pool from `swimmingPool` to `carPool`, change your layout file from
