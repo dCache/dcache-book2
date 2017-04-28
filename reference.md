@@ -1,17 +1,24 @@
-Chapter 28. dCache cell commands
-=================================
+Part IV. Reference
+==================
 
 Table of Contents
 ------------------
 
- 
-+ [Common Cell Commands](reference.md#common-cell-commands)        
-[pin](reference.md#pin-adds-a-comment-to-the-pinboard)  — Adds a comment to the pinboard.  
-[info](reference.md#info-print-info-about-the-cell)  — Print info about the cell.   
-[dump pinboard](reference.md#dump-pinboard-dump-the-pinboard-of-the-cell-to-a-file)   — Dump the full pinboard of the cell to a file.  
-[show pinboard](reference.md#show-pinboard-print-a-part-of-the-pinboard-of-the-cell-to-stdout)   — Print a part of the pinboard of the cell to STDOUT.]
++ [27. dCache Clients](rf-clients-srm.md)   
+[The SRM Client Suite](rf-clients-srm.md#the-srm-client-suite)  
+[srmcp](rf-clients-srm.md#srmcp) — Copy a file from or to an SRM or between two SRMs.  
+[srmstage](rf-clients-srm.md#srmstage) — Request staging of a file.  
+[dccp](rf-clients-srm.md#dccp)  
+[dccp](rf-clients-srm.md#dccp) — Copy a file from or to a dCache server.  
 
-+ [PnfsManager Commands](rf-cc-pnfsm.md)    
++ [28. dCache Cell Commands]()   
++ [Common Cell Commands]()  
+[pin]() — Adds a comment to the pinboard.
+[info]() — Print info about the cell.
+[dump pinboard]() — Dump the full pinboard of the cell to a file.
+[show pinboard]() — Print a part of the pinboard of the cell to STDOUT. 
+
++ [PnfsManager Commands](rf-cc-pnfsm.md)     
 [pnfsidof](rf-cc-pnfsm.md)  — Print the pnfs id of a file given by its global path.   
 [flags remove](rf-cc-pnfsm.md)  — Remove a flag from a file.   
 [flags ls](rf-cc-pnfsm.md)  — List the flags of a file.   
