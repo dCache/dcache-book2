@@ -313,22 +313,4 @@ space cost
 -----------
     See also the section called “The Space Cost”..   
 
-![]
 
-where `ccf` and `scf` are configurable with the command [???][5].
-
-performance cost  
-See also [???][6].
-
-space cost  
-See also [???][7]..
-
-  [???]: #chimera-tags
-  [1]: #cf-repman
-  [2]: #cf-billing
-  [3]: #cf-pm-psu
-  [4]: #cf-pm-classic
-  []: 
-  [5]: #cmd-set_pool_decision
-  [6]: #cf-pm-classic-perf
-  [7]: #cf-pm-classic-space
