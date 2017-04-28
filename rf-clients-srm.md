@@ -30,7 +30,7 @@ To enable the user to specify a range of ports open for tcp connections as a pai
 
 This takes care of compute nodes that are behind firewall.
 
-`globus_tcp_port_range=40000:50000`
+`globus_tcp_port_range=40000:50000` 
 
     PROMPT-USER srmcp --globus_tcp_port_range=minVal:maxVal sourceUrl destinationUrl
 
