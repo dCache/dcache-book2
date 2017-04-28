@@ -22,8 +22,8 @@ Table of Contents
 
 + [Pool Commands](rf-cc-pool.md)
 [rep ls](rf-cc-pool.md#rep-ls) — List the files currently in the repository of the pool.  
-[st set max active](rf-cc-pool.md#st-set-max-active) — Set the maximum number of active store transfers. 
-[rh set max active](rf-cc-pool.md#rh-set-max-active) — Set the maximum number of active restore transfers.  
+[st set max active](rf-cc-pool.md#st-set-max-active) — Set the maximum number of active store transfers.    
+[rh set max active](rf-cc-pool.md#rh-set-max-active) — Set the maximum number of active restore transfers.      
 [mover set max active](rf-cc-pool.md#mover-set-max-active) — Set the maximum number of active client transfers.     
 [mover set max active -queue=p2p](rf-cc-pool.md#mover-set-max-active-queuep2p) — Set the maximum number of active pool-to-pool server transfers.  
 [pp set max active](rf-cc-pool.md#pp-set-max-active) — Set the value used for scaling the performance cost of pool-to-pool client transfers analogous to the other  
