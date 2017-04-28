@@ -4,8 +4,8 @@ Part IV. Reference
 Table of Contents
 ------------------
 
-+ [27. dCache Clients]()  
-[The SRM Client Suite](rf-clients-srm.md)  
++ [27. dCache Clients](rf-clients-srm.md) 
+[The SRM Client Suite](rf-clients-srm.md#the-srm-client-suite)  
 [srmcp](rf-clients-srm.md#srmcp) — Copy a file from or to an SRM or between two SRMs.  
 [srmstage](rf-clients-srm.md#srmstage) — Request staging of a file.  
 [dccp](rf-clients-srm.md#dccp)  
@@ -29,7 +29,7 @@ Table of Contents
 [storageinfoof — Print the storage info of a file.]()   
 [cacheinfoof — Print the cache info of a file.]()   
 
-[Pool Commands](
+[Pool Commands]()
 
 [rep ls — List the files currently in the repository of the pool.]()   
 [st set max active — Set the maximum number of active store transfers.]()   
@@ -51,7 +51,7 @@ Table of Contents
 [migration suspend — Suspends a migration job.]()   
 [migration resume — Resumes a suspended migration job.]()   
 
-[PoolManager Commands](
+[PoolManager Commands]()
 [rc ls — List the requests currently handled by the PoolManager]()   
 [cm ls — List information about the pools in the cost module cache.]()   
 [set pool decision — Set the factors for the calculation of the total costs of the pools.]()   
