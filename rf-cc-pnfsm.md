@@ -1,23 +1,31 @@
-CELL-PNFSMNGR Commands
+PnfsManager Commands
 ======================
 
 pnfsidof
-pnfsidof
-Print the PNFS id of a file given by its global path.
-pnfsidof
-globalPath
+--------
+pnfsidof — Print the pnfs id of a file given by its global path.
+
+synopsis
+--------
+pnfsidof <globalPath> 
+
 Description
 -----------
-
 Print the PNFS id of a file given by its global path. The global path always starts with the “VirtualGlobalPath” as given by the “`info`”-command.
 
+
 flags remove
-flags remove
-Remove a flag from a file.
-flags remove
-pnfsId
-key
-pnfsId  
+-------------
+
+flags remove - Remove a flag from a file.
+
+synopsis
+---------
+flags remove <pnfsId> <key> ... 
+
+Arguments
+pnfsIs
+
 The PNFS id of the file of which a flag will be removed.
 
 key  
@@ -27,10 +35,16 @@ Description
 -----------
 
 flags ls
+---------
+
+flags ls - List the flags of a file.
+
+synopsis
+---------
 flags ls
-List the flags of a file.
-flags ls
-pnfsId
+
+flags ls <pnfsId> 
+
 pnfsId  
 The PNFS id of the file of which a flag will be listed.
 
@@ -38,14 +52,16 @@ Description
 -----------
 
 flags set
-flags set
-Set a flag for a file.
-flags set
+----------
+
+flags set <pnfsId> <key>=<value> ... 
+
+Arguments
+
 pnfsId
-key
-=
-value
+
 pnfsId  
+
 The PNFS id of the file of which flags will be set.
 
 key  
@@ -58,14 +74,16 @@ Description
 -----------
 
 metadataof
-metadataof
-Print the meta-data of a file.
-metadataof
-pnfsId
-globalPath
--v
--n
--se
+-----------
+
+metadataof - Print the meta-data of a file.
+
+synopsis
+---------
+metadataof [ <pnfsId> ] | [ <globalPath> ] [-v] [-n] [-se]
+
+Arguments
+
 pnfsId  
 The PNFS id of the file.
 
@@ -76,12 +94,16 @@ Description
 -----------
 
 pathfinder
-pathfinder
-Print the global or local path of a file from its PNFS id.
-pathfinder
-pnfsId
--global
--local
+-----------
+
+pathfinder - Print the global or local path of a file from its PNFS id.
+
+synopsis
+---------
+pathfinder <pnfsId> [[-global] | [-local]]
+
+Arguments
+
 pnfsId  
 The PNFS Id of the file.
 
@@ -95,15 +117,16 @@ Description
 -----------
 
 set meta
-set meta
-Set the meta-data of a file.
-set meta
-pnfsId
-globalPath
-uid
-gid
-perm
-levelInfo
+--------
+
+set meta - Set the meta-data of a file.
+
+synopsis
+---------
+set meta [<pnfsId>] | [<globalPath>] <uid> <gid> <perm> <levelInfo>... 
+
+Arguments
+
 pnfsId  
 The PNFS id of the file.
 
@@ -126,14 +149,16 @@ Description
 -----------
 
 storageinfoof
-storageinfoof
-Print the storage info of a file.
-storageinfoof
-pnfsId
-globalPath
--v
--n
--se
+--------------
+
+storageinfoof - Print the storage info of a file.
+
+synopsis
+---------
+storageinfoof [<pnfsId>] | [<globalPath>] [-v] [-n] [-se]
+
+Arguments
+
 pnfsId  
 The PNFS id of the file.
 
@@ -144,12 +169,17 @@ Description
 -----------
 
 cacheinfoof
-cacheinfoof
-Print the cache info of a file.
-cacheinfoof
+------------
+
+cacheinfoof - Print the cache info of a file.
+
+synopsis
+----------
+cacheinfoof [<pnfsId>] | [<globalPath>] 
+
+Arguments
 pnfsId
-globalPath
-pnfsId  
+
 The PNFS id of the file.
 
 globalPath  
