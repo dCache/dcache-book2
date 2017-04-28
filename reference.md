@@ -19,15 +19,15 @@ Table of Contents
 [show pinboard](rf-cc-common.md#show-pinboard) — Print a part of the pinboard of the cell to STDOUT.   
 
 + [PnfsManager Commands](rf-cc-pnfsm.md)     
-[pnfsidof](rf-cc-pnfsm.md)  — Print the pnfs id of a file given by its global path.   
-[flags remove](rf-cc-pnfsm.md)  — Remove a flag from a file.   
-[flags ls](rf-cc-pnfsm.md)  — List the flags of a file.   
-[flags set](rf-cc-pnfsm.md) — Set a flag for a file.   
-[metadataof](rf-cc-pnfsm.md)  — Print the meta-data of a file.   
-[pathfinder](rf-cc-pnfsm.md)  — Print the global or local path of a file from its PNFS id.    
-[set meta](rf-cc-pnfsm.md)  — Set the meta-data of a file.  
-[storageinfoof](rf-cc-pnfsm.md)  — Print the storage info of a file.     
-[cacheinfoof](rf-cc-pnfsm.md)  — Print the cache info of a file.    
+[pnfsidof](rf-cc-pnfsm.md#pnfsidof)  — Print the pnfs id of a file given by its global path.   
+[flags remove](rf-cc-pnfsm.md#flags-remove)  — Remove a flag from a file.   
+[flags ls](rf-cc-pnfsm.md#flags-ls)  — List the flags of a file.   
+[flags set](rf-cc-pnfsm.md#flags-set) — Set a flag for a file.   
+[metadataof](rf-cc-pnfsm.md#metadata-of)  — Print the meta-data of a file.   
+[pathfinder](rf-cc-pnfsm.md#pathfinder)  — Print the global or local path of a file from its PNFS id.    
+[set meta](rf-cc-pnfsm.md#set-meta)  — Set the meta-data of a file.  
+[storageinfoof](rf-cc-pnfsm.md#storageinfoof)  — Print the storage info of a file.     
+[cacheinfoof](rf-cc-pnfsm.md#cacheinfoof)  — Print the cache info of a file.    
 
 + [Pool Commands](rf-cc-pool.md)
 [rep ls](rf-cc-pool.md#rep-ls) — List the files currently in the repository of the pool.    
