@@ -34,7 +34,7 @@ Table of Contents
 [st set max active](rf-cc-pool.md#st-set-max-active) — Set the maximum number of active store transfers. 
 [rh set max active](rf-cc-pool.md#rh-set-max-active) — Set the maximum number of active restore transfers.  
 [mover set max active](rf-cc-pool.md#mover-set-max-active) — Set the maximum number of active client transfers.   
-[mover set max active -queue=p2p](rf-cc-pool.md#mover-set-max-active-queuep2p) — Set the maximum number of active pool-to-pool server transfers.
+[mover set max active -queue=p2p](rf-cc-pool.md#mover-set-max-active-queuep2p) — Set the maximum number of active pool-to-pool server transfers.  
 [pp set max active](rf-cc-pool.md#pp-set-max-active) — Set the value used for scaling the performance cost of pool-to-pool client transfers analogous to the other
 [set gap](rf-cc-pool.md#set-gap)    — Set the gap parameter - the size of free space below which it will be assumed that the pool is full within the cost calculations.   
 [set breakeven](rf-cc-pool.md#set-breakeven)   — Set the breakeven parameter - used within the cost calculations.
