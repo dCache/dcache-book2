@@ -179,7 +179,7 @@ The folder **/usr/share/dcache/defaults** contains the default settings of the d
 
 > **NOTE**
 >
->n this first installation of dCache your dCache will not be connected to a tape sytem. Therefore please change the values for pnfsmanager.default-retention-policy and pnfsmanager.default-access-latency in the file **/etc/dcache/dcache.conf**.
+>In this first installation of dCache your dCache will not be connected to a tape sytem. Therefore please change the values for pnfsmanager.default-retention-policy and pnfsmanager.default-access-latency in the file **/etc/dcache/dcache.conf**.
 
 
 >
@@ -358,8 +358,8 @@ On any other nodes than the head node, the property `dcache.broker.host` has to 
 >
 > On dCache nodes running only pool services you do not need to install PostgreSQL. If your current node hosts only these services, the installation of PostgreSQL can be skipped.
 
-SECURITING YOUR dCache INSTALLATION
-===================================
+SECURING YOUR dCache INSTALLATION
+=================================
 
 dCache uses the LocationManager to discover the network topology of the internal communication: to which domains this domain should connect. The domain contacts a specific host and queries the information using UDP port `11111`. The response describes how the domain should react: whether it should allow incoming connections and whether it should contact any other domains.
 
