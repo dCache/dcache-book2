@@ -45,9 +45,9 @@ The RPM packages may be installed right away, for example using the command:
 
     [root] # rpm -ivh dcache-dCache-PACKAGE-VERSION.noarch.rpm
 
-The actual sources lie at [http://www.dcache.org/downloads/IAgree.shtml](http://www.dcache.org/downloads/IAgree.shtml). To install for example Version  2.16.0-1 you would use this:
+The actual sources lie at [https://www.dcache.org/downloads/IAgree.shtml](https://www.dcache.org/downloads/IAgree.shtml). To install for example Version  2.16.0-1 you would use this:
 
-    [root] # rpm -ivh http://www.dcache.org/downloads/1.9/repo/dCache-VERSION/dcache-dCache-PACKAGE-VERSION.noarch.rpm
+    [root] # rpm -ivh https://www.dcache.org/downloads/1.9/repo/dCache-VERSION/dcache-dCache-PACKAGE-VERSION.noarch.rpm
 
 The client can be found in the download-section of the above url, too.
 
