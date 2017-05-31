@@ -32,7 +32,7 @@ In order to install dCache the following requirements must be met:
 
 -   dCache requires Java 8 JRE. Please use the latest patch-level and check for upgrades frequently. It is recommended to use JDK as dCache scripts can make use of some extra features that JDK provides to gather more diagnostic information (heap-dump, etc). This helps when tracking down bugs.
 
--   PostgreSQL must be installed and running. We recommend the use of PostgreSQL version 9.2 (at least PostgreSQL version 8.3 is required).
+-   PostgreSQL must be installed and running. We recommend the use of PostgreSQL version 9.5 (at least PostgreSQL version 8.3 is required).
 
     > **IMPORTANT**
     >
