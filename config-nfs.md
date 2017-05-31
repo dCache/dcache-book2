@@ -67,9 +67,15 @@ matching clients have to access **NFS** using RPCSEC_GSS authentication. The Qua
 
 For example:
 
-    #/pnfs/dcache.org/data *.dcache.org (rw,sec=krb5i)
+    /pnfs/dcache.org/data *.dcache.org (rw,sec=krb5i)
 
 Notice, that security flavour used at mount time will be used for client - pool comminication as well.
+
+Multiple specifications can be declared like this:
+
+    /pnfs/dcache.org/data *.dcache.org(rw) externalhost.example.org(ro)
+
+In this example, hosts in the dcache.org may read and write, while host externalhost.example.org may only read.
 
 Configuring NFSv4.1 door with GSS-API support
 =============================================
