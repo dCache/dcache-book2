@@ -88,13 +88,13 @@ To allow local users to access PSQL without requiring a password, ensure the fil
 > Please note it is also possible to run dCache with all PSQL accounts requiring passwords. See [the section called “Configuring Access to PostgreSQL”](cookbook-postgres.md#configuring-access-to-postgresql) for more advice on the configuration of PSQL.  
 
 
-> **RESTARTING POSTGRESQL**
->
-> If you have edited PSQL configuration files, you *must* restart PSQL for those changes to take effect. On many systems, this can be done with the following command:
->
->     [root] # service postgresql-9.2 restart
->     Stopping postgresql-9.2 service:                           [  OK  ]
->     Starting postgresql-9.2 service:                           [  OK  ]
+**RESTARTING POSTGRESQL**
+
+If you have edited PSQL configuration files, you *must* restart PSQL for those changes to take effect. On many systems, this can be done with the following command:
+
+     [root] # service postgresql-9.2 restart
+     Stopping postgresql-9.2 service:        [  OK  ]
+     Starting postgresql-9.2 service:        [  OK  ]
 
 
 CONFIGURING CHIMERA
@@ -337,9 +337,9 @@ For optimization of your dCache you can define the Java heap size in the layout 
 
 > **NOTE**
 >
-> dCache uses Java to parse the configuration files and will search for Java on the system path first; if it is found there, no >further action is needed. If Java is not on the system path, the environment variable **JAVA_HOME** defines the location of the >Java installation directory. Alternatively, the environment variable **JAVA** can be used to point to the Java executable directly.
-
->If JAVA_HOME or JAVA cannot be defined as global environment variables in the operating system, then they can be defined in >either **/etc/default/dcache** or **/etc/dcache.env**. These two files are sourced by the init script and allow JAVA_HOME, JAVA and >dCache_HOME to be defined.
+> dCache uses Java to parse the configuration files and will search for Java on the system path first; if it is found there, no further action is needed. If Java is not on the system path, the environment variable `JAVA_HOME` defines the location of the Java installation directory. Alternatively, the environment variable `JAVA` can be used to point to the Java executable directly.
+>
+> If `JAVA_HOME` or `JAVA` cannot be defined as global environment variables in the operating system, then they can be defined in either **/etc/default/dcache** or **/etc/dcache.env**. These two files are sourced by the init script and allow `JAVA_HOME`, `JAVA` and `dCache_HOME` to be defined.
 
 Installing dCache on several nodes
 ----------------------------------
