@@ -24,8 +24,7 @@ Firewall Configuration
 
 The components of a dCache instance may be distributed over several hosts (nodes). Some of these components are accessed from outside and consequently the firewall needs to be aware of that. We contemplate two communication types, the dCache internal communication and the interaction from dCache with clients.
 
-Since dCache is very flexible, most port numbers may be changed in the configuration. The command `dcache
-      ports` will provide you with a list of services and the ports they are using.
+Since dCache is very flexible, most port numbers may be changed in the configuration. The command `dcache ports` will provide you with a list of services and the ports they are using.
 
 Basic Installation
 ------------------
