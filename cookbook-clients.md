@@ -98,8 +98,7 @@ Please note that the five slashes are really needed.
 DCAP
 ====
 
-When using `dccp` client or using the interposition library the errors `Command
-	failed!` can be safely ignored.
+When using `dccp` client or using the interposition library the errors `Command failed!` can be safely ignored.
 
 DCCP
 ----
@@ -266,7 +265,7 @@ It is allowed to remove only empty directories as well as trees of empty directo
 
 Usage:
 
-srmrmdir [command line options] [srmUrl]
+    srmrmdir [command line options] [srmUrl]
 
 Examples:
 
@@ -281,11 +280,11 @@ srmcp for SRM v1
 
 Usage:
 
-srmcp [command line options] source... [destination]
+    srmcp [command line options] source... [destination]
 
 or
 
-srmcp [command line options] [-copyjobfile] file
+    srmcp [command line options] [-copyjobfile] file
 
 
 ### Copying files to dCache
@@ -323,11 +322,11 @@ Space token support must be set up and reserving space with the admin interface 
 
 Usage:
 
-get-space-tokens [command line options] [srmUrl]
+    srm-get-space-tokens [command line options] [srmUrl]
 
 Example 22.1. surveying the space tokens available in a directory.
 
-[user] $ srm-get-space-tokens srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -srm_protocol_version=2
+    [user] $ srm-get-space-tokens srm://srm-door.example.org:8443/pnfs/example.org/data/dteam -srm_protocol_version=2
 
 A successful result:
 
@@ -363,7 +362,9 @@ Example 22.2. Listing the space tokens for a SRM:
 
 Usage:
 
-srm-reserve-space [[command line options]] [srmUrl]
+    srm-reserve-space [[command line options]] [srmUrl]
+
+Example:
 
     [user] $ srm-reserve-space  \
     -desired_size 2000 \
@@ -406,7 +407,9 @@ Possible result:
 
 #### Writing to a Space Token
 
-Usage: srmcp \[command line options\] source(s) destination
+Usage: 
+
+    srmcp \[command line options\] source(s) destination
 
 Examples:
 
@@ -448,7 +451,7 @@ SRM version 2.2 has a much richer set of file listing commands.
 
 Usage:
 
-srmls [command line options] srmUrl... 
+    srmls [command line options] srmUrl... 
 
 Example 22.3. Using srmls -l:
     [user] $ srmls srm://srm-door.example.org:8443/pnfs/example.org/data/dteam/testdir  -2
