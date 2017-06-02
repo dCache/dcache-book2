@@ -16,7 +16,7 @@ The `SRM`, the pin manager, the space manager and the replica manager will use t
 Installing a PSQL Server
 ========================
 
-The preferred way to set up a PSQL server should be the installation of the version provided by your OS distribution; however, version 8.3 or later is required.
+The preferred way to set up a PSQL server should be the installation of the version provided by your OS distribution; however, version 8.3 or later is required. Version 9.5 is recommended, as it has a more efficient locking mechanism that improves performance.
 
 Install the PSQL server, client and JDBC support with the tools of the operating system.
 

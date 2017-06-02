@@ -49,16 +49,16 @@ matching clients can access this export only in read-only mode
 **rw**  
 matching clients can access this export only in read-write mode
 
-**noacl**
+**noacl**  
 dCache ACLs will be ignored; only posix access permissions will be considered. This is the default.
 
-**acl**
-dCache ACLs will be respected; if present, they override posix permissions.
+**acl**  
+dCache ACLs will be respected; if present, they override posix permissions. To view the ACLs at the NFS client side, use `nfs4_getfacl` which is in EL7 package `nfs4-acl-tools`.
 
 **sec=krb5**  
 matching clients must access **NFS** using RPCSEC_GSS authentication. The Quality of Protection (QOP) is *NONE*, e.g., the data is neither encrypted nor signed when sent over the network. Nevertheless the RPC packets header still protected by checksum. 
 
-**sec=krb5** 
+**sec=krb5**  
 matching clients have to access **NFS** using RPCSEC_GSS authentication. The Quality of Protection (QOP) is *INTEGRITY*. The RPC requests and response are protected by checksum. 
 
 **sec=krb5p**  
@@ -69,13 +69,15 @@ For example:
 
     /pnfs/dcache.org/data *.dcache.org (rw,sec=krb5i)
 
-Notice, that security flavour used at mount time will be used for client - pool comminication as well.
+Notice, that security flavour used at mount time will be used for client - pool communication as well.
 
 Multiple specifications can be declared like this:
 
     /pnfs/dcache.org/data *.dcache.org(rw) externalhost.example.org(ro)
 
 In this example, hosts in the dcache.org may read and write, while host externalhost.example.org may only read.
+
+If there are multiple path specifications, the shortest matching path wins. If there are multiple host/subnet specifications, the most precise specification wins.
 
 Configuring NFSv4.1 door with GSS-API support
 =============================================

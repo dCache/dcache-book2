@@ -32,7 +32,7 @@ In order to install dCache the following requirements must be met:
 
 -   dCache requires Java 8 JRE. Please use the latest patch-level and check for upgrades frequently. It is recommended to use JDK as dCache scripts can make use of some extra features that JDK provides to gather more diagnostic information (heap-dump, etc). This helps when tracking down bugs.
 
--   PostgreSQL must be installed and running. We recommend the use of PostgreSQL version 9.2 (at least PostgreSQL version 8.3 is required).
+-   PostgreSQL must be installed and running. We recommend the use of PostgreSQL version 9.5 (at least PostgreSQL version 8.3 is required).
 
     > **IMPORTANT**
     >
@@ -45,9 +45,9 @@ The RPM packages may be installed right away, for example using the command:
 
     [root] # rpm -ivh dcache-dCache-PACKAGE-VERSION.noarch.rpm
 
-The actual sources lie at [http://www.dcache.org/downloads/IAgree.shtml](http://www.dcache.org/downloads/IAgree.shtml). To install for example Version  2.16.0-1 you would use this:
+The actual sources lie at [https://www.dcache.org/downloads/IAgree.shtml](https://www.dcache.org/downloads/IAgree.shtml). To install for example Version  2.16.0-1 you would use this:
 
-    [root] # rpm -ivh http://www.dcache.org/downloads/1.9/repo/dCache-VERSION/dcache-dCache-PACKAGE-VERSION.noarch.rpm
+    [root] # rpm -ivh https://www.dcache.org/downloads/1.9/repo/dCache-VERSION/dcache-dCache-PACKAGE-VERSION.noarch.rpm
 
 The client can be found in the download-section of the above url, too.
 
@@ -88,13 +88,13 @@ To allow local users to access PSQL without requiring a password, ensure the fil
 > Please note it is also possible to run dCache with all PSQL accounts requiring passwords. See [the section called “Configuring Access to PostgreSQL”](cookbook-postgres.md#configuring-access-to-postgresql) for more advice on the configuration of PSQL.  
 
 
-> **RESTARTING POSTGRESQL**
->
-> If you have edited PSQL configuration files, you *must* restart PSQL for those changes to take effect. On many systems, this can be done with the following command:
->
->     [root] # service postgresql-9.2 restart
->     Stopping postgresql-9.2 service:                           [  OK  ]
->     Starting postgresql-9.2 service:                           [  OK  ]
+**RESTARTING POSTGRESQL**
+
+If you have edited PSQL configuration files, you *must* restart PSQL for those changes to take effect. On many systems, this can be done with the following command:
+
+     [root] # service postgresql-9.2 restart
+     Stopping postgresql-9.2 service:        [  OK  ]
+     Starting postgresql-9.2 service:        [  OK  ]
 
 
 CONFIGURING CHIMERA
@@ -179,7 +179,7 @@ The folder **/usr/share/dcache/defaults** contains the default settings of the d
 
 > **NOTE**
 >
->n this first installation of dCache your dCache will not be connected to a tape sytem. Therefore please change the values for pnfsmanager.default-retention-policy and pnfsmanager.default-access-latency in the file **/etc/dcache/dcache.conf**.
+>In this first installation of dCache your dCache will not be connected to a tape sytem. Therefore please change the values for pnfsmanager.default-retention-policy and pnfsmanager.default-access-latency in the file **/etc/dcache/dcache.conf**.
 
 
 >
@@ -337,9 +337,9 @@ For optimization of your dCache you can define the Java heap size in the layout 
 
 > **NOTE**
 >
-> dCache uses Java to parse the configuration files and will search for Java on the system path first; if it is found there, no >further action is needed. If Java is not on the system path, the environment variable **JAVA_HOME** defines the location of the >Java installation directory. Alternatively, the environment variable **JAVA** can be used to point to the Java executable directly.
-
->If JAVA_HOME or JAVA cannot be defined as global environment variables in the operating system, then they can be defined in >either **/etc/default/dcache** or **/etc/dcache.env**. These two files are sourced by the init script and allow JAVA_HOME, JAVA and >dCache_HOME to be defined.
+> dCache uses Java to parse the configuration files and will search for Java on the system path first; if it is found there, no further action is needed. If Java is not on the system path, the environment variable `JAVA_HOME` defines the location of the Java installation directory. Alternatively, the environment variable `JAVA` can be used to point to the Java executable directly.
+>
+> If `JAVA_HOME` or `JAVA` cannot be defined as global environment variables in the operating system, then they can be defined in either **/etc/default/dcache** or **/etc/dcache.env**. These two files are sourced by the init script and allow `JAVA_HOME`, `JAVA` and `dCache_HOME` to be defined.
 
 Installing dCache on several nodes
 ----------------------------------
@@ -358,8 +358,8 @@ On any other nodes than the head node, the property `dcache.broker.host` has to 
 >
 > On dCache nodes running only pool services you do not need to install PostgreSQL. If your current node hosts only these services, the installation of PostgreSQL can be skipped.
 
-SECURITING YOUR dCache INSTALLATION
-===================================
+SECURING YOUR dCache INSTALLATION
+=================================
 
 dCache uses the LocationManager to discover the network topology of the internal communication: to which domains this domain should connect. The domain contacts a specific host and queries the information using UDP port `11111`. The response describes how the domain should react: whether it should allow incoming connections and whether it should contact any other domains.
 
