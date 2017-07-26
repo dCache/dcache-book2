@@ -50,7 +50,7 @@ matching clients can access this export only in read-only mode
 matching clients can access this export only in read-write mode
 
 **noacl**  
-dCache ACLs will be ignored; only posix access permissions will be considered. This is the default.
+dCache ACL's will be ignored; only posix access permissions will be considered. This is the default.
 
 **acl**  
 dCache ACLs will be respected; if present, they override posix permissions.
