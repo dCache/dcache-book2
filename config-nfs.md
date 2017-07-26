@@ -53,7 +53,7 @@ matching clients can access this export only in read-write mode
 dCache ACL's will be ignored; only posix access permissions will be considered. This is the default.
 
 **acl**  
-dCache ACLs will be respected; if present, they override posix permissions.
+dCache ACL's will be respected; if present, they override posix permissions.
 
 **sec=krb5**  
 matching clients must access **NFS** using RPCSEC_GSS authentication. The Quality of Protection (QOP) is *NONE*, e.g., the data is neither encrypted nor signed when sent over the network. Nevertheless the RPC packets header still protected by checksum. 
