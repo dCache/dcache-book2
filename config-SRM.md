@@ -201,11 +201,13 @@ In order to enable the `SRM SpaceManager` you need to add the `spacemanager` ser
    [dCacheDomain]
    [dCacheDomain/spacemanager]
 
-and add the following definition in the file **/etc/dcache/dcache.conf**
+Unless you have reason not to, we recommend placing the `spacemanager` service in the same domain as the `poolmanager` service.
+
+In order to use the just defined service, add the following definition in the file **/etc/dcache/dcache.conf**
 
     dcache.enable.space-reservation=true
 
-Unless you have reason not to, we recommend placing the `spacemanager` service in the same domain as the `poolmanager` service.
+followed by a restart of the domain containing the SRM service as well as all active doors.
 
 
 EXPLICIT AND IMPLICIT SPACE RESERVATIONS FOR DATA STORAGE IN dCache
