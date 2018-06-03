@@ -8,11 +8,14 @@ Preface
 [What is inside?](#what-is-inside)  
 [Looking for help?](#looking-for-help)  
 
-Welcome to the dCache. dCache is a distributed storage solution for storing huge amounts of data without a hard limit, used to provide storage in the petabyte range. Therefore it qualifies as the storage system supporting data intensive experiments.
+Welcome to dCache. 
 
-dCache is a joined effort between the Deutsches Elektronen-Synchrotron (DESY) in Hamburg, Nordic Data Grid Facility (NeIC,NDGF based in Copenhagen), the Fermi National Accelerator Laboratory near Chicago with significant distributions and support from the University of California, San Diego, INFN, Bari as well as Rutherford Appleton Laboratory, UK and CERN in Geneva.
+dCache is a distributed storage solution for storing huge amounts of data without a hard limit, on the order of hundreds of Petabytes. It 
+can serve storage-intensive scientific experiments as well as general-purpose use cases where scalable, open source storage solutions are needed.
 
-dCache can use hierarchical storage management (e.g., hard disk and tape), provides mechanisms to automatically increase performance and balance loads, increase resilience and availability. It also supplies advanced control systems to manage data as well as data flows. Normal filesystem (btrfs, ext4, XFS, ZFS) is used to store data on storage nodes.
+dCache is a joined effort between the Deutsches Elektronen-Synchrotron (DESY) in Hamburg, Nordic Data Grid Facility (NeIC, NDGF) based in Copenhagen, the Fermi National Accelerator Laboratory near Chicago with significant distributions and support from the University of California, San Diego, INFN, Bari as well as Rutherford Appleton Laboratory, UK and CERN in Geneva.
+
+dCache can use hierarchical storage management (e.g., hard disk and tape), provides mechanisms to automatically increase performance and balance loads, increase resilience and availability. It also supplies advanced control systems to manage data as well as data flows. Normal Linux filesystems (btrfs, ext4, XFS, ZFS) are used to store data on storage nodes.
 
 There are several ways of accessing data stored in dCache:
 
@@ -28,7 +31,7 @@ There are several ways of accessing data stored in dCache:
 
 -   **dCap** and **GSIdCap**
 
-dCache supports certificate based authentication through the Grid Security Infrastructure used in **GSI-FTP**, **GSIdCap** transfer protocols and the **SRM** management protocol. Certificate authentication is also available for **HTTP** and **WEBDAV**.
+dCache supports certificate based authentication through the Grid Security Infrastructure used in **GSI-FTP**, **GSIdCap** transfer protocols and the **SRM** management protocol. Certificate authentication is also available for **HTTP** and **WEBDAV**. Classical username/password style authentication and LDAP connectors are also available.
 
 dCache also supports fine-grain authorization with support for POSIX file permissions and **NFS**-style access control lists.
 
@@ -63,18 +66,18 @@ Access to the data is provided by various standard protocols. Furthermore the so
 Who should read this book?
 --------------------------
 
-This book is primerally targeted at system administrators.
+This book is primarily targeted at system administrators.
 
-Minimum System Requirements?
-----------------------------
+Minimum System Requirements
+---------------------------
 
-For minimal test installation:
+For a minimal test installation:
 
 -   Hardware: contemporary CPU , 1 GiB of RAM , 100 MiB free harddisk space
 
 -   Software: Oracle/Sun Java, Postgres SQL Server
 
-For a high performance Grid scenario the hardware requirements highly differ, which makes it impossible to provide such parameters here. However, if you wish to setup a dCache-based storage system, just let us know and we will help you with your system specifications. Just contact us: <support@dcache.org>.
+For high performance production scenarios, the hardware requirements greatly differ, which makes it impossible to provide such parameters here. However, if you wish to setup a dCache-based storage system, just let us know and we will help you with your system specifications. Just contact us: <support@dcache.org>.
 
 What is inside?
 ---------------
@@ -83,7 +86,7 @@ This book shall introduce you to dCache and provide you with the details of the 
 
 Here is an overview part by part:
 
-Part 1, Getting started: This part introduces you to the cells and domain concept in dCache. It provides a detailed description of installing, the basic configuration, and upgrading dCache.
+Part 1, Getting started: This part introduces you to the cell and domain concepts in dCache. It provides a detailed description of installing, the basic configuration, and upgrading dCache.
 
 Part 2, Configuration of dCache: Within this part the configuration of several additional features of dCache is described. They are not necessary to run dCache but will be needed by some users depending on their requirements.
 
@@ -98,11 +101,9 @@ This part gets you all the help that you might need:
 
     -   The [download page](https://www.dcache.org/downloads/IAgree.shtml).
 
-    -   The [YUM repositories](http://trac.dcache.org/projects/dcache/wiki/manuals/Yum).
+    -   For getting help during installation:
 
--   For getting help during installation:
-
-    -   Developers <support@dcache.org>
+    	-   Developers <support@dcache.org>
 
     -   Additional Support:
 
@@ -116,6 +117,6 @@ This part gets you all the help that you might need:
 
 -   For features that you would like to see in dCache or bugs that should be fixed: Just write an e-mail to <support@dcache.org>
 
--   If you like to stay up-to-date about new releases you can use the RSS feeds available from [our downloads page](https://www.dcache.org/downloads/IAgree.shtml).
+-   If you like to stay up-to-date about new releases you can use the RSS feeds available from [our downloads page](https://www.dcache.org/downloads/IAgree.shtml) or subscribe to the above-mentioned user forum mailing list, where all releases are announced.
 
 
