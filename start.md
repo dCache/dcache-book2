@@ -5,9 +5,10 @@ Part I. Getting started
 
 This part is intended for people who are new to dCache. It gives an introduction to dCache, including how to configure a simple setup, and details some simple and routine administrative operations.
 
-**Table of Contents**  
-* [1.Introduction](intro.md)  
-      
+**Table of Contents**
+  
+* [1.Introduction](intro.md)
+
      [Cells and Domains](intro.md#cells-and-domains)  
      [Protocols Supported by dCache](intro.md#protocols-supported-by-dcache) 
    
