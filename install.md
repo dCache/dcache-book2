@@ -100,7 +100,7 @@ If you have edited PSQL configuration files, you *must* restart PSQL for those c
 CONFIGURING CHIMERA
 -------------------
 
-Chimera is a library providing a hierarchical name space with associated meta data. Where pools in dCache store the content of files, Chimera stores the names and meta data of those files. Chimera itself stores the data in a relational database. We will use PostgreSQL in this tutorial. The properties of Chimera are defined in **/usr/share/dcache/defaults/chimera.properties**. See [Chapter 4, Chimera](config-chimera.md) for more information.
+Chimera is a library providing a hierarchical name space with associated meta data. Where pools in dCache store the content of files, Chimera stores the names and meta data of those files. Chimera itself stores the data in the PostgreSQL database we just set up. The properties of Chimera are defined in **/usr/share/dcache/defaults/chimera.properties**. See [Chapter 4, Chimera](config-chimera.md) for more information.
 
 
 
