@@ -13,7 +13,7 @@ Welcome to dCache.
 dCache is a distributed storage solution for storing huge amounts of data without a hard limit, on the order of hundreds of Petabytes. It 
 can serve storage-intensive scientific experiments as well as general-purpose use cases where scalable, open source storage solutions are needed.
 
-dCache is a joined effort between the Deutsches Elektronen-Synchrotron (DESY) in Hamburg, Nordic Data Grid Facility (NeIC, NDGF) based in Copenhagen, the Fermi National Accelerator Laboratory near Chicago with significant distributions and support from the University of California, San Diego, INFN, Bari as well as Rutherford Appleton Laboratory, UK and CERN in Geneva.
+dCache is a joint effort between the Deutsches Elektronen-Synchrotron (DESY) in Hamburg, Nordic Data Grid Facility (NeIC, NDGF) based in Copenhagen, the Fermi National Accelerator Laboratory near Chicago with significant distributions and support from the University of California, San Diego, INFN, Bari as well as Rutherford Appleton Laboratory, UK and CERN in Geneva.
 
 dCache can use hierarchical storage management (e.g., hard disk and tape), provides mechanisms to automatically increase performance and balance loads, increase resilience and availability. It also supplies advanced control systems to manage data as well as data flows. Normal Linux filesystems (btrfs, ext4, XFS, ZFS) are used to store data on storage nodes.
 
