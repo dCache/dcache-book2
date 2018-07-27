@@ -252,7 +252,9 @@ The `xrootd-door` has several other configuration properties. You can configure 
   []: http://people.web.psi.ch/feichtinger/doc/authz.pdf
   [1]: #cf-gplazma
 
-## XrootD Third-Party Transfers
+
+XROOTD Third-party Transfer
+===========================
 
 Starting with dCache 4.2, native third-party transfers between dCache and another xrootd server (including another dCache door) are possible.  These can be done either in unauthenticated mode, or with GSI (X509) authentication, using the client provided by SLAC (xrdcp or xrdcopy).
 
@@ -264,7 +266,8 @@ One can also try third party and fail over to one-hop two-party (through the cli
 
                 `xrdcp --tpc first <source> <destination>`
 
-### Changes to dCache configuration for authenticated (GSI) transfers
+Changes to dCache configuration for authenticated (GSI) transfers
+-----------------------------------------------------------------
 
 Because authentication is enforced between the source and destination servers (even though they are both holding a rendezvous token), the following must be done:
 
@@ -280,7 +283,8 @@ Because authentication is enforced between the source and destination servers (e
 
 The dCache GSI xrootd plugin automatically generates a proxy from the host certificate, but the SLAC server (which uses the SLAC client to read-write the file from the source when it is destination) needs the certificate to be generated (and renewed) externally (a common solution for this is to set up a cron job).
 
-### Incompatibilities
+Incompatibilities
+-----------------
 
 In order to allow the dCache door to act as source in a third-party copy, only a few modifications of the code were necessary.  If all that is desired is to transfer files from dCache to a vanilla/SLAC server, then only the door version needs to be upgraded to 4.2+.
 
