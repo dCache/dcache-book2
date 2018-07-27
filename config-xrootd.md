@@ -24,7 +24,7 @@ Table of Contents
     
 * [xrootd third-party transfer](#xrootd-third-party-transfer)
 
-    [Changes to dCache configuration for authenticated (GSI) transfers](#changes-to-dcache-configuration-for-authenticated-transfers)
+    [Changes to dCache configuration for authenticated (GSI) transfers](#changes-to-dcache-configuration-for-authenticated-gsi-transfers)
     [Incompatibilities](#incompatibilities)
 
 This chapter explains how to configure dCache in order to access it via the `xrootd` protocol, allowing `xrootd`-Clients like ROOT’s TXNetfile and xrdcp to do file operations against a dCache instance in a transparent manner. dCache implements version 2.1.6 of `xrootd` protocol.
