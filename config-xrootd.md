@@ -241,8 +241,6 @@ The same argument holds for many strong authentication mechanisms - for example,
 
 To allow local site’s administrators to override remote security settings, write access can be further restricted to few directories (based on the local namespace, the `pnfs`). Setting `xrootd access to read-only has the highest priority, overriding all other settings.
 
-
-
 Other configuration options
 ---------------------------
 
