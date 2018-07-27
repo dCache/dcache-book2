@@ -246,10 +246,6 @@ Other configuration options
 
 The `xrootd-door` has several other configuration properties. You can configure various timeout parameters, the thread pool sizes on pools, queue buffer sizes on pools, the `xrootd` root path, the xrootd user and the `xrootd` IO queue. Full descriptions on the effect of those can be found in **/usr/share/dcache/defaults/xrootd.properties.**
 
-<!--  [???]: #intouch-web
-  []: http://people.web.psi.ch/feichtinger/doc/authz.pdf
-  [1]: #cf-gplazma
-
 
 XROOTD Third-party Transfer
 ===========================
@@ -289,3 +285,7 @@ In order to allow the dCache door to act as source in a third-party copy, only a
 If, however, one wishes to write to dCache from an external (SLAC) server, or even write from one dCache xrootd door to another, then the pools must also be at version 4.2+. 
 
 This is because the xrootd protocol requires the destination to pull the file from the source.  The dCache xrootd transfer service active on the pool thus needs to have an embedded client which can read and then write to the pool.  Pools without this additional functionality will not be able to act as destination in a third-party transfer and a "tpc not supported" error will be reported if `--tpc only` is specified.
+
+<!--  [???]: #intouch-web
+  []: http://people.web.psi.ch/feichtinger/doc/authz.pdf
+  [1]: #cf-gplazma
