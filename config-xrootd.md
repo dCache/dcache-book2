@@ -260,11 +260,11 @@ Starting with dCache 4.2, native third-party transfers between dCache and anothe
 
 To enforce third-party copy, one must execute the transfer using
 
-                `xrdcp --tpc only <source> <destination>`
+                xrdcp --tpc only <source> <destination>
 
 One can also try third party and fail over to one-hop two-party (through the client) by using
 
-                `xrdcp --tpc first <source> <destination>`
+                xrdcp --tpc first <source> <destination>
 
 Changes to dCache configuration for authenticated (GSI) transfers
 -----------------------------------------------------------------
@@ -275,7 +275,7 @@ Because authentication is enforced between the source and destination servers (e
 
 * all dCache write pools serving xrootd transfers must be configured for the gsi client plugin; this means defining the following property, either in the `dcache.conf` or layout file:
 
-               `pool.mover.xrootd.tpc-authn-plugins=gsi`
+               pool.mover.xrootd.tpc-authn-plugins=gsi
 
 * a proxy certificate must be made available to any SLAC xrootd server being used as destination (see the documentation at [the XrootD site](http://xrootd.org/docs.html) on how to configure the server for this).  
 
